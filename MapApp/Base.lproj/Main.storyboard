@@ -115,8 +115,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="UZN-yq-FWb">
-                        <barButtonItem key="rightBarButtonItem" title="Sign Up" id="gva-K8-Va7"/>
+                        <barButtonItem key="rightBarButtonItem" title="Sign Up" id="gva-K8-Va7">
+                            <connections>
+                                <action selector="signUpPressed:" destination="HIU-uW-HCL" id="WaR-XL-ByT"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="emailTF" destination="r2y-wI-5BV" id="UZy-bO-t5O"/>
+                        <outlet property="nameTF" destination="Xbi-vE-f9M" id="7Hl-UR-ahW"/>
+                        <outlet property="passwordTF" destination="IHs-E6-tVM" id="lyN-pO-vSt"/>
+                        <outlet property="profileImageView" destination="q0o-4a-x8R" id="Psx-cl-4l8"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="51v-Qw-Gpb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -446,7 +456,11 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xnl-pX-9bT">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
-                                    <barButtonItem image="gender_neutral_user" id="KXU-cr-qJO"/>
+                                    <barButtonItem image="gender_neutral_user" id="KXU-cr-qJO">
+                                        <connections>
+                                            <action selector="profileButtonSelected:" destination="COl-M3-9gI" id="Gea-HW-hVR"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="DHb-Fa-wbo"/>
                                     <barButtonItem image="addSpotFilled-1" id="161-Xt-Ip1"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="sbc-xw-Rup"/>

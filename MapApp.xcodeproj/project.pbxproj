@@ -16,6 +16,15 @@
 		C0FBADAB1D7A4AD800C1C998 /* MapAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADAA1D7A4AD800C1C998 /* MapAppUITests.swift */; };
 		C0FBADB91D7A5DD600C1C998 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADB81D7A5DD600C1C998 /* MapVC.swift */; };
 		C0FBADBB1D7A61E800C1C998 /* LocationSearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADBA1D7A61E800C1C998 /* LocationSearchTVC.swift */; };
+		C0FBADC11D7A6E3900C1C998 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0FBADC01D7A6E3900C1C998 /* GoogleService-Info.plist */; };
+		C0FBADC31D7A6E4500C1C998 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0FBADC21D7A6E4500C1C998 /* Keys.plist */; };
+		C0FBADC51D7A751B00C1C998 /* FirebaseOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADC41D7A751B00C1C998 /* FirebaseOperation.swift */; };
+		C0FBADC81D7A783600C1C998 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADC71D7A783600C1C998 /* User.swift */; };
+		C0FBADCB1D7A786D00C1C998 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADCA1D7A786D00C1C998 /* CurrentUser.swift */; };
+		C0FBADCD1D7A7BCA00C1C998 /* AlamoFireOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADCC1D7A7BCA00C1C998 /* AlamoFireOperation.swift */; };
+		C0FBADCF1D7B0FB800C1C998 /* LogInTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADCE1D7B0FB800C1C998 /* LogInTVC.swift */; };
+		C0FBADD11D7B0FC700C1C998 /* SignUpTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADD01D7B0FC700C1C998 /* SignUpTVC.swift */; };
+		C0FBADD41D7B289300C1C998 /* CloudinaryOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADD31D7B289300C1C998 /* CloudinaryOperation.swift */; };
 		CE33E2F2AF5862452FCEBF8B /* Pods_MapAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 046A71208F6938D3C0543AAB /* Pods_MapAppUITests.framework */; };
 		F0B21780214EE6CF2FED5EBD /* Pods_MapAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB8ED2D3174D1290F2D4D4E /* Pods_MapAppTests.framework */; };
 /* End PBXBuildFile section */
@@ -61,6 +70,15 @@
 		C0FBADAC1D7A4AD800C1C998 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0FBADB81D7A5DD600C1C998 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		C0FBADBA1D7A61E800C1C998 /* LocationSearchTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTVC.swift; sourceTree = "<group>"; };
+		C0FBADC01D7A6E3900C1C998 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C0FBADC21D7A6E4500C1C998 /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		C0FBADC41D7A751B00C1C998 /* FirebaseOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseOperation.swift; sourceTree = "<group>"; };
+		C0FBADC71D7A783600C1C998 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		C0FBADCA1D7A786D00C1C998 /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
+		C0FBADCC1D7A7BCA00C1C998 /* AlamoFireOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamoFireOperation.swift; sourceTree = "<group>"; };
+		C0FBADCE1D7B0FB800C1C998 /* LogInTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInTVC.swift; sourceTree = "<group>"; };
+		C0FBADD01D7B0FC700C1C998 /* SignUpTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpTVC.swift; sourceTree = "<group>"; };
+		C0FBADD31D7B289300C1C998 /* CloudinaryOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudinaryOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,10 +150,15 @@
 				C0FBAD8A1D7A4AD800C1C998 /* AppDelegate.swift */,
 				C0FBADB81D7A5DD600C1C998 /* MapVC.swift */,
 				C0FBADBA1D7A61E800C1C998 /* LocationSearchTVC.swift */,
+				C0FBADC91D7A783F00C1C998 /* User */,
+				C0FBADC61D7A781C00C1C998 /* Networking */,
 				C0FBAD8E1D7A4AD800C1C998 /* Main.storyboard */,
 				C0FBAD911D7A4AD800C1C998 /* Assets.xcassets */,
 				C0FBAD931D7A4AD800C1C998 /* LaunchScreen.storyboard */,
+				C0FBADC01D7A6E3900C1C998 /* GoogleService-Info.plist */,
 				C0FBAD961D7A4AD800C1C998 /* Info.plist */,
+				C0FBADC21D7A6E4500C1C998 /* Keys.plist */,
+				C0FBADD21D7B235F00C1C998 /* AccountControllers */,
 			);
 			path = MapApp;
 			sourceTree = "<group>";
@@ -156,6 +179,34 @@
 				C0FBADAC1D7A4AD800C1C998 /* Info.plist */,
 			);
 			path = MapAppUITests;
+			sourceTree = "<group>";
+		};
+		C0FBADC61D7A781C00C1C998 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				C0FBADC41D7A751B00C1C998 /* FirebaseOperation.swift */,
+				C0FBADCC1D7A7BCA00C1C998 /* AlamoFireOperation.swift */,
+				C0FBADD31D7B289300C1C998 /* CloudinaryOperation.swift */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
+		C0FBADC91D7A783F00C1C998 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				C0FBADC71D7A783600C1C998 /* User.swift */,
+				C0FBADCA1D7A786D00C1C998 /* CurrentUser.swift */,
+			);
+			name = User;
+			sourceTree = "<group>";
+		};
+		C0FBADD21D7B235F00C1C998 /* AccountControllers */ = {
+			isa = PBXGroup;
+			children = (
+				C0FBADCE1D7B0FB800C1C998 /* LogInTVC.swift */,
+				C0FBADD01D7B0FC700C1C998 /* SignUpTVC.swift */,
+			);
+			name = AccountControllers;
 			sourceTree = "<group>";
 		};
 		E2B87C998A7944713D03CFF9 /* Frameworks */ = {
@@ -281,8 +332,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0FBAD951D7A4AD800C1C998 /* LaunchScreen.storyboard in Resources */,
+				C0FBADC11D7A6E3900C1C998 /* GoogleService-Info.plist in Resources */,
 				C0FBAD921D7A4AD800C1C998 /* Assets.xcassets in Resources */,
 				C0FBAD901D7A4AD800C1C998 /* Main.storyboard in Resources */,
+				C0FBADC31D7A6E4500C1C998 /* Keys.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,8 +484,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0FBADB91D7A5DD600C1C998 /* MapVC.swift in Sources */,
+				C0FBADC51D7A751B00C1C998 /* FirebaseOperation.swift in Sources */,
+				C0FBADCD1D7A7BCA00C1C998 /* AlamoFireOperation.swift in Sources */,
 				C0FBADBB1D7A61E800C1C998 /* LocationSearchTVC.swift in Sources */,
+				C0FBADC81D7A783600C1C998 /* User.swift in Sources */,
+				C0FBADD41D7B289300C1C998 /* CloudinaryOperation.swift in Sources */,
+				C0FBADD11D7B0FC700C1C998 /* SignUpTVC.swift in Sources */,
+				C0FBADCB1D7A786D00C1C998 /* CurrentUser.swift in Sources */,
 				C0FBAD8B1D7A4AD800C1C998 /* AppDelegate.swift in Sources */,
+				C0FBADCF1D7B0FB800C1C998 /* LogInTVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
