@@ -31,6 +31,9 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="hyy-x9-Qec"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="sDP-AA-ScA" appends="YES" id="xhO-Yq-5hd"/>
+                                                    </connections>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
@@ -129,6 +132,11 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="51v-Qw-Gpb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="sDP-AA-ScA">
+                    <connections>
+                        <action selector="profileImageSelected:" destination="HIU-uW-HCL" id="SPI-4f-huQ"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-22618" y="-3647"/>
         </scene>

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Cloudinary
 import FirebaseDatabase
 import Firebase
 import FirebaseAuth
@@ -15,16 +16,16 @@ import FirebaseAuth
 typealias SnapshotKey = (String?) -> Void
 typealias SignUpResult = (NSError?) -> Void
 
-class FirebaseOperation {
+class FirebaseOperation: NSObject, CLUploaderDelegate {
     
     var firebaseDatabaseRef: FIRDatabaseReference
     
-    init() {
+    override init() {
      firebaseDatabaseRef = FIRDatabase.database().reference()
     }
     
     func getSnapshotKeyFromRef(firebaseChildRef: FIRDatabaseReference) -> String {
-        let snapshotKey = "\(firebaseChildRef)".stringByReplacingOccurrencesOfString("https://mapspotswift.firebaseio.com/users/", withString: "")
+        let snapshotKey = "\(firebaseChildRef)".stringByReplacingOccurrencesOfString("https://mapapp-943f3.firebaseio.com/users/", withString: "")
         return snapshotKey
     }
     
@@ -91,21 +92,25 @@ class FirebaseOperation {
                 completion(error)
                 return
             }
-            
             switch profileImageChoosen {
             case false:
             let userProfile = ["name": name, "location": "", "profileImageURL": "", "userID": user!.uid]
             self.createUserProfile(userProfile, completion: {
                 (snapshotKey) in
-                //WRITE TO REALM With SnapshotKey as Primary Key
-                
+                let rlmUser = RLMUser()
+                rlmUser.createUser(name, email: email, userID: user!.uid, snapshotKey: snapshotKey!, location: "")
+                RLMDBManager().writeObject(rlmUser)
             })
             case true:
-            CloudinaryOperation().uploadProfileImageToCloudinary(profileImage!, completion: {
+            CloudinaryOperation().uploadProfileImageToCloudinary(profileImage!, delegate: self, completion: {
                     (photoURL) in
                     let userProfile = ["name": name, "location": "", "profileImageURL": photoURL, "userID": user!.uid]
-                    self.createUserProfile(userProfile, completion: { (snapshotKey) in
-                        //WRITE TO REALM With SnapshotKey as Primary Key
+                    self.createUserProfile(userProfile, completion: {
+                        (snapshotKey) in
+                        let rlmUser = RLMUser()
+                        rlmUser.createUser(name, email: email, userID: user!.uid, snapshotKey: snapshotKey!, location: "")
+                        rlmUser.setRLMUserProfileImageAndURL(photoURL, image: UIImageJPEGRepresentation(profileImage!, 1.0)!)
+                        RLMDBManager().writeObject(rlmUser)
                     })
                 })
             }
