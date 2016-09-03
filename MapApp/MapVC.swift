@@ -25,12 +25,10 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupMapView()
         setUpSearchControllerWithSearchTable()
         setUpSearchBar()
         getUserLocation()
-
     }
     
     //MARK: Map Methods
