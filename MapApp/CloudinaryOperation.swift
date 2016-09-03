@@ -9,14 +9,16 @@
 import Foundation
 import Cloudinary
 
-class CloudinaryOperation: NSObject, CLUploaderDelegate {
+typealias URLResult = (String) -> Void
+
+class CloudinaryOperation: NSObject {
     
-    func uploadProfileImageToCloudinary(image:UIImage, completion:(photoURL: String)-> Void) {
+    func uploadProfileImageToCloudinary(image:UIImage, delegate: CLUploaderDelegate, completion:URLResult) {
         let imageData = UIImageJPEGRepresentation(image, 1.0)
         let keys = NSDictionary(contentsOfFile: NSBundle.mainBundle().pathForResource("Keys", ofType: "plist")!)!
         let cloudinary = CLCloudinary(url: "cloudinary://\(keys["cloudinaryAPIKey"] as! String):\(keys["cloudinaryAPISecret"] as! String)@mapspot")
-        let mobileUploader = CLUploader(cloudinary, delegate: self)
-        mobileUploader.delegate = self
+        let mobileUploader = CLUploader(cloudinary, delegate: delegate)
+//        mobileUploader.delegate = self
         
         mobileUploader.upload(imageData, options: nil, withCompletion: {
             (successResult, error, code, context) in
@@ -25,7 +27,7 @@ class CloudinaryOperation: NSObject, CLUploaderDelegate {
                 return
             }
             
-            completion(photoURL: photoURL as! String)
+            completion(photoURL as! String)
             
         }) { (bytesWritten, totalBytesWritten, totalBytesExpectedToWrite, context) in
             
