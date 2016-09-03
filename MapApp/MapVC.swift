@@ -29,6 +29,15 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
         setUpSearchControllerWithSearchTable()
         setUpSearchBar()
         getUserLocation()
+
+        let firebaseOperation = FirebaseOperation()
+        firebaseOperation.queryChildWithoutConstrints("users", firebaseDataEventType: .Value) { (result) in
+            let user = User()
+                user.setUserProperties(result)
+            print(user.name)
+        }
+        
+        
     }
     
     //MARK: Map Methods
