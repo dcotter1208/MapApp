@@ -91,21 +91,25 @@ class FirebaseOperation {
                 completion(error)
                 return
             }
-            
             switch profileImageChoosen {
             case false:
             let userProfile = ["name": name, "location": "", "profileImageURL": "", "userID": user!.uid]
             self.createUserProfile(userProfile, completion: {
                 (snapshotKey) in
-                //WRITE TO REALM With SnapshotKey as Primary Key
-                
+                let rlmUser = RLMUser()
+                rlmUser.createUser(name, email: email, userID: user!.uid, snapshotKey: snapshotKey!, location: "")
+                RLMDBManager().writeObject(rlmUser)
             })
             case true:
             CloudinaryOperation().uploadProfileImageToCloudinary(profileImage!, completion: {
                     (photoURL) in
                     let userProfile = ["name": name, "location": "", "profileImageURL": photoURL, "userID": user!.uid]
-                    self.createUserProfile(userProfile, completion: { (snapshotKey) in
-                        //WRITE TO REALM With SnapshotKey as Primary Key
+                    self.createUserProfile(userProfile, completion: {
+                        (snapshotKey) in
+                        let rlmUser = RLMUser()
+                        rlmUser.createUser(name, email: email, userID: user!.uid, snapshotKey: snapshotKey!, location: "")
+                        rlmUser.setRLMUserProfileImageAndURL(photoURL, image: UIImageJPEGRepresentation(UIImage(), 1.0)!)
+                        RLMDBManager().writeObject(rlmUser)
                     })
                 })
             }

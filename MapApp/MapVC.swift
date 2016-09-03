@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import FirebaseAuth
+import RealmSwift
 
 protocol HandleMapSearch: class {
     func dropPinAtSearchedLocation(placemark:MKPlacemark)
@@ -26,6 +27,9 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print(Realm.Configuration.defaultConfiguration.fileURL)
+        
         setupMapView()
         setUpSearchControllerWithSearchTable()
         setUpSearchBar()
