@@ -34,8 +34,20 @@ class SignUpTVC: UITableViewController, UINavigationControllerDelegate, UIImageP
     }
     
     //MARK: Helper Methods
+
+    private func checkForCurrentUser() {
+        if CurrentUser.sharedInstance.name != "" {
+            
+        }
+    }
     
-    func removeWhiteSpace(string:String?, removeAllWhiteSpace:Bool) -> String {
+    private func instantiateViewController(viewControllerIdentifier: String) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let istantiatedVC = storyboard.instantiateViewControllerWithIdentifier(viewControllerIdentifier)
+        self.presentViewController(istantiatedVC, animated: true, completion: nil)
+    }
+    
+    private func removeWhiteSpace(string:String?, removeAllWhiteSpace:Bool) -> String {
         guard let string = string else {return "nil"}
         guard removeAllWhiteSpace == false else {
             let newString = string.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).stringByReplacingOccurrencesOfString(" ", withString: "")
@@ -67,9 +79,7 @@ class SignUpTVC: UITableViewController, UINavigationControllerDelegate, UIImageP
             imagePicker.configureImagePicker(.PhotoLibrary)
             imagePicker.presentCameraSource(self)
         }
-        
         let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        
         actionsheet.addAction(camera)
         actionsheet.addAction(photoGallery)
         actionsheet.addAction(cancel)
@@ -111,29 +121,25 @@ class SignUpTVC: UITableViewController, UINavigationControllerDelegate, UIImageP
     
     //Signs up user with firebase with profile image:
     func signUpFirebaseUserWithProfileImage(email: String, password: String, name: String) {
-        
-        print("PROFILE IMAGE SIGN UP")
-        
         FirebaseOperation().signUpWithEmailAndPassword(email, password: password, name: name, profileImageChoosen: true, profileImage: profileImage) {
             (error) in
             guard error == nil else {
                 self.handleFirebaseErrorCode(error)
                 return
             }
+            self.instantiateViewController("MapVCNavController")
         }
     }
     
     //Signs up user with firebase with profile image:
     func signUpFirebaseUserWithNoProfileImage(email: String, password: String, name: String) {
-        
-        print("NO NO NO NO PROFILE IMAGE SIGN UP")
-        
         FirebaseOperation().signUpWithEmailAndPassword(email, password: password, name: name, profileImageChoosen: false, profileImage: nil) {
             (error) in
             guard error == nil else {
                 self.handleFirebaseErrorCode(error)
                 return
             }
+            self.instantiateViewController("MapVCNavController")
         }
     }
     

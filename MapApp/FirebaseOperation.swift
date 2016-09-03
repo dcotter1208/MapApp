@@ -83,7 +83,15 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
         }
     }
     
-    //Signs Up a user with an email & password account.
+    /*
+     Signs Up a user with an email & password account.
+     If a profileImage was not chosen then it signs up a user with Firebase,
+     creates the profile on Firebase with "" as the profileImageURL, saves that
+     profile to Realm and then sets the CurrentUser Singleton. If there was a
+     chosen profile image then all the same things occur except that it saves the image
+     to Cloudinary then saves the Firebase and Realm profile with the Cloudinary URL.
+     
+ */
     func signUpWithEmailAndPassword(email:String, password: String, name: String, profileImageChoosen: Bool, profileImage: UIImage?, completion: SignUpResult) {
         FIRAuth.auth()?.createUserWithEmail(email, password: password, completion: {
             (user, error) in
@@ -100,6 +108,8 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
                 let rlmUser = RLMUser()
                 rlmUser.createUser(name, email: email, userID: user!.uid, snapshotKey: snapshotKey!, location: "")
                 RLMDBManager().writeObject(rlmUser)
+                CurrentUser.sharedInstance.setCurrentUserProperties(name, location: "", imageURL: "", userID: user!.uid, snapshotKey: snapshotKey!)
+                completion(nil)
             })
             case true:
             CloudinaryOperation().uploadProfileImageToCloudinary(profileImage!, delegate: self, completion: {
@@ -111,10 +121,14 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
                         rlmUser.createUser(name, email: email, userID: user!.uid, snapshotKey: snapshotKey!, location: "")
                         rlmUser.setRLMUserProfileImageAndURL(photoURL, image: UIImageJPEGRepresentation(profileImage!, 1.0)!)
                         RLMDBManager().writeObject(rlmUser)
+                        CurrentUser.sharedInstance.setCurrentUserProperties(name, location: "", imageURL: photoURL, userID: user!.uid, snapshotKey: snapshotKey!)
+                        CurrentUser.sharedInstance.profileImage = profileImage!
+                        completion(nil)
                     })
                 })
             }
         })
     }
+
     
 }

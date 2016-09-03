@@ -27,10 +27,9 @@ class CurrentUser: User {
         super.init()
     }
     
-    func setCurrentUserProperties(name: String, location: String, email: String, imageURL: String, userID: String, snapshotKey: String) {
+    func setCurrentUserProperties(name: String, location: String, imageURL: String, userID: String, snapshotKey: String) {
         self.name = name
         self.location = location
-        self.email = email
         self.imageURL = imageURL
         self.userID = userID
         self.snapshotKey = snapshotKey
@@ -38,7 +37,6 @@ class CurrentUser: User {
     
     func resetProperties() {
         self.name = ""
-        self.email = ""
         self.imageURL = ""
         self.userID = ""
         self.snapshotKey = ""

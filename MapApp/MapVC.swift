@@ -36,10 +36,16 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
         getUserLocation()
     }
     
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
     //MARK: Helper Methods:
-    func istantiateViewController(viewControllerToIstantiate: String) {
+    func instantiateViewController(viewControllerIdentifier: String) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let istantiatedVC = storyboard.instantiateViewControllerWithIdentifier(viewControllerToIstantiate)
+        let istantiatedVC = storyboard.instantiateViewControllerWithIdentifier(viewControllerIdentifier)
         self.presentViewController(istantiatedVC, animated: true, completion: nil)
     }
     
@@ -54,7 +60,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
     
     func adjustMapViewCamera() {
         let newCamera = mapView.camera
-        
         guard mapView.camera.pitch < 30.0 else {
             newCamera.pitch = mapView.camera.pitch
             return
@@ -62,13 +67,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
         newCamera.pitch = 30
         self.mapView.camera = newCamera
     }
-    
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     //Creates SearchController
     func setUpSearchControllerWithSearchTable()  {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -133,7 +132,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
 
     @IBAction func profileButtonSelected(sender: AnyObject) {
         guard FIRAuth.auth()?.currentUser == nil else {return}
-        istantiateViewController("LogInNavController")
+        instantiateViewController("LogInNavController")
     }
     
     

@@ -11,12 +11,11 @@ import MapKit
 
 class LocationSearchTVC: UITableViewController, UISearchResultsUpdating {
     weak var handleMapSearchDelegate: HandleMapSearch?
-    var searchResults = [MKMapItem]()
-    var mapView:MKMapView? = nil
+   private var searchResults = [MKMapItem]()
+   var mapView:MKMapView? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
     }
     
@@ -25,10 +24,8 @@ class LocationSearchTVC: UITableViewController, UISearchResultsUpdating {
     }
     
     func parseAddress(mapItem: MKPlacemark) -> String {
-        
         var fullAddress = String()
         let addressDict = mapItem.addressDictionary
-        
         if let address = addressDict {
             if let street = address["Street"], city = address["City"], state = address["State"], countryCode = address["CountryCode"] {
                 fullAddress = "\(street), \(city), \(state), \(countryCode)"
@@ -38,7 +35,6 @@ class LocationSearchTVC: UITableViewController, UISearchResultsUpdating {
     }
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
-        
         if let map = mapView {
             let searchBarText = searchController.searchBar.text
             let request = MKLocalSearchRequest()
@@ -47,7 +43,6 @@ class LocationSearchTVC: UITableViewController, UISearchResultsUpdating {
             let search = MKLocalSearch(request: request)
             search.startWithCompletionHandler{
                 (response, error) in
-                
                 if let response = response {
                     self.searchResults = response.mapItems
                     self.tableView.reloadData()
@@ -64,14 +59,9 @@ class LocationSearchTVC: UITableViewController, UISearchResultsUpdating {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
-        
         let mapItem = searchResults[indexPath.item]
-        
-        print(mapItem)
-        
         cell.textLabel?.text = mapItem.name
         cell.detailTextLabel?.text = parseAddress(mapItem.placemark)
-        
         return cell
     }
     

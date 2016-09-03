@@ -632,7 +632,7 @@
         <!--Navigation Controller-->
         <scene sceneID="b6t-cP-g9R">
             <objects>
-                <navigationController storyboardIdentifier="MapVC" automaticallyAdjustsScrollViewInsets="NO" id="k3s-AM-2fb" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MapVCNavController" automaticallyAdjustsScrollViewInsets="NO" id="k3s-AM-2fb" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Oq4-pO-QSc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
