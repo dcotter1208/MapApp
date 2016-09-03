@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import FirebaseAuth
 
 protocol HandleMapSearch: class {
     func dropPinAtSearchedLocation(placemark:MKPlacemark)
@@ -29,15 +30,13 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
         setUpSearchControllerWithSearchTable()
         setUpSearchBar()
         getUserLocation()
-
-        let firebaseOperation = FirebaseOperation()
-        firebaseOperation.queryChildWithoutConstrints("users", firebaseDataEventType: .Value) { (result) in
-            let user = User()
-                user.setUserProperties(result)
-            print(user.name)
-        }
-        
-        
+    }
+    
+    //MARK: Helper Methods:
+    func istantiateViewController(viewControllerToIstantiate: String) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let istantiatedVC = storyboard.instantiateViewControllerWithIdentifier(viewControllerToIstantiate)
+        self.presentViewController(istantiatedVC, animated: true, completion: nil)
     }
     
     //MARK: Map Methods
@@ -128,5 +127,11 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
         mapView.setRegion(userLocation, animated: true)
     }
 
+    @IBAction func profileButtonSelected(sender: AnyObject) {
+        guard FIRAuth.auth()?.currentUser == nil else {return}
+        istantiateViewController("LogInNavController")
+    }
+    
+    
 
 }

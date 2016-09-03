@@ -19,6 +19,8 @@ class User {
     var imageURL: String?
     var profileImage: UIImage?
     
+    //CHECK FOR EDGE CASE FOR snapshot not being an array.
+    
     func setUserProperties(snapshot:FIRDataSnapshot) {
         for child in snapshot.children {
             guard let

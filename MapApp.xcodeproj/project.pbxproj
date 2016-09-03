@@ -22,6 +22,9 @@
 		C0FBADC81D7A783600C1C998 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADC71D7A783600C1C998 /* User.swift */; };
 		C0FBADCB1D7A786D00C1C998 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADCA1D7A786D00C1C998 /* CurrentUser.swift */; };
 		C0FBADCD1D7A7BCA00C1C998 /* AlamoFireOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADCC1D7A7BCA00C1C998 /* AlamoFireOperation.swift */; };
+		C0FBADCF1D7B0FB800C1C998 /* LogInTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADCE1D7B0FB800C1C998 /* LogInTVC.swift */; };
+		C0FBADD11D7B0FC700C1C998 /* SignUpTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADD01D7B0FC700C1C998 /* SignUpTVC.swift */; };
+		C0FBADD41D7B289300C1C998 /* CloudinaryOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADD31D7B289300C1C998 /* CloudinaryOperation.swift */; };
 		CE33E2F2AF5862452FCEBF8B /* Pods_MapAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 046A71208F6938D3C0543AAB /* Pods_MapAppUITests.framework */; };
 		F0B21780214EE6CF2FED5EBD /* Pods_MapAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DB8ED2D3174D1290F2D4D4E /* Pods_MapAppTests.framework */; };
 /* End PBXBuildFile section */
@@ -73,6 +76,9 @@
 		C0FBADC71D7A783600C1C998 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C0FBADCA1D7A786D00C1C998 /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		C0FBADCC1D7A7BCA00C1C998 /* AlamoFireOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamoFireOperation.swift; sourceTree = "<group>"; };
+		C0FBADCE1D7B0FB800C1C998 /* LogInTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInTVC.swift; sourceTree = "<group>"; };
+		C0FBADD01D7B0FC700C1C998 /* SignUpTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpTVC.swift; sourceTree = "<group>"; };
+		C0FBADD31D7B289300C1C998 /* CloudinaryOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudinaryOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +158,7 @@
 				C0FBADC01D7A6E3900C1C998 /* GoogleService-Info.plist */,
 				C0FBAD961D7A4AD800C1C998 /* Info.plist */,
 				C0FBADC21D7A6E4500C1C998 /* Keys.plist */,
+				C0FBADD21D7B235F00C1C998 /* AccountControllers */,
 			);
 			path = MapApp;
 			sourceTree = "<group>";
@@ -179,6 +186,7 @@
 			children = (
 				C0FBADC41D7A751B00C1C998 /* FirebaseOperation.swift */,
 				C0FBADCC1D7A7BCA00C1C998 /* AlamoFireOperation.swift */,
+				C0FBADD31D7B289300C1C998 /* CloudinaryOperation.swift */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -190,6 +198,15 @@
 				C0FBADCA1D7A786D00C1C998 /* CurrentUser.swift */,
 			);
 			name = User;
+			sourceTree = "<group>";
+		};
+		C0FBADD21D7B235F00C1C998 /* AccountControllers */ = {
+			isa = PBXGroup;
+			children = (
+				C0FBADCE1D7B0FB800C1C998 /* LogInTVC.swift */,
+				C0FBADD01D7B0FC700C1C998 /* SignUpTVC.swift */,
+			);
+			name = AccountControllers;
 			sourceTree = "<group>";
 		};
 		E2B87C998A7944713D03CFF9 /* Frameworks */ = {
@@ -471,8 +488,11 @@
 				C0FBADCD1D7A7BCA00C1C998 /* AlamoFireOperation.swift in Sources */,
 				C0FBADBB1D7A61E800C1C998 /* LocationSearchTVC.swift in Sources */,
 				C0FBADC81D7A783600C1C998 /* User.swift in Sources */,
+				C0FBADD41D7B289300C1C998 /* CloudinaryOperation.swift in Sources */,
+				C0FBADD11D7B0FC700C1C998 /* SignUpTVC.swift in Sources */,
 				C0FBADCB1D7A786D00C1C998 /* CurrentUser.swift in Sources */,
 				C0FBAD8B1D7A4AD800C1C998 /* AppDelegate.swift in Sources */,
+				C0FBADCF1D7B0FB800C1C998 /* LogInTVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,8 +10,10 @@ import Foundation
 import UIKit
 import FirebaseDatabase
 import Firebase
+import FirebaseAuth
 
 typealias SnapshotKey = (String?) -> Void
+typealias SignUpResult = (NSError?) -> Void
 
 class FirebaseOperation {
     
@@ -78,6 +80,36 @@ class FirebaseOperation {
                 completion(result: snapshot)
             })
         }
+    }
+    
+    //Signs Up a user with an email & password account.
+    func signUpWithEmailAndPassword(email:String, password: String, name: String, profileImageChoosen: Bool, profileImage: UIImage?, completion: SignUpResult) {
+        FIRAuth.auth()?.createUserWithEmail(email, password: password, completion: {
+            (user, error) in
+            guard error == nil else {
+                //Decide Error Type here to then call appropriate alert controller.
+                completion(error)
+                return
+            }
+            
+            switch profileImageChoosen {
+            case false:
+            let userProfile = ["name": name, "location": "", "profileImageURL": "", "userID": user!.uid]
+            self.createUserProfile(userProfile, completion: {
+                (snapshotKey) in
+                //WRITE TO REALM With SnapshotKey as Primary Key
+                
+            })
+            case true:
+            CloudinaryOperation().uploadProfileImageToCloudinary(profileImage!, completion: {
+                    (photoURL) in
+                    let userProfile = ["name": name, "location": "", "profileImageURL": photoURL, "userID": user!.uid]
+                    self.createUserProfile(userProfile, completion: { (snapshotKey) in
+                        //WRITE TO REALM With SnapshotKey as Primary Key
+                    })
+                })
+            }
+        })
     }
     
 }
