@@ -29,7 +29,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
         super.viewDidLoad()
         
         print(Realm.Configuration.defaultConfiguration.fileURL)
-        
+                
         setupMapView()
         setUpSearchControllerWithSearchTable()
         setUpSearchBar()
@@ -131,7 +131,14 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
     }
 
     @IBAction func profileButtonSelected(sender: AnyObject) {
-        guard FIRAuth.auth()?.currentUser == nil else {return}
+        guard FIRAuth.auth()?.currentUser == nil else {
+            do {
+                try FIRAuth.auth()?.signOut()
+            } catch {
+                print(error)
+            }
+            return
+        }
         instantiateViewController("LogInNavController")
     }
     

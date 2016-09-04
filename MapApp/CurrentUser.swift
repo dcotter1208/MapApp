@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import FirebaseDatabase
 
 class CurrentUser: User {
     var snapshotKey = ""
@@ -43,5 +44,5 @@ class CurrentUser: User {
         self.location = ""
         self.profileImage = nil
     }
-    
+
 }
