@@ -87,6 +87,14 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
         }
     }
     
+    func loginWithAnonymousUser() {
+        FIRAuth.auth()?.signInAnonymouslyWithCompletion({ (user, error) in
+            if error != nil {
+                print("Anonymous Log In Error: \(error)")
+            }
+        })
+    }
+    
     func loginWithEmailAndPassword(email: String, password: String, completion: LogInResult) {
         FIRAuth.auth()?.signInWithEmail(email, password: password, completion: {
             (user, error) in

@@ -27,13 +27,12 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print(Realm.Configuration.defaultConfiguration.fileURL)
-                
         setupMapView()
         setUpSearchControllerWithSearchTable()
         setUpSearchBar()
         getUserLocation()
+        getCurrentUser()
+        
     }
     
     
@@ -47,6 +46,49 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let istantiatedVC = storyboard.instantiateViewControllerWithIdentifier(viewControllerIdentifier)
         self.presentViewController(istantiatedVC, animated: true, completion: nil)
+    }
+    
+    func getCurrentUser() {
+        guard isCurrentUserLoggedIn() else {
+            FirebaseOperation().loginWithAnonymousUser()
+            return
+        }
+        getUserProfile()
+    }
+    
+    func getUserProfile() {
+        getUserProfileFromRealm {
+            (isRealmProfile) in
+            guard isRealmProfile == false else {return}
+            self.getUserProfileFromFirebase()
+        }
+    }
+    
+    func getUserProfileFromRealm(completion: Bool -> Void) {
+        if let userID = FIRAuth.auth()?.currentUser?.uid {
+            let results = RLMDBManager().getCurrentUserFromRealm(userID)
+            guard results.isEmpty == false else {
+            completion(true)
+            return
+            }
+            CurrentUser.sharedInstance.setCurrentUserWithRealm(results)
+        }
+    }
+    
+    func getUserProfileFromFirebase() {
+        guard let userID = FIRAuth.auth()?.currentUser?.uid else {return}
+        let query = FirebaseOperation().firebaseDatabaseRef.ref.child("users").child("userID").queryEqualToValue(userID)
+        FirebaseOperation().queryChildWithConstrtaints(query, firebaseDataEventType: .Value, observeSingleEventType: true) {
+            (result) in
+            CurrentUser.sharedInstance.setCurrentUserWithFirebase(result)
+        }
+    }
+    
+    func isCurrentUserLoggedIn() -> Bool {
+        guard FIRAuth.auth()?.currentUser != nil else {
+            return false
+        }
+        return true
     }
     
     //MARK: Map Methods
