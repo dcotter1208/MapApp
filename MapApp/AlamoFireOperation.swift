@@ -13,8 +13,8 @@ import AlamofireImage
 typealias NetworkResult = (UIImage?, ErrorType?) -> Void
 
 class AlamoFireOperation {
-    
-    class func downloadProfileImageWithAlamoFire(URL: String, completion: NetworkResult) {
+        
+   class func downloadProfileImageWithAlamoFire(URL: String, completion: NetworkResult) {
         Alamofire.request(.GET, URL)
             .responseImage { response in
                 guard let image = response.result.value else {

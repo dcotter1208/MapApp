@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 import Cloudinary
 import FirebaseDatabase
 import Firebase
@@ -15,6 +16,9 @@ import FirebaseAuth
 
 typealias SnapshotKey = (String?) -> Void
 typealias SignUpResult = (NSError?) -> Void
+typealias LogInResult = (CurrentUser?, NSError?) -> Void
+typealias CurrentUserResult = (CurrentUser) -> Void
+
 
 class FirebaseOperation: NSObject, CLUploaderDelegate {
     
@@ -83,7 +87,76 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
         }
     }
     
-    //Signs Up a user with an email & password account.
+    func loginWithAnonymousUser() {
+        FIRAuth.auth()?.signInAnonymouslyWithCompletion({ (user, error) in
+            if error != nil {
+                print("Anonymous Log In Error: \(error)")
+            }
+        })
+    }
+    
+    func loginWithEmailAndPassword(email: String, password: String, completion: LogInResult) {
+        FIRAuth.auth()?.signInWithEmail(email, password: password, completion: {
+            (user, error) in
+            guard error == nil else {
+                completion(nil, error)
+                return
+            }
+            guard let user = user else {return}
+            let results = RLMDBManager().getCurrentUserFromRealm(user.uid)
+            guard results.isEmpty == false else {
+                self.setCurrentUserWithFirebase(user, completion: { (currentUser) in
+                    completion(CurrentUser.sharedInstance, error)
+                })
+                return
+            }
+            self.setCurrentUserWithRealm(results, completion: { (currentUser) in
+                completion(CurrentUser.sharedInstance, error)
+            })
+        })
+    }
+    
+    private func writeCurrentUserToRealm(user: FIRUser, snapshot:FIRDataSnapshot) {
+        for child in snapshot.children {
+            let rlmUser = RLMUser()
+            guard let email = user.email else {return}
+            rlmUser.createUser(child.value["name"] as! String, email: email, userID: user.uid, snapshotKey: snapshot.key, location: child.value["location"] as! String)
+            guard child.value["profileImageURL"] as! String != "" else {
+                rlmUser.profileImageURL = child.value["profileImageURL"] as! String
+                RLMDBManager().writeObject(rlmUser)
+                return
+            }
+            AlamoFireOperation.downloadProfileImageWithAlamoFire(child.value["profileImageURL"] as! String, completion: {
+                (image, error) in
+                guard error == nil else {return}
+                rlmUser.setRLMUserProfileImageAndURL(child.value["profileImageURL"] as! String, image: UIImageJPEGRepresentation(image!, 1.0)!)
+                RLMDBManager().writeObject(rlmUser)
+            })
+        }
+    }
+    
+    private func setCurrentUserWithFirebase(user: FIRUser, completion: CurrentUserResult) {
+        let query = self.firebaseDatabaseRef.ref.child("users").queryOrderedByChild("userID").queryEqualToValue(user.uid)
+        self.queryChildWithConstrtaints(query, firebaseDataEventType: .Value, observeSingleEventType: true, completion: { (result) in
+            CurrentUser.sharedInstance.setCurrentUserWithFirebase(result)
+            self.writeCurrentUserToRealm(user, snapshot: result)
+            completion(CurrentUser.sharedInstance)
+        })
+    }
+    
+    private func setCurrentUserWithRealm(results: Results<RLMUser>, completion:(CurrentUserResult)) {
+        CurrentUser.sharedInstance.setCurrentUserWithRealm(results)
+        completion(CurrentUser.sharedInstance)
+    }
+
+    /*
+     Signs Up a user with an email & password account.
+     If a profileImage was not chosen then it signs up a user with Firebase,
+     creates the profile on Firebase with "" as the profileImageURL, saves that
+     profile to Realm and then sets the CurrentUser Singleton. If there was a
+     chosen profile image then all the same things occur except that it saves the image
+     to Cloudinary then saves the Firebase and Realm profile with the Cloudinary URL.
+ */
     func signUpWithEmailAndPassword(email:String, password: String, name: String, profileImageChoosen: Bool, profileImage: UIImage?, completion: SignUpResult) {
         FIRAuth.auth()?.createUserWithEmail(email, password: password, completion: {
             (user, error) in
@@ -100,6 +173,8 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
                 let rlmUser = RLMUser()
                 rlmUser.createUser(name, email: email, userID: user!.uid, snapshotKey: snapshotKey!, location: "")
                 RLMDBManager().writeObject(rlmUser)
+                CurrentUser.sharedInstance.setCurrentUserProperties(name, location: "", imageURL: "", userID: user!.uid, snapshotKey: snapshotKey!)
+                completion(nil)
             })
             case true:
             CloudinaryOperation().uploadProfileImageToCloudinary(profileImage!, delegate: self, completion: {
@@ -111,10 +186,14 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
                         rlmUser.createUser(name, email: email, userID: user!.uid, snapshotKey: snapshotKey!, location: "")
                         rlmUser.setRLMUserProfileImageAndURL(photoURL, image: UIImageJPEGRepresentation(profileImage!, 1.0)!)
                         RLMDBManager().writeObject(rlmUser)
+                        CurrentUser.sharedInstance.setCurrentUserProperties(name, location: "", imageURL: photoURL, userID: user!.uid, snapshotKey: snapshotKey!)
+                        CurrentUser.sharedInstance.profileImage = profileImage!
+                        completion(nil)
                     })
                 })
             }
         })
     }
+
     
 }

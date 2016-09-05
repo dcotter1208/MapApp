@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		ADABE05809EAD2CB2A388DCD /* Pods_MapApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D3AB176DAB41C2A89B08403 /* Pods_MapApp.framework */; };
+		C01E79E11D7CFDBD00700FEA /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01E79E01D7CFDBD00700FEA /* Alert.swift */; };
 		C0FBAD8B1D7A4AD800C1C998 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBAD8A1D7A4AD800C1C998 /* AppDelegate.swift */; };
 		C0FBAD901D7A4AD800C1C998 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0FBAD8E1D7A4AD800C1C998 /* Main.storyboard */; };
 		C0FBAD921D7A4AD800C1C998 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0FBAD911D7A4AD800C1C998 /* Assets.xcassets */; };
@@ -59,6 +60,7 @@
 		88C4D124264C225C74D7532D /* Pods-MapAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapAppTests/Pods-MapAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		A54A865E4BD5A05D65D538E2 /* Pods-MapApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MapApp/Pods-MapApp.debug.xcconfig"; sourceTree = "<group>"; };
 		AA0B9DD29D7C239517FBFFB2 /* Pods-MapAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapAppUITests/Pods-MapAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		C01E79E01D7CFDBD00700FEA /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		C0FBAD871D7A4AD800C1C998 /* MapApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0FBAD8A1D7A4AD800C1C998 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0FBAD8F1D7A4AD800C1C998 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -128,6 +130,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C01E79E21D7CFDC300700FEA /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				C01E79E01D7CFDBD00700FEA /* Alert.swift */,
+			);
+			name = Alert;
+			sourceTree = "<group>";
+		};
 		C0FBAD7E1D7A4AD800C1C998 = {
 			isa = PBXGroup;
 			children = (
@@ -156,6 +166,7 @@
 				C0FBAD8A1D7A4AD800C1C998 /* AppDelegate.swift */,
 				C0FBADB81D7A5DD600C1C998 /* MapVC.swift */,
 				C0FBADBA1D7A61E800C1C998 /* LocationSearchTVC.swift */,
+				C01E79E21D7CFDC300700FEA /* Alert */,
 				C0FBADDD1D7B466F00C1C998 /* ImageProcessing */,
 				C0FBADD21D7B235F00C1C998 /* AccountControllers */,
 				C0FBADC91D7A783F00C1C998 /* User */,
@@ -506,6 +517,7 @@
 				C0FBADC51D7A751B00C1C998 /* FirebaseOperation.swift in Sources */,
 				C0FBADCD1D7A7BCA00C1C998 /* AlamoFireOperation.swift in Sources */,
 				C0FBADBB1D7A61E800C1C998 /* LocationSearchTVC.swift in Sources */,
+				C01E79E11D7CFDBD00700FEA /* Alert.swift in Sources */,
 				C0FBADC81D7A783600C1C998 /* User.swift in Sources */,
 				C0FBADD81D7B3F4200C1C998 /* RLMUser.swift in Sources */,
 				C0FBADD41D7B289300C1C998 /* CloudinaryOperation.swift in Sources */,

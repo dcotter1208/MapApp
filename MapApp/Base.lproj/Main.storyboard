@@ -226,6 +226,9 @@
                                                         <constraint firstAttribute="width" constant="149" id="O6x-xH-p8r"/>
                                                     </constraints>
                                                     <state key="normal" title="Log In"/>
+                                                    <connections>
+                                                        <action selector="logIn:" destination="n9A-Zf-c8W" eventType="touchUpInside" id="6XN-D8-U6P"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -283,6 +286,9 @@
                                                         <constraint firstAttribute="width" constant="205" id="C57-db-MhV"/>
                                                     </constraints>
                                                     <state key="normal" title="Continue Anonymously"/>
+                                                    <connections>
+                                                        <action selector="continueAnonymously:" destination="n9A-Zf-c8W" eventType="touchUpInside" id="l0X-xO-cKP"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eXq-vw-cQo">
                                                     <rect key="frame" x="279" y="8" width="42" height="21"/>
@@ -312,8 +318,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="r1j-rL-Tjs">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Ldh-h8-O6k"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Ldh-h8-O6k">
+                            <connections>
+                                <action selector="cancel:" destination="n9A-Zf-c8W" id="Xma-Ys-fLM"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="emailTF" destination="EOa-qd-e7R" id="dNg-C9-Htc"/>
+                        <outlet property="passwordTF" destination="F4w-Ze-k47" id="xhB-Is-d5J"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6SW-9A-yn9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -632,7 +646,7 @@
         <!--Navigation Controller-->
         <scene sceneID="b6t-cP-g9R">
             <objects>
-                <navigationController storyboardIdentifier="MapVC" automaticallyAdjustsScrollViewInsets="NO" id="k3s-AM-2fb" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MapVCNavController" automaticallyAdjustsScrollViewInsets="NO" id="k3s-AM-2fb" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Oq4-pO-QSc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
