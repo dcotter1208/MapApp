@@ -59,7 +59,6 @@ class LogInTVC: UITableViewController {
                     self.handleFirebaseErrorCode(error)
                     return
                 }
-                print("Current User is now: \(CurrentUser.sharedInstance.name)")
                 self.instantiateViewController("MapVCNavController")
             })
         }
