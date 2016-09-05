@@ -65,6 +65,6 @@ class LogInTVC: UITableViewController {
     }
 
     @IBAction func continueAnonymously(sender: AnyObject) {
-        print("anonymous")
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 }
