@@ -20,6 +20,9 @@ class User {
     
     //CHECK FOR EDGE CASE FOR snapshot not being an array.
     func setUserProperties(snapshot:FIRDataSnapshot) {
+        
+        print("snapshot back")
+        
         for child in snapshot.children {
             guard let
             name = child.value["name"] as? String,

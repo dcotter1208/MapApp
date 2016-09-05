@@ -59,11 +59,8 @@ class SignUpTVC: UITableViewController, UINavigationControllerDelegate, UIImageP
     
     
     //Alert used for failed signup
-    func displayAlert(title: String, message: String?) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
-        alertController.addAction(okAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
+    func displayAlert(title: String, message: String) {
+        Alert().displayGenericAlert(title, message: message, presentingViewController: self)
     }
     
     //displays action sheet for the camera or photo gallery

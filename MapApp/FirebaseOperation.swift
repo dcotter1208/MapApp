@@ -94,6 +94,7 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
             guard let user = user else {return}
             let results = RLMDBManager().getCurrentUserFromRealm(user.uid)
             guard results.isEmpty == false else {
+                print("Made it here...")
                 self.setCurrentUserWithFirebase(user)
                 return
             }
@@ -123,13 +124,18 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
     private func setCurrentUserWithFirebase(user: FIRUser) {
         let query = self.firebaseDatabaseRef.ref.child("users").queryOrderedByChild("userID").queryEqualToValue(user.uid)
         self.queryChildWithConstrtaints(query, firebaseDataEventType: .Value, observeSingleEventType: true, completion: { (result) in
+            print("Snap Result: \(result)")
             CurrentUser.sharedInstance.setUserProperties(result)
             self.writeCurrentUserToRealm(user, snapshot: result)
+            print("Current User Set With Firebase: \(CurrentUser.sharedInstance.name)")
+
         })
     }
     
     private func setCurrentUserWithRealm(results: Results<RLMUser>) {
     CurrentUser.sharedInstance.setCurrentUserProperties(results[0].name, location: results[0].location, imageURL: results[0].profileImageURL, userID: results[0].userID, snapshotKey: results[0].snapshotKey)
+        
+        print("Current User Set With Realm: \(CurrentUser.sharedInstance.name)")
     }
     
     /*

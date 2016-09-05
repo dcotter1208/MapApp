@@ -318,7 +318,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="r1j-rL-Tjs">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Ldh-h8-O6k"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Ldh-h8-O6k">
+                            <connections>
+                                <action selector="cancel:" destination="n9A-Zf-c8W" id="Xma-Ys-fLM"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="emailTF" destination="EOa-qd-e7R" id="dNg-C9-Htc"/>
