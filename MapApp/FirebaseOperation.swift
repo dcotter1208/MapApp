@@ -16,6 +16,9 @@ import FirebaseAuth
 
 typealias SnapshotKey = (String?) -> Void
 typealias SignUpResult = (NSError?) -> Void
+typealias LogInResult = (CurrentUser?, NSError?) -> Void
+typealias CurrentUserResult = (CurrentUser) -> Void
+
 
 class FirebaseOperation: NSObject, CLUploaderDelegate {
     
@@ -84,21 +87,24 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
         }
     }
     
-    func loginWithEmailAndPassword(email: String, password: String, completion: SignUpResult) {
+    func loginWithEmailAndPassword(email: String, password: String, completion: LogInResult) {
         FIRAuth.auth()?.signInWithEmail(email, password: password, completion: {
             (user, error) in
             guard error == nil else {
-                completion(error)
+                completion(nil, error)
                 return
             }
             guard let user = user else {return}
             let results = RLMDBManager().getCurrentUserFromRealm(user.uid)
             guard results.isEmpty == false else {
-                print("Made it here...")
-                self.setCurrentUserWithFirebase(user)
+                self.setCurrentUserWithFirebase(user, completion: { (currentUser) in
+                    completion(CurrentUser.sharedInstance, error)
+                })
                 return
             }
-            self.setCurrentUserWithRealm(results)
+            self.setCurrentUserWithRealm(results, completion: { (currentUser) in
+                completion(CurrentUser.sharedInstance, error)
+            })
         })
     }
     
@@ -121,23 +127,20 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
         }
     }
     
-    private func setCurrentUserWithFirebase(user: FIRUser) {
+    private func setCurrentUserWithFirebase(user: FIRUser, completion: CurrentUserResult) {
         let query = self.firebaseDatabaseRef.ref.child("users").queryOrderedByChild("userID").queryEqualToValue(user.uid)
         self.queryChildWithConstrtaints(query, firebaseDataEventType: .Value, observeSingleEventType: true, completion: { (result) in
-            print("Snap Result: \(result)")
-            CurrentUser.sharedInstance.setUserProperties(result)
+            CurrentUser.sharedInstance.setCurrentUserWithFirebase(result)
             self.writeCurrentUserToRealm(user, snapshot: result)
-            print("Current User Set With Firebase: \(CurrentUser.sharedInstance.name)")
-
+            completion(CurrentUser.sharedInstance)
         })
     }
     
-    private func setCurrentUserWithRealm(results: Results<RLMUser>) {
-    CurrentUser.sharedInstance.setCurrentUserProperties(results[0].name, location: results[0].location, imageURL: results[0].profileImageURL, userID: results[0].userID, snapshotKey: results[0].snapshotKey)
-        
-        print("Current User Set With Realm: \(CurrentUser.sharedInstance.name)")
+    private func setCurrentUserWithRealm(results: Results<RLMUser>, completion:(CurrentUserResult)) {
+        CurrentUser.sharedInstance.setCurrentUserWithRealm(results)
+        completion(CurrentUser.sharedInstance)
     }
-    
+
     /*
      Signs Up a user with an email & password account.
      If a profileImage was not chosen then it signs up a user with Firebase,

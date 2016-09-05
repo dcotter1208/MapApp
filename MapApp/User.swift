@@ -18,11 +18,7 @@ class User {
     var imageURL: String?
     var profileImage: UIImage?
     
-    //CHECK FOR EDGE CASE FOR snapshot not being an array.
     func setUserProperties(snapshot:FIRDataSnapshot) {
-        
-        print("snapshot back")
-        
         for child in snapshot.children {
             guard let
             name = child.value["name"] as? String,
@@ -40,7 +36,7 @@ class User {
         downloadUserProfileImage(self.imageURL!)
     }
     
-    func downloadUserProfileImage(URL: String) {
+    private func downloadUserProfileImage(URL: String) {
         AlamoFireOperation.downloadProfileImageWithAlamoFire(URL) {
             (image, error) in
             guard let image = image else {
