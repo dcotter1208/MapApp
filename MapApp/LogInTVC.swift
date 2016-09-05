@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LogInTVC: UITableViewController {
     @IBOutlet weak var emailTF: UITextField!
@@ -22,6 +23,21 @@ class LogInTVC: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    //Firebase Error Handling:
+    func handleFirebaseErrorCode(error: NSError?) {
+        if let errorCode = FIRAuthErrorCode(rawValue: error!.code) {
+            switch errorCode {
+            case .ErrorCodeWrongPassword:
+                Alert().displayGenericAlert("Log In Failed.", message: "Wrong password. Please try again.", presentingViewController: self)
+            case .ErrorCodeNetworkError:
+                Alert().displayGenericAlert("Log In Failed", message: "Please check your network connection.", presentingViewController: self)
+            case .ErrorCodeTooManyRequests:
+                Alert().displayGenericAlert("Log In Failed", message: "Too many failed attempts.", presentingViewController: self)
+            default:
+                Alert().displayGenericAlert("Log In Failed", message: "Please try again.", presentingViewController: self)
+            }
+        }
+    }
     
     @IBAction func cancel(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -32,7 +48,7 @@ class LogInTVC: UITableViewController {
             FirebaseOperation().loginWithEmailAndPassword(email, password: password) {
                 (error) in
                 guard error == nil else {
-                    print(error)
+                    self.handleFirebaseErrorCode(error)
                     return
                 }
             }

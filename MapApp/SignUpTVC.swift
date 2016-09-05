@@ -102,16 +102,15 @@ class SignUpTVC: UITableViewController, UINavigationControllerDelegate, UIImageP
         if let errorCode = FIRAuthErrorCode(rawValue: error!.code) {
             switch errorCode {
             case .ErrorCodeInvalidEmail:
-                self.displayAlert("Whoops!", message: "Invalid Email")
+                Alert().displayGenericAlert("Whoops!", message: "Invalid Email.", presentingViewController: self)
             case .ErrorCodeEmailAlreadyInUse:
-                self.displayAlert("Whoops!", message: "Email is already in use.")
+                Alert().displayGenericAlert("Whoops!", message: "Email is already in use.", presentingViewController: self)
             case .ErrorCodeWeakPassword:
-                self.displayAlert("Whoops!", message: "Please pick a stronger password.")
+                Alert().displayGenericAlert("Whoops!", message: "Please pick a stronger password", presentingViewController: self)
             case .ErrorCodeNetworkError:
-                self.displayAlert("Sign Up Failed.", message: "Please check your connection.")
+                Alert().displayGenericAlert("Sign Up Failed.", message: "Please check your connection.", presentingViewController: self)
             default:
-                print(error?.localizedDescription)
-                self.displayAlert("Something went wrong.", message: "Please try again.")
+                Alert().displayGenericAlert("Something went wrong.", message: "Please try again.", presentingViewController: self)
             }
         }
     }
