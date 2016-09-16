@@ -86,9 +86,7 @@ class SignUpTVC: UITableViewController, UINavigationControllerDelegate, UIImageP
     //MARK: Camera Methods
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        guard let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else {
-            return
-        }
+        guard let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
         profileImageChanged = true
         profileImageView.image = pickedImage
         profileImage = pickedImage

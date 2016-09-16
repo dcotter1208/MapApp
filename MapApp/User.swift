@@ -21,7 +21,7 @@ struct User: UserType {
     var profileImageURL: String
     var profileImage: UIImage?
   
-    func createUser(withSnapshot snapshot:FIRDataSnapshot, completion: UserResult) {
+    func createUserWithFirebaseSnapshot(snapshot:FIRDataSnapshot, completion: UserResult) {
         for child in snapshot.children {
             guard let
                 name = child.value["name"] as? String,

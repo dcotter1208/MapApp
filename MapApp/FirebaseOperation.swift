@@ -19,7 +19,7 @@ typealias SignUpResult = (NSError?) -> Void
 typealias LogInResult = (CurrentUser?, NSError?) -> Void
 typealias CurrentUserResult = (CurrentUser) -> Void
 
-struct FirebaseOperation: CLUploaderDelegate {
+class FirebaseOperation: NSObject, CLUploaderDelegate {
     
     let firebaseDatabaseRef = FIRDatabase.database().reference()
 
