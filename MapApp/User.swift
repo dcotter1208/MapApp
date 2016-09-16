@@ -28,12 +28,10 @@ struct User: UserType {
                 profileImageURL = child.value["profilePhotoURL"] as? String,
                 userID = child.value["userID"] as? String,
                 location = child.value["location"] as? String else { return }
-            
             guard profileImageURL != "" else {
                 completion(User(name: name, location: location, userID: userID, profileImageURL: profileImageURL, profileImage: nil))
                 return
             }
-            
             downloadUserProfileImage(profileImageURL, completion: {
                 (image, error) in
                 completion(User(name: name, location: location, userID: userID, profileImageURL: profileImageURL, profileImage: image))
@@ -52,4 +50,6 @@ struct User: UserType {
             completion(image, nil)
         }
     }
+
+
     
