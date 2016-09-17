@@ -32,6 +32,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
         setUpSearchBar()
         getUserLocation()
         getCurrentUser()
+    
         
     }
     
@@ -196,6 +197,14 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate {
         cellImageView.clipsToBounds = true
         
         return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        MKVenueSearch.searchVenuesInRegion(mapView.region, searchQueries: [.Bar]) { (venues) in
+            for venue in venues {
+                print("Address: \(venue.address.fullAddress)")
+            }
+        }
     }
     
 }
