@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		ADABE05809EAD2CB2A388DCD /* Pods_MapApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D3AB176DAB41C2A89B08403 /* Pods_MapApp.framework */; };
 		C01E79E11D7CFDBD00700FEA /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01E79E01D7CFDBD00700FEA /* Alert.swift */; };
+		C0C5D9ED1D844CC300124846 /* UserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C5D9EC1D844CC300124846 /* UserType.swift */; };
 		C0FBAD8B1D7A4AD800C1C998 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBAD8A1D7A4AD800C1C998 /* AppDelegate.swift */; };
 		C0FBAD901D7A4AD800C1C998 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0FBAD8E1D7A4AD800C1C998 /* Main.storyboard */; };
 		C0FBAD921D7A4AD800C1C998 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0FBAD911D7A4AD800C1C998 /* Assets.xcassets */; };
@@ -61,6 +62,7 @@
 		A54A865E4BD5A05D65D538E2 /* Pods-MapApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MapApp/Pods-MapApp.debug.xcconfig"; sourceTree = "<group>"; };
 		AA0B9DD29D7C239517FBFFB2 /* Pods-MapAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapAppUITests/Pods-MapAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C01E79E01D7CFDBD00700FEA /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		C0C5D9EC1D844CC300124846 /* UserType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserType.swift; sourceTree = "<group>"; };
 		C0FBAD871D7A4AD800C1C998 /* MapApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0FBAD8A1D7A4AD800C1C998 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0FBAD8F1D7A4AD800C1C998 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 		C0FBADC91D7A783F00C1C998 /* User */ = {
 			isa = PBXGroup;
 			children = (
+				C0C5D9EC1D844CC300124846 /* UserType.swift */,
 				C0FBADC71D7A783600C1C998 /* User.swift */,
 				C0FBADCA1D7A786D00C1C998 /* CurrentUser.swift */,
 				C0FBADD71D7B3F4200C1C998 /* RLMUser.swift */,
@@ -522,6 +525,7 @@
 				C0FBADD81D7B3F4200C1C998 /* RLMUser.swift in Sources */,
 				C0FBADD41D7B289300C1C998 /* CloudinaryOperation.swift in Sources */,
 				C0FBADD11D7B0FC700C1C998 /* SignUpTVC.swift in Sources */,
+				C0C5D9ED1D844CC300124846 /* UserType.swift in Sources */,
 				C0FBADCB1D7A786D00C1C998 /* CurrentUser.swift in Sources */,
 				C0FBAD8B1D7A4AD800C1C998 /* AppDelegate.swift in Sources */,
 				C0FBADCF1D7B0FB800C1C998 /* LogInTVC.swift in Sources */,

@@ -19,20 +19,17 @@ typealias SignUpResult = (NSError?) -> Void
 typealias LogInResult = (CurrentUser?, NSError?) -> Void
 typealias CurrentUserResult = (CurrentUser) -> Void
 
-
 class FirebaseOperation: NSObject, CLUploaderDelegate {
     
-    var firebaseDatabaseRef: FIRDatabaseReference
-    
-    override init() {
-     firebaseDatabaseRef = FIRDatabase.database().reference()
-    }
-    
+    let firebaseDatabaseRef = FIRDatabase.database().reference()
+
+    //gets the snapshot key from a firebase reference.
     func getSnapshotKeyFromRef(firebaseChildRef: FIRDatabaseReference) -> String {
         let snapshotKey = "\(firebaseChildRef)".stringByReplacingOccurrencesOfString("https://mapapp-943f3.firebaseio.com/users/", withString: "")
         return snapshotKey
     }
     
+    //Creates a user profile on Firebase.
     func createUserProfile(userProfile: [String: String], completion: SnapshotKey) {
         let usersRef = firebaseDatabaseRef.ref.child("users").childByAutoId()
         usersRef.setValue(userProfile)
@@ -58,7 +55,8 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
         childRef.updateChildValues(childUpdates)
     }
     
-    func queryChildWithoutConstrints(child: String, firebaseDataEventType: FIRDataEventType, completion: (result: FIRDataSnapshot) -> Void) {
+    //queries a Firebase child without constraints.
+    func queryChildWithoutConstraints(child: String, firebaseDataEventType: FIRDataEventType, completion: (result: FIRDataSnapshot) -> Void) {
         let childRef = firebaseDatabaseRef.child(child)
         childRef.observeEventType(firebaseDataEventType) {
             (snapshot) in
@@ -75,7 +73,7 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
     }
     
     //Accepts a query with contraints to query Firebase
-    func queryChildWithConstrtaints(query:FIRDatabaseQuery, firebaseDataEventType: FIRDataEventType, observeSingleEventType: Bool, completion:(result: FIRDataSnapshot) -> Void) {
+    func queryChildWithConstraints(query:FIRDatabaseQuery, firebaseDataEventType: FIRDataEventType, observeSingleEventType: Bool, completion:(result: FIRDataSnapshot) -> Void) {
         if observeSingleEventType {
             query.observeSingleEventOfType(firebaseDataEventType, withBlock: { (snapshot) in
                 completion(result: snapshot)
@@ -87,6 +85,7 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
         }
     }
     
+    //Logs user into the app as an anonymous user.
     func loginWithAnonymousUser() {
         FIRAuth.auth()?.signInAnonymouslyWithCompletion({ (user, error) in
             if error != nil {
@@ -95,6 +94,11 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
         })
     }
     
+    /*
+     Logs a user in with Firebase using email and password. If there is no error then it gets the
+     user from Realm. If there is no user profile in realm then it gets the user profile from Firebase
+     and then writes the user profile to realm.
+*/
     func loginWithEmailAndPassword(email: String, password: String, completion: LogInResult) {
         FIRAuth.auth()?.signInWithEmail(email, password: password, completion: {
             (user, error) in
@@ -116,6 +120,7 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
         })
     }
     
+    //Used to write the current user's profile to realm when it is obtained from Firebase.
     private func writeCurrentUserToRealm(user: FIRUser, snapshot:FIRDataSnapshot) {
         for child in snapshot.children {
             let rlmUser = RLMUser()
@@ -135,15 +140,20 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
         }
     }
     
+    /*
+     Sets the CurrentUser singleton with Firebase by querying the profile with the current user's userID.
+     It then calls the writeCurrentUserToRealm func to write that profile to Realm.
+ */
     private func setCurrentUserWithFirebase(user: FIRUser, completion: CurrentUserResult) {
         let query = self.firebaseDatabaseRef.ref.child("users").queryOrderedByChild("userID").queryEqualToValue(user.uid)
-        self.queryChildWithConstrtaints(query, firebaseDataEventType: .Value, observeSingleEventType: true, completion: { (result) in
+        self.queryChildWithConstraints(query, firebaseDataEventType: .Value, observeSingleEventType: true, completion: { (result) in
             CurrentUser.sharedInstance.setCurrentUserWithFirebase(result)
             self.writeCurrentUserToRealm(user, snapshot: result)
             completion(CurrentUser.sharedInstance)
         })
     }
     
+    //Sets the CurrentUser singleton with realm results.
     private func setCurrentUserWithRealm(results: Results<RLMUser>, completion:(CurrentUserResult)) {
         CurrentUser.sharedInstance.setCurrentUserWithRealm(results)
         completion(CurrentUser.sharedInstance)

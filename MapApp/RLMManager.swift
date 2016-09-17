@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class RLMDBManager {
+struct RLMDBManager {
     
     var realm: Realm?
     

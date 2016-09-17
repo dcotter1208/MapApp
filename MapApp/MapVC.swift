@@ -78,7 +78,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
     func getUserProfileFromFirebase() {
         guard let userID = FIRAuth.auth()?.currentUser?.uid else {return}
         let query = FirebaseOperation().firebaseDatabaseRef.ref.child("users").child("userID").queryEqualToValue(userID)
-        FirebaseOperation().queryChildWithConstrtaints(query, firebaseDataEventType: .Value, observeSingleEventType: true) {
+        FirebaseOperation().queryChildWithConstraints(query, firebaseDataEventType: .Value, observeSingleEventType: true) {
             (result) in
             CurrentUser.sharedInstance.setCurrentUserWithFirebase(result)
         }

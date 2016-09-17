@@ -11,8 +11,13 @@ import UIKit
 import FirebaseDatabase
 import RealmSwift
 
-class CurrentUser: User {
+class CurrentUser: UserType {
     var snapshotKey = ""
+    var name = ""
+    var location = ""
+    var profileImageURL = ""
+    var userID = ""
+    var profileImage: UIImage? = nil
     
     //1
     class var sharedInstance: CurrentUser {
@@ -24,22 +29,18 @@ class CurrentUser: User {
         //4
         return Singleton.instance
     }
-    
-    private override init() {
-        super.init()
-    }
-    
+
     func setCurrentUserProperties(name: String, location: String, imageURL: String, userID: String, snapshotKey: String) {
         self.name = name
         self.location = location
-        self.imageURL = imageURL
+        self.profileImageURL = imageURL
         self.userID = userID
         self.snapshotKey = snapshotKey
     }
     
     func resetProperties() {
         self.name = ""
-        self.imageURL = ""
+        self.profileImageURL = ""
         self.userID = ""
         self.snapshotKey = ""
         self.location = ""
@@ -64,10 +65,10 @@ class CurrentUser: User {
             self.name = name
             self.location = location
             self.userID = userID
-            self.imageURL = imageURL
+            self.profileImageURL = imageURL
         }
-        guard self.imageURL != "" else {return}
-        downloadUserProfileImage(self.imageURL!)
+        guard self.profileImageURL != "" else {return}
+        downloadUserProfileImage(self.profileImageURL)
     }
     
     private func downloadUserProfileImage(URL: String) {
