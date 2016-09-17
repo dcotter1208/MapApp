@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		ADABE05809EAD2CB2A388DCD /* Pods_MapApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D3AB176DAB41C2A89B08403 /* Pods_MapApp.framework */; };
 		C01E79E11D7CFDBD00700FEA /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01E79E01D7CFDBD00700FEA /* Alert.swift */; };
+		C078577B1D8CD07D00B9AF06 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C078577A1D8CD07D00B9AF06 /* UIImageExtension.swift */; };
 		C0C5D9ED1D844CC300124846 /* UserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C5D9EC1D844CC300124846 /* UserType.swift */; };
 		C0FBAD8B1D7A4AD800C1C998 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBAD8A1D7A4AD800C1C998 /* AppDelegate.swift */; };
 		C0FBAD901D7A4AD800C1C998 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0FBAD8E1D7A4AD800C1C998 /* Main.storyboard */; };
@@ -62,6 +63,7 @@
 		A54A865E4BD5A05D65D538E2 /* Pods-MapApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MapApp/Pods-MapApp.debug.xcconfig"; sourceTree = "<group>"; };
 		AA0B9DD29D7C239517FBFFB2 /* Pods-MapAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapAppUITests/Pods-MapAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C01E79E01D7CFDBD00700FEA /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		C078577A1D8CD07D00B9AF06 /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		C0C5D9EC1D844CC300124846 /* UserType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserType.swift; sourceTree = "<group>"; };
 		C0FBAD871D7A4AD800C1C998 /* MapApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0FBAD8A1D7A4AD800C1C998 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -140,9 +142,18 @@
 			name = Alert;
 			sourceTree = "<group>";
 		};
+		C07857791D8CD05500B9AF06 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				C078577A1D8CD07D00B9AF06 /* UIImageExtension.swift */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		C0FBAD7E1D7A4AD800C1C998 = {
 			isa = PBXGroup;
 			children = (
+				C07857791D8CD05500B9AF06 /* Categories */,
 				C0FBAD891D7A4AD800C1C998 /* MapApp */,
 				C0FBAD9E1D7A4AD800C1C998 /* MapAppTests */,
 				C0FBADA91D7A4AD800C1C998 /* MapAppUITests */,
@@ -529,6 +540,7 @@
 				C0FBADCB1D7A786D00C1C998 /* CurrentUser.swift in Sources */,
 				C0FBAD8B1D7A4AD800C1C998 /* AppDelegate.swift in Sources */,
 				C0FBADCF1D7B0FB800C1C998 /* LogInTVC.swift in Sources */,
+				C078577B1D8CD07D00B9AF06 /* UIImageExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

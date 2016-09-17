@@ -14,11 +14,11 @@ typealias URLResult = (String) -> Void
 class CloudinaryOperation: NSObject {
     
     func uploadProfileImageToCloudinary(image:UIImage, delegate: CLUploaderDelegate, completion:URLResult) {
-        let imageData = UIImageJPEGRepresentation(image, 1.0)
+        let resizedImage = image.resizedImage(CGSize(width: image.size.width/11, height: image.size.width/11))
+        let imageData = UIImageJPEGRepresentation(resizedImage, 1.0)
         let keys = NSDictionary(contentsOfFile: NSBundle.mainBundle().pathForResource("Keys", ofType: "plist")!)!
         let cloudinary = CLCloudinary(url: "cloudinary://\(keys["cloudinaryAPIKey"] as! String):\(keys["cloudinaryAPISecret"] as! String)@mapspot")
         let mobileUploader = CLUploader(cloudinary, delegate: delegate)
-//        mobileUploader.delegate = self
         
         mobileUploader.upload(imageData, options: nil, withCompletion: {
             (successResult, error, code, context) in
