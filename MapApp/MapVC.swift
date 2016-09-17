@@ -180,6 +180,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
 //MARK: Extension For CollectionView
 extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate {
     
+    //This will be replaced with however many categories we end up having for the filter option.
     var dataSource: [String] {
         get {
             return ["Bar", "Club", "Restaurant", "Casino", "Sports", "Parks", "Music"]
@@ -200,7 +201,7 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        MKVenueSearch.searchVenuesInRegion(mapView.region, searchQueries: [.Bar, .Drinks]) { (venues) in
+        MKVenueSearch.searchVenuesInRegion(mapView.region, searchQueries: [.Bar, .Drinks, .DanceClub, .DiveBar, .Brewery, .SportsBar]) { (venues) in
             MKVenueSearch.addVenueAnnotationsToMap(self.mapView, venues: venues)
             print(venues.count)
         }
