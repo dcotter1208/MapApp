@@ -24,4 +24,9 @@ struct Venue {
     var websiteURL: String
     var address: Address
     var coordinates: Coordinate
+    var venueID: String {
+        get {
+            return "\(coordinates.lat)\(coordinates.long)"
+        }
+    }
 }

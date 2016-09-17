@@ -44,8 +44,10 @@ class MKVenueSearch {
                 for item in mapItems {
                     guard let name = item.name, phoneNumber = item.phoneNumber, websiteURL = item.url else { return }
                     let venue = Venue(name: name, phoneNumber: phoneNumber, websiteURL: "\(websiteURL)", address: Address(placemark: item.placemark), coordinates: Coordinate(coordinate: item.placemark.coordinate))
-                    venues.append(venue)
-                    dispatch_async(dispatch_get_main_queue(), { 
+                    if !venues.contains({$0.venueID == venue.venueID}) {
+                        venues.append(venue)
+                    }
+                    dispatch_async(dispatch_get_main_queue(), {
                         completion(venues)
                     })
                 }
