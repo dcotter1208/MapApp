@@ -150,9 +150,17 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		C078577C1D8D00C700B9AF06 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		C0FBAD7E1D7A4AD800C1C998 = {
 			isa = PBXGroup;
 			children = (
+				C078577C1D8D00C700B9AF06 /* Views */,
 				C07857791D8CD05500B9AF06 /* Categories */,
 				C0FBAD891D7A4AD800C1C998 /* MapApp */,
 				C0FBAD9E1D7A4AD800C1C998 /* MapAppTests */,
