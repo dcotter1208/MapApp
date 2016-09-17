@@ -23,4 +23,5 @@ struct Venue {
     var phoneNumber: String
     var websiteURL: String
     var address: Address
+    var coordinates: Coordinate
 }

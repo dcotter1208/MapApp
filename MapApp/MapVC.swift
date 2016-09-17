@@ -201,9 +201,7 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         MKVenueSearch.searchVenuesInRegion(mapView.region, searchQueries: [.Bar]) { (venues) in
-            for venue in venues {
-                print("Address: \(venue.address.fullAddress)")
-            }
+            MKVenueSearch.addVenueAnnotationsToMap(self.mapView, venues: venues)
         }
     }
     
