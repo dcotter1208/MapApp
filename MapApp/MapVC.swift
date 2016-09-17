@@ -35,7 +35,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
         
     }
     
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -59,7 +58,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
     func getUserProfile() {
         getUserProfileFromRealm {
             (isRealmProfile) in
-            guard isRealmProfile == false else {return}
+            guard isRealmProfile == false else { return }
             self.getUserProfileFromFirebase()
         }
     }
@@ -76,7 +75,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
     }
     
     func getUserProfileFromFirebase() {
-        guard let userID = FIRAuth.auth()?.currentUser?.uid else {return}
+        guard let userID = FIRAuth.auth()?.currentUser?.uid else { return }
         let query = FirebaseOperation().firebaseDatabaseRef.ref.child("users").child("userID").queryEqualToValue(userID)
         FirebaseOperation().queryChildWithConstraints(query, firebaseDataEventType: .Value, observeSingleEventType: true) {
             (result) in
@@ -94,7 +93,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
     //MARK: Map Methods
     
     func setupMapView() {
-        guard let mapView = mapView else {return}
+        guard let mapView = mapView else { return }
         mapView.delegate = self
         mapView.showsPointsOfInterest = false
         mapView.showsUserLocation = true
@@ -145,28 +144,18 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
     //MARK: Location Methods
     func getUserLocation() {
         locationManager = CLLocationManager()
-        
-        guard let manager = locationManager else {
-            return
-        }
-        
+        guard let manager = locationManager else { return }
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         manager.requestWhenInUseAuthorization()
         manager.distanceFilter = 100
         manager.startUpdatingLocation()
-        
-        guard let managerLocation = manager.location else {
-            return
-        }
+        guard let managerLocation = manager.location else { return }
         newestLocation = managerLocation
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        guard let lastLocation = locations.last else {
-            return
-        }
+        guard let lastLocation = locations.last else { return }
         newestLocation = lastLocation
         userLocation = MKCoordinateRegionMakeWithDistance(newestLocation.coordinate, 800, 800)
         mapView.setRegion(userLocation, animated: true)
@@ -184,6 +173,29 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
         instantiateViewController("LogInNavController")
     }
     
-    
+}
 
+
+//MARK: Extension For CollectionView
+extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    var dataSource: [String] {
+        get {
+            return ["Bar", "Club", "Restaurant", "Casino", "Sports", "Parks", "Music"]
+        }
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dataSource.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("VenueCell", forIndexPath: indexPath)
+        let cellImageView = cell.viewWithTag(101) as! UIImageView
+        cellImageView.layer.cornerRadius = cellImageView.frame.size.width / 2
+        cellImageView.clipsToBounds = true
+        
+        return cell
+    }
+    
 }
