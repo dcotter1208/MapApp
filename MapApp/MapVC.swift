@@ -32,11 +32,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
         setUpSearchBar()
         getUserLocation()
         getCurrentUser()
-        
-        print("NAAAAMMMMEEEE \(CurrentUser.sharedInstance.name)")
-        print(Realm.Configuration.defaultConfiguration)
-    
-        
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -79,15 +75,10 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
     }
     
     func getUserProfileFromFirebase() {
-        print("trying to get profile from firebase")
-        
         guard let userID = FIRAuth.auth()?.currentUser?.uid else { return }
         let query = FirebaseOperation().firebaseDatabaseRef.ref.child("users").child("userID").queryEqual(toValue: userID)
         FirebaseOperation().queryChildWithConstraints(query, firebaseDataEventType: .value, observeSingleEventType: true) {
             (result) in
-            
-            print("Firebase")
-            
             CurrentUser.sharedInstance.setCurrentUserWithFirebase(snapshot: result)
         }
     }
@@ -211,7 +202,6 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         MKVenueSearch.searchVenuesInRegion(mapView.region, searchQueries: [.Bar, .Drinks, .DanceClub, .DiveBar, .Brewery, .SportsBar]) { (venues) in
             MKVenueSearch.addVenueAnnotationsToMap(self.mapView, venues: venues)
-            print(venues.count)
         }
     }
     
