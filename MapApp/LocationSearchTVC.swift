@@ -11,7 +11,7 @@ import MapKit
 
 class LocationSearchTVC: UITableViewController, UISearchResultsUpdating {
     weak var handleMapSearchDelegate: HandleMapSearch?
-   private var searchResults = [MKMapItem]()
+   fileprivate var searchResults = [MKMapItem]()
    var mapView:MKMapView? = nil
     
     override func viewDidLoad() {
@@ -23,25 +23,25 @@ class LocationSearchTVC: UITableViewController, UISearchResultsUpdating {
         super.didReceiveMemoryWarning()
     }
     
-    func parseAddress(mapItem: MKPlacemark) -> String {
+    func parseAddress(_ mapItem: MKPlacemark) -> String {
         var fullAddress = String()
         let addressDict = mapItem.addressDictionary
         if let address = addressDict {
-            if let street = address["Street"], city = address["City"], state = address["State"], countryCode = address["CountryCode"] {
+            if let street = address["Street"], let city = address["City"], let state = address["State"], let countryCode = address["CountryCode"] {
                 fullAddress = "\(street), \(city), \(state), \(countryCode)"
             }
         }
         return fullAddress
     }
     
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
+    func updateSearchResults(for searchController: UISearchController) {
         if let map = mapView {
             let searchBarText = searchController.searchBar.text
             let request = MKLocalSearchRequest()
             request.naturalLanguageQuery = searchBarText
             request.region = map.region
             let search = MKLocalSearch(request: request)
-            search.startWithCompletionHandler{
+            search.start{
                 (response, error) in
                 if let response = response {
                     self.searchResults = response.mapItems
@@ -53,22 +53,22 @@ class LocationSearchTVC: UITableViewController, UISearchResultsUpdating {
     
     // MARK: - Table view data source
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchResults.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
-        let mapItem = searchResults[indexPath.item]
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let mapItem = searchResults[(indexPath as NSIndexPath).item]
         cell.textLabel?.text = mapItem.name
         cell.detailTextLabel?.text = parseAddress(mapItem.placemark)
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let searchedLocation = searchResults[indexPath.row].placemark
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let searchedLocation = searchResults[(indexPath as NSIndexPath).row].placemark
         handleMapSearchDelegate?.dropPinAtSearchedLocation(searchedLocation)
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     

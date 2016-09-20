@@ -16,13 +16,13 @@ class RLMUser: Object {
     dynamic var userID = ""
     dynamic var snapshotKey = ""
     dynamic var location = ""
-    dynamic var profileImage: NSData? = nil
+    dynamic var profileImage: Data? = nil
     
     override static func primaryKey() -> String? {
         return "userID"
     }
     
-    func createUser(name: String, email: String, userID: String, snapshotKey: String, location: String) {
+    func createUser(_ name: String, email: String, userID: String, snapshotKey: String, location: String) {
         self.name = name
         self.email = email
         self.userID = userID
@@ -30,7 +30,7 @@ class RLMUser: Object {
         self.location = location
     }
     
-    func setRLMUserProfileImageAndURL(URL: String, image: NSData) {
+    func setRLMUserProfileImageAndURL(_ URL: String, image: Data) {
         self.profileImageURL = URL
         self.profileImage = image
     }

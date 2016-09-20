@@ -10,12 +10,12 @@ import Foundation
 import Alamofire
 import AlamofireImage
 
-typealias NetworkResult = (UIImage?, ErrorType?) -> Void
+typealias NetworkResult = (UIImage?, Error?) -> Void
 
 class AlamoFireOperation {
         
-   class func downloadProfileImageWithAlamoFire(URL: String, completion: NetworkResult) {
-        Alamofire.request(.GET, URL)
+   class func downloadProfileImageWithAlamoFire(URL: String, completion: @escaping NetworkResult) {
+        Alamofire.request(URL)
             .responseImage { response in
                 guard let image = response.result.value else {
                     if let error = response.result.error {

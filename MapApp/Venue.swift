@@ -10,12 +10,12 @@ import Foundation
 import MapKit
 
 enum LocationType {
-    case AnnotationDefault
-    case Bar
-    case Casino
-    case SportsStadium
-    case Music
-    case Park
+    case annotationDefault
+    case bar
+    case casino
+    case sportsStadium
+    case music
+    case park
 }
 
 struct Venue {

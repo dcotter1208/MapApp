@@ -30,7 +30,7 @@ class CurrentUser: UserType {
         return Singleton.instance
     }
 
-    func setCurrentUserProperties(name: String, location: String, imageURL: String, userID: String, snapshotKey: String) {
+    func setCurrentUserProperties(_ name: String, location: String, imageURL: String, userID: String, snapshotKey: String) {
         self.name = name
         self.location = location
         self.profileImageURL = imageURL
@@ -54,25 +54,40 @@ class CurrentUser: UserType {
     }
     
     func setCurrentUserWithFirebase(snapshot: FIRDataSnapshot) {
-        for child in snapshot.children {
+        print("Snapshot: \(snapshot)")
+        
+        let snapshotDict = snapshot.value as! NSDictionary
+        
+        print("Snapshot Dict: \(snapshotDict)")
+
+        
+        for child in snapshotDict {
+            let snapshotChildDict = child.value as! NSDictionary
+            
+            print("Snapshot Child Dict: \(snapshotChildDict)")
+
+            
             guard let
-                name = child.value["name"] as? String,
-                imageURL = child.value["profileImageURL"] as? String,
-                userID = child.value["userID"] as? String,
-                location = child.value["location"] as? String else {
+                name = snapshotChildDict["name"] as? String,
+                let imageURL = snapshotChildDict["profileImageURL"] as? String,
+                let userID = snapshotChildDict["userID"] as? String,
+                let location = snapshotChildDict["location"] as? String else {
                     return
             }
             self.name = name
             self.location = location
             self.userID = userID
             self.profileImageURL = imageURL
+            
+            print("Username set with Firebase:::: \(self.name)")
+            
         }
         guard self.profileImageURL != "" else {return}
         downloadUserProfileImage(self.profileImageURL)
     }
     
-    private func downloadUserProfileImage(URL: String) {
-        AlamoFireOperation.downloadProfileImageWithAlamoFire(URL) {
+    fileprivate func downloadUserProfileImage(_ URL: String) {
+        AlamoFireOperation.downloadProfileImageWithAlamoFire(URL: URL) {
             (image, error) in
             guard let image = image else {
                 print(error)

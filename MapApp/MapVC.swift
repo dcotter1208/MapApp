@@ -12,18 +12,18 @@ import FirebaseAuth
 import RealmSwift
 
 protocol HandleMapSearch: class {
-    func dropPinAtSearchedLocation(placemark:MKPlacemark)
+    func dropPinAtSearchedLocation(_ placemark:MKPlacemark)
 }
 
 class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, HandleMapSearch {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var mapStyleBarButton: UIBarButtonItem!
     
-    private var resultSearchController:UISearchController? = nil
-    private var searchedLocation:MKPlacemark? = nil
-    private var locationManager: CLLocationManager?
-    private var newestLocation = CLLocation()
-    private var userLocation = MKCoordinateRegion()
+    fileprivate var resultSearchController:UISearchController? = nil
+    fileprivate var searchedLocation:MKPlacemark? = nil
+    fileprivate var locationManager: CLLocationManager?
+    fileprivate var newestLocation = CLLocation()
+    fileprivate var userLocation = MKCoordinateRegion()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +32,9 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
         setUpSearchBar()
         getUserLocation()
         getCurrentUser()
+        
+        print("NAAAAMMMMEEEE \(CurrentUser.sharedInstance.name)")
+        print(Realm.Configuration.defaultConfiguration)
     
         
     }
@@ -42,10 +45,10 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
     }
     
     //MARK: Helper Methods:
-    func instantiateViewController(viewControllerIdentifier: String) {
+    func instantiateViewController(_ viewControllerIdentifier: String) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let istantiatedVC = storyboard.instantiateViewControllerWithIdentifier(viewControllerIdentifier)
-        self.presentViewController(istantiatedVC, animated: true, completion: nil)
+        let istantiatedVC = storyboard.instantiateViewController(withIdentifier: viewControllerIdentifier)
+        self.present(istantiatedVC, animated: true, completion: nil)
     }
     
     func getCurrentUser() {
@@ -64,23 +67,28 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
         }
     }
     
-    func getUserProfileFromRealm(completion: Bool -> Void) {
+    func getUserProfileFromRealm(_ completion: (Bool) -> Void) {
         if let userID = FIRAuth.auth()?.currentUser?.uid {
             let results = RLMDBManager().getCurrentUserFromRealm(userID)
             guard results.isEmpty == false else {
             completion(true)
             return
             }
-            CurrentUser.sharedInstance.setCurrentUserWithRealm(results)
+            CurrentUser.sharedInstance.setCurrentUserWithRealm(results: results)
         }
     }
     
     func getUserProfileFromFirebase() {
+        print("trying to get profile from firebase")
+        
         guard let userID = FIRAuth.auth()?.currentUser?.uid else { return }
-        let query = FirebaseOperation().firebaseDatabaseRef.ref.child("users").child("userID").queryEqualToValue(userID)
-        FirebaseOperation().queryChildWithConstraints(query, firebaseDataEventType: .Value, observeSingleEventType: true) {
+        let query = FirebaseOperation().firebaseDatabaseRef.ref.child("users").child("userID").queryEqual(toValue: userID)
+        FirebaseOperation().queryChildWithConstraints(query, firebaseDataEventType: .value, observeSingleEventType: true) {
             (result) in
-            CurrentUser.sharedInstance.setCurrentUserWithFirebase(result)
+            
+            print("Firebase")
+            
+            CurrentUser.sharedInstance.setCurrentUserWithFirebase(snapshot: result)
         }
     }
     
@@ -113,7 +121,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
     //Creates SearchController
     func setUpSearchControllerWithSearchTable()  {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let locationSearchTable = storyboard.instantiateViewControllerWithIdentifier("LocationSearchTVC") as! LocationSearchTVC
+        let locationSearchTable = storyboard.instantiateViewController(withIdentifier: "LocationSearchTVC") as! LocationSearchTVC
         locationSearchTable.mapView = mapView
         locationSearchTable.handleMapSearchDelegate = self
         resultSearchController = UISearchController(searchResultsController: locationSearchTable)
@@ -132,7 +140,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
     }
     
     //This drops the pin at the searched location when using the search bar.
-    func dropPinAtSearchedLocation(placemark:MKPlacemark) {
+    func dropPinAtSearchedLocation(_ placemark:MKPlacemark) {
         searchedLocation = placemark
         let annotation = MKPointAnnotation()
         annotation.coordinate = placemark.coordinate
@@ -155,14 +163,14 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
         newestLocation = managerLocation
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let lastLocation = locations.last else { return }
         newestLocation = lastLocation
         userLocation = MKCoordinateRegionMakeWithDistance(newestLocation.coordinate, 800, 800)
         mapView.setRegion(userLocation, animated: true)
     }
 
-    @IBAction func profileButtonSelected(sender: AnyObject) {
+    @IBAction func profileButtonSelected(_ sender: AnyObject) {
         guard FIRAuth.auth()?.currentUser == nil else {
             do {
                 try FIRAuth.auth()?.signOut()
@@ -187,12 +195,12 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate {
         }
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("VenueCell", forIndexPath: indexPath)
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VenueCell", for: indexPath)
         let cellImageView = cell.viewWithTag(101) as! UIImageView
         cellImageView.layer.cornerRadius = cellImageView.frame.size.width / 2
         cellImageView.clipsToBounds = true
@@ -200,7 +208,7 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate {
         return cell
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         MKVenueSearch.searchVenuesInRegion(mapView.region, searchQueries: [.Bar, .Drinks, .DanceClub, .DiveBar, .Brewery, .SportsBar]) { (venues) in
             MKVenueSearch.addVenueAnnotationsToMap(self.mapView, venues: venues)
             print(venues.count)

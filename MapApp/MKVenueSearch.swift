@@ -25,11 +25,11 @@ enum SearchTerm: String {
     case Park = "Park"
 }
 
-typealias LocalSearchResult = ([Venue] -> Void)
+typealias LocalSearchResult = (([Venue]) -> Void)
 
 class MKVenueSearch {
 
-   class func searchVenuesInRegion(searchRegion: MKCoordinateRegion, searchQueries:[SearchTerm], completion: LocalSearchResult) {
+   class func searchVenuesInRegion(_ searchRegion: MKCoordinateRegion, searchQueries:[SearchTerm], completion: @escaping LocalSearchResult) {
         let searchRequest = MKLocalSearchRequest()
         var MKLocalSearchTerm: SearchTerm
         var venues = [Venue]()
@@ -39,15 +39,15 @@ class MKVenueSearch {
             searchRequest.region = searchRegion
             let search = MKLocalSearch(request: searchRequest)
             
-            search.startWithCompletionHandler({ (response, error) in
+            search.start(completionHandler: { (response, error) in
                 guard let mapItems = response?.mapItems else { return }
                 for item in mapItems {
-                    guard let name = item.name, phoneNumber = item.phoneNumber, websiteURL = item.url else { return }
+                    guard let name = item.name, let phoneNumber = item.phoneNumber, let websiteURL = item.url else { return }
                     let venue = Venue(name: name, phoneNumber: phoneNumber, websiteURL: "\(websiteURL)", address: Address(placemark: item.placemark), coordinates: Coordinate(coordinate: item.placemark.coordinate))
-                    if !venues.contains({$0.venueID == venue.venueID}) {
+                    if !venues.contains(where: {$0.venueID == venue.venueID}) {
                         venues.append(venue)
                     }
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         completion(venues)
                     })
                 }
@@ -55,7 +55,7 @@ class MKVenueSearch {
         }
     }
     
-   class func addVenueAnnotationsToMap(mapView: MKMapView, venues: [Venue]) {
+   class func addVenueAnnotationsToMap(_ mapView: MKMapView, venues: [Venue]) {
         mapView.removeAnnotations(mapView.annotations)
         for venue in venues {
             let annotation = Annotation(title: venue.name, coordinate: venue.coordinates.coordinates)

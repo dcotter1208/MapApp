@@ -17,7 +17,7 @@ struct Address {
     var zip: String?
     var fullAddress: String {
         get {
-            guard let street = street, city = city, state = state, countryCode = countryCode, zip = zip else { return "" }
+            guard let street = street, let city = city, let state = state, let countryCode = countryCode, let zip = zip else { return "" }
             return "\(street), \(city), \(state), \(countryCode), \(zip)"
         }
     }
