@@ -32,7 +32,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
         setUpSearchBar()
         getUserLocation()
         getCurrentUser()
-
     }
     
     override func didReceiveMemoryWarning() {
@@ -193,9 +192,10 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VenueCell", for: indexPath)
         let cellImageView = cell.viewWithTag(101) as! UIImageView
+        print("cell image view: \(cellImageView)")
         cellImageView.layer.cornerRadius = cellImageView.frame.size.width / 2
         cellImageView.clipsToBounds = true
-        
+
         return cell
     }
     
