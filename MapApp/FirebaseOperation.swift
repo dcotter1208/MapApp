@@ -127,20 +127,9 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
             let snapChildDict = child.value as! NSDictionary
             let rlmUser = RLMUser()
             guard let email = user.email, let name = snapChildDict["name"] as? String, let location =  snapChildDict["location"] as? String else {return}
-        
-            print("Snap Child Dict for realm: \(snapChildDict)")
-            print("name: \(name)")
-            print("email: \(email)")
-            print("uid: \(user.uid)")
-            print("snapshot key: \(snapshot.key)")
-            print("location: \(location)")
 
-
-            
             rlmUser.createUser(name, email: email, userID: user.uid, snapshotKey: snapshot.key, location: location)
-            
-            
-            
+
             guard snapChildDict["profileImageURL"] as! String != "" else {
                 rlmUser.profileImageURL = snapChildDict["profileImageURL"] as! String
                 RLMDBManager().writeObject(rlmUser)
