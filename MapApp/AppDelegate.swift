@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMaps
+import GooglePlaces
 import Firebase
 
 @UIApplicationMain
@@ -18,8 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         let keys = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Keys", ofType: "plist")!)
-        if let googleMapsKey = keys?["GoogleMaps"] as? String {
+        if let googleMapsKey = keys?["GoogleMaps"] as? String, let googlePlacesKey = keys?["GooglePlaces"] as? String{
             GMSServices.provideAPIKey(googleMapsKey)
+            GMSPlacesClient.provideAPIKey(googlePlacesKey)
         }
         FIRApp.configure()
         return true

@@ -135,7 +135,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-22618" y="-3647"/>
+            <point key="canvasLocation" x="-22619" y="-3721"/>
         </scene>
         <!--Log InTVC-->
         <scene sceneID="3WM-Y2-9jM">
@@ -320,7 +320,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6SW-9A-yn9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-23308" y="-3647.226386806597"/>
+            <point key="canvasLocation" x="-23309" y="-3721"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ftt-pM-juv">
@@ -338,7 +338,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cy5-tk-EVo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-24003" y="-3647"/>
+            <point key="canvasLocation" x="-24004" y="-3721"/>
         </scene>
         <!--Location SearchTVC-->
         <scene sceneID="teS-dS-ehM">
@@ -382,7 +382,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K1C-a4-XfY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-24003" y="-2186"/>
+            <point key="canvasLocation" x="-24004" y="-2082"/>
         </scene>
         <!--User ProfileVC-->
         <scene sceneID="K7E-wL-hrF">
@@ -443,7 +443,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qh6-lH-lHW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-23314.400000000001" y="-2186.3568215892055"/>
+            <point key="canvasLocation" x="-23310" y="-2081"/>
         </scene>
         <!--MapVC-->
         <scene sceneID="t2t-0F-TAW">
@@ -530,6 +530,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="2yv-If-bJj">
                         <barButtonItem key="leftBarButtonItem" image="compass_filled" id="iCJ-ma-zlK"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="KGT-mj-6pq">
+                            <connections>
+                                <action selector="searchForPlaces:" destination="COl-M3-9gI" id="UhR-2q-3T6"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="googleMapView" destination="PFi-UW-2fy" id="AIn-N5-X8e"/>
@@ -541,7 +546,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aYu-Re-1EQ" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-23314.400000000001" y="-2921.2893553223389"/>
+            <point key="canvasLocation" x="-23309" y="-2917"/>
         </scene>
         <!--Edit ProfileTVC-->
         <scene sceneID="MYl-Jp-Eae">
@@ -660,7 +665,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-22660" y="-2186"/>
+            <point key="canvasLocation" x="-22661" y="-2082"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="b6t-cP-g9R">

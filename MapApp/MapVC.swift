@@ -10,6 +10,7 @@
 import UIKit
 import MapKit
 import GoogleMaps
+import GooglePlaces
 import FirebaseAuth
 import RealmSwift
 
@@ -30,8 +31,8 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
     override func viewDidLoad() {
         super.viewDidLoad()
         setupGoogleMaps()
-        setUpSearchControllerWithSearchTable()
-        setUpSearchBar()
+//        setUpSearchControllerWithSearchTable()
+//        setUpSearchBar()
         getCurrentUser()
     }
     
@@ -165,11 +166,45 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
         instantiateViewController("LogInNavController")
     }
     
+    @IBAction func searchForPlaces(_ sender: AnyObject) {
+        let autocompleteControler = GMSAutocompleteViewController()
+        autocompleteControler.delegate = self
+        self.present(autocompleteControler, animated: true, completion: nil)
+    }
+    
+    
 }
 
 
 //MARK: Extension For CollectionView
-extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate {
+extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutocompleteViewControllerDelegate {
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        print("Place name: ", place.name)
+        print("Place address: ", place.formattedAddress)
+        print("Place attributions: ", place.attributions)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Swift.Error) {
+        // TODO: handle the error.
+        print("Error: \(error.localizedDescription)")
+    }
+
+    // User canceled the operation.
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    // Turn the network activity indicator on and off again.
+    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+
     
     //This will be replaced with however many categories we end up having for the filter option.
     var dataSource: [String] {
