@@ -18,15 +18,14 @@ protocol HandleMapSearch: class {
 }
 
 class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, HandleMapSearch {
-    @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var mapStyleBarButton: UIBarButtonItem!
+    @IBOutlet weak var googleMapView: GMSMapView!
     
     fileprivate var resultSearchController:UISearchController? = nil
     fileprivate var searchedLocation:MKPlacemark? = nil
     fileprivate var locationManager: CLLocationManager?
     fileprivate var newestLocation = CLLocation()
     fileprivate var userLocation: CLLocation?
-    fileprivate var googleMapView: GMSMapView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,10 +45,8 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
         userLocation = getUserLocation()
         guard let userLocation = userLocation else { return }
         let camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: 15.0)
-        googleMapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+        googleMapView.camera = camera
         googleMapView?.isMyLocationEnabled = true
-        view = googleMapView
-        
     }
     
     //MARK: Helper Methods:
@@ -106,7 +103,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
     func setUpSearchControllerWithSearchTable()  {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let locationSearchTable = storyboard.instantiateViewController(withIdentifier: "LocationSearchTVC") as! LocationSearchTVC
-        locationSearchTable.mapView = mapView
+        //locationSearchTable.mapView = mapView
         locationSearchTable.handleMapSearchDelegate = self
         resultSearchController = UISearchController(searchResultsController: locationSearchTable)
         resultSearchController?.searchResultsUpdater = locationSearchTable
@@ -128,10 +125,10 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
         searchedLocation = placemark
         let annotation = MKPointAnnotation()
         annotation.coordinate = placemark.coordinate
-        mapView.addAnnotation(annotation)
+        //mapView.addAnnotation(annotation)
         let span = MKCoordinateSpanMake(0.05, 0.05)
         let region = MKCoordinateRegionMake(placemark.coordinate, span)
-        mapView.setRegion(region, animated: true)
+        //mapView.setRegion(region, animated: true)
     }
     
     //MARK: Location Methods
@@ -195,9 +192,9 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate {
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        MKVenueSearch.searchVenuesInRegion(mapView.region, searchQueries: [.Pubs, .IrishPubs, .Pub, .DrinkingPubs]) { (venues) in
-            MKVenueSearch.addVenueAnnotationsToMap(self.mapView, venues: venues)
-        }
+        //MKVenueSearch.searchVenuesInRegion(mapView.region, searchQueries: [.Pubs, .IrishPubs, .Pub, .DrinkingPubs]) { (venues) in
+            //MKVenueSearch.addVenueAnnotationsToMap(self.mapView, venues: venues)
+      //  }
     }
     
 }

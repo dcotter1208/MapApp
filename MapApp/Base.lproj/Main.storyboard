@@ -327,7 +327,7 @@
             <objects>
                 <navigationController storyboardIdentifier="LogInNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4Vo-wo-jIS" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="UnA-ZW-ffr">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="UnA-ZW-ffr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -457,8 +457,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xnl-pX-9bT">
-                                <frame key="frameInset" minY="623" width="375" height="44"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PFi-UW-2fy" customClass="GMSMapView">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xnl-pX-9bT">
                                 <items>
                                     <barButtonItem image="gender_neutral_user" id="KXU-cr-qJO">
                                         <connections>
@@ -495,12 +497,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="51" height="51"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="beer" translatesAutoresizingMaskIntoConstraints="NO" id="psW-JT-Y0F">
-                                                    <frame key="frameInset" width="51" height="51"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="beer" translatesAutoresizingMaskIntoConstraints="NO" id="psW-JT-Y0F"/>
                                             </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="psW-JT-Y0F" secondAttribute="bottom" id="13E-Xx-geC"/>
+                                            <constraint firstItem="psW-JT-Y0F" firstAttribute="top" secondItem="O1K-xX-rWm" secondAttribute="top" id="HBY-xS-EhO"/>
+                                            <constraint firstAttribute="trailing" secondItem="psW-JT-Y0F" secondAttribute="trailing" id="ePt-3E-LOq"/>
+                                            <constraint firstItem="psW-JT-Y0F" firstAttribute="leading" secondItem="O1K-xX-rWm" secondAttribute="leading" id="hJk-s9-0hj"/>
+                                        </constraints>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
@@ -511,16 +516,23 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Xnl-pX-9bT" firstAttribute="top" secondItem="gA7-tu-uf8" secondAttribute="bottom" constant="9" id="S4Z-ZX-BTl"/>
+                            <constraint firstItem="PFi-UW-2fy" firstAttribute="top" secondItem="jhY-Wu-As6" secondAttribute="bottom" id="8TC-TC-k9W"/>
+                            <constraint firstItem="PFi-UW-2fy" firstAttribute="trailing" secondItem="Xnl-pX-9bT" secondAttribute="trailing" id="A2V-dd-D3k"/>
+                            <constraint firstItem="Xnl-pX-9bT" firstAttribute="centerX" secondItem="gA7-tu-uf8" secondAttribute="centerX" id="Dat-bR-nNM"/>
+                            <constraint firstItem="PFi-UW-2fy" firstAttribute="leading" secondItem="Xnl-pX-9bT" secondAttribute="leading" id="P7j-la-1uA"/>
                             <constraint firstItem="gA7-tu-uf8" firstAttribute="trailing" secondItem="Ssa-SH-9il" secondAttribute="trailingMargin" id="WOK-ph-dyr"/>
-                            <constraint firstItem="Xnl-pX-9bT" firstAttribute="bottom" secondItem="u8n-YW-iAw" secondAttribute="top" id="bWY-EA-0s9"/>
+                            <constraint firstItem="PFi-UW-2fy" firstAttribute="bottom" secondItem="Xnl-pX-9bT" secondAttribute="top" id="ZqV-df-gzI"/>
+                            <constraint firstItem="Xnl-pX-9bT" firstAttribute="leading" secondItem="Ssa-SH-9il" secondAttribute="leading" id="cSv-5b-Kwm"/>
+                            <constraint firstItem="Xnl-pX-9bT" firstAttribute="top" secondItem="gA7-tu-uf8" secondAttribute="bottom" constant="9" id="ezC-AK-NrL"/>
                             <constraint firstItem="gA7-tu-uf8" firstAttribute="leading" secondItem="Ssa-SH-9il" secondAttribute="leadingMargin" id="lFt-UM-xtJ"/>
+                            <constraint firstItem="Xnl-pX-9bT" firstAttribute="bottom" secondItem="u8n-YW-iAw" secondAttribute="top" id="oWm-bt-KFc"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="2yv-If-bJj">
                         <barButtonItem key="leftBarButtonItem" image="compass_filled" id="iCJ-ma-zlK"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="googleMapView" destination="PFi-UW-2fy" id="AIn-N5-X8e"/>
                         <outlet property="mapStyleBarButton" destination="SmK-FO-sjQ" id="2za-cD-uyj"/>
                         <segue destination="iFy-tu-yOl" kind="show" identifier="showUserProfileSegue" id="Tot-Dy-kez">
                             <nil key="action"/>
@@ -655,7 +667,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MapVCNavController" automaticallyAdjustsScrollViewInsets="NO" id="k3s-AM-2fb" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Oq4-pO-QSc">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Oq4-pO-QSc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
