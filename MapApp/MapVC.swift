@@ -5,9 +5,11 @@
 //  Created by Donovan Cotter on 9/2/16.
 //  Copyright © 2016 DonovanCotter. All rights reserved.
 //
+// AIzaSyCDFhefMFtHul5d-RNCVy_1QMIasy8K78o 
 
 import UIKit
 import MapKit
+import GoogleMaps
 import FirebaseAuth
 import RealmSwift
 
@@ -23,20 +25,31 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
     fileprivate var searchedLocation:MKPlacemark? = nil
     fileprivate var locationManager: CLLocationManager?
     fileprivate var newestLocation = CLLocation()
-    fileprivate var userLocation = MKCoordinateRegion()
+    fileprivate var userLocation: CLLocation?
+    fileprivate var googleMapView: GMSMapView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupMapView()
+        setupGoogleMaps()
         setUpSearchControllerWithSearchTable()
         setUpSearchBar()
-        getUserLocation()
         getCurrentUser()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    //MARK: Google Maps Methods
+    func setupGoogleMaps() {
+        userLocation = getUserLocation()
+        guard let userLocation = userLocation else { return }
+        let camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: 15.0)
+        googleMapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+        googleMapView?.isMyLocationEnabled = true
+        view = googleMapView
+        
     }
     
     //MARK: Helper Methods:
@@ -88,25 +101,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
         }
         return true
     }
-    
-    //MARK: Map Methods
-    
-    func setupMapView() {
-        guard let mapView = mapView else { return }
-        mapView.delegate = self
-        mapView.showsPointsOfInterest = false
-        mapView.showsUserLocation = true
-    }
-    
-    func adjustMapViewCamera() {
-        let newCamera = mapView.camera
-        guard mapView.camera.pitch < 30.0 else {
-            newCamera.pitch = mapView.camera.pitch
-            return
-        }
-        newCamera.pitch = 30
-        self.mapView.camera = newCamera
-    }
 
     //Creates SearchController
     func setUpSearchControllerWithSearchTable()  {
@@ -141,23 +135,25 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
     }
     
     //MARK: Location Methods
-    func getUserLocation() {
+    func getUserLocation() -> CLLocation? {
         locationManager = CLLocationManager()
-        guard let manager = locationManager else { return }
+        guard let manager = locationManager else { return nil }
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         manager.requestWhenInUseAuthorization()
         manager.distanceFilter = 100
         manager.startUpdatingLocation()
-        guard let managerLocation = manager.location else { return }
+        guard let managerLocation = manager.location else { return nil }
         newestLocation = managerLocation
+        return newestLocation
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let lastLocation = locations.last else { return }
         newestLocation = lastLocation
-        userLocation = MKCoordinateRegionMakeWithDistance(newestLocation.coordinate, 800, 800)
-        mapView.setRegion(userLocation, animated: true)
+        userLocation = newestLocation
+        guard let userLocation = userLocation else { return }
+        googleMapView?.camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: 15.0)
     }
 
     @IBAction func profileButtonSelected(_ sender: AnyObject) {
@@ -192,26 +188,12 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VenueCell", for: indexPath)
         let cellImageView = cell.viewWithTag(101) as! UIImageView
-        print("cell image view: \(cellImageView)")
         cellImageView.layer.cornerRadius = cellImageView.frame.size.width / 2
         cellImageView.clipsToBounds = true
 
         return cell
     }
-    
-    /* TEST Searches
-     
-     //All Bars
-     .Bar, .Drinks, .DanceClub, .DiveBar, .Brewery, .SportsBar, .Pub, .IrishPub
-     
-     //Pubs
-     
-     .Pub, .IrishPub
- 
-     
-     
- */
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         MKVenueSearch.searchVenuesInRegion(mapView.region, searchQueries: [.Pubs, .IrishPubs, .Pub, .DrinkingPubs]) { (venues) in
             MKVenueSearch.addVenueAnnotationsToMap(self.mapView, venues: venues)

@@ -8,6 +8,8 @@ target 'MapApp' do
 pod ‘Firebase’
 pod 'Firebase/Database'
 pod 'Firebase/Auth'
+pod 'GoogleMaps'
+pod 'GooglePlaces'
 pod 'Cloudinary'
 pod 'Alamofire', '~> 4.0'
 pod 'AlamofireImage', '~> 3.0'
