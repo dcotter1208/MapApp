@@ -199,8 +199,21 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate {
         return cell
     }
     
+    /* TEST Searches
+     
+     //All Bars
+     .Bar, .Drinks, .DanceClub, .DiveBar, .Brewery, .SportsBar, .Pub, .IrishPub
+     
+     //Pubs
+     
+     .Pub, .IrishPub
+ 
+     
+     
+ */
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        MKVenueSearch.searchVenuesInRegion(mapView.region, searchQueries: [.Bar, .Drinks, .DanceClub, .DiveBar, .Brewery, .SportsBar]) { (venues) in
+        MKVenueSearch.searchVenuesInRegion(mapView.region, searchQueries: [.Pubs, .IrishPubs, .Pub, .DrinkingPubs]) { (venues) in
             MKVenueSearch.addVenueAnnotationsToMap(self.mapView, venues: venues)
         }
     }

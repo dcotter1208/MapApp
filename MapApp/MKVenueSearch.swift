@@ -11,18 +11,26 @@ import MapKit
 
 enum SearchTerm: String {
     case Default = "Fun"
-    case Bar = "Bar"
-    case DanceClub = "Dance Clubs"
-    case DiveBar = "Dive Bar"
+    case Bars = "Bars"
+    case DanceClubs = "Dance Clubs"
+    case DiveBars = "Dive Bars"
     case Drinks = "Drinks"
-    case SportsBar = "Sports Bar"
-    case Brewery = "Brewery"
-    case Casino = "Casino"
-    case Stadium = "Stadium"
-    case Arena = "Arena"
+    case SportsBars = "Sports Bars"
+    case Breweries = "Breweries"
+    
+    
+    case Pubs = "Pubs"
+    case IrishPubs = "Irish Pubs"
+    case DrinkingPubs = "Drinking Pubs"
+    case Pub = "Pub"
+    
+    
+    case Casinos = "Casinos"
+    case Stadiums = "Stadiums"
+    case Arenas = "Arenas"
     case ConcertVenue = "Concert Venues"
-    case Theatre = "Performing Arts Theatre"
-    case Park = "Park"
+    case Theatre = "Performing Arts Theatres"
+    case Park = "Parks"
 }
 
 typealias LocalSearchResult = (([Venue]) -> Void)
