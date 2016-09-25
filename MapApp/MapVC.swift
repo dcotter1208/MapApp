@@ -31,8 +31,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
     override func viewDidLoad() {
         super.viewDidLoad()
         setupGoogleMaps()
-//        setUpSearchControllerWithSearchTable()
-//        setUpSearchBar()
         getCurrentUser()
     }
     
@@ -45,9 +43,20 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
     func setupGoogleMaps() {
         userLocation = getUserLocation()
         guard let userLocation = userLocation else { return }
-        let camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: 15.0)
+        let camera = createMapCameraWithCoordinateAndZoomLevel(coordinate: userLocation.coordinate, zoom: 15.0)
         googleMapView.camera = camera
         googleMapView?.isMyLocationEnabled = true
+    }
+    
+    func addMapMarkerForGMSPlace(place: GMSPlace) {
+        let marker = GMSMarker(position: place.coordinate)
+        marker.title = place.name
+        marker.map = googleMapView
+    }
+    
+    func createMapCameraWithCoordinateAndZoomLevel(coordinate: CLLocationCoordinate2D, zoom: Float) -> GMSCameraPosition {
+        let camera = GMSCameraPosition.camera(withLatitude: coordinate.latitude, longitude: coordinate.longitude, zoom: zoom)
+        return camera
     }
     
     //MARK: Helper Methods:
@@ -100,27 +109,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
         return true
     }
 
-    //Creates SearchController
-    func setUpSearchControllerWithSearchTable()  {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let locationSearchTable = storyboard.instantiateViewController(withIdentifier: "LocationSearchTVC") as! LocationSearchTVC
-        //locationSearchTable.mapView = mapView
-        locationSearchTable.handleMapSearchDelegate = self
-        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
-        resultSearchController?.searchResultsUpdater = locationSearchTable
-    }
-    
-    //Configures the Search Bar
-    func setUpSearchBar() {
-        let searchBar = resultSearchController?.searchBar
-        searchBar?.sizeToFit()
-        searchBar?.placeholder = "Search For Places"
-        navigationItem.titleView = resultSearchController?.searchBar
-        resultSearchController?.hidesNavigationBarDuringPresentation = false
-        resultSearchController?.dimsBackgroundDuringPresentation = true
-        definesPresentationContext = true
-    }
-    
     //This drops the pin at the searched location when using the search bar.
     func dropPinAtSearchedLocation(_ placemark:MKPlacemark) {
         searchedLocation = placemark
@@ -180,9 +168,18 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
 extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutocompleteViewControllerDelegate {
     
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        print("Price Level: \(place.priceLevel.rawValue)")
+        print("Place ID: \(place.placeID)")
+        print("Place TYPES: \(place.types)")
+        print("Price Rating: \(place.rating)")
         print("Place name: ", place.name)
         print("Place address: ", place.formattedAddress)
         print("Place attributions: ", place.attributions)
+        
+        let newCamera = createMapCameraWithCoordinateAndZoomLevel(coordinate: place.coordinate, zoom: 15.0)
+        googleMapView.camera = newCamera
+        addMapMarkerForGMSPlace(place: place)
+        
         self.dismiss(animated: true, completion: nil)
     }
     
