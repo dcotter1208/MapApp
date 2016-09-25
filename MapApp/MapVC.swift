@@ -50,6 +50,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
     
     func addMapMarkerForGMSPlace(place: GMSPlace) {
         let marker = GMSMarker(position: place.coordinate)
+        marker.appearAnimation = kGMSMarkerAnimationPop
         marker.title = place.name
         marker.map = googleMapView
     }
