@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -477,55 +478,53 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gA7-tu-uf8">
-                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yh4-Ap-SDN">
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="343" id="jGj-Yr-M3G"/>
-                                    <constraint firstAttribute="height" constant="50" id="wWK-SM-zeb"/>
+                                    <constraint firstAttribute="width" constant="343" id="FqP-Vb-6hG"/>
+                                    <constraint firstAttribute="height" constant="58" id="OKR-0S-wWl"/>
+                                    <constraint firstAttribute="width" secondItem="yh4-Ap-SDN" secondAttribute="height" multiplier="343:58" id="TsJ-xR-dzN"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="siA-Dg-0Sb">
-                                    <size key="itemSize" width="51" height="51"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="MUG-vP-n7j">
+                                    <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="VenueCell" id="O1K-xX-rWm">
-                                        <rect key="frame" x="0.0" y="-1" width="51" height="51"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="VenueCell" id="LUu-1N-q6e">
+                                        <rect key="frame" x="0.0" y="4" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="51" height="51"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="beer" translatesAutoresizingMaskIntoConstraints="NO" id="psW-JT-Y0F"/>
+                                                <imageView userInteractionEnabled="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="beer" translatesAutoresizingMaskIntoConstraints="NO" id="zlZ-ez-ZbP">
+                                                    <frame key="frameInset" width="50" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                             </subviews>
                                         </view>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="psW-JT-Y0F" secondAttribute="bottom" id="13E-Xx-geC"/>
-                                            <constraint firstItem="psW-JT-Y0F" firstAttribute="top" secondItem="O1K-xX-rWm" secondAttribute="top" id="HBY-xS-EhO"/>
-                                            <constraint firstAttribute="trailing" secondItem="psW-JT-Y0F" secondAttribute="trailing" id="ePt-3E-LOq"/>
-                                            <constraint firstItem="psW-JT-Y0F" firstAttribute="leading" secondItem="O1K-xX-rWm" secondAttribute="leading" id="hJk-s9-0hj"/>
-                                        </constraints>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
-                                    <outlet property="dataSource" destination="COl-M3-9gI" id="N4g-pZ-5wL"/>
-                                    <outlet property="delegate" destination="COl-M3-9gI" id="zBN-Tc-yXr"/>
+                                    <outlet property="dataSource" destination="COl-M3-9gI" id="1Ad-jP-IoW"/>
+                                    <outlet property="delegate" destination="COl-M3-9gI" id="M0J-o1-cO7"/>
                                 </connections>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="PFi-UW-2fy" firstAttribute="top" secondItem="jhY-Wu-As6" secondAttribute="bottom" id="8TC-TC-k9W"/>
-                            <constraint firstItem="PFi-UW-2fy" firstAttribute="trailing" secondItem="Xnl-pX-9bT" secondAttribute="trailing" id="A2V-dd-D3k"/>
-                            <constraint firstItem="Xnl-pX-9bT" firstAttribute="centerX" secondItem="gA7-tu-uf8" secondAttribute="centerX" id="Dat-bR-nNM"/>
-                            <constraint firstItem="PFi-UW-2fy" firstAttribute="leading" secondItem="Xnl-pX-9bT" secondAttribute="leading" id="P7j-la-1uA"/>
-                            <constraint firstItem="gA7-tu-uf8" firstAttribute="trailing" secondItem="Ssa-SH-9il" secondAttribute="trailingMargin" id="WOK-ph-dyr"/>
-                            <constraint firstItem="PFi-UW-2fy" firstAttribute="bottom" secondItem="Xnl-pX-9bT" secondAttribute="top" id="ZqV-df-gzI"/>
-                            <constraint firstItem="Xnl-pX-9bT" firstAttribute="leading" secondItem="Ssa-SH-9il" secondAttribute="leading" id="cSv-5b-Kwm"/>
-                            <constraint firstItem="Xnl-pX-9bT" firstAttribute="top" secondItem="gA7-tu-uf8" secondAttribute="bottom" constant="9" id="ezC-AK-NrL"/>
-                            <constraint firstItem="gA7-tu-uf8" firstAttribute="leading" secondItem="Ssa-SH-9il" secondAttribute="leadingMargin" id="lFt-UM-xtJ"/>
-                            <constraint firstItem="Xnl-pX-9bT" firstAttribute="bottom" secondItem="u8n-YW-iAw" secondAttribute="top" id="oWm-bt-KFc"/>
+                            <constraint firstItem="yh4-Ap-SDN" firstAttribute="leading" secondItem="Ssa-SH-9il" secondAttribute="leadingMargin" id="7YD-Ny-17h"/>
+                            <constraint firstItem="PFi-UW-2fy" firstAttribute="top" secondItem="jhY-Wu-As6" secondAttribute="bottom" id="FD3-rG-uW8"/>
+                            <constraint firstItem="PFi-UW-2fy" firstAttribute="trailing" secondItem="Xnl-pX-9bT" secondAttribute="trailing" id="FP5-bR-kyQ"/>
+                            <constraint firstItem="Xnl-pX-9bT" firstAttribute="bottom" secondItem="u8n-YW-iAw" secondAttribute="top" id="Fy6-T0-BaT"/>
+                            <constraint firstItem="PFi-UW-2fy" firstAttribute="leading" secondItem="Xnl-pX-9bT" secondAttribute="leading" id="G9t-q6-Oet"/>
+                            <constraint firstItem="Xnl-pX-9bT" firstAttribute="top" secondItem="PFi-UW-2fy" secondAttribute="bottom" id="QUt-bj-f9V"/>
+                            <constraint firstItem="PFi-UW-2fy" firstAttribute="leading" secondItem="Ssa-SH-9il" secondAttribute="leading" id="SDL-17-SWz"/>
+                            <constraint firstItem="yh4-Ap-SDN" firstAttribute="trailing" secondItem="Ssa-SH-9il" secondAttribute="trailingMargin" id="sZ2-hF-RRU"/>
+                            <constraint firstItem="yh4-Ap-SDN" firstAttribute="centerX" secondItem="Xnl-pX-9bT" secondAttribute="centerX" id="tsT-ZA-GVY"/>
+                            <constraint firstItem="Xnl-pX-9bT" firstAttribute="top" secondItem="yh4-Ap-SDN" secondAttribute="bottom" id="zbD-sD-S6P"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="2yv-If-bJj">
@@ -546,7 +545,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aYu-Re-1EQ" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-23309" y="-2917"/>
+            <point key="canvasLocation" x="-23309.599999999999" y="-2917.6911544227887"/>
         </scene>
         <!--Edit ProfileTVC-->
         <scene sceneID="MYl-Jp-Eae">

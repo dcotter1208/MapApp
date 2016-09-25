@@ -14,11 +14,7 @@ import GooglePlaces
 import FirebaseAuth
 import RealmSwift
 
-protocol HandleMapSearch: class {
-    func dropPinAtSearchedLocation(_ placemark:MKPlacemark)
-}
-
-class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, HandleMapSearch {
+class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     @IBOutlet weak var mapStyleBarButton: UIBarButtonItem!
     @IBOutlet weak var googleMapView: GMSMapView!
     
@@ -110,17 +106,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
         return true
     }
 
-    //This drops the pin at the searched location when using the search bar.
-    func dropPinAtSearchedLocation(_ placemark:MKPlacemark) {
-        searchedLocation = placemark
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = placemark.coordinate
-        //mapView.addAnnotation(annotation)
-        let span = MKCoordinateSpanMake(0.05, 0.05)
-        let region = MKCoordinateRegionMake(placemark.coordinate, span)
-        //mapView.setRegion(region, animated: true)
-    }
-    
     //MARK: Location Methods
     func getUserLocation() -> CLLocation? {
         locationManager = CLLocationManager()
@@ -156,9 +141,9 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
     }
     
     @IBAction func searchForPlaces(_ sender: AnyObject) {
-        let autocompleteControler = GMSAutocompleteViewController()
-        autocompleteControler.delegate = self
-        self.present(autocompleteControler, animated: true, completion: nil)
+        let autocompleteController = GMSAutocompleteViewController()
+        autocompleteController.delegate = self
+        self.present(autocompleteController, animated: true, completion: nil)
     }
     
     
@@ -169,18 +154,9 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, Han
 extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutocompleteViewControllerDelegate {
     
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-        print("Price Level: \(place.priceLevel.rawValue)")
-        print("Place ID: \(place.placeID)")
-        print("Place TYPES: \(place.types)")
-        print("Price Rating: \(place.rating)")
-        print("Place name: ", place.name)
-        print("Place address: ", place.formattedAddress)
-        print("Place attributions: ", place.attributions)
-        
         let newCamera = createMapCameraWithCoordinateAndZoomLevel(coordinate: place.coordinate, zoom: 15.0)
         googleMapView.camera = newCamera
         addMapMarkerForGMSPlace(place: place)
-        
         self.dismiss(animated: true, completion: nil)
     }
     

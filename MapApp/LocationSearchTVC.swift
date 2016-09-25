@@ -10,7 +10,6 @@ import UIKit
 import MapKit
 
 class LocationSearchTVC: UITableViewController, UISearchResultsUpdating {
-    weak var handleMapSearchDelegate: HandleMapSearch?
    fileprivate var searchResults = [MKMapItem]()
    var mapView:MKMapView? = nil
     
@@ -67,7 +66,6 @@ class LocationSearchTVC: UITableViewController, UISearchResultsUpdating {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let searchedLocation = searchResults[(indexPath as NSIndexPath).row].placemark
-        handleMapSearchDelegate?.dropPinAtSearchedLocation(searchedLocation)
         dismiss(animated: true, completion: nil)
     }
     
