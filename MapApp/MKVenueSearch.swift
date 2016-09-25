@@ -49,16 +49,7 @@ class MKVenueSearch {
             
             search.start(completionHandler: { (response, error) in
                 guard let mapItems = response?.mapItems else { return }
-                for item in mapItems {
-                    guard let name = item.name, let phoneNumber = item.phoneNumber, let websiteURL = item.url else { return }
-                    let venue = Venue(name: name, phoneNumber: phoneNumber, websiteURL: "\(websiteURL)", address: Address(placemark: item.placemark), coordinates: Coordinate(coordinate: item.placemark.coordinate))
-                    if !venues.contains(where: {$0.venueID == venue.venueID}) {
-                        venues.append(venue)
-                    }
-                    DispatchQueue.main.async(execute: {
-                        completion(venues)
-                    })
-                }
+
             })
         }
     }
@@ -66,7 +57,7 @@ class MKVenueSearch {
    class func addVenueAnnotationsToMap(_ mapView: MKMapView, venues: [Venue]) {
         mapView.removeAnnotations(mapView.annotations)
         for venue in venues {
-            let annotation = Annotation(title: venue.name, coordinate: venue.coordinates.coordinates)
+            let annotation = Annotation(title: venue.name, coordinate: venue.coordinate.coordinate)
             mapView.addAnnotation(annotation)
         }
     }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		ADABE05809EAD2CB2A388DCD /* Pods_MapApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D3AB176DAB41C2A89B08403 /* Pods_MapApp.framework */; };
 		C01E79E11D7CFDBD00700FEA /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01E79E01D7CFDBD00700FEA /* Alert.swift */; };
+		C077751D1D986E5800B7DF68 /* VenueContactInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C077751C1D986E5800B7DF68 /* VenueContactInfo.swift */; };
 		C078577B1D8CD07D00B9AF06 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C078577A1D8CD07D00B9AF06 /* UIImageExtension.swift */; };
 		C084BEA81D8DA2BF00BD579F /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C084BEA71D8DA2BF00BD579F /* Venue.swift */; };
 		C084BEAA1D8DA5F500BD579F /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = C084BEA91D8DA5F500BD579F /* Address.swift */; };
@@ -68,6 +69,7 @@
 		A54A865E4BD5A05D65D538E2 /* Pods-MapApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MapApp/Pods-MapApp.debug.xcconfig"; sourceTree = "<group>"; };
 		AA0B9DD29D7C239517FBFFB2 /* Pods-MapAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapAppUITests/Pods-MapAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C01E79E01D7CFDBD00700FEA /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		C077751C1D986E5800B7DF68 /* VenueContactInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueContactInfo.swift; sourceTree = "<group>"; };
 		C078577A1D8CD07D00B9AF06 /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImageExtension.swift; path = ../UIImageExtension.swift; sourceTree = "<group>"; };
 		C084BEA71D8DA2BF00BD579F /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
 		C084BEA91D8DA5F500BD579F /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
@@ -199,10 +201,11 @@
 			isa = PBXGroup;
 			children = (
 				C084BEA71D8DA2BF00BD579F /* Venue.swift */,
+				C077751C1D986E5800B7DF68 /* VenueContactInfo.swift */,
 				C084BEA91D8DA5F500BD579F /* Address.swift */,
 				C084BEAD1D8DBFE700BD579F /* Annotation.swift */,
-				C0FBADC91D7A783F00C1C998 /* User */,
 				C084BEAF1D8DC89E00BD579F /* Coordinate.swift */,
+				C0FBADC91D7A783F00C1C998 /* User */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -578,6 +581,7 @@
 			files = (
 				C084BEAA1D8DA5F500BD579F /* Address.swift in Sources */,
 				C0FBADDC1D7B464B00C1C998 /* ImagePicker.swift in Sources */,
+				C077751D1D986E5800B7DF68 /* VenueContactInfo.swift in Sources */,
 				C084BEA81D8DA2BF00BD579F /* Venue.swift in Sources */,
 				C0FBADB91D7A5DD600C1C998 /* MapVC.swift in Sources */,
 				C0FBADDA1D7B41BA00C1C998 /* RLMManager.swift in Sources */,

@@ -28,6 +28,9 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         super.viewDidLoad()
         setupGoogleMaps()
         getCurrentUser()
+        
+        Venue.getAllVenuesWithCoordinate(coordinate: userLocation!.coordinate)
+        
     }
     
     override func didReceiveMemoryWarning() {

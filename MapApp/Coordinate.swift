@@ -12,7 +12,7 @@ import MapKit
 struct Coordinate {
     var lat: Double
     var long: Double
-    var coordinates: CLLocationCoordinate2D {
+    var coordinate: CLLocationCoordinate2D {
         get {
             return CLLocationCoordinate2D(latitude: lat, longitude: long)
         }
