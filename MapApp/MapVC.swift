@@ -29,6 +29,8 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         setupGoogleMaps()
         getCurrentUser()
         
+        
+        
         Venue.getAllVenuesWithCoordinate(coordinate: userLocation!.coordinate)
         
     }

@@ -26,7 +26,7 @@ enum GooglePlacesCategoryType: String {
 }
 
 typealias ImageNetworkResult = (UIImage?, Error?) -> Void
-typealias GooglePlacesNetworkResult = ([NSDictionary]?, Error?) -> Void
+typealias GooglePlacesNetworkResult = ([[String: AnyObject]]?, Error?) -> Void
 
 class AlamoFireOperation {
         
@@ -45,7 +45,7 @@ class AlamoFireOperation {
     
     class func googlePlacesCategoryTypeSearchForCoordinates(categoryType: GooglePlacesCategoryType, coordinate: CLLocationCoordinate2D, completion: @escaping GooglePlacesNetworkResult) {
        let keys = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Keys", ofType: "plist")!)
-    guard let key = keys?["GooglePlaces"] as? String else { return }
+        guard let key = keys?["GooglePlaces"] as? String else { return }
         
         let url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=pubs+bars&location=\(coordinate.latitude),\(coordinate.longitude)&radius=100&key=\(key)"
 
@@ -56,24 +56,15 @@ class AlamoFireOperation {
             }
             
             do {
-                let json = try JSONSerialization.jsonObject(with: jsonResponse.data!, options: .allowFragments) as? NSDictionary
-                
-                let results = json!["results"] as? [NSDictionary]
-                
-                for place in results! {
-                    print("*************************************")
-                    print(place)
-                }
-                
+                guard let json = try JSONSerialization.jsonObject(with: jsonResponse.data!, options: .allowFragments) as? [String: AnyObject] else { return }
+                guard let places = json["results"] as? [[String: AnyObject]] else { return }
+                completion(places, nil)
             } catch {
                 print("error serializing JSON: \(error)")
             }
-            
-            let JSONDict = jsonResponse.result.value as? NSDictionary
-            guard let venueArray = JSONDict?["results"] as? [NSDictionary] else { return }
-            completion(venueArray, nil)
         }
     }
+
     
 }
 
