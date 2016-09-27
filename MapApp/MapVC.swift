@@ -29,9 +29,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         setupGoogleMaps()
         getCurrentUser()
 
-        Venue.getAllVenuesWithCoordinate(coordinate: userLocation!.coordinate) { (allVenues, error) in
-            
-        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -45,7 +42,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         guard let userLocation = userLocation else { return }
         let camera = createMapCameraWithCoordinateAndZoomLevel(coordinate: userLocation.coordinate, zoom: 15.0)
         googleMapView.camera = camera
-        googleMapView.mapType = kGMSTypeHybrid
         googleMapView?.isMyLocationEnabled = true
     }
     
@@ -198,9 +194,9 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
 
     
     //This will be replaced with however many categories we end up having for the filter option.
-    var dataSource: [String] {
+    var dataSource: [Int] {
         get {
-            return ["Bar", "Club", "Restaurant", "Casino", "Sports", "Parks", "Music"]
+            return [1, 2, 3, 4, 5, 6, 7]
         }
     }
     
@@ -218,6 +214,7 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("COORDINATES** \(getMapCenterCoordinate())")
         Venue.getAllVenuesWithCoordinate(coordinate: getMapCenterCoordinate()) { (allVenues, error) in
             guard error == nil else { return }
             for venue in allVenues! {
