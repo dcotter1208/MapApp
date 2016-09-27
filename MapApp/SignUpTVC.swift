@@ -15,9 +15,9 @@ class SignUpTVC: UITableViewController, UINavigationControllerDelegate, UIImageP
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
 
-    private var profileImageChanged: Bool?
-    private var imagePicker = UIImagePickerController()
-    private var profileImage = UIImage()
+    fileprivate var profileImageChanged: Bool?
+    fileprivate var imagePicker = UIImagePickerController()
+    fileprivate var profileImage = UIImage()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,37 +29,37 @@ class SignUpTVC: UITableViewController, UINavigationControllerDelegate, UIImageP
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         profileImageChanged = false
     }
     
     //MARK: Helper Methods
 
-    private func checkForCurrentUser() {
+    fileprivate func checkForCurrentUser() {
         if CurrentUser.sharedInstance.name != "" {
             
         }
     }
     
-    private func instantiateViewController(viewControllerIdentifier: String) {
+    fileprivate func instantiateViewController(_ viewControllerIdentifier: String) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let istantiatedVC = storyboard.instantiateViewControllerWithIdentifier(viewControllerIdentifier)
-        self.presentViewController(istantiatedVC, animated: true, completion: nil)
+        let istantiatedVC = storyboard.instantiateViewController(withIdentifier: viewControllerIdentifier)
+        self.present(istantiatedVC, animated: true, completion: nil)
     }
     
-    private func removeWhiteSpace(string:String?, removeAllWhiteSpace:Bool) -> String {
+    fileprivate func removeWhiteSpace(_ string:String?, removeAllWhiteSpace:Bool) -> String {
         guard let string = string else {return "nil"}
         guard removeAllWhiteSpace == false else {
-            let newString = string.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).stringByReplacingOccurrencesOfString(" ", withString: "")
+            let newString = string.trimmingCharacters(in: CharacterSet.whitespaces).replacingOccurrences(of: " ", with: "")
             return newString
         }
-        let newString = string.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        let newString = string.trimmingCharacters(in: CharacterSet.whitespaces)
         return newString
     }
     
     
     //Alert used for failed signup
-    func displayAlert(title: String, message: String) {
+    func displayAlert(_ title: String, message: String) {
         Alert().displayGenericAlert(title, message: message, presentingViewController: self)
     }
     
@@ -67,45 +67,45 @@ class SignUpTVC: UITableViewController, UINavigationControllerDelegate, UIImageP
     func displayCameraActionSheet() {
         let imagePicker = ImagePicker()
         imagePicker.imagePicker.delegate = self
-        let actionsheet = UIAlertController(title: "Choose an option", message: nil, preferredStyle: .ActionSheet)
-        let camera = UIAlertAction(title: "Camera", style: .Default) { (action) in
-            imagePicker.configureImagePicker(.Camera)
+        let actionsheet = UIAlertController(title: "Choose an option", message: nil, preferredStyle: .actionSheet)
+        let camera = UIAlertAction(title: "Camera", style: .default) { (action) in
+            imagePicker.configureImagePicker(.camera)
             imagePicker.presentCameraSource(self)
         }
-        let photoGallery = UIAlertAction(title: "Photo Gallery", style: .Default) { (action) in
-            imagePicker.configureImagePicker(.PhotoLibrary)
+        let photoGallery = UIAlertAction(title: "Photo Gallery", style: .default) { (action) in
+            imagePicker.configureImagePicker(.photoLibrary)
             imagePicker.presentCameraSource(self)
         }
-        let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         actionsheet.addAction(camera)
         actionsheet.addAction(photoGallery)
         actionsheet.addAction(cancel)
-        self.presentViewController(actionsheet, animated: true, completion: nil)
+        self.present(actionsheet, animated: true, completion: nil)
     }
     
     //MARK: Camera Methods
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         guard let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
         profileImageChanged = true
         profileImageView.image = pickedImage
         profileImage = pickedImage
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     //MARK: Firebase Methods
     
     //Firebase Error Handling:
-    func handleFirebaseErrorCode(error: NSError?) {
+    func handleFirebaseErrorCode(_ error: NSError?) {
         if let errorCode = FIRAuthErrorCode(rawValue: error!.code) {
             switch errorCode {
-            case .ErrorCodeInvalidEmail:
+            case .errorCodeInvalidEmail:
                 Alert().displayGenericAlert("Whoops!", message: "Invalid Email.", presentingViewController: self)
-            case .ErrorCodeEmailAlreadyInUse:
+            case .errorCodeEmailAlreadyInUse:
                 Alert().displayGenericAlert("Whoops!", message: "Email is already in use.", presentingViewController: self)
-            case .ErrorCodeWeakPassword:
+            case .errorCodeWeakPassword:
                 Alert().displayGenericAlert("Whoops!", message: "Please pick a stronger password", presentingViewController: self)
-            case .ErrorCodeNetworkError:
+            case .errorCodeNetworkError:
                 Alert().displayGenericAlert("Sign Up Failed.", message: "Please check your connection.", presentingViewController: self)
             default:
                 Alert().displayGenericAlert("Something went wrong.", message: "Please try again.", presentingViewController: self)
@@ -114,7 +114,7 @@ class SignUpTVC: UITableViewController, UINavigationControllerDelegate, UIImageP
     }
     
     //Signs up user with firebase with profile image:
-    func signUpFirebaseUserWithProfileImage(email: String, password: String, name: String) {
+    func signUpFirebaseUserWithProfileImage(_ email: String, password: String, name: String) {
         FirebaseOperation().signUpWithEmailAndPassword(email, password: password, name: name, profileImageChoosen: true, profileImage: profileImage) {
             (error) in
             guard error == nil else {
@@ -126,7 +126,7 @@ class SignUpTVC: UITableViewController, UINavigationControllerDelegate, UIImageP
     }
     
     //Signs up user with firebase with profile image:
-    func signUpFirebaseUserWithNoProfileImage(email: String, password: String, name: String) {
+    func signUpFirebaseUserWithNoProfileImage(_ email: String, password: String, name: String) {
         FirebaseOperation().signUpWithEmailAndPassword(email, password: password, name: name, profileImageChoosen: false, profileImage: nil) {
             (error) in
             guard error == nil else {
@@ -137,11 +137,11 @@ class SignUpTVC: UITableViewController, UINavigationControllerDelegate, UIImageP
         }
     }
     
-    @IBAction func profileImageSelected(sender: AnyObject) {
+    @IBAction func profileImageSelected(_ sender: AnyObject) {
         displayCameraActionSheet()
     }
 
-    @IBAction func signUpPressed(sender: AnyObject) {
+    @IBAction func signUpPressed(_ sender: AnyObject) {
         let name = removeWhiteSpace(nameTF.text, removeAllWhiteSpace: false)
         let email = removeWhiteSpace(emailTF.text, removeAllWhiteSpace: true)
         let password = removeWhiteSpace(passwordTF.text, removeAllWhiteSpace: true)

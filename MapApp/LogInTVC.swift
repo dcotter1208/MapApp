@@ -24,22 +24,22 @@ class LogInTVC: UITableViewController {
     }
     
     //MARK: Helper Methods:
-    private func instantiateViewController(viewControllerIdentifier: String) {
+    fileprivate func instantiateViewController(_ viewControllerIdentifier: String) {
         print("Instantiate called")
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let istantiatedVC = storyboard.instantiateViewControllerWithIdentifier(viewControllerIdentifier)
-        self.presentViewController(istantiatedVC, animated: true, completion: nil)
+        let istantiatedVC = storyboard.instantiateViewController(withIdentifier: viewControllerIdentifier)
+        self.present(istantiatedVC, animated: true, completion: nil)
     }
     
     //Firebase Error Handling:
-    func handleFirebaseErrorCode(error: NSError?) {
+    func handleFirebaseErrorCode(_ error: NSError?) {
         if let errorCode = FIRAuthErrorCode(rawValue: error!.code) {
             switch errorCode {
-            case .ErrorCodeWrongPassword:
+            case .errorCodeWrongPassword:
                 Alert().displayGenericAlert("Log In Failed.", message: "Wrong password. Please try again.", presentingViewController: self)
-            case .ErrorCodeNetworkError:
+            case .errorCodeNetworkError:
                 Alert().displayGenericAlert("Log In Failed", message: "Please check your network connection.", presentingViewController: self)
-            case .ErrorCodeTooManyRequests:
+            case .errorCodeTooManyRequests:
                 Alert().displayGenericAlert("Log In Failed", message: "Too many failed attempts.", presentingViewController: self)
             default:
                 Alert().displayGenericAlert("Log In Failed", message: "Please try again.", presentingViewController: self)
@@ -47,13 +47,13 @@ class LogInTVC: UITableViewController {
         }
     }
     
-    @IBAction func cancel(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func cancel(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func logIn(sender: AnyObject) {
-        if let email = emailTF.text, password = passwordTF.text {
-            FirebaseOperation().loginWithEmailAndPassword(email, password: password, completion: {
+    @IBAction func logIn(_ sender: AnyObject) {
+        if let email = emailTF.text, let password = passwordTF.text {
+            FirebaseOperation().loginWithEmailAndPassword(email: email, password: password, completion: {
                 (currentUser, error) in
                 guard error == nil else {
                     self.handleFirebaseErrorCode(error)
@@ -64,7 +64,7 @@ class LogInTVC: UITableViewController {
         }
     }
 
-    @IBAction func continueAnonymously(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func continueAnonymously(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
     }
 }

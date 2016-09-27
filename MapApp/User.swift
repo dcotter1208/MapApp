@@ -11,7 +11,7 @@ import FirebaseDatabase
 
 import UIKit
 
-typealias ImageResult = (UIImage?, ErrorType?) -> Void
+typealias ImageResult = (UIImage?, Error?) -> Void
 typealias UserResult = (User) -> Void
 
 struct User: UserType {
@@ -21,13 +21,11 @@ struct User: UserType {
     var profileImageURL: String
     var profileImage: UIImage?
   
-    func createUserWithFirebaseSnapshot(snapshot:FIRDataSnapshot, completion: UserResult) {
-        for child in snapshot.children {
-            guard let
-                name = child.value["name"] as? String,
-                profileImageURL = child.value["profilePhotoURL"] as? String,
-                userID = child.value["userID"] as? String,
-                location = child.value["location"] as? String else { return }
+    func createUserWithFirebaseSnapshot(_ snapshot:FIRDataSnapshot, completion: @escaping UserResult) {
+        let snapshotDict = snapshot.value as! NSDictionary
+        for child in snapshotDict {
+            let snapshotChidDict = child.value as! NSDictionary
+            guard let name = snapshotChidDict["name"] as? String, let profileImageURL = snapshotChidDict["profilePhotoURL"] as? String, let userID = snapshotChidDict["userID"] as? String, let location = snapshotChidDict["location"] as? String else { return }
             guard profileImageURL != "" else {
                 completion(User(name: name, location: location, userID: userID, profileImageURL: profileImageURL, profileImage: nil))
                 return
@@ -40,8 +38,8 @@ struct User: UserType {
     }
 }
 
-    private func downloadUserProfileImage(URL: String, completion: ImageResult) {
-        AlamoFireOperation.downloadProfileImageWithAlamoFire(URL) {
+    private func downloadUserProfileImage(_ URL: String, completion: @escaping ImageResult) {
+        AlamoFireOperation.downloadProfileImageWithAlamoFire(URL: URL) {
             (image, error) in
             guard let image = image else {
                 completion(nil, error)

@@ -13,12 +13,12 @@ class ImagePicker: NSObject, UINavigationControllerDelegate, UIImagePickerContro
     
     let imagePicker = UIImagePickerController()
     
-    func configureImagePicker(sourceType: UIImagePickerControllerSourceType) {
+    func configureImagePicker(_ sourceType: UIImagePickerControllerSourceType) {
         imagePicker.sourceType = sourceType
     }
     
-    func presentCameraSource(presenter: UIViewController) {
-        presenter.presentViewController(imagePicker, animated: true, completion: nil)
+    func presentCameraSource(_ presenter: UIViewController) {
+        presenter.present(imagePicker, animated: true, completion: nil)
     }
     
 }

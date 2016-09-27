@@ -1,74 +1,82 @@
 PODS:
-  - Alamofire (3.4.1)
-  - AlamofireImage (2.4.1):
-    - Alamofire (~> 3.3)
+  - Alamofire (4.0.1)
+  - AlamofireImage (3.0.0):
+    - Alamofire (~> 4.0)
   - Cloudinary (1.0.15)
-  - Firebase (3.5.2):
-    - Firebase/Core (= 3.5.2)
-  - Firebase/Analytics (3.5.2):
-    - FirebaseAnalytics (~> 3.3)
-  - Firebase/Auth (3.5.2):
+  - Firebase (3.6.0):
+    - Firebase/Core (= 3.6.0)
+  - Firebase/Analytics (3.6.0):
+    - FirebaseAnalytics (= 3.4.2)
+  - Firebase/Auth (3.6.0):
     - Firebase/Analytics
-    - FirebaseAuth (= 3.0.4)
-  - Firebase/Core (3.5.2):
+    - FirebaseAuth (= 3.0.5)
+  - Firebase/Core (3.6.0):
     - Firebase/Analytics
-  - Firebase/Database (3.5.2):
+  - Firebase/Database (3.6.0):
     - Firebase/Analytics
-    - FirebaseDatabase (= 3.0.2)
-  - FirebaseAnalytics (3.3.1):
+    - FirebaseDatabase (= 3.0.3)
+  - FirebaseAnalytics (3.4.2):
     - FirebaseInstanceID (~> 1.0)
     - GoogleInterchangeUtilities (~> 1.2)
     - GoogleSymbolUtilities (~> 1.1)
     - GoogleUtilities (~> 1.2)
-  - FirebaseAuth (3.0.4):
-    - FirebaseAnalytics (~> 3.2)
+  - FirebaseAuth (3.0.5):
+    - FirebaseAnalytics (~> 3.3)
     - GoogleNetworkingUtilities (~> 1.2)
-    - GoogleParsingUtilities (~> 1.1)
     - GoogleUtilities (~> 1.2)
-  - FirebaseDatabase (3.0.2):
-    - FirebaseAnalytics (~> 3.2)
+  - FirebaseDatabase (3.0.3):
+    - FirebaseAnalytics (~> 3.3)
   - FirebaseInstanceID (1.0.8)
   - GoogleInterchangeUtilities (1.2.1):
     - GoogleSymbolUtilities (~> 1.0)
+  - GoogleMaps (2.1.0):
+    - GoogleMaps/Maps (= 2.1.0)
+  - GoogleMaps/Base (2.1.0)
+  - GoogleMaps/Maps (2.1.0):
+    - GoogleMaps/Base (= 2.1.0)
   - GoogleNetworkingUtilities (1.2.1):
     - GoogleSymbolUtilities (~> 1.0)
-  - GoogleParsingUtilities (1.1.1):
-    - GoogleNetworkingUtilities (~> 1.0)
-    - GoogleSymbolUtilities (~> 1.0)
+  - GooglePlaces (2.1.0):
+    - GoogleMaps/Base (= 2.1.0)
   - GoogleSymbolUtilities (1.1.1)
   - GoogleUtilities (1.3.1):
     - GoogleSymbolUtilities (~> 1.0)
-  - Realm (1.0.2):
-    - Realm/Headers (= 1.0.2)
-  - Realm/Headers (1.0.2)
-  - RealmSwift (1.0.2):
-    - Realm (= 1.0.2)
+  - Realm (1.1.0):
+    - Realm/Headers (= 1.1.0)
+  - Realm/Headers (1.1.0)
+  - RealmSwift (1.1.0):
+    - Realm (= 1.1.0)
 
 DEPENDENCIES:
-  - AlamofireImage (~> 2.0)
+  - Alamofire (~> 4.0)
+  - AlamofireImage (~> 3.0)
   - Cloudinary
   - Firebase
   - Firebase/Auth
   - Firebase/Database
-  - RealmSwift
+  - GoogleMaps
+  - GooglePlaces
+  - Realm
+  - RealmSwift (~> 1.1)
 
 SPEC CHECKSUMS:
-  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
-  AlamofireImage: 3ccf3347d9ea24580dc11fb892770a0be6a29826
+  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
+  AlamofireImage: 6594aa1139a67dcd36cde6da79ea4e5b318e60fb
   Cloudinary: f80af4565ec08c521d5e58cb56d9fbe1e4595e40
-  Firebase: 94e63112efcad75226c0356a8f3032397b8547c9
-  FirebaseAnalytics: d968d4d5f6aeb795cd64144337bcd233e530efc6
-  FirebaseAuth: 26fd291c3b552fc9658420b867520d5ae080421c
-  FirebaseDatabase: 59bea2e7dfd81b3b8b2f8e396caf1a52c2ced6f7
+  Firebase: 34187200ef4979dbd485c7aa685ef078bf587c86
+  FirebaseAnalytics: 3f5358d9104adf159cc8d99b7b501e50099a39ad
+  FirebaseAuth: 75a062bbf2d3c97d1e6e55bbc110e13a6853e25d
+  FirebaseDatabase: 750a4a0fe18ef114318876fd654b2d9c671e0992
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
   GoogleInterchangeUtilities: def8415a862effc67d549d5b5b0b9c7a2f97d4de
+  GoogleMaps: 06589b9a38097bce0cd6e90f0fd9b5e4b4a9344c
   GoogleNetworkingUtilities: 3e83269048cfb498dc7ec83ab36813360965c74f
-  GoogleParsingUtilities: 30b3896f9ee167dc78747f013d3de157ced1cadf
+  GooglePlaces: 16e96266483b8010e9f275399403647978523c86
   GoogleSymbolUtilities: 33117db1b5f290c6fbf259585e4885b4c84b98d7
   GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
-  Realm: 9d5c46a4d7d27958530a8dfc58f63a99e5c2cba3
-  RealmSwift: 82f3ac5e24530143dddfde2033acc0d308f27d96
+  Realm: ceecf1a4540c4ce9efe196fe73fa9855bce05bd8
+  RealmSwift: 838058b2db95b12cb86bd0cf209df642c33fb60a
 
-PODFILE CHECKSUM: 12c99ea9788c0badf073f4c198aacef28a41bc6b
+PODFILE CHECKSUM: ddd8e234345db7cc7c34d465e30d6040428a5641
 
 COCOAPODS: 1.0.1

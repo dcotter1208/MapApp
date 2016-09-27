@@ -22,7 +22,7 @@ struct RLMDBManager {
         
     }
     
-    func writeObject(object:Object) {
+    func writeObject(_ object:Object) {
         realm?.beginWrite()
         realm?.add(object)
         do {
@@ -32,7 +32,7 @@ struct RLMDBManager {
         }
     }
     
-    func updateObject(object:Object) {
+    func updateObject(_ object:Object) {
         realm?.beginWrite()
         realm?.add(object, update: true)
         do {
@@ -42,7 +42,7 @@ struct RLMDBManager {
         }
     }
     
-    func getCurrentUserFromRealm(userID:String) -> Results<RLMUser> {
+    func getCurrentUserFromRealm(_ userID:String) -> Results<RLMUser> {
         let user = realm?.objects(RLMUser.self).filter("userID = '\(userID)'")
         return user!
     }
