@@ -57,8 +57,10 @@ class MKVenueSearch {
    class func addVenueAnnotationsToMap(_ mapView: MKMapView, venues: [Venue]) {
         mapView.removeAnnotations(mapView.annotations)
         for venue in venues {
-            let annotation = Annotation(title: venue.name, coordinate: venue.coordinate.coordinate)
-            mapView.addAnnotation(annotation)
+            if let name = venue.name, let coordinate = venue.coordinate?.coordinate {
+                let annotation = Annotation(title: name, coordinate: coordinate)
+                mapView.addAnnotation(annotation)
+            }
         }
     }
     

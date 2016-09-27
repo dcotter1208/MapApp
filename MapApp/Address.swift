@@ -10,5 +10,5 @@ import Foundation
 import MapKit
 
 struct Address {
-    var formattedAddress: String
+    var formattedAddress: String?
 }

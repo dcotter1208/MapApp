@@ -28,11 +28,10 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         super.viewDidLoad()
         setupGoogleMaps()
         getCurrentUser()
-        
-        
-        
-        Venue.getAllVenuesWithCoordinate(coordinate: userLocation!.coordinate)
-        
+
+        Venue.getAllVenuesWithCoordinate(coordinate: userLocation!.coordinate) { (allVenues, error) in
+            
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -46,6 +45,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         guard let userLocation = userLocation else { return }
         let camera = createMapCameraWithCoordinateAndZoomLevel(coordinate: userLocation.coordinate, zoom: 15.0)
         googleMapView.camera = camera
+        googleMapView.mapType = kGMSTypeHybrid
         googleMapView?.isMyLocationEnabled = true
     }
     
@@ -56,9 +56,21 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         marker.map = googleMapView
     }
     
+    func addMapMarkerForVenue(venue: Venue) {
+        let marker = GMSMarker(position: venue.coordinate!.coordinate)
+        marker.appearAnimation = kGMSMarkerAnimationPop
+        marker.title = venue.name
+        marker.map = googleMapView
+    }
+    
+    
     func createMapCameraWithCoordinateAndZoomLevel(coordinate: CLLocationCoordinate2D, zoom: Float) -> GMSCameraPosition {
         let camera = GMSCameraPosition.camera(withLatitude: coordinate.latitude, longitude: coordinate.longitude, zoom: zoom)
         return camera
+    }
+    
+    func getMapCenterCoordinate() -> CLLocationCoordinate2D {
+        return googleMapView.projection.coordinate(for: googleMapView.center)
     }
     
     //MARK: Helper Methods:
@@ -206,9 +218,12 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //MKVenueSearch.searchVenuesInRegion(mapView.region, searchQueries: [.Pubs, .IrishPubs, .Pub, .DrinkingPubs]) { (venues) in
-            //MKVenueSearch.addVenueAnnotationsToMap(self.mapView, venues: venues)
-      //  }
+        Venue.getAllVenuesWithCoordinate(coordinate: getMapCenterCoordinate()) { (allVenues, error) in
+            guard error == nil else { return }
+            for venue in allVenues! {
+                self.addMapMarkerForVenue(venue: venue)
+            }
+        }
     }
     
 }
