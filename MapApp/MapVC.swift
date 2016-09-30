@@ -194,9 +194,9 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
 
     
     //This will be replaced with however many categories we end up having for the filter option.
-    var dataSource: [Int] {
+    var dataSource: [GooglePlacesCategoryType] {
         get {
-            return [1, 2, 3, 4, 5, 6, 7]
+            return [.Bar, .Casino, .Stadium, .AmusementPark, .Campground, .Restaurant, .Park, .University, .Lodging, .ShoppingMall]
         }
     }
     
@@ -214,8 +214,7 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("COORDINATES** \(getMapCenterCoordinate())")
-        Venue.getAllVenuesWithCoordinate(coordinate: getMapCenterCoordinate()) { (allVenues, error) in
+        Venue.getAllVenuesWithCoordinate(categoryType: .Bar, coordinate: getMapCenterCoordinate()) { (allVenues, error) in
             guard error == nil else { return }
             for venue in allVenues! {
                 self.addMapMarkerForVenue(venue: venue)
