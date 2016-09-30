@@ -168,6 +168,7 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
     
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         let newCamera = createMapCameraWithCoordinateAndZoomLevel(coordinate: place.coordinate, zoom: 15.0)
+        print("PICKED PLACE \(place)")
         googleMapView.camera = newCamera
         addMapMarkerForGMSPlace(place: place)
         self.dismiss(animated: true, completion: nil)
@@ -214,7 +215,7 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        Venue.getAllVenuesWithCoordinate(categoryType: .Bar, coordinate: getMapCenterCoordinate()) { (allVenues, error) in
+        Venue.getAllVenuesWithCoordinate(categoryType: .POI, coordinate: getMapCenterCoordinate()) { (allVenues, error) in
             guard error == nil else { return }
             for venue in allVenues! {
                 self.addMapMarkerForVenue(venue: venue)

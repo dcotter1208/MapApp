@@ -11,28 +11,6 @@ import MapKit
 
 typealias NetworkResult = ([Venue]?, Error?) -> Void
 
-enum VenueType: String {
-    case annotationDefault
-    //Drinks
-    case DiveBars
-    case Pubs
-    case DanceClubs
-    case JazzBar
-    //Casinos
-    case Casino
-    //Music
-    case Music
-    case ConcertHall
-    case Theatre
-    //Sports
-    case SportsStadium
-    //Outdoors
-    case Park
-    case StatePark
-    //Comedy
-    case ComedyClub
-}
-
 struct Venue {
     var name : String?
     var address: Address
@@ -43,10 +21,9 @@ struct Venue {
     var venueID: String?
     var contactInfo: VenueContactInfo?
  
-    
     static func getAllVenuesWithCoordinate(categoryType: GooglePlacesCategoryType, coordinate: CLLocationCoordinate2D, completion: @escaping NetworkResult) {
         var allVenues = [Venue]()
-        AlamoFireOperation.googlePlacesCategoryTypeSearchForCoordinates(categoryType: categoryType, coordinate: coordinate) { (places, error) in
+        GoogleSearchAPI.googlePlacesCategoryTypeSearchForCoordinates(categoryType: categoryType, coordinate: coordinate) { (places, error) in
             guard error == nil else {
                 completion(nil, error)
                 return
