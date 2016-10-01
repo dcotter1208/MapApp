@@ -172,7 +172,6 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
     
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         let newCamera = createMapCameraWithCoordinateAndZoomLevel(coordinate: place.coordinate, zoom: 15.0)
-        print("PICKED PLACE \(place)")
         googleMapView.camera = newCamera
         addMapMarkerForGMSPlace(place: place)
         self.dismiss(animated: true, completion: nil)
@@ -199,24 +198,25 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
 
     
     //This will be replaced with however many categories we end up having for the filter option.
-    var dataSource: [GooglePlacesCategoryType] {
+    var categories: [GooglePlacesCategoryType] {
         get {
             return [.Bar, .Casino, .Stadium, .Restaurant, .Park, .University, .Lodging, .ShoppingMall]
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.count
+        return categories.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let category = dataSource[indexPath.row]
+        let category = categories[indexPath.item]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VenueCell", for: indexPath)
         
         let cellLabel = cell.viewWithTag(101) as! UILabel
         cellLabel.text = createCollectionViewCellSearchName(categoryType: category)
         cell.layer.cornerRadius = cell.frame.size.width / 2
+        
 //        let cellImageView = cell.viewWithTag(101) as! UIImageView
 //        cellImageView.layer.cornerRadius = cellImageView.frame.size.width / 2
 //        cellImageView.clipsToBounds = true
@@ -226,7 +226,11 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let firebaseOperation = FirebaseOperation()
-        Venue.getAllVenuesWithCoordinate(categoryType: .POI, coordinate: getMapCenterCoordinate()) { (allVenues, error) in
+        let selectedCategory = categories[indexPath.item]
+        
+        print("Selected Category: \(selectedCategory)")
+        
+        Venue.getAllVenuesWithCoordinate(categoryType: selectedCategory, coordinate: getMapCenterCoordinate()) { (allVenues, error) in
             guard error == nil else { return }
             for venue in allVenues! {
                 self.addMapMarkerForVenue(venue: venue)
