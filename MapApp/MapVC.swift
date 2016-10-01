@@ -28,7 +28,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         super.viewDidLoad()
         setupGoogleMaps()
         getCurrentUser()
-
     }
     
     override func didReceiveMemoryWarning() {
@@ -68,11 +67,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     func getMapCenterCoordinate() -> CLLocationCoordinate2D {
         return googleMapView.projection.coordinate(for: googleMapView.center)
     }
-    
-    func writePlacesToFirebase() {
-        
-    }
-    
+
     //MARK: Helper Methods:
     func instantiateViewController(_ viewControllerIdentifier: String) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -144,6 +139,12 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         guard let userLocation = userLocation else { return }
         googleMapView?.camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: 15.0)
     }
+    
+    @IBAction func myLocationButtonSelected(_ sender: AnyObject) {
+        guard let userLocationCoordinates = googleMapView.myLocation?.coordinate else { return }
+        let camera = createMapCameraWithCoordinateAndZoomLevel(coordinate: userLocationCoordinates, zoom: 15.0)
+        googleMapView.camera = camera
+    }
 
     @IBAction func profileButtonSelected(_ sender: AnyObject) {
         guard FIRAuth.auth()?.currentUser == nil else {
@@ -172,7 +173,6 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
     
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         let newCamera = createMapCameraWithCoordinateAndZoomLevel(coordinate: place.coordinate, zoom: 15.0)
-        print("GOOGLE PLACE: \(place)")
         googleMapView.camera = newCamera
         addMapMarkerForGMSPlace(place: place)
         self.dismiss(animated: true, completion: nil)

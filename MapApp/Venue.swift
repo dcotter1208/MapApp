@@ -86,7 +86,6 @@ struct Venue {
         default:
             return false
         }
-        
     }
     
     static func typesExists(type: String, types: [String]) -> Bool {
@@ -98,4 +97,3 @@ struct Venue {
     }
     
 }
-
