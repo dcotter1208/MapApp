@@ -30,7 +30,7 @@ enum GooglePlacesCategoryType: String {
 
 
 class GoogleSearchAPI {
-    class func googlePlacesCategoryTypeSearchForCoordinates(categoryType: GooglePlacesCategoryType, coordinate: CLLocationCoordinate2D, completion: @escaping GooglePlacesNetworkResult) {
+    class func googlePlacesCategoryTypeSearchWithCoordinates(categoryType: GooglePlacesCategoryType, coordinate: CLLocationCoordinate2D, completion: @escaping GooglePlacesNetworkResult) {
         let keys = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Keys", ofType: "plist")!)
         guard let key = keys?["GooglePlaces"] as? String else { return }
         let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(coordinate.latitude),\(coordinate.longitude)&radius=1000&type=\(categoryType.rawValue)&key=\(key)"

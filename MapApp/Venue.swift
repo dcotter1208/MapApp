@@ -23,7 +23,7 @@ struct Venue {
  
     static func getAllVenuesWithCoordinate(categoryType: GooglePlacesCategoryType, coordinate: CLLocationCoordinate2D, completion: @escaping NetworkResult) {
         var allVenues = [Venue]()
-        GoogleSearchAPI.googlePlacesCategoryTypeSearchForCoordinates(categoryType: categoryType, coordinate: coordinate) { (places, error) in
+        GoogleSearchAPI.googlePlacesCategoryTypeSearchWithCoordinates(categoryType: categoryType, coordinate: coordinate) { (places, error) in
             guard error == nil else {
                 completion(nil, error)
                 return
@@ -43,7 +43,9 @@ struct Venue {
                 let placeID  = venue["place_id"] as? String
                 let newVenue = Venue(name: name, address: Address(formattedAddress: address), coordinate: coordinate, priceLevel: priceLevel, googleRating: rating, isOpenNow: openNowStatus, venueID: placeID!, contactInfo: nil)
                 allVenues.append(newVenue)
-                completion(allVenues, nil)
+                if i == places?.count {
+                    completion(allVenues, nil)                
+                }
             }
         }
     }
@@ -71,6 +73,6 @@ struct Venue {
             return nil
         }
     }
-
+    
 }
 

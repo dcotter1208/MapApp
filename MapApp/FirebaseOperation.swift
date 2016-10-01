@@ -37,7 +37,7 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
     }
     
     //Creates a new value for a specified child
-    func setValueForChild(child: String, value: [String: AnyObject]) {
+    func setValueForChild(child: String, value: [String: Any]) {
         let childRef = firebaseDatabaseRef.child(child).childByAutoId()
         childRef.setValue(value)
     }

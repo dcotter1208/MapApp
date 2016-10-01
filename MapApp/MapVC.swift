@@ -69,6 +69,10 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         return googleMapView.projection.coordinate(for: googleMapView.center)
     }
     
+    func writePlacesToFirebase() {
+        
+    }
+    
     //MARK: Helper Methods:
     func instantiateViewController(_ viewControllerIdentifier: String) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -215,10 +219,13 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let firebaseOperation = FirebaseOperation()
         Venue.getAllVenuesWithCoordinate(categoryType: .POI, coordinate: getMapCenterCoordinate()) { (allVenues, error) in
             guard error == nil else { return }
             for venue in allVenues! {
                 self.addMapMarkerForVenue(venue: venue)
+                let firebaseVenue = ["name" : venue.name!, "latitude" : "\(venue.coordinate!.coordinate.latitude)", "longitude" : "\(venue.coordinate!.coordinate.longitude)", "venueID": venue.venueID!]
+                firebaseOperation.setValueForChild(child: "venues", value: firebaseVenue)
             }
         }
     }
