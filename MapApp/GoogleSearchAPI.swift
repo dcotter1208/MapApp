@@ -64,7 +64,7 @@ class GoogleSearchAPI {
             case .NearbySearch:
                 URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(coordinate.latitude),\(coordinate.longitude)&radius=1000&type=\(categoryType!.rawValue)&key=\(key)"
             case .TextSearch:
-                URL = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=\(searchText!)&location=\(coordinate.latitude),\(coordinate.longitude)&type=\(categoryType!.rawValue)&key=\(key)"
+                URL = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=\(searchText!)&location=\(coordinate.latitude),\(coordinate.longitude)&type=\(categoryType!.rawValue)&keyword=bar&radius=1000&language=en&key=\(key)"
             }
         }
         return URL
