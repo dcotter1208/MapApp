@@ -230,12 +230,19 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
         let selectedCategory = categories[indexPath.item]
         let searchParams = createSearchParamters(categoryType: selectedCategory)
         
-        Venue.getAllVenuesWithCoordinate(categoryType: selectedCategory, searchText: searchParams.searchText, keyword: searchParams.keyword, coordinate: getMapCenterCoordinate(), searchType: .TextSearch) { (allVenues, error) in
+        Venue.getAllVenuesWithCoordinate(categoryType: selectedCategory, searchText: searchParams.searchText, keyword: searchParams.keyword, coordinate: getMapCenterCoordinate(), searchType: .NearbySearch) { (allVenues, error) in
             guard error == nil else { return }
             for venue in allVenues! {
                 self.addMapMarkerForVenue(venue: venue)
                 let firebaseVenue = ["name" : venue.name!, "latitude" : "\(venue.coordinate!.coordinate.latitude)", "longitude" : "\(venue.coordinate!.coordinate.longitude)", "venueID": venue.venueID!, "chatID": ""]
-                firebaseOperation.setValueForChild(child: "venues", value: firebaseVenue)
+                
+                firebaseOperation.validateVenueUniqueness(venue, completion: { (isUnique) in
+                    if isUnique == true {
+                        firebaseOperation.setValueForChild(child: "venues", value: firebaseVenue)
+                    } else {
+                        print("NOT UNIQUE Venue: \(venue.name!) ID: \(venue.venueID)")
+                    }
+                })
             }
         }
     }
