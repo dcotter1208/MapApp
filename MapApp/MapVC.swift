@@ -172,6 +172,7 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
     
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         let newCamera = createMapCameraWithCoordinateAndZoomLevel(coordinate: place.coordinate, zoom: 15.0)
+        print("GOOGLE PLACE: \(place)")
         googleMapView.camera = newCamera
         addMapMarkerForGMSPlace(place: place)
         self.dismiss(animated: true, completion: nil)
@@ -240,7 +241,6 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
                     if isUnique == true {
                         firebaseOperation.setValueForChild(child: "venues", value: firebaseVenue)
                     } else {
-                        print("NOT UNIQUE Venue: \(venue.name!) ID: \(venue.venueID)")
                     }
                 })
             }

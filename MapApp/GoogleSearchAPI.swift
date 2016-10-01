@@ -29,6 +29,9 @@ enum SearchType {
     case TextSearch
 }
 
+typealias GooglePlacesNetworkResult = ([[String: AnyObject]]?, Error?) -> Void
+
+
 //DO A GOOGLE SEARCHTEXT FUNCTION WITH TYPE RESTRICTIONS//
 //Example: bars that are type bar.
 //Example: gambling, lodging, type casino

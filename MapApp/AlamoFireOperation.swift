@@ -13,7 +13,6 @@ import CoreLocation
 import GooglePlaces
 
 typealias ImageNetworkResult = (UIImage?, Error?) -> Void
-typealias GooglePlacesNetworkResult = ([[String: AnyObject]]?, Error?) -> Void
 
 class AlamoFireOperation {
         

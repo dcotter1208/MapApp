@@ -32,20 +32,23 @@ struct Venue {
             var i = 0
             while i < places!.count {
                 let venue = places![i]
+                let typeArray = venue["types"] as! [String]
                 i += 1
-                guard let name = venue["name"] as? String else { continue }
-                guard let location = venue["geometry"] as? NSDictionary else { continue }
-                let coordinate = getCoordinatesFromLocationDict(locationDict: location)
-                let priceLevel = venue["price_level"] as? Int
-                let address = venue["formatted_address"] as? String
-                let openingHours = venue["opening_hours"] as? [String: AnyObject]
-                let openNowStatus = getOpenStatusFromOpeningHours(openingHours: openingHours)
-                let rating = venue["rating"] as? Double
-                let placeID  = venue["place_id"] as? String
-                let newVenue = Venue(name: name, address: Address(formattedAddress: address), coordinate: coordinate, priceLevel: priceLevel, googleRating: rating, isOpenNow: openNowStatus, venueID: placeID!, contactInfo: nil)
-                allVenues.append(newVenue)
-                if i == places?.count {
-                    completion(allVenues, nil)
+                if filterOutPlacesByType(categoryType: categoryType!, types: typeArray) == false {
+                    guard let name = venue["name"] as? String else { continue }
+                    guard let location = venue["geometry"] as? NSDictionary else { continue }
+                    let coordinate = getCoordinatesFromLocationDict(locationDict: location)
+                    let priceLevel = venue["price_level"] as? Int
+                    let address = venue["formatted_address"] as? String
+                    let openingHours = venue["opening_hours"] as? [String: AnyObject]
+                    let openNowStatus = getOpenStatusFromOpeningHours(openingHours: openingHours)
+                    let rating = venue["rating"] as? Double
+                    let placeID  = venue["place_id"] as? String
+                    let newVenue = Venue(name: name, address: Address(formattedAddress: address), coordinate: coordinate, priceLevel: priceLevel, googleRating: rating, isOpenNow: openNowStatus, venueID: placeID!, contactInfo: nil)
+                    allVenues.append(newVenue)
+                    if i == places?.count {
+                        completion(allVenues, nil)
+                    }
                 }
             }
         }
@@ -72,6 +75,25 @@ struct Venue {
             return true
         default:
             return nil
+        }
+    }
+    
+    static func filterOutPlacesByType(categoryType: GooglePlacesCategoryType, types: [String]) -> Bool {
+        
+        switch categoryType {
+        case .Bar:
+            return typesExists(type: "liquor_store", types: types)
+        default:
+            return false
+        }
+        
+    }
+    
+    static func typesExists(type: String, types: [String]) -> Bool {
+        if types.contains(type) {
+            return true
+        } else {
+            return false
         }
     }
     
