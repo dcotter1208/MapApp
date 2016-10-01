@@ -201,7 +201,7 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
     //This will be replaced with however many categories we end up having for the filter option.
     var dataSource: [GooglePlacesCategoryType] {
         get {
-            return [.Bar, .Casino, .Stadium, .AmusementPark, .Campground, .Restaurant, .Park, .University, .Lodging, .ShoppingMall]
+            return [.Bar, .Casino, .Stadium, .Restaurant, .Park, .University, .Lodging, .ShoppingMall]
         }
     }
     
@@ -210,10 +210,16 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let category = dataSource[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VenueCell", for: indexPath)
-        let cellImageView = cell.viewWithTag(101) as! UIImageView
-        cellImageView.layer.cornerRadius = cellImageView.frame.size.width / 2
-        cellImageView.clipsToBounds = true
+        
+        let cellLabel = cell.viewWithTag(101) as! UILabel
+        cellLabel.text = createCollectionViewCellSearchName(categoryType: category)
+        cell.layer.cornerRadius = cell.frame.size.width / 2
+//        let cellImageView = cell.viewWithTag(101) as! UIImageView
+//        cellImageView.layer.cornerRadius = cellImageView.frame.size.width / 2
+//        cellImageView.clipsToBounds = true
 
         return cell
     }
@@ -224,9 +230,32 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
             guard error == nil else { return }
             for venue in allVenues! {
                 self.addMapMarkerForVenue(venue: venue)
-                let firebaseVenue = ["name" : venue.name!, "latitude" : "\(venue.coordinate!.coordinate.latitude)", "longitude" : "\(venue.coordinate!.coordinate.longitude)", "venueID": venue.venueID!]
+                let firebaseVenue = ["name" : venue.name!, "latitude" : "\(venue.coordinate!.coordinate.latitude)", "longitude" : "\(venue.coordinate!.coordinate.longitude)", "venueID": venue.venueID!, "chatID": ""]
                 firebaseOperation.setValueForChild(child: "venues", value: firebaseVenue)
             }
+        }
+    }
+    
+    private func createCollectionViewCellSearchName(categoryType: GooglePlacesCategoryType) -> String {
+        switch categoryType {
+        case .Bar:
+            return "Bars"
+        case .Casino:
+            return "Casinos"
+        case .Stadium:
+            return "Sports"
+        case .Restaurant:
+            return "Restaurants"
+        case .Park:
+            return "Parks"
+        case .University:
+            return "Universities"
+        case .Lodging:
+            return "Hotels"
+        case .ShoppingMall:
+            return "Shopping"
+        default:
+            return "Place"
         }
     }
     

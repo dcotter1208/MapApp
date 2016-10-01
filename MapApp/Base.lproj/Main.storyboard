@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -480,31 +479,34 @@
                             </toolbar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yh4-Ap-SDN">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="343" id="FqP-Vb-6hG"/>
-                                    <constraint firstAttribute="height" constant="58" id="OKR-0S-wWl"/>
-                                    <constraint firstAttribute="width" secondItem="yh4-Ap-SDN" secondAttribute="height" multiplier="343:58" id="TsJ-xR-dzN"/>
-                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="MUG-vP-n7j">
-                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="itemSize" width="76" height="77"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="VenueCell" id="LUu-1N-q6e">
-                                        <rect key="frame" x="0.0" y="4" width="50" height="50"/>
+                                        <rect key="frame" x="0.0" y="14" width="76" height="77"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="76" height="77"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="beer" translatesAutoresizingMaskIntoConstraints="NO" id="zlZ-ez-ZbP">
-                                                    <frame key="frameInset" width="50" height="50"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uXM-NJ-v3t">
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="9"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </view>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="uXM-NJ-v3t" firstAttribute="centerX" secondItem="LUu-1N-q6e" secondAttribute="centerX" id="X9e-du-mls"/>
+                                            <constraint firstItem="uXM-NJ-v3t" firstAttribute="centerY" secondItem="LUu-1N-q6e" secondAttribute="centerY" constant="3" id="pwY-65-adF"/>
+                                            <constraint firstItem="uXM-NJ-v3t" firstAttribute="leading" secondItem="LUu-1N-q6e" secondAttribute="leadingMargin" constant="-4" id="ryj-Pt-Eox"/>
+                                            <constraint firstItem="uXM-NJ-v3t" firstAttribute="top" secondItem="LUu-1N-q6e" secondAttribute="topMargin" constant="6" id="sTw-L5-gKZ"/>
+                                        </constraints>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
@@ -515,16 +517,17 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="yh4-Ap-SDN" firstAttribute="leading" secondItem="Ssa-SH-9il" secondAttribute="leadingMargin" id="7YD-Ny-17h"/>
+                            <constraint firstItem="yh4-Ap-SDN" firstAttribute="bottom" secondItem="Xnl-pX-9bT" secondAttribute="top" id="3wq-c3-niJ"/>
+                            <constraint firstItem="yh4-Ap-SDN" firstAttribute="trailing" secondItem="Ssa-SH-9il" secondAttribute="trailingMargin" id="7oa-vI-UCP"/>
+                            <constraint firstItem="yh4-Ap-SDN" firstAttribute="leading" secondItem="Ssa-SH-9il" secondAttribute="leadingMargin" id="BuC-dv-3oE"/>
                             <constraint firstItem="PFi-UW-2fy" firstAttribute="top" secondItem="jhY-Wu-As6" secondAttribute="bottom" id="FD3-rG-uW8"/>
                             <constraint firstItem="PFi-UW-2fy" firstAttribute="trailing" secondItem="Xnl-pX-9bT" secondAttribute="trailing" id="FP5-bR-kyQ"/>
                             <constraint firstItem="Xnl-pX-9bT" firstAttribute="bottom" secondItem="u8n-YW-iAw" secondAttribute="top" id="Fy6-T0-BaT"/>
                             <constraint firstItem="PFi-UW-2fy" firstAttribute="leading" secondItem="Xnl-pX-9bT" secondAttribute="leading" id="G9t-q6-Oet"/>
+                            <constraint firstItem="yh4-Ap-SDN" firstAttribute="top" secondItem="jhY-Wu-As6" secondAttribute="bottom" constant="454" id="NvM-N1-SIa"/>
                             <constraint firstItem="Xnl-pX-9bT" firstAttribute="top" secondItem="PFi-UW-2fy" secondAttribute="bottom" id="QUt-bj-f9V"/>
                             <constraint firstItem="PFi-UW-2fy" firstAttribute="leading" secondItem="Ssa-SH-9il" secondAttribute="leading" id="SDL-17-SWz"/>
-                            <constraint firstItem="yh4-Ap-SDN" firstAttribute="trailing" secondItem="Ssa-SH-9il" secondAttribute="trailingMargin" id="sZ2-hF-RRU"/>
-                            <constraint firstItem="yh4-Ap-SDN" firstAttribute="centerX" secondItem="Xnl-pX-9bT" secondAttribute="centerX" id="tsT-ZA-GVY"/>
-                            <constraint firstItem="Xnl-pX-9bT" firstAttribute="top" secondItem="yh4-Ap-SDN" secondAttribute="bottom" id="zbD-sD-S6P"/>
+                            <constraint firstItem="yh4-Ap-SDN" firstAttribute="centerX" secondItem="Xnl-pX-9bT" secondAttribute="centerX" id="buK-by-6Pd"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="2yv-If-bJj">
@@ -688,7 +691,6 @@
     <resources>
         <image name="3DCube" width="25" height="25"/>
         <image name="addSpotFilled-1" width="32" height="32"/>
-        <image name="beer" width="66" height="66"/>
         <image name="compass_filled" width="25" height="25"/>
         <image name="default_user" width="612" height="612"/>
         <image name="gender_neutral_user" width="25" height="25"/>
