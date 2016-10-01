@@ -230,7 +230,7 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
         let selectedCategory = categories[indexPath.item]
         let searchParams = createSearchParamters(categoryType: selectedCategory)
         
-        Venue.getAllVenuesWithCoordinate(categoryType: selectedCategory, searchText: searchParams.searchText, coordinate: getMapCenterCoordinate(), searchType: .TextSearch) { (allVenues, error) in
+        Venue.getAllVenuesWithCoordinate(categoryType: selectedCategory, searchText: searchParams.searchText, keyword: searchParams.keyword, coordinate: getMapCenterCoordinate(), searchType: .TextSearch) { (allVenues, error) in
             guard error == nil else { return }
             for venue in allVenues! {
                 self.addMapMarkerForVenue(venue: venue)
@@ -240,26 +240,26 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
         }
     }
 
-    private func createSearchParamters(categoryType: GooglePlacesCategoryType) -> (type: String, searchText: String) {
+    private func createSearchParamters(categoryType: GooglePlacesCategoryType) -> (type: String, searchText: String, keyword: String) {
         switch categoryType {
         case .Bar:
-            return ("Bars", "bars")
+            return ("Bars", "bars", "drinks")
         case .Casino:
-            return ("Casinos", "casinos")
+            return ("Casinos", "casino", "casino")
         case .Stadium:
-            return ("Sports", "sports")
+            return ("Sports", "sports", "sports")
         case .Restaurant:
-            return ("Restaurants", "restaurants")
+            return ("Restaurants", "restaurants", "food")
         case .Park:
-            return ("Parks", "outdoor+parks")
+            return ("Parks", "parks", "outdoors")
         case .University:
-            return ("Universities", "college")
+            return ("Universities", "college", "education")
         case .Lodging:
-            return ("Hotels", "hotels+resorts")
+            return ("Hotels", "hotels+resorts", "lodging")
         case .ShoppingMall:
-            return ("Shopping", "shopping+malls")
+            return ("Shopping", "shopping+malls", "shopping")
         default:
-            return ("Place", "place")
+            return ("Place", "place", "place")
         }
     }
         

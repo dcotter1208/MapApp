@@ -36,9 +36,9 @@ enum SearchType {
 
 class GoogleSearchAPI {
     
-    class func googlePlacesSearch(categoryType: GooglePlacesCategoryType?, searchText: String?, coordinate: CLLocationCoordinate2D, searchType: SearchType, completion: @escaping GooglePlacesNetworkResult) {
+    class func googlePlacesSearch(categoryType: GooglePlacesCategoryType?, searchText: String?, keyword: String?, coordinate: CLLocationCoordinate2D, searchType: SearchType, completion: @escaping GooglePlacesNetworkResult) {
 
-        let URL = createSearchURL(categoryType: categoryType, searchText: searchText, coordinate: coordinate, searchType: searchType)
+        let URL = createSearchURL(categoryType: categoryType, searchText: searchText, keyword: keyword, coordinate: coordinate, searchType: searchType)
         
         Alamofire.request(URL).responseJSON { (jsonResponse) in
             guard jsonResponse.result.isSuccess else {
@@ -56,7 +56,7 @@ class GoogleSearchAPI {
         }
     }
     
-    class func createSearchURL(categoryType: GooglePlacesCategoryType?, searchText: String?, coordinate: CLLocationCoordinate2D, searchType: SearchType) -> String {
+    class func createSearchURL(categoryType: GooglePlacesCategoryType?, searchText: String?, keyword: String?, coordinate: CLLocationCoordinate2D, searchType: SearchType) -> String {
         var URL = ""
         let keys = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Keys", ofType: "plist")!)
         if let key = keys?["GooglePlaces"] as? String {
@@ -64,7 +64,7 @@ class GoogleSearchAPI {
             case .NearbySearch:
                 URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(coordinate.latitude),\(coordinate.longitude)&radius=1000&type=\(categoryType!.rawValue)&key=\(key)"
             case .TextSearch:
-                URL = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=\(searchText!)&location=\(coordinate.latitude),\(coordinate.longitude)&type=\(categoryType!.rawValue)&keyword=bar&radius=1000&language=en&key=\(key)"
+                URL = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=\(searchText!)&location=\(coordinate.latitude),\(coordinate.longitude)&type=\(categoryType!.rawValue)&keyword=\(keyword!)&radius=1000&language=en&key=\(key)"
             }
         }
         return URL
