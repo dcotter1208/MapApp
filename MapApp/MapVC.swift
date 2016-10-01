@@ -214,7 +214,8 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VenueCell", for: indexPath)
         
         let cellLabel = cell.viewWithTag(101) as! UILabel
-        cellLabel.text = createCollectionViewCellSearchName(categoryType: category)
+        let categoryParams = createSearchParamters(categoryType: category)
+        cellLabel.text = categoryParams.type
         cell.layer.cornerRadius = cell.frame.size.width / 2
         
 //        let cellImageView = cell.viewWithTag(101) as! UIImageView
@@ -227,10 +228,9 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let firebaseOperation = FirebaseOperation()
         let selectedCategory = categories[indexPath.item]
+        let searchParams = createSearchParamters(categoryType: selectedCategory)
         
-        print("Selected Category: \(selectedCategory)")
-        
-        Venue.getAllVenuesWithCoordinate(categoryType: selectedCategory, coordinate: getMapCenterCoordinate()) { (allVenues, error) in
+        Venue.getAllVenuesWithCoordinate(categoryType: selectedCategory, searchText: searchParams.searchText, coordinate: getMapCenterCoordinate(), searchType: .TextSearch) { (allVenues, error) in
             guard error == nil else { return }
             for venue in allVenues! {
                 self.addMapMarkerForVenue(venue: venue)
@@ -239,28 +239,29 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
             }
         }
     }
-    
-    private func createCollectionViewCellSearchName(categoryType: GooglePlacesCategoryType) -> String {
+
+    private func createSearchParamters(categoryType: GooglePlacesCategoryType) -> (type: String, searchText: String) {
         switch categoryType {
         case .Bar:
-            return "Bars"
+            return ("Bars", "bars")
         case .Casino:
-            return "Casinos"
+            return ("Casinos", "casinos")
         case .Stadium:
-            return "Sports"
+            return ("Sports", "sports")
         case .Restaurant:
-            return "Restaurants"
+            return ("Restaurants", "restaurants")
         case .Park:
-            return "Parks"
+            return ("Parks", "outdoor+parks")
         case .University:
-            return "Universities"
+            return ("Universities", "college")
         case .Lodging:
-            return "Hotels"
+            return ("Hotels", "hotels+resorts")
         case .ShoppingMall:
-            return "Shopping"
+            return ("Shopping", "shopping+malls")
         default:
-            return "Place"
+            return ("Place", "place")
         }
     }
+        
     
 }

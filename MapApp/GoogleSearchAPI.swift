@@ -24,17 +24,23 @@ enum GooglePlacesCategoryType: String {
     case POI = "point_of_interest"
 }
 
+enum SearchType {
+    case NearbySearch
+    case TextSearch
+}
+
 //DO A GOOGLE SEARCHTEXT FUNCTION WITH TYPE RESTRICTIONS//
 //Example: bars that are type bar.
 //Example: gambling, lodging, type casino
 
 
 class GoogleSearchAPI {
-    class func googlePlacesCategoryTypeSearchWithCoordinates(categoryType: GooglePlacesCategoryType, coordinate: CLLocationCoordinate2D, completion: @escaping GooglePlacesNetworkResult) {
-        let keys = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Keys", ofType: "plist")!)
-        guard let key = keys?["GooglePlaces"] as? String else { return }
-        let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(coordinate.latitude),\(coordinate.longitude)&radius=1000&type=\(categoryType.rawValue)&key=\(key)"
-        Alamofire.request(url).responseJSON { (jsonResponse) in
+    
+    class func googlePlacesSearch(categoryType: GooglePlacesCategoryType?, searchText: String?, coordinate: CLLocationCoordinate2D, searchType: SearchType, completion: @escaping GooglePlacesNetworkResult) {
+
+        let URL = createSearchURL(categoryType: categoryType, searchText: searchText, coordinate: coordinate, searchType: searchType)
+        
+        Alamofire.request(URL).responseJSON { (jsonResponse) in
             guard jsonResponse.result.isSuccess else {
                 completion(nil, jsonResponse.result.error)
                 return
@@ -49,4 +55,20 @@ class GoogleSearchAPI {
             }
         }
     }
+    
+    class func createSearchURL(categoryType: GooglePlacesCategoryType?, searchText: String?, coordinate: CLLocationCoordinate2D, searchType: SearchType) -> String {
+        var URL = ""
+        let keys = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Keys", ofType: "plist")!)
+        if let key = keys?["GooglePlaces"] as? String {
+            switch searchType {
+            case .NearbySearch:
+                URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(coordinate.latitude),\(coordinate.longitude)&radius=1000&type=\(categoryType!.rawValue)&key=\(key)"
+            case .TextSearch:
+                URL = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=\(searchText!)&location=\(coordinate.latitude),\(coordinate.longitude)&type=\(categoryType!.rawValue)&key=\(key)"
+            }
+        }
+        return URL
+    }
+
+    
 }

@@ -21,9 +21,10 @@ struct Venue {
     var venueID: String?
     var contactInfo: VenueContactInfo?
  
-    static func getAllVenuesWithCoordinate(categoryType: GooglePlacesCategoryType, coordinate: CLLocationCoordinate2D, completion: @escaping NetworkResult) {
+    static func getAllVenuesWithCoordinate(categoryType: GooglePlacesCategoryType?, searchText: String?, coordinate: CLLocationCoordinate2D, searchType: SearchType,  completion: @escaping NetworkResult) {
         var allVenues = [Venue]()
-        GoogleSearchAPI.googlePlacesCategoryTypeSearchWithCoordinates(categoryType: categoryType, coordinate: coordinate) { (places, error) in
+        
+        GoogleSearchAPI.googlePlacesSearch(categoryType: categoryType, searchText: searchText, coordinate: coordinate, searchType: searchType) { (places, error) in
             guard error == nil else {
                 completion(nil, error)
                 return
@@ -44,12 +45,12 @@ struct Venue {
                 let newVenue = Venue(name: name, address: Address(formattedAddress: address), coordinate: coordinate, priceLevel: priceLevel, googleRating: rating, isOpenNow: openNowStatus, venueID: placeID!, contactInfo: nil)
                 allVenues.append(newVenue)
                 if i == places?.count {
-                    completion(allVenues, nil)                
+                    completion(allVenues, nil)
                 }
             }
         }
-    }
-    
+
+}
     
     //USE THIS TO RETURN A COORDINATE FROM THE LOCATION RETURNED FROM GOOGLE
     static func getCoordinatesFromLocationDict(locationDict: NSDictionary?) -> Coordinate? {
