@@ -18,6 +18,7 @@ typealias SnapshotKey = (String?) -> Void
 typealias SignUpResult = (NSError?) -> Void
 typealias LogInResult = (CurrentUser?, NSError?) -> Void
 typealias CurrentUserResult = (CurrentUser) -> Void
+typealias SnapshotExistsResult = (Bool) -> Void
 
 class FirebaseOperation: NSObject, CLUploaderDelegate {
     
@@ -37,7 +38,7 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
     }
     
     //Creates a new value for a specified child
-    func setValueForChild(child: String, value: [String: AnyObject]) {
+    func setValueForChild(child: String, value: [String: Any]) {
         let childRef = firebaseDatabaseRef.child(child).childByAutoId()
         childRef.setValue(value)
     }
@@ -84,6 +85,20 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
             })
         }
     }
+    
+     //Validates if the venue exists on Firebase.
+    func validateVenueUniqueness(_ venue: Venue, completion: @escaping SnapshotExistsResult) {
+        let query = firebaseDatabaseRef.ref.child("venues").queryOrdered(byChild: "venueID").queryEqual(toValue: venue.venueID)
+        queryChildWithConstraints(query, firebaseDataEventType: .value, observeSingleEventType: true) { (snapshot) in
+            if snapshot.exists() {
+                completion(false)
+            } else {
+                completion(true)
+            }
+        }
+    }
+
+    //MARK: Login & Signup Methods
     
     //Logs user into the app as an anonymous user.
     func loginWithAnonymousUser() {

@@ -28,7 +28,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         super.viewDidLoad()
         setupGoogleMaps()
         getCurrentUser()
-
     }
     
     override func didReceiveMemoryWarning() {
@@ -68,7 +67,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     func getMapCenterCoordinate() -> CLLocationCoordinate2D {
         return googleMapView.projection.coordinate(for: googleMapView.center)
     }
-    
+
     //MARK: Helper Methods:
     func instantiateViewController(_ viewControllerIdentifier: String) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -140,6 +139,12 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         guard let userLocation = userLocation else { return }
         googleMapView?.camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: 15.0)
     }
+    
+    @IBAction func myLocationButtonSelected(_ sender: AnyObject) {
+        guard let userLocationCoordinates = googleMapView.myLocation?.coordinate else { return }
+        let camera = createMapCameraWithCoordinateAndZoomLevel(coordinate: userLocationCoordinates, zoom: 15.0)
+        googleMapView.camera = camera
+    }
 
     @IBAction func profileButtonSelected(_ sender: AnyObject) {
         guard FIRAuth.auth()?.currentUser == nil else {
@@ -194,33 +199,76 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
 
     
     //This will be replaced with however many categories we end up having for the filter option.
-    var dataSource: [Int] {
+    var categories: [GooglePlacesCategoryType] {
         get {
-            return [1, 2, 3, 4, 5, 6, 7]
+            return [.Bar, .Casino, .Stadium, .Restaurant, .Park, .University, .Lodging, .ShoppingMall]
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.count
+        return categories.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let category = categories[indexPath.item]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VenueCell", for: indexPath)
-        let cellImageView = cell.viewWithTag(101) as! UIImageView
-        cellImageView.layer.cornerRadius = cellImageView.frame.size.width / 2
-        cellImageView.clipsToBounds = true
+        
+        let cellLabel = cell.viewWithTag(101) as! UILabel
+        let categoryParams = createSearchParamters(categoryType: category)
+        cellLabel.text = categoryParams.type
+        cell.layer.cornerRadius = cell.frame.size.width / 2
+        
+//        let cellImageView = cell.viewWithTag(101) as! UIImageView
+//        cellImageView.layer.cornerRadius = cellImageView.frame.size.width / 2
+//        cellImageView.clipsToBounds = true
 
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("COORDINATES** \(getMapCenterCoordinate())")
-        Venue.getAllVenuesWithCoordinate(coordinate: getMapCenterCoordinate()) { (allVenues, error) in
+        let firebaseOperation = FirebaseOperation()
+        let selectedCategory = categories[indexPath.item]
+        let searchParams = createSearchParamters(categoryType: selectedCategory)
+        
+        Venue.getAllVenuesWithCoordinate(categoryType: selectedCategory, searchText: searchParams.searchText, keyword: searchParams.keyword, coordinate: getMapCenterCoordinate(), searchType: .NearbySearch) { (allVenues, error) in
             guard error == nil else { return }
             for venue in allVenues! {
                 self.addMapMarkerForVenue(venue: venue)
+                let firebaseVenue = ["name" : venue.name!, "latitude" : "\(venue.coordinate!.coordinate.latitude)", "longitude" : "\(venue.coordinate!.coordinate.longitude)", "venueID": venue.venueID!, "chatID": ""]
+                
+                firebaseOperation.validateVenueUniqueness(venue, completion: { (isUnique) in
+                    if isUnique == true {
+                        firebaseOperation.setValueForChild(child: "venues", value: firebaseVenue)
+                    } else {
+                    }
+                })
             }
         }
     }
+
+    private func createSearchParamters(categoryType: GooglePlacesCategoryType) -> (type: String, searchText: String, keyword: String) {
+        switch categoryType {
+        case .Bar:
+            return ("Bars", "bars", "drinks")
+        case .Casino:
+            return ("Casinos", "casino", "casino")
+        case .Stadium:
+            return ("Sports", "sports", "sports")
+        case .Restaurant:
+            return ("Restaurants", "restaurants", "food")
+        case .Park:
+            return ("Parks", "parks", "outdoors")
+        case .University:
+            return ("Universities", "college", "education")
+        case .Lodging:
+            return ("Hotels", "hotels+resorts", "lodging")
+        case .ShoppingMall:
+            return ("Shopping", "shopping+malls", "shopping")
+        default:
+            return ("Place", "place", "place")
+        }
+    }
+        
     
 }
