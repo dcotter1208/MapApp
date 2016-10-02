@@ -31,12 +31,15 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
         setupGoogleMaps()
         getCurrentUser()
         setUpCalloutView()
+        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
     
     //MARK: Google Maps Methods
     func setupGoogleMaps() {
@@ -75,6 +78,9 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
         DispatchQueue.main.async {
             if let calloutView = self.calloutView {
                 self.view.addSubview(calloutView)
+                
+                //Set up a function that sets the callout view's properties by passing in a dict.
+                
                 calloutView.nameLabel.text = marker.title
                 self.navigationController?.navigationBar.isHidden = true
             }
@@ -82,6 +88,14 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
         return true
     }
     
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        DispatchQueue.main.async {
+            if let calloutView = self.calloutView {
+                calloutView.removeFromSuperview()
+                self.navigationController?.navigationBar.isHidden = false
+            }
+        }
+    }
     
 
     func setUpCalloutView() {
@@ -186,7 +200,10 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
     }
     
     @IBAction func mapTapGestureSelected(_ sender: UITapGestureRecognizer) {
-            print("IM TAPPED**")
+        print("Sender&& \(sender)")
+        if sender.state == .began {
+            print("SENDER**: \(sender)")
+        }
     }
     
 }
