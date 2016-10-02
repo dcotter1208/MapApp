@@ -8,11 +8,18 @@
 
 import UIKit
 
+protocol CustomCalloutActionDelegate {
+    func moreInfoButtonSelected(sender: AnyObject)
+}
+
 class CalloutView: UIView {
+    
     @IBOutlet var view: UIView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
 
+    var delegate: CustomCalloutActionDelegate? = nil
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -25,5 +32,10 @@ class CalloutView: UIView {
         super.init(coder: aDecoder)
     }
     
-
+    @IBAction func moreInfoSelected(_ sender: AnyObject) {
+        self.delegate?.moreInfoButtonSelected(sender: sender)
+    }
+    
+    
+    
 }

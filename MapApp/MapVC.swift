@@ -14,7 +14,7 @@ import GooglePlaces
 import FirebaseAuth
 import RealmSwift
 
-class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate {
+class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate, CustomCalloutActionDelegate {
     @IBOutlet weak var mapStyleBarButton: UIBarButtonItem!
     @IBOutlet weak var googleMapView: GMSMapView!
     @IBOutlet var mapTapGesture: UITapGestureRecognizer!
@@ -38,8 +38,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
     
     //MARK: Google Maps Methods
     func setupGoogleMaps() {
@@ -97,11 +95,17 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
         }
     }
     
-
     func setUpCalloutView() {
         let viewRectSize = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height / 3)
         calloutView = CalloutView(frame: viewRectSize)
+        calloutView?.delegate = self
     }
+    
+    
+    func moreInfoButtonSelected(sender: AnyObject) {
+        print("MORE INFO PLEASE")
+    }
+    
     
     //MARK: Helper Methods:
     func instantiateViewController(_ viewControllerIdentifier: String) {
