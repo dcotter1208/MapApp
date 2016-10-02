@@ -14,20 +14,24 @@ import GooglePlaces
 import FirebaseAuth
 import RealmSwift
 
-class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate, CustomCalloutActionDelegate {
     @IBOutlet weak var mapStyleBarButton: UIBarButtonItem!
     @IBOutlet weak var googleMapView: GMSMapView!
+    @IBOutlet var mapTapGesture: UITapGestureRecognizer!
     
     fileprivate var resultSearchController:UISearchController? = nil
     fileprivate var searchedLocation:MKPlacemark? = nil
     fileprivate var locationManager: CLLocationManager?
     fileprivate var newestLocation = CLLocation()
     fileprivate var userLocation: CLLocation?
+    fileprivate var calloutView: CalloutView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupGoogleMaps()
         getCurrentUser()
+        setUpCalloutView()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -42,12 +46,12 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         let camera = createMapCameraWithCoordinateAndZoomLevel(coordinate: userLocation.coordinate, zoom: 15.0)
         googleMapView.camera = camera
         googleMapView?.isMyLocationEnabled = true
+        googleMapView.delegate = self
     }
     
     func addMapMarkerForGMSPlace(place: GMSPlace) {
         let marker = GMSMarker(position: place.coordinate)
         marker.appearAnimation = kGMSMarkerAnimationPop
-        marker.title = place.name
         marker.map = googleMapView
     }
     
@@ -67,7 +71,42 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     func getMapCenterCoordinate() -> CLLocationCoordinate2D {
         return googleMapView.projection.coordinate(for: googleMapView.center)
     }
-
+    
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        DispatchQueue.main.async {
+            if let calloutView = self.calloutView {
+                self.view.addSubview(calloutView)
+                
+                //Set up a function that sets the callout view's properties by passing in a dict.
+                
+                calloutView.nameLabel.text = marker.title
+                self.navigationController?.navigationBar.isHidden = true
+            }
+        }
+        return true
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        DispatchQueue.main.async {
+            if let calloutView = self.calloutView {
+                calloutView.removeFromSuperview()
+                self.navigationController?.navigationBar.isHidden = false
+            }
+        }
+    }
+    
+    func setUpCalloutView() {
+        let viewRectSize = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height / 3)
+        calloutView = CalloutView(frame: viewRectSize)
+        calloutView?.delegate = self
+    }
+    
+    
+    func moreInfoButtonSelected(sender: AnyObject) {
+        print("MORE INFO PLEASE")
+    }
+    
+    
     //MARK: Helper Methods:
     func instantiateViewController(_ viewControllerIdentifier: String) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -164,6 +203,12 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         self.present(autocompleteController, animated: true, completion: nil)
     }
     
+    @IBAction func mapTapGestureSelected(_ sender: UITapGestureRecognizer) {
+        print("Sender&& \(sender)")
+        if sender.state == .began {
+            print("SENDER**: \(sender)")
+        }
+    }
     
 }
 
