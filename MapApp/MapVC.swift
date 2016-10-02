@@ -17,6 +17,7 @@ import RealmSwift
 class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate {
     @IBOutlet weak var mapStyleBarButton: UIBarButtonItem!
     @IBOutlet weak var googleMapView: GMSMapView!
+    @IBOutlet var mapTapGesture: UITapGestureRecognizer!
     
     fileprivate var resultSearchController:UISearchController? = nil
     fileprivate var searchedLocation:MKPlacemark? = nil
@@ -29,6 +30,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
         super.viewDidLoad()
         setupGoogleMaps()
         getCurrentUser()
+        setUpCalloutView()
     }
     
     override func didReceiveMemoryWarning() {
@@ -43,6 +45,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
         let camera = createMapCameraWithCoordinateAndZoomLevel(coordinate: userLocation.coordinate, zoom: 15.0)
         googleMapView.camera = camera
         googleMapView?.isMyLocationEnabled = true
+        googleMapView.delegate = self
     }
     
     func addMapMarkerForGMSPlace(place: GMSPlace) {
@@ -69,10 +72,22 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        print("IM TAPPED!")
+        DispatchQueue.main.async {
+            if let calloutView = self.calloutView {
+                self.view.addSubview(calloutView)
+                calloutView.nameLabel.text = marker.title
+                self.navigationController?.navigationBar.isHidden = true
+            }
+        }
         return true
     }
     
+    
+
+    func setUpCalloutView() {
+        let viewRectSize = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height / 3)
+        calloutView = CalloutView(frame: viewRectSize)
+    }
     
     //MARK: Helper Methods:
     func instantiateViewController(_ viewControllerIdentifier: String) {
@@ -170,6 +185,9 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
         self.present(autocompleteController, animated: true, completion: nil)
     }
     
+    @IBAction func mapTapGestureSelected(_ sender: UITapGestureRecognizer) {
+            print("IM TAPPED**")
+    }
     
 }
 
