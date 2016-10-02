@@ -18,6 +18,7 @@
 		C084BEAE1D8DBFE700BD579F /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C084BEAD1D8DBFE700BD579F /* Annotation.swift */; };
 		C084BEB01D8DC89E00BD579F /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C084BEAF1D8DC89E00BD579F /* Coordinate.swift */; };
 		C0C5D9ED1D844CC300124846 /* UserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C5D9EC1D844CC300124846 /* UserType.swift */; };
+		C0CE3BCB1DA182D80072AE17 /* VenueDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CE3BCA1DA182D80072AE17 /* VenueDetailVC.swift */; };
 		C0E5906E1D9E028500C4D068 /* GoogleSearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E5906D1D9E028500C4D068 /* GoogleSearchAPI.swift */; };
 		C0FBAD8B1D7A4AD800C1C998 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBAD8A1D7A4AD800C1C998 /* AppDelegate.swift */; };
 		C0FBAD901D7A4AD800C1C998 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0FBAD8E1D7A4AD800C1C998 /* Main.storyboard */; };
@@ -79,6 +80,7 @@
 		C084BEAD1D8DBFE700BD579F /* Annotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
 		C084BEAF1D8DC89E00BD579F /* Coordinate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
 		C0C5D9EC1D844CC300124846 /* UserType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserType.swift; sourceTree = "<group>"; };
+		C0CE3BCA1DA182D80072AE17 /* VenueDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueDetailVC.swift; sourceTree = "<group>"; };
 		C0E5906D1D9E028500C4D068 /* GoogleSearchAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleSearchAPI.swift; sourceTree = "<group>"; };
 		C0FBAD871D7A4AD800C1C998 /* MapApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0FBAD8A1D7A4AD800C1C998 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -168,10 +170,10 @@
 		C084BEA11D8DA0DA00BD579F /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				C0CE3BC91DA178640072AE17 /* AccountRelated */,
 				C0197D291DA085F500F68AF0 /* Callout */,
 				C084BEA41D8DA12300BD579F /* MapView */,
-				C084BEA21D8DA0E600BD579F /* Login */,
-				C084BEA31D8DA11200BD579F /* SignUp */,
+				C0CE3BC81DA178410072AE17 /* VenueDetailView */,
 			);
 			name = Screens;
 			sourceTree = "<group>";
@@ -211,6 +213,23 @@
 				C0FBADC91D7A783F00C1C998 /* User */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		C0CE3BC81DA178410072AE17 /* VenueDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				C0CE3BCA1DA182D80072AE17 /* VenueDetailVC.swift */,
+			);
+			name = VenueDetailView;
+			sourceTree = "<group>";
+		};
+		C0CE3BC91DA178640072AE17 /* AccountRelated */ = {
+			isa = PBXGroup;
+			children = (
+				C084BEA21D8DA0E600BD579F /* Login */,
+				C084BEA31D8DA11200BD579F /* SignUp */,
+			);
+			name = AccountRelated;
 			sourceTree = "<group>";
 		};
 		C0FBAD7E1D7A4AD800C1C998 = {
@@ -586,6 +605,7 @@
 				C084BEAA1D8DA5F500BD579F /* Address.swift in Sources */,
 				C0FBADDC1D7B464B00C1C998 /* ImagePicker.swift in Sources */,
 				C077751D1D986E5800B7DF68 /* VenueContactInfo.swift in Sources */,
+				C0CE3BCB1DA182D80072AE17 /* VenueDetailVC.swift in Sources */,
 				C084BEA81D8DA2BF00BD579F /* Venue.swift in Sources */,
 				C0FBADB91D7A5DD600C1C998 /* MapVC.swift in Sources */,
 				C0FBADDA1D7B41BA00C1C998 /* RLMManager.swift in Sources */,
