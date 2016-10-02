@@ -14,7 +14,7 @@ import GooglePlaces
 import FirebaseAuth
 import RealmSwift
 
-class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate {
     @IBOutlet weak var mapStyleBarButton: UIBarButtonItem!
     @IBOutlet weak var googleMapView: GMSMapView!
     
@@ -23,6 +23,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     fileprivate var locationManager: CLLocationManager?
     fileprivate var newestLocation = CLLocation()
     fileprivate var userLocation: CLLocation?
+    fileprivate var calloutView: CalloutView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +48,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     func addMapMarkerForGMSPlace(place: GMSPlace) {
         let marker = GMSMarker(position: place.coordinate)
         marker.appearAnimation = kGMSMarkerAnimationPop
-        marker.title = place.name
         marker.map = googleMapView
     }
     
@@ -67,7 +67,13 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     func getMapCenterCoordinate() -> CLLocationCoordinate2D {
         return googleMapView.projection.coordinate(for: googleMapView.center)
     }
-
+    
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        print("IM TAPPED!")
+        return true
+    }
+    
+    
     //MARK: Helper Methods:
     func instantiateViewController(_ viewControllerIdentifier: String) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

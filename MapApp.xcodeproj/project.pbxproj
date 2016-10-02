@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		ADABE05809EAD2CB2A388DCD /* Pods_MapApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D3AB176DAB41C2A89B08403 /* Pods_MapApp.framework */; };
+		C0197D2B1DA0868D00F68AF0 /* Callout.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0197D2A1DA0868D00F68AF0 /* Callout.xib */; };
+		C0197D2D1DA0875900F68AF0 /* CalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0197D2C1DA0875900F68AF0 /* CalloutView.swift */; };
 		C01E79E11D7CFDBD00700FEA /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01E79E01D7CFDBD00700FEA /* Alert.swift */; };
 		C077751D1D986E5800B7DF68 /* VenueContactInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C077751C1D986E5800B7DF68 /* VenueContactInfo.swift */; };
 		C078577B1D8CD07D00B9AF06 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C078577A1D8CD07D00B9AF06 /* UIImageExtension.swift */; };
@@ -67,6 +69,8 @@
 		88C4D124264C225C74D7532D /* Pods-MapAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapAppTests/Pods-MapAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		A54A865E4BD5A05D65D538E2 /* Pods-MapApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MapApp/Pods-MapApp.debug.xcconfig"; sourceTree = "<group>"; };
 		AA0B9DD29D7C239517FBFFB2 /* Pods-MapAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapAppUITests/Pods-MapAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		C0197D2A1DA0868D00F68AF0 /* Callout.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Callout.xib; sourceTree = "<group>"; };
+		C0197D2C1DA0875900F68AF0 /* CalloutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalloutView.swift; sourceTree = "<group>"; };
 		C01E79E01D7CFDBD00700FEA /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		C077751C1D986E5800B7DF68 /* VenueContactInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueContactInfo.swift; sourceTree = "<group>"; };
 		C078577A1D8CD07D00B9AF06 /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImageExtension.swift; path = ../UIImageExtension.swift; sourceTree = "<group>"; };
@@ -144,6 +148,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C0197D291DA085F500F68AF0 /* Callout */ = {
+			isa = PBXGroup;
+			children = (
+				C0197D2A1DA0868D00F68AF0 /* Callout.xib */,
+				C0197D2C1DA0875900F68AF0 /* CalloutView.swift */,
+			);
+			name = Callout;
+			sourceTree = "<group>";
+		};
 		C01E79E21D7CFDC300700FEA /* Alert */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +168,7 @@
 		C084BEA11D8DA0DA00BD579F /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				C0197D291DA085F500F68AF0 /* Callout */,
 				C084BEA41D8DA12300BD579F /* MapView */,
 				C084BEA21D8DA0E600BD579F /* Login */,
 				C084BEA31D8DA11200BD579F /* SignUp */,
@@ -416,6 +430,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0197D2B1DA0868D00F68AF0 /* Callout.xib in Resources */,
 				C0FBAD951D7A4AD800C1C998 /* LaunchScreen.storyboard in Resources */,
 				C0FBADC11D7A6E3900C1C998 /* GoogleService-Info.plist in Resources */,
 				C0FBAD921D7A4AD800C1C998 /* Assets.xcassets in Resources */,
@@ -579,6 +594,7 @@
 				C0E5906E1D9E028500C4D068 /* GoogleSearchAPI.swift in Sources */,
 				C0FBADCD1D7A7BCA00C1C998 /* AlamoFireOperation.swift in Sources */,
 				C01E79E11D7CFDBD00700FEA /* Alert.swift in Sources */,
+				C0197D2D1DA0875900F68AF0 /* CalloutView.swift in Sources */,
 				C0FBADC81D7A783600C1C998 /* User.swift in Sources */,
 				C0FBADD81D7B3F4200C1C998 /* RLMUser.swift in Sources */,
 				C0FBADD41D7B289300C1C998 /* CloudinaryOperation.swift in Sources */,
