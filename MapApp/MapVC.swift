@@ -103,7 +103,8 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
     
     
     func moreInfoButtonSelected(sender: AnyObject) {
-        print("MORE INFO PLEASE")
+        self.performSegue(withIdentifier: "venueDetailSegue", sender: self)
+//        print("MORE INFO PLEASE")
     }
     
     
