@@ -55,7 +55,7 @@ class VenueDetailVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     }
     
     @IBAction func backButton(_ sender: AnyObject) {
-        self.navigationController?.popViewController(animated: true)
+        _ = navigationController?.popViewController(animated: true)
     }
 
     @IBAction func starRatingPressed(_ sender: AnyObject) {
