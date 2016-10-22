@@ -104,12 +104,9 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
     
     func moreInfoButtonSelected(sender: AnyObject) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let venueDetailVC = storyboard.instantiateViewController(withIdentifier: "VenueDetailVC") as? VenueDetailVC {
+        if let venueDetailVC = storyboard.instantiateViewController(withIdentifier: "VenueChatDisplayDetailVC") as? VenueChatDisplayDetailVC {
             self.navigationController?.pushViewController(venueDetailVC, animated: true)
         }
-
-//        self.performSegue(withIdentifier: "venueDetailSegue", sender: self)
-//        print("MORE INFO PLEASE")
     }
     
     
