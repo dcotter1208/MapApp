@@ -17,6 +17,7 @@
 		C084BEAA1D8DA5F500BD579F /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = C084BEA91D8DA5F500BD579F /* Address.swift */; };
 		C084BEAE1D8DBFE700BD579F /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C084BEAD1D8DBFE700BD579F /* Annotation.swift */; };
 		C084BEB01D8DC89E00BD579F /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C084BEAF1D8DC89E00BD579F /* Coordinate.swift */; };
+		C0B14D591DBC2A39003748A6 /* MessageCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B14D581DBC2A39003748A6 /* MessageCellProtocol.swift */; };
 		C0C5D9ED1D844CC300124846 /* UserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C5D9EC1D844CC300124846 /* UserType.swift */; };
 		C0CE3BCB1DA182D80072AE17 /* VenueChatDisplayDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CE3BCA1DA182D80072AE17 /* VenueChatDisplayDetailVC.swift */; };
 		C0E5906E1D9E028500C4D068 /* GoogleSearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E5906D1D9E028500C4D068 /* GoogleSearchAPI.swift */; };
@@ -83,6 +84,7 @@
 		C084BEA91D8DA5F500BD579F /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		C084BEAD1D8DBFE700BD579F /* Annotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
 		C084BEAF1D8DC89E00BD579F /* Coordinate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
+		C0B14D581DBC2A39003748A6 /* MessageCellProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCellProtocol.swift; sourceTree = "<group>"; };
 		C0C5D9EC1D844CC300124846 /* UserType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserType.swift; sourceTree = "<group>"; };
 		C0CE3BCA1DA182D80072AE17 /* VenueChatDisplayDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueChatDisplayDetailVC.swift; sourceTree = "<group>"; };
 		C0E5906D1D9E028500C4D068 /* GoogleSearchAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleSearchAPI.swift; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 				C0FD5FC91DBAFD3F0000923B /* Message.swift */,
 				C0FD5FCC1DBAFF680000923B /* DefaultMessageCell.swift */,
 				C0FD5FCE1DBAFF770000923B /* CurrentUserMessageCell.swift */,
+				C0B14D581DBC2A39003748A6 /* MessageCellProtocol.swift */,
 			);
 			name = Message;
 			sourceTree = "<group>";
@@ -638,6 +641,7 @@
 				C0E5906E1D9E028500C4D068 /* GoogleSearchAPI.swift in Sources */,
 				C0FBADCD1D7A7BCA00C1C998 /* AlamoFireOperation.swift in Sources */,
 				C01E79E11D7CFDBD00700FEA /* Alert.swift in Sources */,
+				C0B14D591DBC2A39003748A6 /* MessageCellProtocol.swift in Sources */,
 				C0197D2D1DA0875900F68AF0 /* CalloutView.swift in Sources */,
 				C0FBADC81D7A783600C1C998 /* User.swift in Sources */,
 				C0FBADD81D7B3F4200C1C998 /* RLMUser.swift in Sources */,

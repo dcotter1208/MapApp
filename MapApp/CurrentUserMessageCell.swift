@@ -8,21 +8,37 @@
 
 import UIKit
 
-class CurrentUserMessageCell: UITableViewCell {
+class CurrentUserMessageCell: UITableViewCell, MessageCellProtocol {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var messageTextView: UITextView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.messageTextView.frame.size.height = self.messageTextView.contentSize.height
-        self.messageTextView.sizeToFit()
-        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height/2
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        
+    }
+    
+    func setCellAttributesWithMessage(message: Message) {
+        DispatchQueue.main.async {
+            self.messageTextView.text = message.message
+        }
+        
+        DispatchQueue.main.async {
+            self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height/2
+            self.profileImageView.clipsToBounds = true
+            if let profileImage = message.user.profileImage {
+                self.profileImageView.image = self.setProfileImageWithResizedImage(image: profileImage)
+            }
+        }
+    }
+    
+    fileprivate func setProfileImageWithResizedImage(image: UIImage) -> UIImage {
+        let newSize = CGSize(width: image.size.width/5, height: image.size.width/5)
+        return image.resizedImage(newSize)
     }
 
 }
