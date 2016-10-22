@@ -11,15 +11,18 @@ import UIKit
 class VenueDetailVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     @IBOutlet weak var venueNameLabel: UILabel!
     @IBOutlet weak var venuePhotosCollectionView: UICollectionView!
-    @IBOutlet weak var userPhotosCollectionView: UICollectionView!
-
+    @IBOutlet weak var starRatingButton: UIButton!
+    
     var venuePhotos = [1, 2, 3, 4, 5, 6, 7] // Will be UIImage array
     var userPhotos = [1, 2, 3, 4, 5, 6, 7] // Will be UIImage array
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,8 +38,6 @@ class VenueDetailVC: UIViewController, UICollectionViewDelegate, UICollectionVie
         }
     }
 
-    
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if collectionView == venuePhotosCollectionView {
@@ -52,5 +53,19 @@ class VenueDetailVC: UIViewController, UICollectionViewDelegate, UICollectionVie
             return userPhotoCell
         }
     }
+    
+    @IBAction func backButton(_ sender: AnyObject) {
+        _ = navigationController?.popViewController(animated: true)
+    }
 
+    @IBAction func starRatingPressed(_ sender: AnyObject) {
+        if starRatingButton.imageView?.image == UIImage(named: "star_outlined") {
+            starRatingButton.imageView?.image = UIImage(named: "star_filled")
+        } else {
+            starRatingButton.imageView?.image = UIImage(named: "star_outlined")
+        }
+        
+    }
+    
+    
 }

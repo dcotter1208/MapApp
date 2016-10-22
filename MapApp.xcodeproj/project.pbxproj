@@ -70,6 +70,7 @@
 		88C4D124264C225C74D7532D /* Pods-MapAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapAppTests/Pods-MapAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		A54A865E4BD5A05D65D538E2 /* Pods-MapApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MapApp/Pods-MapApp.debug.xcconfig"; sourceTree = "<group>"; };
 		AA0B9DD29D7C239517FBFFB2 /* Pods-MapAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapAppUITests/Pods-MapAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		C010ADEE1DB1B3110093E389 /* MapApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MapApp.entitlements; sourceTree = "<group>"; };
 		C0197D2A1DA0868D00F68AF0 /* Callout.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Callout.xib; sourceTree = "<group>"; };
 		C0197D2C1DA0875900F68AF0 /* CalloutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalloutView.swift; sourceTree = "<group>"; };
 		C01E79E01D7CFDBD00700FEA /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
@@ -257,6 +258,7 @@
 		C0FBAD891D7A4AD800C1C998 /* MapApp */ = {
 			isa = PBXGroup;
 			children = (
+				C010ADEE1DB1B3110093E389 /* MapApp.entitlements */,
 				C0FBAD8A1D7A4AD800C1C998 /* AppDelegate.swift */,
 				C084BEA11D8DA0DA00BD579F /* Screens */,
 				C01E79E21D7CFDC300700FEA /* Alert */,
@@ -411,6 +413,11 @@
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = GNE8UF82DF;
 						LastSwiftMigration = 0800;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					C0FBAD9A1D7A4AD800C1C998 = {
 						CreatedOnToolsVersion = 7.3;
@@ -777,6 +784,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MapApp/MapApp.entitlements;
 				DEVELOPMENT_TEAM = GNE8UF82DF;
 				INFOPLIST_FILE = MapApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -792,6 +800,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MapApp/MapApp.entitlements;
 				DEVELOPMENT_TEAM = GNE8UF82DF;
 				INFOPLIST_FILE = MapApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
