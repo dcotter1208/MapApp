@@ -84,16 +84,23 @@ class VenueChatDisplayDetailVC: UIViewController, UICollectionViewDelegate, UICo
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messages[indexPath.row]
+        let profileImageWidth = (message.user.profileImage?.size.width)! / 2
+        let profileImageHeight = (message.user.profileImage?.size.height)! / 2
         
         guard message.user.userID == "12345" else {
             let defaultMessageCell = tableView.dequeueReusableCell(withIdentifier: "DefaultMessageCell", for: indexPath) as! DefaultMessageCell
+            
             defaultMessageCell.messageTextView.text = message.message
-            defaultMessageCell.profileImageView.image = message.user.profileImage
+            defaultMessageCell.profileImageView.image = message.user.profileImage?.resizedImage(CGSize(width: profileImageWidth, height: profileImageHeight))
+            defaultMessageCell.profileImageView.layer.cornerRadius = defaultMessageCell.profileImageView.frame.size.height/2
+            defaultMessageCell.profileImageView.layer.masksToBounds = true
             return defaultMessageCell
         }
         let currentUserMessageCell = tableView.dequeueReusableCell(withIdentifier: "CurrentUserMessageCell", for: indexPath) as! CurrentUserMessageCell
+                    currentUserMessageCell.profileImageView.layer.cornerRadius = currentUserMessageCell.profileImageView.frame.size.height/2
+        currentUserMessageCell.profileImageView.clipsToBounds = true
         currentUserMessageCell.messageTextView.text = message.message
-        currentUserMessageCell.profileImageView.image = message.user.profileImage
+        currentUserMessageCell.profileImageView.image = message.user.profileImage?.resizedImage(CGSize(width: profileImageWidth, height: profileImageHeight))
         return currentUserMessageCell
     }
     

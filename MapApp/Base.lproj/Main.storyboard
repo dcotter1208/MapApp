@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -565,17 +564,17 @@
                                     <constraint firstAttribute="height" constant="349" id="Ht6-79-CJc"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DefaultMessageCell" rowHeight="118" id="GY7-sL-Qwu" customClass="DefaultMessageCell" customModule="MapApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="118"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DefaultMessageCell" rowHeight="93" id="GY7-sL-Qwu" customClass="DefaultMessageCell" customModule="MapApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="93"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GY7-sL-Qwu" id="mjH-Mp-woR">
-                                            <frame key="frameInset" width="375" height="118"/>
+                                            <frame key="frameInset" width="375" height="93"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hub-9Q-yoU">
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="Hub-9Q-yoU" secondAttribute="height" multiplier="1:1" id="MZV-Bi-WxK"/>
-                                                        <constraint firstAttribute="width" constant="55" id="WfD-h9-56T"/>
+                                                        <constraint firstAttribute="width" constant="55" id="D2R-X8-P5G"/>
+                                                        <constraint firstAttribute="height" constant="55" id="UJ7-SS-qP8"/>
                                                     </constraints>
                                                 </imageView>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zT0-mz-a3z">
@@ -586,12 +585,12 @@
                                                 </textView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="zT0-mz-a3z" firstAttribute="leading" secondItem="Hub-9Q-yoU" secondAttribute="trailing" constant="5" id="Oga-50-3K4"/>
-                                                <constraint firstItem="Hub-9Q-yoU" firstAttribute="centerY" secondItem="mjH-Mp-woR" secondAttribute="centerY" id="PVI-V5-W0D"/>
-                                                <constraint firstItem="zT0-mz-a3z" firstAttribute="top" secondItem="mjH-Mp-woR" secondAttribute="topMargin" id="PiT-7a-BBu"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="zT0-mz-a3z" secondAttribute="trailing" constant="76" id="SPh-8j-WSS"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="zT0-mz-a3z" secondAttribute="bottom" constant="41" id="WDY-k9-8Ha"/>
-                                                <constraint firstItem="Hub-9Q-yoU" firstAttribute="leading" secondItem="mjH-Mp-woR" secondAttribute="leadingMargin" id="wcl-Zv-xGo"/>
+                                                <constraint firstItem="Hub-9Q-yoU" firstAttribute="centerY" secondItem="mjH-Mp-woR" secondAttribute="centerY" id="C3t-9h-JJs"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="zT0-mz-a3z" secondAttribute="bottom" constant="11" id="Ui2-Cz-Dej"/>
+                                                <constraint firstItem="zT0-mz-a3z" firstAttribute="top" secondItem="mjH-Mp-woR" secondAttribute="topMargin" constant="8" id="fH7-aV-hrG"/>
+                                                <constraint firstItem="zT0-mz-a3z" firstAttribute="leading" secondItem="Hub-9Q-yoU" secondAttribute="trailing" constant="8" id="i8D-7l-E1b"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="zT0-mz-a3z" secondAttribute="trailing" constant="104" id="q8N-tW-qQs"/>
+                                                <constraint firstItem="Hub-9Q-yoU" firstAttribute="leading" secondItem="mjH-Mp-woR" secondAttribute="leadingMargin" id="unw-xN-0vV"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -599,11 +598,11 @@
                                             <outlet property="profileImageView" destination="Hub-9Q-yoU" id="IRS-jX-MP2"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CurrentUserMessageCell" rowHeight="106" id="JGE-kB-2mw" customClass="CurrentUserMessageCell" customModule="MapApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="146" width="375" height="106"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CurrentUserMessageCell" rowHeight="93" id="JGE-kB-2mw" customClass="CurrentUserMessageCell" customModule="MapApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="121" width="375" height="93"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JGE-kB-2mw" id="69W-gY-piF">
-                                            <frame key="frameInset" width="375" height="106"/>
+                                            <frame key="frameInset" width="375" height="93"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Had that last time... the Ghettoblaster is fantastic as well.Had that last time... the Ghettoblaster is fantastic as well." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="s3D-4r-RV4">
@@ -613,18 +612,19 @@
                                                 </textView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="X6j-sO-xOZ">
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="55" id="6fw-y3-TuA"/>
-                                                        <constraint firstAttribute="width" secondItem="X6j-sO-xOZ" secondAttribute="height" multiplier="1:1" id="DDS-bS-nyB"/>
+                                                        <constraint firstAttribute="height" constant="55" id="Skz-YR-DKJ"/>
+                                                        <constraint firstAttribute="width" constant="55" id="Wmf-4P-6lk"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="s3D-4r-RV4" firstAttribute="leading" secondItem="69W-gY-piF" secondAttribute="leadingMargin" constant="65" id="bSo-tU-b1j"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="s3D-4r-RV4" secondAttribute="bottom" constant="29" id="frs-8b-Q9L"/>
-                                                <constraint firstItem="X6j-sO-xOZ" firstAttribute="centerY" secondItem="69W-gY-piF" secondAttribute="centerY" id="jrK-Mx-YeJ"/>
-                                                <constraint firstItem="X6j-sO-xOZ" firstAttribute="trailing" secondItem="69W-gY-piF" secondAttribute="trailingMargin" id="s6U-le-R6L"/>
-                                                <constraint firstItem="X6j-sO-xOZ" firstAttribute="leading" secondItem="s3D-4r-RV4" secondAttribute="trailing" constant="16" id="yOm-0G-g1o"/>
-                                                <constraint firstItem="s3D-4r-RV4" firstAttribute="top" secondItem="69W-gY-piF" secondAttribute="topMargin" id="z7h-d2-lNQ"/>
+                                                <constraint firstItem="s3D-4r-RV4" firstAttribute="leading" secondItem="69W-gY-piF" secondAttribute="leadingMargin" constant="68" id="8LE-dx-d4b"/>
+                                                <constraint firstItem="s3D-4r-RV4" firstAttribute="top" secondItem="69W-gY-piF" secondAttribute="topMargin" constant="15" id="AD6-xv-Jxu"/>
+                                                <constraint firstItem="X6j-sO-xOZ" firstAttribute="centerY" secondItem="69W-gY-piF" secondAttribute="centerY" id="BFc-gk-SoQ"/>
+                                                <constraint firstItem="s3D-4r-RV4" firstAttribute="centerX" secondItem="69W-gY-piF" secondAttribute="centerX" id="BsD-wT-AjZ"/>
+                                                <constraint firstItem="X6j-sO-xOZ" firstAttribute="leading" secondItem="s3D-4r-RV4" secondAttribute="trailing" constant="13" id="D3s-lU-sST"/>
+                                                <constraint firstItem="X6j-sO-xOZ" firstAttribute="trailing" secondItem="69W-gY-piF" secondAttribute="trailingMargin" id="V3b-Uk-XdC"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="s3D-4r-RV4" secondAttribute="bottom" constant="13" id="m9D-0A-jGo"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -899,7 +899,7 @@
             <objects>
                 <navigationController storyboardIdentifier="LogInNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fcs-ls-Rhn" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="uln-nE-z3B">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uln-nE-z3B">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -917,7 +917,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MRg-lX-Z71" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="iEt-FP-tgg">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iEt-FP-tgg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

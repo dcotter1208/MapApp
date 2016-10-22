@@ -15,9 +15,6 @@ class DefaultMessageCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.messageTextView.frame.size.height = self.messageTextView.contentSize.height
-        self.messageTextView.sizeToFit()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -26,6 +23,5 @@ class DefaultMessageCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    
     
 }

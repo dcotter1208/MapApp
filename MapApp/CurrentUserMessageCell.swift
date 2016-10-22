@@ -16,7 +16,7 @@ class CurrentUserMessageCell: UITableViewCell {
         super.awakeFromNib()
         self.messageTextView.frame.size.height = self.messageTextView.contentSize.height
         self.messageTextView.sizeToFit()
-        // Initialization code
+        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height/2
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
