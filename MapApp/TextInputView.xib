@@ -3,14 +3,13 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TextInputView" customModule="MapApp" customModuleProvider="target">
             <connections>
+                <outlet property="messageTextView" destination="KiO-Ol-VI7" id="wdH-Um-1Zv"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Yxx-vs-Ub6"/>
             </connections>
         </placeholder>
@@ -19,39 +18,56 @@
             <rect key="frame" x="0.0" y="0.0" width="407" height="50"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="send message" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KiO-Ol-VI7">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" text="send message" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KiO-Ol-VI7">
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zQd-ZD-GEn">
-                    <constraints>
-                        <constraint firstAttribute="width" constant="52" id="h3G-sK-Clp"/>
-                    </constraints>
-                    <state key="normal" title="Send"/>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qhT-Xg-u4E">
                     <state key="normal" title="Send"/>
+                    <connections>
+                        <action selector="sendMessageSelected:" destination="-1" eventType="touchUpInside" id="EBh-OA-lBw"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zQd-ZD-GEn">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="52" id="KtL-RJ-6OR"/>
+                    </constraints>
+                    <state key="normal" image="attachment"/>
+                    <connections>
+                        <action selector="attachmentSelected:" destination="-1" eventType="touchUpInside" id="eMf-0V-XvV"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <gestureRecognizers/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="zQd-ZD-GEn" secondAttribute="bottom" id="5Z5-2f-6AT"/>
-                <constraint firstItem="KiO-Ol-VI7" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Gfu-zf-T0H"/>
-                <constraint firstItem="zQd-ZD-GEn" firstAttribute="baseline" secondItem="qhT-Xg-u4E" secondAttribute="firstBaseline" id="I19-Qm-HZI"/>
-                <constraint firstItem="zQd-ZD-GEn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="Ib2-2i-YZS"/>
-                <constraint firstItem="KiO-Ol-VI7" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="Vz5-ft-lcy"/>
-                <constraint firstItem="KiO-Ol-VI7" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="WzT-by-O9e"/>
-                <constraint firstItem="qhT-Xg-u4E" firstAttribute="leading" secondItem="KiO-Ol-VI7" secondAttribute="trailing" constant="8" symbolic="YES" id="ZD0-bh-Awr"/>
-                <constraint firstItem="KiO-Ol-VI7" firstAttribute="leading" secondItem="zQd-ZD-GEn" secondAttribute="trailing" constant="8" symbolic="YES" id="aXv-JE-RSe"/>
-                <constraint firstAttribute="trailing" secondItem="qhT-Xg-u4E" secondAttribute="trailing" id="b2b-Ti-Wa8"/>
-                <constraint firstItem="qhT-Xg-u4E" firstAttribute="baseline" secondItem="zQd-ZD-GEn" secondAttribute="firstBaseline" id="iYI-GO-DTm"/>
-                <constraint firstItem="zQd-ZD-GEn" firstAttribute="top" secondItem="qhT-Xg-u4E" secondAttribute="top" id="nSS-jG-M4x"/>
-                <constraint firstItem="zQd-ZD-GEn" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="yd4-fc-c8i"/>
+                <constraint firstItem="zQd-ZD-GEn" firstAttribute="centerY" secondItem="KiO-Ol-VI7" secondAttribute="centerY" id="4vZ-Qo-OrY"/>
+                <constraint firstItem="zQd-ZD-GEn" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="EXW-Px-Z1f"/>
+                <constraint firstItem="zQd-ZD-GEn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="4" id="EbA-cT-utW"/>
+                <constraint firstItem="qhT-Xg-u4E" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="KOY-63-V8D"/>
+                <constraint firstAttribute="trailing" secondItem="qhT-Xg-u4E" secondAttribute="trailing" id="M7A-s7-RzB"/>
+                <constraint firstItem="zQd-ZD-GEn" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Rzb-WV-jQe"/>
+                <constraint firstAttribute="bottom" secondItem="qhT-Xg-u4E" secondAttribute="bottom" constant="11" id="SD4-K6-6dg"/>
+                <constraint firstItem="qhT-Xg-u4E" firstAttribute="leading" secondItem="KiO-Ol-VI7" secondAttribute="trailing" constant="8" symbolic="YES" id="bYu-nF-DYT"/>
+                <constraint firstItem="KiO-Ol-VI7" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="e9p-IA-Byp"/>
+                <constraint firstItem="zQd-ZD-GEn" firstAttribute="bottom" secondItem="KiO-Ol-VI7" secondAttribute="bottom" id="fVR-0y-Oov"/>
+                <constraint firstItem="KiO-Ol-VI7" firstAttribute="leading" secondItem="zQd-ZD-GEn" secondAttribute="trailing" constant="8" symbolic="YES" id="nyq-LJ-Vff"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="BCj-1e-AUo" appends="YES" id="k0F-kF-ESK"/>
+            </connections>
             <point key="canvasLocation" x="-294" y="68"/>
         </view>
+        <swipeGestureRecognizer direction="right" id="BCj-1e-AUo">
+            <connections>
+                <action selector="swipeDown:" destination="-1" id="0QN-KV-gS4"/>
+            </connections>
+        </swipeGestureRecognizer>
     </objects>
+    <resources>
+        <image name="attachment" width="24" height="24"/>
+    </resources>
 </document>

@@ -9,12 +9,15 @@
 import UIKit
 
 protocol TextInputViewDelegate {
-    
+    func sendMessage()
+    func addAttachment()
+    func dismissKeyboardOnSwipe()
 }
 
 class TextInputView: UIView {
     @IBOutlet var view: UIView!
-
+    @IBOutlet weak var messageTextView: UITextView!
+    
     var delegate: TextInputViewDelegate? = nil
     
     override init(frame: CGRect) {
@@ -29,4 +32,21 @@ class TextInputView: UIView {
         super.init(coder: aDecoder)
     }
 
+    @IBAction func swipeDown(_ sender: UISwipeGestureRecognizer) {
+        print(sender.direction)
+        sender.direction = .down
+        if sender.direction == .down {
+            self.delegate?.dismissKeyboardOnSwipe()
+        }
+    }
+    
+    @IBAction func sendMessageSelected(_ sender: AnyObject) {
+        self.delegate?.sendMessage()
+    }
+    
+    @IBAction func attachmentSelected(_ sender: AnyObject) {
+        self.delegate?.addAttachment()
+    }
+    
+    
 }

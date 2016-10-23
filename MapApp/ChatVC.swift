@@ -10,21 +10,21 @@ import UIKit
 
 class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, TextInputViewDelegate {
     @IBOutlet weak var chatTableView: UITableView!
-    @IBOutlet weak var inputTextView: UITextView!
-    @IBOutlet weak var messageInputView: UIView!
-    @IBOutlet weak var messageInputViewBottomConstraint: NSLayoutConstraint!
-    
+    @IBOutlet var tableViewTapGesture: UITapGestureRecognizer!
+
     let textInputViewHeight:CGFloat = 44.0
 
     var messages = [Message]()
     var bottomConstraint: NSLayoutConstraint?
     var keyboardHeight: CGFloat?
     var textInputView: TextInputView?
+    var selectTextView = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpKeyboardNotification()
         setUpTextInputView()
+        chatTableView.keyboardDismissMode = .onDrag
     }
     
     func setUpTextInputView() {
@@ -35,6 +35,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Text
         let viewRectSize = CGRect(x: textInputViewXPosition, y: textInputViewYPosition, width: textInputViewWidth, height: textInputViewHeight)
         textInputView = TextInputView(frame: viewRectSize)
         textInputView?.delegate = self
+        textInputView?.messageTextView.becomeFirstResponder()
         self.view.addSubview(textInputView!)
     }
     
@@ -71,9 +72,24 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Text
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
 
+    // TextInputViewDelegage
+    
+    func dismissKeyboardOnSwipe() {
+        textInputView?.messageTextView.resignFirstResponder()
     }
     
+    func addAttachment() {
+        print("Attachment added")
+    }
+    
+    func sendMessage() {
+        print("Message Sent")
+    }
+    
+    //MARK: TableView
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
     }
