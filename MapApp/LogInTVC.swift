@@ -25,7 +25,6 @@ class LogInTVC: UITableViewController {
     
     //MARK: Helper Methods:
     fileprivate func instantiateViewController(_ viewControllerIdentifier: String) {
-        print("Instantiate called")
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let istantiatedVC = storyboard.instantiateViewController(withIdentifier: viewControllerIdentifier)
         self.present(istantiatedVC, animated: true, completion: nil)

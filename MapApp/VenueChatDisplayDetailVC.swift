@@ -92,10 +92,13 @@ class VenueChatDisplayDetailVC: UIViewController, UICollectionViewDelegate, UICo
         
         guard message.user.userID == "12345" else {
             let defaultMessageCell = tableView.dequeueReusableCell(withIdentifier: "DefaultMessageCell", for: indexPath) as! DefaultMessageCell
+            defaultMessageCell.messageTextView.text = message.message
+
             defaultMessageCell.setCellAttributesWithMessage(message: message)
             return defaultMessageCell
         }
         let currentUserMessageCell = tableView.dequeueReusableCell(withIdentifier: "CurrentUserMessageCell", for: indexPath) as! CurrentUserMessageCell
+        currentUserMessageCell.messageTextView.text = message.message
         currentUserMessageCell.setCellAttributesWithMessage(message: message)
         return currentUserMessageCell
     }

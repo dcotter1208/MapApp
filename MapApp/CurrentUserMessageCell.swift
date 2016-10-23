@@ -23,13 +23,13 @@ class CurrentUserMessageCell: UITableViewCell, MessageCellProtocol {
     }
     
     func setCellAttributesWithMessage(message: Message) {
-        DispatchQueue.main.async {
-            self.messageTextView.text = message.message
-        }
+//        DispatchQueue.main.async {
+//            self.messageTextView.text = message.message
+//        }
         
         DispatchQueue.main.async {
             self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height/2
-            self.profileImageView.clipsToBounds = true
+            self.profileImageView.layer.masksToBounds = true
             if let profileImage = message.user.profileImage {
                 self.profileImageView.image = self.setProfileImageWithResizedImage(image: profileImage)
             }

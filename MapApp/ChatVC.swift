@@ -13,7 +13,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var messages = [Message]()
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
     }
 
     override func didReceiveMemoryWarning() {
