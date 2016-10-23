@@ -56,16 +56,8 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <connections>
-                <outletCollection property="gestureRecognizers" destination="BCj-1e-AUo" appends="YES" id="k0F-kF-ESK"/>
-            </connections>
             <point key="canvasLocation" x="-294" y="68"/>
         </view>
-        <swipeGestureRecognizer direction="right" id="BCj-1e-AUo">
-            <connections>
-                <action selector="swipeDown:" destination="-1" id="0QN-KV-gS4"/>
-            </connections>
-        </swipeGestureRecognizer>
     </objects>
     <resources>
         <image name="attachment" width="24" height="24"/>

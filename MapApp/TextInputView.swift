@@ -11,7 +11,6 @@ import UIKit
 protocol TextInputViewDelegate {
     func sendMessage()
     func addAttachment()
-    func dismissKeyboardOnSwipe()
 }
 
 class TextInputView: UIView {
@@ -30,14 +29,6 @@ class TextInputView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
-
-    @IBAction func swipeDown(_ sender: UISwipeGestureRecognizer) {
-        print(sender.direction)
-        sender.direction = .down
-        if sender.direction == .down {
-            self.delegate?.dismissKeyboardOnSwipe()
-        }
     }
     
     @IBAction func sendMessageSelected(_ sender: AnyObject) {

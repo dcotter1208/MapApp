@@ -27,6 +27,10 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Text
         chatTableView.keyboardDismissMode = .onDrag
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        textInputView?.messageTextView.resignFirstResponder()
+    }
+    
     func setUpTextInputView() {
         let textInputViewWidth = view.frame.size.width
         let textInputViewXPosition = view.frame.origin.x
@@ -74,12 +78,8 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Text
         super.didReceiveMemoryWarning()
     }
 
-    // TextInputViewDelegage
-    
-    func dismissKeyboardOnSwipe() {
-        textInputView?.messageTextView.resignFirstResponder()
-    }
-    
+    //MARK: TextInputViewDelegage
+
     func addAttachment() {
         print("Attachment added")
     }
