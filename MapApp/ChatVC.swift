@@ -14,10 +14,13 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Text
     @IBOutlet weak var messageInputView: UIView!
     @IBOutlet weak var messageInputViewBottomConstraint: NSLayoutConstraint!
     
+    let textInputViewHeight:CGFloat = 44.0
+
     var messages = [Message]()
     var bottomConstraint: NSLayoutConstraint?
     var keyboardHeight: CGFloat?
     var textInputView: TextInputView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpKeyboardNotification()
@@ -25,7 +28,6 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Text
     }
     
     func setUpTextInputView() {
-        let textInputViewHeight:CGFloat = 44.0
         let textInputViewWidth = view.frame.size.width
         let textInputViewXPosition = view.frame.origin.x
         let textInputViewYPosition = view.frame.maxY - textInputViewHeight
@@ -36,23 +38,35 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Text
         self.view.addSubview(textInputView!)
     }
     
-    func adjustTextInputViewWhenKeyboardVisible() {
-        let newYPosition = (view.frame.maxY - keyboardHeight!) - (textInputView!.frame.size.height)
-        textInputView?.frame.origin.y = newYPosition
-        view.setNeedsLayout()
+    func adjustTextInputViewPosition(isKeyboardVisible: Bool) {
+        let yPosition:CGFloat
+        switch isKeyboardVisible {
+        case true:
+            yPosition = (view.frame.maxY - keyboardHeight!) - (textInputView!.frame.size.height)
+        case false:
+            yPosition = self.view.frame.maxY - self.textInputViewHeight
+        }
+        DispatchQueue.main.async {
+            self.textInputView?.frame.origin.y = yPosition
+        }
     }
 
     func setUpKeyboardNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowNotification), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideNotification), name: .UIKeyboardWillHide, object: nil)
     }
     
-    func handleKeyboardNotification(notification: NSNotification) {
+    func keyboardWillShowNotification(notification: NSNotification) {
         if let userInfo = notification.userInfo {
             if let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue {
                 keyboardHeight = keyboardFrame.cgRectValue.height
-                adjustTextInputViewWhenKeyboardVisible()
+                adjustTextInputViewPosition(isKeyboardVisible: true)
             }
         }
+    }
+    
+    func keyboardWillHideNotification() {
+        adjustTextInputViewPosition(isKeyboardVisible: false)
     }
     
     override func didReceiveMemoryWarning() {
