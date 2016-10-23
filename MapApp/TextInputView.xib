@@ -18,7 +18,7 @@
             <rect key="frame" x="0.0" y="0.0" width="407" height="50"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" text="send message" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KiO-Ol-VI7">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="send message" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KiO-Ol-VI7">
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
