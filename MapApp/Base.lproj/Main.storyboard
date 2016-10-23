@@ -879,7 +879,6 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="biv-JM-JYQ" firstAttribute="top" secondItem="j8E-L2-Rjl" secondAttribute="topMargin" constant="15" id="72c-Sa-RRO"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="biv-JM-JYQ" secondAttribute="bottom" constant="13" id="9ew-dB-G52"/>
                                                 <constraint firstItem="ieM-Nx-hyP" firstAttribute="centerY" secondItem="j8E-L2-Rjl" secondAttribute="centerY" id="AwA-4K-BYu"/>
                                                 <constraint firstItem="biv-JM-JYQ" firstAttribute="centerX" secondItem="j8E-L2-Rjl" secondAttribute="centerX" id="O2t-5N-lQy"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="biv-JM-JYQ" secondAttribute="bottom" constant="11" id="P59-9X-eHC"/>
@@ -912,27 +911,16 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lGi-00-esU">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="PW4-Bs-FyO"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ILa-76-dQV" firstAttribute="trailing" secondItem="tUn-yb-iBi" secondAttribute="trailing" id="J0Q-f1-LcN"/>
-                            <constraint firstItem="ILa-76-dQV" firstAttribute="leading" secondItem="lGi-00-esU" secondAttribute="leading" id="PBG-bW-X3w"/>
-                            <constraint firstItem="ILa-76-dQV" firstAttribute="top" secondItem="tUn-yb-iBi" secondAttribute="bottom" id="XDh-i4-INM"/>
-                            <constraint firstItem="lGi-00-esU" firstAttribute="top" secondItem="ILa-76-dQV" secondAttribute="bottom" id="Y0R-UC-mZg"/>
-                            <constraint firstAttribute="trailing" secondItem="tUn-yb-iBi" secondAttribute="trailing" id="cCq-FX-5NB"/>
-                            <constraint firstItem="ILa-76-dQV" firstAttribute="leading" secondItem="tUn-yb-iBi" secondAttribute="leading" id="iXu-Dn-pTy"/>
-                            <constraint firstItem="ILa-76-dQV" firstAttribute="trailing" secondItem="lGi-00-esU" secondAttribute="trailing" id="k6H-O5-xkh"/>
-                            <constraint firstItem="lGi-00-esU" firstAttribute="bottom" secondItem="xBe-Z9-9ao" secondAttribute="top" id="nil-Lh-kvd"/>
-                            <constraint firstItem="tUn-yb-iBi" firstAttribute="top" secondItem="qQY-D8-ebh" secondAttribute="bottom" constant="8" id="ssg-7b-77R"/>
-                            <constraint firstItem="tUn-yb-iBi" firstAttribute="leading" secondItem="pbv-wO-1xH" secondAttribute="leading" id="xem-hI-B6d"/>
+                            <constraint firstItem="ILa-76-dQV" firstAttribute="trailing" secondItem="tUn-yb-iBi" secondAttribute="trailing" id="AqH-dt-2Ph"/>
+                            <constraint firstItem="tUn-yb-iBi" firstAttribute="leading" secondItem="pbv-wO-1xH" secondAttribute="leading" id="KHP-jj-ywO"/>
+                            <constraint firstAttribute="trailing" secondItem="tUn-yb-iBi" secondAttribute="trailing" id="fY3-nU-MRy"/>
+                            <constraint firstItem="ILa-76-dQV" firstAttribute="leading" secondItem="tUn-yb-iBi" secondAttribute="leading" id="hgv-Y8-9Ec"/>
+                            <constraint firstItem="ILa-76-dQV" firstAttribute="bottom" secondItem="xBe-Z9-9ao" secondAttribute="top" id="la7-kT-Bz5"/>
+                            <constraint firstItem="tUn-yb-iBi" firstAttribute="top" secondItem="qQY-D8-ebh" secondAttribute="bottom" constant="8" id="uzU-15-TxL"/>
+                            <constraint firstItem="ILa-76-dQV" firstAttribute="top" secondItem="tUn-yb-iBi" secondAttribute="bottom" id="vS3-2a-nkD"/>
                         </constraints>
                     </view>
                     <connections>

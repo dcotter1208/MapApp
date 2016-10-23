@@ -10,6 +10,6 @@ import Foundation
 
 protocol MessageCellProtocol {
     
-    func setCellAttributesWithMessage(message: Message)
+    func setCellViewAttributesWithMessage(message: Message)
     
 }

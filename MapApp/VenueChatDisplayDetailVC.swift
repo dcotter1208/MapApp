@@ -53,9 +53,12 @@ class VenueChatDisplayDetailVC: UIViewController, UICollectionViewDelegate, UICo
     }
     
     //MARK: TextField Delegate
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         self.performSegue(withIdentifier: "FullChatViewSegue", sender: self)
+        return false
     }
+    
     //MARK: Venue CollectionView
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -93,13 +96,12 @@ class VenueChatDisplayDetailVC: UIViewController, UICollectionViewDelegate, UICo
         guard message.user.userID == "12345" else {
             let defaultMessageCell = tableView.dequeueReusableCell(withIdentifier: "DefaultMessageCell", for: indexPath) as! DefaultMessageCell
             defaultMessageCell.messageTextView.text = message.message
-
-            defaultMessageCell.setCellAttributesWithMessage(message: message)
+            defaultMessageCell.setCellViewAttributesWithMessage(message: message)
             return defaultMessageCell
         }
         let currentUserMessageCell = tableView.dequeueReusableCell(withIdentifier: "CurrentUserMessageCell", for: indexPath) as! CurrentUserMessageCell
         currentUserMessageCell.messageTextView.text = message.message
-        currentUserMessageCell.setCellAttributesWithMessage(message: message)
+        currentUserMessageCell.setCellViewAttributesWithMessage(message: message)
         return currentUserMessageCell
     }
 

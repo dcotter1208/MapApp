@@ -24,12 +24,11 @@ class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
         // Configure the view for the selected state
     }
     
-    func setCellAttributesWithMessage(message: Message) {
-//        DispatchQueue.main.async {
-//            self.messageTextView.text = message.message
-//        }
-        
+    func setCellViewAttributesWithMessage(message: Message) {
         DispatchQueue.main.async {
+            self.messageTextView.layer.cornerRadius = 10
+            self.messageTextView.backgroundColor = UIColor.lightGray
+            self.messageTextView.textColor = UIColor.black
             self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height/2
             self.profileImageView.layer.masksToBounds = true
             if let profileImage = message.user.profileImage {
@@ -37,7 +36,6 @@ class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
             }
         }
     }
-    
     fileprivate func setProfileImageWithResizedImage(image: UIImage) -> UIImage {
         let newSize = CGSize(width: image.size.width/5, height: image.size.width/5)
         return image.resizedImage(newSize)

@@ -22,12 +22,11 @@ class CurrentUserMessageCell: UITableViewCell, MessageCellProtocol {
         
     }
     
-    func setCellAttributesWithMessage(message: Message) {
-//        DispatchQueue.main.async {
-//            self.messageTextView.text = message.message
-//        }
-        
+    func setCellViewAttributesWithMessage(message: Message) {
         DispatchQueue.main.async {
+            self.messageTextView.layer.cornerRadius = 10
+            self.messageTextView.backgroundColor = UIColor.blue
+            self.messageTextView.textColor = UIColor.white
             self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height/2
             self.profileImageView.layer.masksToBounds = true
             if let profileImage = message.user.profileImage {

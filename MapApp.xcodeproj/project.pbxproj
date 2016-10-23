@@ -19,6 +19,8 @@
 		C084BEB01D8DC89E00BD579F /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C084BEAF1D8DC89E00BD579F /* Coordinate.swift */; };
 		C0B14D591DBC2A39003748A6 /* MessageCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B14D581DBC2A39003748A6 /* MessageCellProtocol.swift */; };
 		C0B14D5B1DBC5C36003748A6 /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B14D5A1DBC5C36003748A6 /* ChatVC.swift */; };
+		C0B14D5D1DBD1E16003748A6 /* TextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B14D5C1DBD1E16003748A6 /* TextInputView.swift */; };
+		C0B14D5F1DBD1E64003748A6 /* TextInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0B14D5E1DBD1E64003748A6 /* TextInputView.xib */; };
 		C0C5D9ED1D844CC300124846 /* UserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C5D9EC1D844CC300124846 /* UserType.swift */; };
 		C0CE3BCB1DA182D80072AE17 /* VenueChatDisplayDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CE3BCA1DA182D80072AE17 /* VenueChatDisplayDetailVC.swift */; };
 		C0E5906E1D9E028500C4D068 /* GoogleSearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E5906D1D9E028500C4D068 /* GoogleSearchAPI.swift */; };
@@ -87,6 +89,8 @@
 		C084BEAF1D8DC89E00BD579F /* Coordinate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
 		C0B14D581DBC2A39003748A6 /* MessageCellProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCellProtocol.swift; sourceTree = "<group>"; };
 		C0B14D5A1DBC5C36003748A6 /* ChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
+		C0B14D5C1DBD1E16003748A6 /* TextInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputView.swift; sourceTree = "<group>"; };
+		C0B14D5E1DBD1E64003748A6 /* TextInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextInputView.xib; sourceTree = "<group>"; };
 		C0C5D9EC1D844CC300124846 /* UserType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserType.swift; sourceTree = "<group>"; };
 		C0CE3BCA1DA182D80072AE17 /* VenueChatDisplayDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueChatDisplayDetailVC.swift; sourceTree = "<group>"; };
 		C0E5906D1D9E028500C4D068 /* GoogleSearchAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleSearchAPI.swift; sourceTree = "<group>"; };
@@ -232,6 +236,8 @@
 			children = (
 				C0CE3BCA1DA182D80072AE17 /* VenueChatDisplayDetailVC.swift */,
 				C0B14D5A1DBC5C36003748A6 /* ChatVC.swift */,
+				C0B14D5C1DBD1E16003748A6 /* TextInputView.swift */,
+				C0B14D5E1DBD1E64003748A6 /* TextInputView.xib */,
 			);
 			name = VenueDetailViews;
 			sourceTree = "<group>";
@@ -485,6 +491,7 @@
 				C0FBAD921D7A4AD800C1C998 /* Assets.xcassets in Resources */,
 				C0FBAD901D7A4AD800C1C998 /* Main.storyboard in Resources */,
 				C0FBADC31D7A6E4500C1C998 /* Keys.plist in Resources */,
+				C0B14D5F1DBD1E64003748A6 /* TextInputView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -654,6 +661,7 @@
 				C0FBADD11D7B0FC700C1C998 /* SignUpTVC.swift in Sources */,
 				C0C5D9ED1D844CC300124846 /* UserType.swift in Sources */,
 				C0FBADCB1D7A786D00C1C998 /* CurrentUser.swift in Sources */,
+				C0B14D5D1DBD1E16003748A6 /* TextInputView.swift in Sources */,
 				C0FBAD8B1D7A4AD800C1C998 /* AppDelegate.swift in Sources */,
 				C0FD5FCA1DBAFD3F0000923B /* Message.swift in Sources */,
 				C0FD5FCF1DBAFF770000923B /* CurrentUserMessageCell.swift in Sources */,
