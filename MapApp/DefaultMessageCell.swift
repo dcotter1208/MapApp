@@ -37,7 +37,7 @@ class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
             }
         }
     }
-
+    
     fileprivate func setProfileImageWithResizedImage(image: UIImage) -> UIImage {
         let newSize = CGSize(width: image.size.width/5, height: image.size.width/5)
         return image.resizedImage(newSize)

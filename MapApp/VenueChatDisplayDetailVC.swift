@@ -8,11 +8,12 @@
 
 import UIKit
 
-class VenueChatDisplayDetailVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource {
+class VenueChatDisplayDetailVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     @IBOutlet weak var venueNameLabel: UILabel!
     @IBOutlet weak var venuePhotosCollectionView: UICollectionView!
     @IBOutlet weak var starRatingButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var messagedTextField: UITextField!
     
     //TEST DATA***********
     
@@ -40,7 +41,7 @@ class VenueChatDisplayDetailVC: UIViewController, UICollectionViewDelegate, UICo
         
         messages = [message1, message2, message3, message4, message5, message6, message7]
         
-        
+        messagedTextField.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 140
         // Do any additional setup after loading the view.
@@ -51,6 +52,10 @@ class VenueChatDisplayDetailVC: UIViewController, UICollectionViewDelegate, UICo
         // Dispose of any resources that can be recreated.
     }
     
+    //MARK: TextField Delegate
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.performSegue(withIdentifier: "FullChatViewSegue", sender: self)
+    }
     //MARK: Venue CollectionView
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -105,5 +110,8 @@ class VenueChatDisplayDetailVC: UIViewController, UICollectionViewDelegate, UICo
         
     }
     
+    @IBAction func chatTextBarSelected(_ sender: AnyObject) {
+        
+    }
     
 }
