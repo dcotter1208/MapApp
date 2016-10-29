@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,14 +14,9 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="407" height="50"/>
+            <rect key="frame" x="0.0" y="0.0" width="407" height="103"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="send message" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KiO-Ol-VI7">
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                </textView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qhT-Xg-u4E">
                     <state key="normal" title="Send"/>
                     <connections>
@@ -31,32 +25,37 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zQd-ZD-GEn">
                     <constraints>
-                        <constraint firstAttribute="width" constant="52" id="KtL-RJ-6OR"/>
+                        <constraint firstAttribute="width" constant="32" id="1us-2x-r7J"/>
                     </constraints>
                     <state key="normal" image="attachment"/>
                     <connections>
                         <action selector="attachmentSelected:" destination="-1" eventType="touchUpInside" id="eMf-0V-XvV"/>
                     </connections>
                 </button>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="send message" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KiO-Ol-VI7">
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <gestureRecognizers/>
             <constraints>
-                <constraint firstItem="zQd-ZD-GEn" firstAttribute="centerY" secondItem="KiO-Ol-VI7" secondAttribute="centerY" id="4vZ-Qo-OrY"/>
-                <constraint firstItem="zQd-ZD-GEn" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="EXW-Px-Z1f"/>
-                <constraint firstItem="zQd-ZD-GEn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="4" id="EbA-cT-utW"/>
-                <constraint firstItem="qhT-Xg-u4E" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="KOY-63-V8D"/>
-                <constraint firstAttribute="trailing" secondItem="qhT-Xg-u4E" secondAttribute="trailing" id="M7A-s7-RzB"/>
-                <constraint firstItem="zQd-ZD-GEn" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Rzb-WV-jQe"/>
-                <constraint firstAttribute="bottom" secondItem="qhT-Xg-u4E" secondAttribute="bottom" constant="11" id="SD4-K6-6dg"/>
-                <constraint firstItem="qhT-Xg-u4E" firstAttribute="leading" secondItem="KiO-Ol-VI7" secondAttribute="trailing" constant="8" symbolic="YES" id="bYu-nF-DYT"/>
-                <constraint firstItem="KiO-Ol-VI7" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="e9p-IA-Byp"/>
-                <constraint firstItem="zQd-ZD-GEn" firstAttribute="bottom" secondItem="KiO-Ol-VI7" secondAttribute="bottom" id="fVR-0y-Oov"/>
-                <constraint firstItem="KiO-Ol-VI7" firstAttribute="leading" secondItem="zQd-ZD-GEn" secondAttribute="trailing" constant="8" symbolic="YES" id="nyq-LJ-Vff"/>
+                <constraint firstItem="KiO-Ol-VI7" firstAttribute="bottom" secondItem="qhT-Xg-u4E" secondAttribute="bottom" id="951-kc-V9K"/>
+                <constraint firstItem="zQd-ZD-GEn" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="9Fi-hN-e8Q"/>
+                <constraint firstItem="qhT-Xg-u4E" firstAttribute="leading" secondItem="KiO-Ol-VI7" secondAttribute="trailing" constant="8" symbolic="YES" id="9qb-EB-TEY"/>
+                <constraint firstItem="qhT-Xg-u4E" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="81" id="Kxk-rs-7vN"/>
+                <constraint firstItem="KiO-Ol-VI7" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Zgd-GY-fTC"/>
+                <constraint firstAttribute="bottom" secondItem="KiO-Ol-VI7" secondAttribute="bottom" constant="4" id="agk-ko-sa2"/>
+                <constraint firstAttribute="trailing" secondItem="qhT-Xg-u4E" secondAttribute="trailing" id="cb2-JC-M1T"/>
+                <constraint firstAttribute="bottom" secondItem="zQd-ZD-GEn" secondAttribute="bottom" constant="-2" id="ke4-qR-yQx"/>
+                <constraint firstItem="KiO-Ol-VI7" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="6" id="qfc-mN-Tdf"/>
+                <constraint firstItem="zQd-ZD-GEn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="73" id="qgz-gG-Nfn"/>
+                <constraint firstItem="KiO-Ol-VI7" firstAttribute="leading" secondItem="zQd-ZD-GEn" secondAttribute="trailing" constant="28" id="s7X-An-ZDi"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-294" y="68"/>
+            <point key="canvasLocation" x="-294.5" y="41.5"/>
         </view>
     </objects>
     <resources>
