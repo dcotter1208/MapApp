@@ -20,6 +20,12 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     var textInputView: TextInputView?
     var selectTextView = true
     
+    var heightConstraint = NSLayoutConstraint()
+    var minHeightConstraint = NSLayoutConstraint()
+    var maxHeightConstraint = NSLayoutConstraint()
+
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpKeyboardNotification()
@@ -32,7 +38,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        adjustTextInputViewHeightWithIncreasedMessageSize()
+        adjustMessageViewHeightWithIncreasedMessageSize()
     }
     
     func setUpTextInputView() {
@@ -60,23 +66,28 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         }
     }
     
-    func adjustTextInputViewHeightWithIncreasedMessageSize() {
-//        textInputView!.messageTextView.frame.size.height = textInputView!.messageTextView.contentSize.height
-//        textInputView!.frame.size.height = (textInputView!.messageTextView.frame.size.height);
-//        let newYPosition = (view.frame.maxY - keyboardHeight!) - (textInputView!.frame.size.height)
-//        self.textInputView?.frame.origin.y = newYPosition
-        let fixedWidth = textInputView!.messageTextView.frame.size.width
-        textInputView!.messageTextView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
-        let newSize = textInputView!.messageTextView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
-        var newFrame = textInputView!.messageTextView.frame
-        newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
-        textInputView!.messageTextView.frame = newFrame;
-        self.textInputView!.frame.size.height = (textInputView!.messageTextView.frame.size.height)
-        let newYPosition = (view.frame.maxY - keyboardHeight!) - (textInputView!.frame.size.height)
-        self.textInputView?.frame.origin.y = newYPosition
-
+    func adjustMessageViewHeightWithIncreasedMessageSize() {
+        if let textView = textInputView?.messageTextView {
+            let previousTextViewHeight = textView.frame.size.height
+            let contentSize = textView.sizeThatFits(textView.bounds.size)
+            var newFrame = textInputView!.messageTextView.frame
+            newFrame.size.height = contentSize.height
+            textInputView?.messageTextView.frame = newFrame
+            let currentTextViewHeight = textInputView!.messageTextView.frame.size.height
+            if currentTextViewHeight > previousTextViewHeight {
+                let heightDifference = currentTextViewHeight - previousTextViewHeight
+                adjustTextInputViewHeightBy(height: heightDifference)
+            }
+        }
     }
-
+    
+    func adjustTextInputViewHeightBy(height: CGFloat) {
+        let newTextInputViewHeight = textInputView!.frame.size.height + height
+        self.textInputView?.frame.size.height = newTextInputViewHeight
+        let yPosition = (view.frame.maxY - keyboardHeight!) - (textInputView!.frame.size.height)
+        self.textInputView?.frame.origin.y = yPosition
+    }
+    
     func setUpKeyboardNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowNotification), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideNotification), name: .UIKeyboardWillHide, object: nil)
