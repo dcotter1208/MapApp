@@ -24,6 +24,7 @@ class TextInputView: UIView {
         
         Bundle.main.loadNibNamed("TextInputView", owner: self, options: nil)
         view.frame = self.bounds
+        messageTextView.layer.cornerRadius = 5
         self.addSubview(view)
     }
     

@@ -39,7 +39,7 @@
                         <action selector="sendMessageSelected:" destination="-1" eventType="touchUpInside" id="EBh-OA-lBw"/>
                     </connections>
                 </button>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="message" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="HRJ-rD-glh">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="message" translatesAutoresizingMaskIntoConstraints="NO" id="HRJ-rD-glh">
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
