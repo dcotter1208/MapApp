@@ -76,13 +76,21 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
             let currentTextViewHeight = textInputView!.messageTextView.frame.size.height
             if currentTextViewHeight > previousTextViewHeight {
                 let heightDifference = currentTextViewHeight - previousTextViewHeight
-                adjustTextInputViewHeightBy(height: heightDifference)
+                adjustTextInputViewHeight(increaseHeight: true, height: heightDifference)
+            } else if currentTextViewHeight < previousTextViewHeight {
+                let heightDifference = previousTextViewHeight - currentTextViewHeight
+                adjustTextInputViewHeight(increaseHeight: false, height: heightDifference)
             }
         }
     }
     
-    func adjustTextInputViewHeightBy(height: CGFloat) {
-        let newTextInputViewHeight = textInputView!.frame.size.height + height
+    func adjustTextInputViewHeight(increaseHeight: Bool, height: CGFloat) {
+        var newTextInputViewHeight = CGFloat()
+        if increaseHeight == true {
+            newTextInputViewHeight = textInputView!.frame.size.height + height
+        } else {
+            newTextInputViewHeight = textInputView!.frame.size.height - height
+        }
         self.textInputView?.frame.size.height = newTextInputViewHeight
         let yPosition = (view.frame.maxY - keyboardHeight!) - (textInputView!.frame.size.height)
         self.textInputView?.frame.origin.y = yPosition
