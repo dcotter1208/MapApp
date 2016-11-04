@@ -59,7 +59,8 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         case true:
             yPosition = (view.frame.maxY - keyboardHeight!) - (textInputView!.frame.size.height)
         case false:
-            yPosition = self.view.frame.maxY - self.textInputViewHeight
+
+            yPosition = self.view.frame.maxY - textInputView!.frame.size.height
         }
         DispatchQueue.main.async {
             self.textInputView?.frame.origin.y = yPosition
