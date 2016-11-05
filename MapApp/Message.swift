@@ -10,6 +10,6 @@ import Foundation
 
 struct Message {
     var message: String
-    var user: User
     var timestamp: String
+    var userID: String
 }

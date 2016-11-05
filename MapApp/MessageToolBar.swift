@@ -1,5 +1,5 @@
 //
-//  textInputView.swift
+//  MessageToolBar.swift
 //  MapApp
 //
 //  Created by Donovan Cotter on 10/23/16.
@@ -8,21 +8,21 @@
 
 import UIKit
 
-protocol TextInputViewDelegate {
+protocol MessageToolBarDelegate {
     func sendMessage()
     func addAttachment()
 }
 
-class TextInputView: UIView {
+class MessageToolBar: UIView {
     @IBOutlet var view: UIView!
     @IBOutlet weak var messageTextView: UITextView!
     
-    var delegate: TextInputViewDelegate? = nil
+    var delegate: MessageToolBarDelegate? = nil
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        Bundle.main.loadNibNamed("TextInputView", owner: self, options: nil)
+        Bundle.main.loadNibNamed("MessageToolBar", owner: self, options: nil)
         view.frame = self.bounds
         messageTextView.layer.cornerRadius = 5
         self.addSubview(view)

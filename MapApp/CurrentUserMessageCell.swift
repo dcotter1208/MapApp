@@ -29,9 +29,9 @@ class CurrentUserMessageCell: UITableViewCell, MessageCellProtocol {
             self.messageTextView.textColor = UIColor.white
             self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height/2
             self.profileImageView.layer.masksToBounds = true
-            if let profileImage = message.user.profileImage {
-                self.profileImageView.image = self.setProfileImageWithResizedImage(image: profileImage)
-            }
+//            if let profileImage = message.user.profileImage {
+                self.profileImageView.image = self.setProfileImageWithResizedImage(image: #imageLiteral(resourceName: "current_user"))
+//            }
         }
     }
     
