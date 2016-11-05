@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -39,8 +38,12 @@
                         <action selector="sendMessageSelected:" destination="-1" eventType="touchUpInside" id="EBh-OA-lBw"/>
                     </connections>
                 </button>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="message" translatesAutoresizingMaskIntoConstraints="NO" id="HRJ-rD-glh">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="message" translatesAutoresizingMaskIntoConstraints="NO" id="HRJ-rD-glh">
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="Fe4-ph-HOl"/>
+                        <constraint firstAttribute="width" constant="326" id="w8p-7t-lDG"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
@@ -50,10 +53,10 @@
             <constraints>
                 <constraint firstItem="qhT-Xg-u4E" firstAttribute="leading" secondItem="HRJ-rD-glh" secondAttribute="trailing" constant="8" symbolic="YES" id="4Kb-N2-I5f"/>
                 <constraint firstAttribute="trailing" secondItem="qhT-Xg-u4E" secondAttribute="trailing" constant="20" id="7oQ-cw-cxh"/>
-                <constraint firstItem="HRJ-rD-glh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="9xZ-5F-yf6"/>
                 <constraint firstItem="HRJ-rD-glh" firstAttribute="leading" secondItem="zQd-ZD-GEn" secondAttribute="trailing" constant="8" symbolic="YES" id="Phb-Va-VKn"/>
                 <constraint firstAttribute="bottom" secondItem="HRJ-rD-glh" secondAttribute="bottom" constant="8" id="kVm-Wb-q0w"/>
                 <constraint firstAttribute="bottom" secondItem="qhT-Xg-u4E" secondAttribute="bottom" constant="10" id="naw-ep-19c"/>
+                <constraint firstItem="HRJ-rD-glh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="o6k-si-2cb"/>
                 <constraint firstItem="zQd-ZD-GEn" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="qkl-I2-3Q0"/>
                 <constraint firstAttribute="bottom" secondItem="zQd-ZD-GEn" secondAttribute="bottom" constant="10" id="tYQ-hi-YmM"/>
             </constraints>
