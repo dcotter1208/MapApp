@@ -15,6 +15,7 @@ class VenueChatDisplayDetailVC: UIViewController, UICollectionViewDelegate, UICo
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var messagedTextField: UITextField!
     
+    
     //TEST DATA***********
     
     let scrooged = User(name: "Frank Cross", location: "New York, NY", userID: "01", profileImageURL: "", profileImage: #imageLiteral(resourceName: "bill_murray_scrooged"))
@@ -26,20 +27,21 @@ class VenueChatDisplayDetailVC: UIViewController, UICollectionViewDelegate, UICo
     var venuePhotos = [1, 2, 3, 4, 5, 6, 7] // Will be UIImage array
     var userPhotos = [1, 2, 3, 4, 5, 6, 7] // Will be UIImage array
     var messages = [Message]()
+    var venueID: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let message1 = Message(message: "I'm at HopCat annnnddd having crack fries of course.", timestamp: "10/21/16, 8:24 PM", userID: "123")
-        let message2 = Message(message: "Love crack fries", timestamp: "10/21/16, 8:30 PM", userID: "456")
-        let message3 = Message(message: "great music tonight...sicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, .Lorem ipsum dolor sitsicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, .Lorem ipsum dolor sit", timestamp: "10/21/16, 8:30 PM", userID: "123")
-        let message4 = Message(message: "This is the place to be! Wait was only 15 minutes.", timestamp: "10/21/16, 8:41 PM", userID: "123")
-        let message5 = Message(message: "130 beers on tap!", timestamp: "10/21/16, 8:30 PM", userID: "1234")
-        let message6 = Message(message: "Try their 60 Minute IPA. One of the best I've had.", timestamp: "10/21/16, 9:24 PM", userID: "3333")
-        let message7 = Message(message: "Had that last time... the Ghettoblaster is fantastic as well. Had that last time... the Ghettoblaster is fantastic as well.Had that last time... the Ghettoblaster is fantastic as well.Had that last time... the Ghettoblaster is fantastic as well. Had that last time... the Ghettoblaster is fantastic as well. Had that last time... the Ghettoblaster is fantastic as well.", timestamp: "10/21/16, 9:48 PM", userID: "3333333")
-        
-        messages = [message1, message2, message3, message4, message5, message6, message7]
-        
+
+//        let message1 = Message(message: "I'm at HopCat annnnddd having crack fries of course.", timestamp: "10/21/16, 8:24 PM", userID: "123")
+//        let message2 = Message(message: "Love crack fries", timestamp: "10/21/16, 8:30 PM", userID: "456")
+//        let message3 = Message(message: "great music tonight...sicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, .Lorem ipsum dolor sitsicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, .Lorem ipsum dolor sit", timestamp: "10/21/16, 8:30 PM", userID: "123")
+//        let message4 = Message(message: "This is the place to be! Wait was only 15 minutes.", timestamp: "10/21/16, 8:41 PM", userID: "123")
+//        let message5 = Message(message: "130 beers on tap!", timestamp: "10/21/16, 8:30 PM", userID: "1234")
+//        let message6 = Message(message: "Try their 60 Minute IPA. One of the best I've had.", timestamp: "10/21/16, 9:24 PM", userID: "3333")
+//        let message7 = Message(message: "Had that last time... the Ghettoblaster is fantastic as well. Had that last time... the Ghettoblaster is fantastic as well.Had that last time... the Ghettoblaster is fantastic as well.Had that last time... the Ghettoblaster is fantastic as well. Had that last time... the Ghettoblaster is fantastic as well. Had that last time... the Ghettoblaster is fantastic as well.", timestamp: "10/21/16, 9:48 PM", userID: "3333333")
+//        
+//        messages = [message1, message2, message3, message4, message5, message6, message7]
+//        
         messagedTextField.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 140
@@ -102,6 +104,13 @@ class VenueChatDisplayDetailVC: UIViewController, UICollectionViewDelegate, UICo
         currentUserMessageCell.messageTextView.text = message.message
         currentUserMessageCell.setCellViewAttributesWithMessage(message: message)
         return currentUserMessageCell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "FullChatViewSegue" {
+            let chatVC = segue.destination as! ChatVC
+            chatVC.venueID = venueID
+        }
     }
 
     //MARK: IBAction

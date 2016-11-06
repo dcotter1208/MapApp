@@ -23,15 +23,18 @@ class CurrentUserMessageCell: UITableViewCell, MessageCellProtocol {
     }
     
     func setCellViewAttributesWithMessage(message: Message) {
+        let profileImage = #imageLiteral(resourceName: "current_user")
+        let messageTuple = (message: message, user: User(name: "Current User", location: "Detroit, MI", userID: CurrentUser.sharedInstance.userID, profileImageURL: "", profileImage: profileImage))
         DispatchQueue.main.async {
             self.messageTextView.layer.cornerRadius = 10
             self.messageTextView.backgroundColor = UIColor.blue
             self.messageTextView.textColor = UIColor.white
+            self.messageTextView.text = messageTuple.message.message
             self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height/2
             self.profileImageView.layer.masksToBounds = true
-//            if let profileImage = message.user.profileImage {
-                self.profileImageView.image = self.setProfileImageWithResizedImage(image: #imageLiteral(resourceName: "current_user"))
-//            }
+            if let profileImage = messageTuple.user.profileImage {
+                self.profileImageView.image = self.setProfileImageWithResizedImage(image: profileImage)
+            }
         }
     }
     

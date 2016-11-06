@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import Firebase
 
 class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, MessageToolBarDelegate {
     @IBOutlet weak var chatTableView: UITableView!
@@ -20,14 +21,18 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     var selectTextView = true
     var maxmessageToolBarHeight: CGFloat?
     let firebaseOp = FirebaseOperation()
+    var venueID: String?
     
     //MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        chatTableView.rowHeight = UITableViewAutomaticDimension
+        chatTableView.estimatedRowHeight = 140
         setUpKeyboardNotification()
         setUpmessageToolBar()
         chatTableView.keyboardDismissMode = .onDrag
+        queryAllMessagesFromFirebaseForVenue(venueID: venueID!)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -36,6 +41,21 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    //MARK: Firebase Helper Methods
+    func queryAllMessagesFromFirebaseForVenue(venueID: String) {
+        let venueMessageQuery = firebaseOp.firebaseDatabaseRef.ref.child("messages").queryOrdered(byChild: "locationID").queryEqual(toValue: venueID)
+        firebaseOp.queryChildWithConstraints(venueMessageQuery, firebaseDataEventType: FIRDataEventType.childAdded, observeSingleEventType: false) { (snapshot) in
+            let message = snapshot.value as! NSDictionary
+            let chatMessage = Message(message: message["message"] as! String, timestamp: message["timestamp"] as! String, locationID: message["locationID"] as! String, userID: message["userID"] as! String)
+            self.messages.append(chatMessage)
+            self.chatTableView.reloadData()
+        }
+    }
+    
+    func addMessageToChatView() {
+        
     }
     
     //MARK: Message Toolbar Helper Methods
@@ -169,11 +189,9 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
             currentUserID = CurrentUser.sharedInstance.userID
         }
     
-        let message = Message(message: messageToolBar!.messageTextView.text, timestamp: "11/05/16", userID: currentUserID)
-        firebaseOp.setValueForChild(child: "messages", value: ["message" : message.message, "timestamp" : message.timestamp, "userID" : message.userID])
-        
-        print("HEY I WAS HIT")
-    }
+        let message = Message(message: messageToolBar!.messageTextView.text, timestamp: "11/05/16", locationID: venueID!,userID: currentUserID)
+        firebaseOp.setValueForChild(child: "messages", value: ["message" : message.message, "timestamp" : message.timestamp, "locationID" : message.locationID, "userID" : message.userID])
+        }
     
     //MARK: TableView
 

@@ -820,14 +820,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ILa-76-dQV">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ILa-76-dQV">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DefaultMessageCell" rowHeight="93" id="aPE-Dy-nHt" customClass="DefaultMessageCell" customModule="MapApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="93"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aPE-Dy-nHt" id="c9I-XQ-inc">
-                                            <frame key="frameInset" width="375" height="92"/>
+                                            <frame key="frameInset" width="375" height="93"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gpW-PV-Yco">
@@ -861,12 +861,12 @@
                                         <rect key="frame" x="0.0" y="121" width="375" height="93"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="78A-ky-xzx" id="j8E-L2-Rjl">
-                                            <frame key="frameInset" width="375" height="92"/>
+                                            <frame key="frameInset" width="375" height="93"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ieM-Nx-hyP">
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="55" id="bRY-HE-oN5"/>
+                                                        <constraint firstAttribute="width" constant="55" id="bsz-jA-r6H"/>
                                                     </constraints>
                                                 </imageView>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Had that last time... the Ghettoblaster is fantastic as well.Had that last time... the Ghettoblaster is fantastic as well." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="biv-JM-JYQ">
@@ -876,13 +876,13 @@
                                                 </textView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="biv-JM-JYQ" firstAttribute="top" secondItem="j8E-L2-Rjl" secondAttribute="topMargin" constant="9" id="81z-my-H62"/>
-                                                <constraint firstItem="biv-JM-JYQ" firstAttribute="leading" secondItem="j8E-L2-Rjl" secondAttribute="leadingMargin" constant="1" id="BhL-ud-GDl"/>
-                                                <constraint firstItem="ieM-Nx-hyP" firstAttribute="centerY" secondItem="j8E-L2-Rjl" secondAttribute="centerY" id="Bn1-RW-f8d"/>
-                                                <constraint firstItem="ieM-Nx-hyP" firstAttribute="top" secondItem="j8E-L2-Rjl" secondAttribute="topMargin" constant="11" id="IXx-lc-7IJ"/>
-                                                <constraint firstItem="ieM-Nx-hyP" firstAttribute="trailing" secondItem="j8E-L2-Rjl" secondAttribute="trailingMargin" id="J8j-h8-2wf"/>
-                                                <constraint firstItem="ieM-Nx-hyP" firstAttribute="leading" secondItem="biv-JM-JYQ" secondAttribute="trailing" constant="8" symbolic="YES" id="uPC-mA-Ok6"/>
-                                                <constraint firstItem="biv-JM-JYQ" firstAttribute="centerY" secondItem="ieM-Nx-hyP" secondAttribute="centerY" id="ukn-E4-R5g"/>
+                                                <constraint firstItem="biv-JM-JYQ" firstAttribute="top" secondItem="j8E-L2-Rjl" secondAttribute="topMargin" constant="7" id="0WL-4e-NeL"/>
+                                                <constraint firstItem="biv-JM-JYQ" firstAttribute="leading" secondItem="j8E-L2-Rjl" secondAttribute="leadingMargin" constant="1" id="BoS-gM-DHP"/>
+                                                <constraint firstItem="biv-JM-JYQ" firstAttribute="bottom" secondItem="ieM-Nx-hyP" secondAttribute="bottom" id="Gzu-7q-coy"/>
+                                                <constraint firstItem="ieM-Nx-hyP" firstAttribute="centerY" secondItem="j8E-L2-Rjl" secondAttribute="centerY" id="MJR-NE-NjJ"/>
+                                                <constraint firstItem="ieM-Nx-hyP" firstAttribute="leading" secondItem="biv-JM-JYQ" secondAttribute="trailing" constant="8" symbolic="YES" id="QwQ-db-6gA"/>
+                                                <constraint firstItem="ieM-Nx-hyP" firstAttribute="trailing" secondItem="j8E-L2-Rjl" secondAttribute="trailingMargin" id="dhm-JG-ecV"/>
+                                                <constraint firstItem="ieM-Nx-hyP" firstAttribute="top" secondItem="j8E-L2-Rjl" secondAttribute="topMargin" constant="11" id="xb4-On-kX1"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -1053,7 +1053,7 @@
             <objects>
                 <navigationController storyboardIdentifier="LogInNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fcs-ls-Rhn" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uln-nE-z3B">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="uln-nE-z3B">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1071,7 +1071,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MapVCNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MRg-lX-Z71" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iEt-FP-tgg">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="iEt-FP-tgg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

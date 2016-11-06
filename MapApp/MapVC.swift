@@ -25,6 +25,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
     fileprivate var newestLocation = CLLocation()
     fileprivate var userLocation: CLLocation?
     fileprivate var calloutView: CalloutView?
+    fileprivate var venueIDForSelectedMarker = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,12 +57,12 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
     }
     
     func addMapMarkerForVenue(venue: Venue) {
-        let marker = GMSMarker(position: venue.coordinate!.coordinate)
+        let marker = Marker(venueID: venue.venueID!, markerPosition: venue.coordinate!.coordinate)
+//        let marker = GMSMarker(position: venue.coordinate!.coordinate)
         marker.appearAnimation = kGMSMarkerAnimationPop
         marker.title = venue.name
         marker.map = googleMapView
     }
-    
     
     func createMapCameraWithCoordinateAndZoomLevel(coordinate: CLLocationCoordinate2D, zoom: Float) -> GMSCameraPosition {
         let camera = GMSCameraPosition.camera(withLatitude: coordinate.latitude, longitude: coordinate.longitude, zoom: zoom)
@@ -78,8 +79,9 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
                 self.view.addSubview(calloutView)
                 
                 //Set up a function that sets the callout view's properties by passing in a dict.
-                
-                calloutView.nameLabel.text = marker.title
+                let customMarker = marker as! Marker
+               self.venueIDForSelectedMarker = customMarker.venueID
+                calloutView.nameLabel.text = customMarker.title
                 self.navigationController?.navigationBar.isHidden = true
             }
         }
@@ -105,6 +107,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
     func moreInfoButtonSelected(sender: AnyObject) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let venueDetailVC = storyboard.instantiateViewController(withIdentifier: "VenueChatDisplayDetailVC") as? VenueChatDisplayDetailVC {
+            venueDetailVC.venueID = venueIDForSelectedMarker
             self.navigationController?.pushViewController(venueDetailVC, animated: true)
         }
     }

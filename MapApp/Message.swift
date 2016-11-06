@@ -11,5 +11,6 @@ import Foundation
 struct Message {
     var message: String
     var timestamp: String
+    var locationID: String
     var userID: String
 }

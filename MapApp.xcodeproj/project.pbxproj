@@ -17,6 +17,8 @@
 		C084BEAA1D8DA5F500BD579F /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = C084BEA91D8DA5F500BD579F /* Address.swift */; };
 		C084BEAE1D8DBFE700BD579F /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C084BEAD1D8DBFE700BD579F /* Annotation.swift */; };
 		C084BEB01D8DC89E00BD579F /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C084BEAF1D8DC89E00BD579F /* Coordinate.swift */; };
+		C08E43B11DCEEB5600D9488E /* MarkerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08E43B01DCEEB5600D9488E /* MarkerExtension.swift */; };
+		C08E43B31DCEF09200D9488E /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08E43B21DCEF09200D9488E /* Marker.swift */; };
 		C0B14D591DBC2A39003748A6 /* MessageCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B14D581DBC2A39003748A6 /* MessageCellProtocol.swift */; };
 		C0B14D5B1DBC5C36003748A6 /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B14D5A1DBC5C36003748A6 /* ChatVC.swift */; };
 		C0B14D5D1DBD1E16003748A6 /* MessageToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B14D5C1DBD1E16003748A6 /* MessageToolBar.swift */; };
@@ -87,6 +89,8 @@
 		C084BEA91D8DA5F500BD579F /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		C084BEAD1D8DBFE700BD579F /* Annotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
 		C084BEAF1D8DC89E00BD579F /* Coordinate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
+		C08E43B01DCEEB5600D9488E /* MarkerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerExtension.swift; sourceTree = "<group>"; };
+		C08E43B21DCEF09200D9488E /* Marker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
 		C0B14D581DBC2A39003748A6 /* MessageCellProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCellProtocol.swift; sourceTree = "<group>"; };
 		C0B14D5A1DBC5C36003748A6 /* ChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
 		C0B14D5C1DBD1E16003748A6 /* MessageToolBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageToolBar.swift; sourceTree = "<group>"; };
@@ -213,6 +217,8 @@
 			isa = PBXGroup;
 			children = (
 				C0FBADB81D7A5DD600C1C998 /* MapVC.swift */,
+				C08E43B01DCEEB5600D9488E /* MarkerExtension.swift */,
+				C08E43B21DCEF09200D9488E /* Marker.swift */,
 			);
 			name = MapView;
 			sourceTree = "<group>";
@@ -646,6 +652,7 @@
 				C084BEA81D8DA2BF00BD579F /* Venue.swift in Sources */,
 				C0FBADB91D7A5DD600C1C998 /* MapVC.swift in Sources */,
 				C0FBADDA1D7B41BA00C1C998 /* RLMManager.swift in Sources */,
+				C08E43B31DCEF09200D9488E /* Marker.swift in Sources */,
 				C0FBADC51D7A751B00C1C998 /* FirebaseOperation.swift in Sources */,
 				C0B14D5B1DBC5C36003748A6 /* ChatVC.swift in Sources */,
 				C084BEAE1D8DBFE700BD579F /* Annotation.swift in Sources */,
@@ -658,6 +665,7 @@
 				C0FBADD81D7B3F4200C1C998 /* RLMUser.swift in Sources */,
 				C0FBADD41D7B289300C1C998 /* CloudinaryOperation.swift in Sources */,
 				C084BEB01D8DC89E00BD579F /* Coordinate.swift in Sources */,
+				C08E43B11DCEEB5600D9488E /* MarkerExtension.swift in Sources */,
 				C0FBADD11D7B0FC700C1C998 /* SignUpTVC.swift in Sources */,
 				C0C5D9ED1D844CC300124846 /* UserType.swift in Sources */,
 				C0FBADCB1D7A786D00C1C998 /* CurrentUser.swift in Sources */,
