@@ -11,7 +11,8 @@ import UIKit
 class CurrentUserMessageCell: UITableViewCell, MessageCellProtocol {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var messageTextView: UITextView!
-
+    @IBOutlet weak var messageLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -25,11 +26,12 @@ class CurrentUserMessageCell: UITableViewCell, MessageCellProtocol {
     func setCellViewAttributesWithMessage(message: Message) {
         let profileImage = #imageLiteral(resourceName: "current_user")
         let messageTuple = (message: message, user: User(name: "Current User", location: "Detroit, MI", userID: CurrentUser.sharedInstance.userID, profileImageURL: "", profileImage: profileImage))
+        self.messageLabel.text = messageTuple.message.message
         DispatchQueue.main.async {
-            self.messageTextView.layer.cornerRadius = 10
-            self.messageTextView.backgroundColor = UIColor.blue
-            self.messageTextView.textColor = UIColor.white
-            self.messageTextView.text = messageTuple.message.message
+            self.messageLabel.backgroundColor = UIColor.blue
+            self.messageLabel.textColor = UIColor.white
+            self.messageLabel.layer.cornerRadius = 5
+            self.messageLabel.layer.masksToBounds = true
             self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height/2
             self.profileImageView.layer.masksToBounds = true
             if let profileImage = messageTuple.user.profileImage {
@@ -42,5 +44,6 @@ class CurrentUserMessageCell: UITableViewCell, MessageCellProtocol {
         let newSize = CGSize(width: image.size.width/5, height: image.size.width/5)
         return image.resizedImage(newSize)
     }
+
 
 }

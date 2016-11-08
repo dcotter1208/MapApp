@@ -11,11 +11,10 @@ import UIKit
 class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var messageTextView: UITextView!
-    
+    @IBOutlet weak var messageLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-    
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -27,14 +26,10 @@ class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
     func setCellViewAttributesWithMessage(message: Message) {
         let profileImage = #imageLiteral(resourceName: "bill_murray_ghost")
         let messageTuple = (message: message, user: User(name: "Scrooged", location: "NY, NY", userID: "123", profileImageURL: "", profileImage: profileImage))
-        
+        messageLabel.text = messageTuple.message.message
         DispatchQueue.main.async {
-            self.messageTextView.layer.cornerRadius = 10
-            self.messageTextView.backgroundColor = UIColor.lightGray
-            self.messageTextView.textColor = UIColor.black
-            self.messageTextView.text = messageTuple.message.message
-            self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height/2
-            self.profileImageView.layer.masksToBounds = true
+            self.configureMessageLabel()
+            self.configureProfileImageView()
             if let profileImage = messageTuple.user.profileImage {
                 self.profileImageView.image = self.setProfileImageWithResizedImage(image: profileImage)
             }
@@ -45,4 +40,16 @@ class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
         return image.resizedImage(newSize)
     }
     
+    fileprivate func configureMessageLabel() {
+        self.messageLabel.backgroundColor = UIColor.lightGray
+        let messageLabelWidth = self.messageLabel.frame.size.width
+        self.messageLabel.frame.size.width = messageLabelWidth + 100
+        self.messageLabel.layer.cornerRadius = 5
+        self.messageLabel.layer.masksToBounds = true
+    }
+    
+    fileprivate func configureProfileImageView() {
+        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height/2
+        self.profileImageView.layer.masksToBounds = true
+    }
 }

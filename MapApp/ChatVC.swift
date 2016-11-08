@@ -15,7 +15,6 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
 
     let messageToolBarHeight:CGFloat = 44.0
     var messages = [Message]()
-    var bottomConstraint: NSLayoutConstraint?
     var keyboardHeight: CGFloat?
     var messageToolBar: MessageToolBar?
     var selectTextView = true
