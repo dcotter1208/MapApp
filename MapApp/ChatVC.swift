@@ -50,7 +50,8 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
             let chatMessage = Message(message: message["message"] as! String, timestamp: message["timestamp"] as! String, locationID: message["locationID"] as! String, userID: message["userID"] as! String)
             self.messages.append(chatMessage)
             self.chatTableView.reloadData()
-        }
+            self.scrollToLastMessage()
+         }
     }
     
     func addMessageToChatView() {
@@ -209,6 +210,11 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         let currentUserMessageCell = tableView.dequeueReusableCell(withIdentifier: "CurrentUserMessageCell", for: indexPath) as! CurrentUserMessageCell
         currentUserMessageCell.setCellViewAttributesWithMessage(message: message)
         return currentUserMessageCell
+    }
+
+    func scrollToLastMessage() {
+        let indexPath = IndexPath(row: messages.count - 1, section: 0)
+        self.chatTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
 
     @IBAction func backButtonPressed(_ sender: AnyObject) {
