@@ -830,33 +830,32 @@
                                             <frame key="frameInset" width="375" height="93"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YuV-e4-IGZ">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium  taur cillium " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="y3S-zC-BAy">
+                                                    <color key="backgroundColor" red="0.92136718750000002" green="0.92136718750000002" blue="0.92136718750000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" id="KZi-pC-8oL"/>
-                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="215" id="TS4-zi-4po"/>
+                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="215" id="xVJ-WO-mQe"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gpW-PV-Yco">
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="35" id="PJw-Uc-8wB"/>
-                                                        <constraint firstAttribute="width" constant="35" id="eVr-ds-K5F"/>
+                                                        <constraint firstAttribute="height" constant="35" id="agp-sQ-uo1"/>
+                                                        <constraint firstAttribute="width" constant="35" id="tIW-bV-k0e"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="gpW-PV-Yco" firstAttribute="bottom" secondItem="c9I-XQ-inc" secondAttribute="bottomMargin" id="J21-ii-Oiu"/>
-                                                <constraint firstItem="YuV-e4-IGZ" firstAttribute="leading" secondItem="gpW-PV-Yco" secondAttribute="trailing" constant="8" symbolic="YES" id="OYy-Ip-olX"/>
-                                                <constraint firstItem="YuV-e4-IGZ" firstAttribute="top" secondItem="c9I-XQ-inc" secondAttribute="topMargin" constant="15" id="Vk6-h9-H9e"/>
-                                                <constraint firstItem="gpW-PV-Yco" firstAttribute="leading" secondItem="c9I-XQ-inc" secondAttribute="leadingMargin" id="VmG-hx-kIE"/>
-                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="YuV-e4-IGZ" secondAttribute="trailing" id="Wax-EH-g1q"/>
-                                                <constraint firstItem="YuV-e4-IGZ" firstAttribute="centerY" secondItem="c9I-XQ-inc" secondAttribute="centerY" id="hjt-i9-g0I"/>
+                                                <constraint firstItem="gpW-PV-Yco" firstAttribute="bottom" secondItem="c9I-XQ-inc" secondAttribute="bottomMargin" id="4ad-TS-XFA"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="y3S-zC-BAy" secondAttribute="bottom" id="GGo-9M-eQc"/>
+                                                <constraint firstItem="y3S-zC-BAy" firstAttribute="leading" secondItem="gpW-PV-Yco" secondAttribute="trailing" constant="15" id="Kjn-EN-1Al"/>
+                                                <constraint firstItem="y3S-zC-BAy" firstAttribute="top" secondItem="c9I-XQ-inc" secondAttribute="topMargin" constant="14" id="URA-eJ-8cZ"/>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="y3S-zC-BAy" secondAttribute="trailing" id="UpV-Pl-Sxb"/>
+                                                <constraint firstItem="gpW-PV-Yco" firstAttribute="leading" secondItem="c9I-XQ-inc" secondAttribute="leadingMargin" id="clr-s6-RXj"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="messageLabel" destination="YuV-e4-IGZ" id="HEO-yv-Nfh"/>
+                                            <outlet property="messageTextView" destination="y3S-zC-BAy" id="fVb-au-Xdx"/>
                                             <outlet property="profileImageView" destination="gpW-PV-Yco" id="1do-fT-bTB"/>
                                         </connections>
                                     </tableViewCell>
@@ -867,33 +866,34 @@
                                             <frame key="frameInset" width="375" height="93"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium  taur cillium " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rzv-Ro-9fA">
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="215" id="TWB-bJ-7lA"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" id="eh0-nC-8m9"/>
+                                                    </constraints>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ieM-Nx-hyP">
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="35" id="iXR-Id-Epa"/>
                                                         <constraint firstAttribute="height" constant="35" id="imJ-bJ-ctV"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1vD-0c-iON">
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="215" id="ZO7-ef-x7B"/>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" id="dOO-lf-Omk"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="1vD-0c-iON" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="j8E-L2-Rjl" secondAttribute="leadingMargin" id="1fL-HM-Tf2"/>
-                                                <constraint firstItem="1vD-0c-iON" firstAttribute="top" secondItem="j8E-L2-Rjl" secondAttribute="topMargin" constant="15" id="7a0-7P-LUU"/>
+                                                <constraint firstItem="rzv-Ro-9fA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="j8E-L2-Rjl" secondAttribute="leadingMargin" id="0GV-vP-ANs"/>
+                                                <constraint firstItem="rzv-Ro-9fA" firstAttribute="top" secondItem="j8E-L2-Rjl" secondAttribute="topMargin" constant="14" id="2tl-qZ-Cga"/>
                                                 <constraint firstItem="ieM-Nx-hyP" firstAttribute="bottom" secondItem="j8E-L2-Rjl" secondAttribute="bottomMargin" id="Hm8-pa-9Pf"/>
-                                                <constraint firstItem="1vD-0c-iON" firstAttribute="centerY" secondItem="j8E-L2-Rjl" secondAttribute="centerY" id="QN8-yU-bPk"/>
-                                                <constraint firstItem="ieM-Nx-hyP" firstAttribute="leading" secondItem="1vD-0c-iON" secondAttribute="trailing" constant="8" symbolic="YES" id="TdA-mh-37r"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="rzv-Ro-9fA" secondAttribute="bottom" id="cfo-9f-MI3"/>
+                                                <constraint firstItem="ieM-Nx-hyP" firstAttribute="leading" secondItem="rzv-Ro-9fA" secondAttribute="trailing" constant="11" id="d9p-OK-W4r"/>
                                                 <constraint firstItem="ieM-Nx-hyP" firstAttribute="trailing" secondItem="j8E-L2-Rjl" secondAttribute="trailingMargin" id="yVe-6w-4ot"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="messageLabel" destination="1vD-0c-iON" id="00C-l3-xDm"/>
+                                            <outlet property="messageTextView" destination="rzv-Ro-9fA" id="wus-Z2-PqF"/>
                                             <outlet property="profileImageView" destination="ieM-Nx-hyP" id="Zyt-d4-0fA"/>
                                         </connections>
                                     </tableViewCell>
