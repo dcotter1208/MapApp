@@ -191,6 +191,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     
         let message = Message(message: messageToolBar!.messageTextView.text, timestamp: "11/05/16", locationID: venueID!,userID: currentUserID)
         firebaseOp.setValueForChild(child: "messages", value: ["message" : message.message, "timestamp" : message.timestamp, "locationID" : message.locationID, "userID" : message.userID])
+        self.messageToolBar?.messageTextView.text
         }
     
     //MARK: TableView
