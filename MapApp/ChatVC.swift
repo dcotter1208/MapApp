@@ -20,6 +20,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     var selectTextView = true
     var maxmessageToolBarHeight: CGFloat?
     let firebaseOp = FirebaseOperation()
+    var keyboardAnimationDuration = Double()
     var venueID: String?
     
     //MARK: Lifecycle
@@ -149,7 +150,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         adjustMessageViewHeightWithIncreasedMessageSize()
     }
     
-    func adjustmessageToolBarPosition(isKeyboardVisible: Bool) {
+    func adjustMessageToolBarPositionWithAnimation(duration: Double, isKeyboardVisible: Bool) {
         let yPosition:CGFloat
         switch isKeyboardVisible {
         case true:
@@ -157,9 +158,13 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         case false:
             yPosition = self.view.frame.maxY - messageToolBar!.frame.size.height
         }
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
+        UIView.animate(withDuration: duration, delay: 0.0, options: [.curveEaseIn], animations: {
             self.messageToolBar?.frame.origin.y = yPosition
-        }
+        
+        }, completion: nil)
+        
+//        }
     }
     
     //MARK: Keyboard Notifications
@@ -173,14 +178,16 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         if let userInfo = notification.userInfo {
             if let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue {
                 keyboardHeight = keyboardFrame.cgRectValue.height
-                adjustmessageToolBarPosition(isKeyboardVisible: true)
+                keyboardAnimationDuration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! Double
+                adjustMessageToolBarPositionWithAnimation(duration: keyboardAnimationDuration, isKeyboardVisible: true)
                 adjustTableViewInsetWithKeyboardShowing()
             }
         }
     }
     
     func keyboardWillHideNotification() {
-        adjustmessageToolBarPosition(isKeyboardVisible: false)
+        adjustMessageToolBarPositionWithAnimation(duration: keyboardAnimationDuration, isKeyboardVisible: false)
+//        adjustmessageToolBarPosition(isKeyboardVisible: false)
         adjustTableViewInsetWithKeyboardHiding()
     }
     
