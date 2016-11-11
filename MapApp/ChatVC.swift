@@ -83,7 +83,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         self.view.addSubview(messageToolBar!)
     }
     
-    func adjustMessageViewHeightWithIncreasedMessageSize() {
+    func adjustMessageViewHeightWithMessageSize() {
         if let textView = messageToolBar?.messageTextView {
             switch isMaxHeightReached() {
             case false:
@@ -147,7 +147,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     //MARK: UITextView Delegate
     
     func textViewDidChange(_ textView: UITextView) {
-        adjustMessageViewHeightWithIncreasedMessageSize()
+        adjustMessageViewHeightWithMessageSize()
     }
     
     func adjustMessageToolBarPositionWithAnimation(duration: Double, isKeyboardVisible: Bool) {
@@ -158,13 +158,10 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         case false:
             yPosition = self.view.frame.maxY - messageToolBar!.frame.size.height
         }
-//        DispatchQueue.main.async {
         UIView.animate(withDuration: duration, delay: 0.0, options: [.curveEaseIn], animations: {
             self.messageToolBar?.frame.origin.y = yPosition
         
         }, completion: nil)
-        
-//        }
     }
     
     //MARK: Keyboard Notifications
@@ -187,7 +184,6 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     
     func keyboardWillHideNotification() {
         adjustMessageToolBarPositionWithAnimation(duration: keyboardAnimationDuration, isKeyboardVisible: false)
-//        adjustmessageToolBarPosition(isKeyboardVisible: false)
         adjustTableViewInsetWithKeyboardHiding()
     }
     
@@ -210,7 +206,8 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         let message = Message(message: messageToolBar!.messageTextView.text, timestamp: "11/05/16", locationID: venueID!,userID: currentUserID)
         firebaseOp.setValueForChild(child: "messages", value: ["message" : message.message, "timestamp" : message.timestamp, "locationID" : message.locationID, "userID" : message.userID])
         self.messageToolBar?.messageTextView.text = ""
-        }
+        adjustMessageViewHeightWithMessageSize()
+    }
     
     //MARK: TableView
 
