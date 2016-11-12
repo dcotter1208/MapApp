@@ -8,21 +8,21 @@
 
 import UIKit
 
-protocol MessageToolBarDelegate {
+protocol MessageToolbarDelegate {
     func sendMessage()
     func addAttachment()
 }
 
-class MessageToolBar: UIView {
+class MessageToolbar: UIView {
     @IBOutlet var view: UIView!
     @IBOutlet weak var messageTextView: UITextView!
     
-    var delegate: MessageToolBarDelegate? = nil
+    var delegate: MessageToolbarDelegate? = nil
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        Bundle.main.loadNibNamed("MessageToolBar", owner: self, options: nil)
+        Bundle.main.loadNibNamed("MessageToolbar", owner: self, options: nil)
         view.frame = self.bounds
         messageTextView.layer.cornerRadius = 5
         self.addSubview(view)

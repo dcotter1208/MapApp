@@ -33,6 +33,9 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
         getCurrentUser()
         setUpCalloutView()
         
+        print("Current User: \(CurrentUser.sharedInstance.userID)")
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -58,7 +61,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
     
     func addMapMarkerForVenue(venue: Venue) {
         let marker = Marker(venueID: venue.venueID!, markerPosition: venue.coordinate!.coordinate)
-//        let marker = GMSMarker(position: venue.coordinate!.coordinate)
         marker.appearAnimation = kGMSMarkerAnimationPop
         marker.title = venue.name
         marker.map = googleMapView
@@ -192,6 +194,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
     }
 
     @IBAction func profileButtonSelected(_ sender: AnyObject) {
+        //This will change based on actually having an account profile.
         guard FIRAuth.auth()?.currentUser == nil else {
             do {
                 try FIRAuth.auth()?.signOut()

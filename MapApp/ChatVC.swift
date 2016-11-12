@@ -10,13 +10,13 @@ import UIKit
 import FirebaseAuth
 import Firebase
 
-class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, MessageToolBarDelegate {
+class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, MessageToolbarDelegate {
     @IBOutlet weak var chatTableView: UITableView!
 
     let messageToolBarHeight:CGFloat = 44.0
     var messages = [Message]()
     var keyboardHeight: CGFloat?
-    var messageToolBar: MessageToolBar?
+    var messageToolbar: MessageToolbar?
     var selectTextView = true
     var maxmessageToolBarHeight: CGFloat?
     let firebaseOp = FirebaseOperation()
@@ -30,14 +30,16 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         chatTableView.rowHeight = UITableViewAutomaticDimension
         chatTableView.estimatedRowHeight = 140
         setUpKeyboardNotification()
-        setUpmessageToolBar()
+        setUpmessageToolbar()
         chatTableView.keyboardDismissMode = .onDrag
-        queryAllMessagesFromFirebaseForVenue(venueID: venueID!)
         adjustTableViewInsetWithKeyboardHiding()
+        if let venueID = venueID {
+            queryAllMessagesFromFirebaseForVenue(venueID: venueID)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        messageToolBar?.messageTextView.resignFirstResponder()
+        messageToolbar?.messageTextView.resignFirstResponder()
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,9 +50,8 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     func queryAllMessagesFromFirebaseForVenue(venueID: String) {
         let venueMessageQuery = firebaseOp.firebaseDatabaseRef.ref.child("messages").queryOrdered(byChild: "locationID").queryEqual(toValue: venueID)
         firebaseOp.queryChildWithConstraints(venueMessageQuery, firebaseDataEventType: FIRDataEventType.childAdded, observeSingleEventType: false) { (snapshot) in
-            let message = snapshot.value as! NSDictionary
-            let chatMessage = Message(message: message["message"] as! String, timestamp: message["timestamp"] as! String, locationID: message["locationID"] as! String, userID: message["userID"] as! String)
-            self.messages.append(chatMessage)
+            let message = Message.createMessageWithFirebaseData(snapshot: snapshot)
+            self.messages.append(message)
             self.chatTableView.reloadData()
             self.scrollToLastMessage()
          }
@@ -59,32 +60,38 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     //MARK: Helper Methods:
     func adjustTableViewInsetWithKeyboardShowing() {
         UIView.animate(withDuration: 0.25, animations: {
-            self.chatTableView.contentInset = UIEdgeInsetsMake(0, 0, self.keyboardHeight! + self.messageToolBar!.frame.size.height, 0)
-            self.chatTableView.scrollIndicatorInsets = self.chatTableView.contentInset
-            self.scrollToLastMessage()
+            if let keyboardHeight = self.keyboardHeight, let messageToolbar = self.messageToolbar {
+                self.chatTableView.contentInset = UIEdgeInsetsMake(0, 0, keyboardHeight + messageToolbar.frame.size.height, 0)
+                self.chatTableView.scrollIndicatorInsets = self.chatTableView.contentInset
+                self.scrollToLastMessage()
+            }
         })
     }
     
     func adjustTableViewInsetWithKeyboardHiding() {
-        chatTableView.contentInset = UIEdgeInsetsMake(0, 0, self.messageToolBar!.frame.size.height, 0)
-        self.chatTableView.scrollIndicatorInsets = self.chatTableView.contentInset
+        if let messageToolbar = self.messageToolbar {
+            chatTableView.contentInset = UIEdgeInsetsMake(0, 0, messageToolbar.frame.size.height, 0)
+            self.chatTableView.scrollIndicatorInsets = self.chatTableView.contentInset
+        }
     }
 
     //MARK: Message Toolbar Helper Methods
-    func setUpmessageToolBar() {
+    func setUpmessageToolbar() {
         maxmessageToolBarHeight = self.view.frame.height / 1.5
         let messageToolBarWidth = view.frame.size.width
         let messageToolBarXPosition = view.frame.origin.x
         let messageToolBarYPosition = view.frame.maxY - messageToolBarHeight
         let viewRectSize = CGRect(x: messageToolBarXPosition, y: messageToolBarYPosition, width: messageToolBarWidth, height: messageToolBarHeight)
-        messageToolBar = MessageToolBar(frame: viewRectSize)
-        messageToolBar?.delegate = self
-        messageToolBar?.messageTextView.delegate = self;
-        self.view.addSubview(messageToolBar!)
+        messageToolbar = MessageToolbar(frame: viewRectSize)
+        if let messageToolbar = messageToolbar {
+            messageToolbar.delegate = self
+            messageToolbar.messageTextView.delegate = self;
+            self.view.addSubview(messageToolbar)
+        }
     }
     
     func adjustMessageViewHeightWithMessageSize() {
-        if let textView = messageToolBar?.messageTextView {
+        if let textView = messageToolbar?.messageTextView {
             switch isMaxHeightReached() {
             case false:
                 let previousTextViewHeight = textView.frame.size.height
@@ -110,34 +117,38 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     
     func setNewTextViewFrameSize() {
         
-        //Get the Text View's Content Size
-        let contentSize = messageToolBar!.messageTextView.sizeThatFits(messageToolBar!.messageTextView.bounds.size)
+        guard let messageToolbar = messageToolbar else { return }
         
-        //Get the text view's current frame (at this point it would have been increased or decreased)
-        var newFrame = messageToolBar!.messageTextView.frame
-        
-        //Set the textView's newFrame's Height based on the contentSize's Height
-        newFrame.size.height = contentSize.height
-        
-        //Set the textview's current frame to the newFrame
-        messageToolBar?.messageTextView.frame = newFrame
+            //Get the Text View's Content Size
+            let contentSize = messageToolbar.messageTextView.sizeThatFits(messageToolbar.messageTextView.bounds.size)
+            
+            //Get the text view's current frame (at this point it would have been increased or decreased)
+            var newFrame = messageToolbar.messageTextView.frame
+            
+            //Set the textView's newFrame's Height based on the contentSize's Height
+            newFrame.size.height = contentSize.height
+            
+            //Set the textview's current frame to the newFrame
+            messageToolbar.messageTextView.frame = newFrame
     }
     
     func adjustmessageToolBarHeight(increaseHeight: Bool, height: CGFloat) {
         var newmessageToolBarHeight = CGFloat()
+        guard let messageToolbar = messageToolbar, let keyboardHeight = keyboardHeight else { return }
+
         if increaseHeight == true {
-            newmessageToolBarHeight = messageToolBar!.frame.size.height + height
+            newmessageToolBarHeight = messageToolbar.frame.size.height + height
         } else {
-            newmessageToolBarHeight = messageToolBar!.frame.size.height - height
+            newmessageToolBarHeight = messageToolbar.frame.size.height - height
         }
-        self.messageToolBar?.frame.size.height = newmessageToolBarHeight
-        let yPosition = (view.frame.maxY - keyboardHeight!) - (messageToolBar!.frame.size.height)
-        self.messageToolBar?.frame.origin.y = yPosition
+        messageToolbar.frame.size.height = newmessageToolBarHeight
+        let yPosition = (view.frame.maxY - keyboardHeight) - (messageToolbar.frame.size.height)
+        messageToolbar.frame.origin.y = yPosition
     }
     
     func isMaxHeightReached() -> Bool {
-        if let messageToolBarHeight = messageToolBar?.frame.height, let KBHeight = keyboardHeight, let maxHeight = maxmessageToolBarHeight {
-            if messageToolBarHeight + KBHeight < maxHeight {
+        if let messageToolbarHeight = messageToolbar?.frame.height, let keyboardHeight = keyboardHeight, let maxHeight = maxmessageToolBarHeight {
+            if messageToolbarHeight + keyboardHeight < maxHeight {
                 return false
             }
         }
@@ -152,14 +163,17 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     
     func adjustMessageToolBarPositionWithAnimation(duration: Double, isKeyboardVisible: Bool) {
         let yPosition:CGFloat
+        
+        guard let keyboardHeight = keyboardHeight, let messageToolbar = messageToolbar else { return }
+        
         switch isKeyboardVisible {
         case true:
-            yPosition = (view.frame.maxY - keyboardHeight!) - (messageToolBar!.frame.size.height)
+            yPosition = (view.frame.maxY - keyboardHeight) - (messageToolbar.frame.size.height)
         case false:
-            yPosition = self.view.frame.maxY - messageToolBar!.frame.size.height
+            yPosition = self.view.frame.maxY - messageToolbar.frame.size.height
         }
         UIView.animate(withDuration: duration, delay: 0.0, options: [.curveEaseIn], animations: {
-            self.messageToolBar?.frame.origin.y = yPosition
+            messageToolbar.frame.origin.y = yPosition
         
         }, completion: nil)
     }
@@ -187,7 +201,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         adjustTableViewInsetWithKeyboardHiding()
     }
     
-    //MARK: MessageToolBarDelegate
+    //MARK: MessageToolbarDelegate
 
     func addAttachment() {
         print("Attachment added")
@@ -202,10 +216,12 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         } else {
             currentUserID = CurrentUser.sharedInstance.userID
         }
+        
+        guard let messageToolbar = messageToolbar else { return }
     
-        let message = Message(message: messageToolBar!.messageTextView.text, timestamp: "11/05/16", locationID: venueID!,userID: currentUserID)
+        let message = Message(message: messageToolbar.messageTextView.text, timestamp: "11/05/16", locationID: venueID!,userID: currentUserID)
         firebaseOp.setValueForChild(child: "messages", value: ["message" : message.message, "timestamp" : message.timestamp, "locationID" : message.locationID, "userID" : message.userID])
-        self.messageToolBar?.messageTextView.text = ""
+        messageToolbar.messageTextView.text = ""
         adjustMessageViewHeightWithMessageSize()
     }
     
@@ -217,7 +233,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messages[indexPath.row]
-        
+
         guard message.userID == CurrentUser.sharedInstance.userID else {
             let defaultMessageCell = tableView.dequeueReusableCell(withIdentifier: "DefaultMessageCell", for: indexPath) as! DefaultMessageCell
             defaultMessageCell.setCellViewAttributesWithMessage(message: message)
@@ -232,6 +248,8 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         let indexPath = IndexPath(row: messages.count - 1, section: 0)
         self.chatTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
+    
+    //MARK: IBActions
 
     @IBAction func backButtonPressed(_ sender: AnyObject) {
         self.dismiss(animated: true, completion: nil)

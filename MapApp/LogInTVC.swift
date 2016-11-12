@@ -64,6 +64,10 @@ class LogInTVC: UITableViewController {
     }
 
     @IBAction func continueAnonymously(_ sender: AnyObject) {
+        print("Current User UID BEFORE: \(CurrentUser.sharedInstance.userID)")
+        CurrentUser.sharedInstance.resetProperties()
+        print("Anonymous FirAuth: \(FIRAuth.auth()?.currentUser?.uid)")
+        print("Current User UID AFTER: \(CurrentUser.sharedInstance.userID)")
         self.dismiss(animated: true, completion: nil)
     }
 }
