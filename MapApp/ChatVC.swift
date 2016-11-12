@@ -204,7 +204,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     //MARK: MessageToolbarDelegate
 
     func addAttachment() {
-        print("Attachment added")
+        self.performSegue(withIdentifier: "MediaMessageSegue", sender: self)
     }
     
     func sendMessage() {
@@ -245,8 +245,10 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     }
 
     func scrollToLastMessage() {
-        let indexPath = IndexPath(row: messages.count - 1, section: 0)
-        self.chatTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        if messages.count > 0 {
+            let indexPath = IndexPath(row: messages.count - 1, section: 0)
+            self.chatTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
     }
     
     //MARK: IBActions

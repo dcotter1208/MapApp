@@ -9,27 +9,25 @@
 import UIKit
 
 class ChatMediaMessageTVC: UITableViewController {
-
+    @IBOutlet weak var mediaImageView: UIImageView!
+    @IBOutlet weak var messageTextView: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
+        self.tableView.tableFooterView = UIView(frame: CGRect.zero)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+    @IBAction func sendMediaMessagePressed(_ sender: Any) {
+        
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+    @IBAction func cancelMessagePressed(_ sender: Any) {
+        self.messageTextView.resignFirstResponder()
+        self.dismiss(animated: true, completion: nil)
     }
 
 }
