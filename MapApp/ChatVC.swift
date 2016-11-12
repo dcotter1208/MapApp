@@ -252,7 +252,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     //MARK: IBActions
 
     @IBAction func backButtonPressed(_ sender: AnyObject) {
-        self.dismiss(animated: true, completion: nil)
+       _ = navigationController?.popViewController(animated: true)
     }
 
 }

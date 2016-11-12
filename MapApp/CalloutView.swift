@@ -10,6 +10,7 @@ import UIKit
 
 protocol CustomCalloutActionDelegate {
     func moreInfoButtonSelected(sender: AnyObject)
+    func enterChatSelected(sender: AnyObject)
 }
 
 class CalloutView: UIView {
@@ -36,6 +37,9 @@ class CalloutView: UIView {
         self.delegate?.moreInfoButtonSelected(sender: sender)
     }
     
+    @IBAction func enterChatSelected(_ sender: AnyObject) {
+        self.delegate?.enterChatSelected(sender: sender)
+    }
     
     
 }

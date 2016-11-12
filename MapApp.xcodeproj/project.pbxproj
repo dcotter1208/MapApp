@@ -25,6 +25,7 @@
 		C0B14D5F1DBD1E64003748A6 /* MessageToolbar.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0B14D5E1DBD1E64003748A6 /* MessageToolbar.xib */; };
 		C0C5D9ED1D844CC300124846 /* UserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C5D9EC1D844CC300124846 /* UserType.swift */; };
 		C0CE3BCB1DA182D80072AE17 /* VenueChatDisplayDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CE3BCA1DA182D80072AE17 /* VenueChatDisplayDetailVC.swift */; };
+		C0E4E2D71DD7B4C900998A90 /* ChatMediaMessageTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4E2D61DD7B4C900998A90 /* ChatMediaMessageTVC.swift */; };
 		C0E5906E1D9E028500C4D068 /* GoogleSearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E5906D1D9E028500C4D068 /* GoogleSearchAPI.swift */; };
 		C0FBAD8B1D7A4AD800C1C998 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBAD8A1D7A4AD800C1C998 /* AppDelegate.swift */; };
 		C0FBAD901D7A4AD800C1C998 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0FBAD8E1D7A4AD800C1C998 /* Main.storyboard */; };
@@ -97,6 +98,7 @@
 		C0B14D5E1DBD1E64003748A6 /* MessageToolbar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageToolbar.xib; sourceTree = "<group>"; };
 		C0C5D9EC1D844CC300124846 /* UserType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserType.swift; sourceTree = "<group>"; };
 		C0CE3BCA1DA182D80072AE17 /* VenueChatDisplayDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueChatDisplayDetailVC.swift; sourceTree = "<group>"; };
+		C0E4E2D61DD7B4C900998A90 /* ChatMediaMessageTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMediaMessageTVC.swift; sourceTree = "<group>"; };
 		C0E5906D1D9E028500C4D068 /* GoogleSearchAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleSearchAPI.swift; sourceTree = "<group>"; };
 		C0FBAD871D7A4AD800C1C998 /* MapApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0FBAD8A1D7A4AD800C1C998 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 			children = (
 				C0CE3BCA1DA182D80072AE17 /* VenueChatDisplayDetailVC.swift */,
 				C0B14D5A1DBC5C36003748A6 /* ChatVC.swift */,
+				C0E4E2D61DD7B4C900998A90 /* ChatMediaMessageTVC.swift */,
 				C0B14D5C1DBD1E16003748A6 /* MessageToolbar.swift */,
 				C0B14D5E1DBD1E64003748A6 /* MessageToolbar.xib */,
 			);
@@ -651,6 +654,7 @@
 				C0CE3BCB1DA182D80072AE17 /* VenueChatDisplayDetailVC.swift in Sources */,
 				C084BEA81D8DA2BF00BD579F /* Venue.swift in Sources */,
 				C0FBADB91D7A5DD600C1C998 /* MapVC.swift in Sources */,
+				C0E4E2D71DD7B4C900998A90 /* ChatMediaMessageTVC.swift in Sources */,
 				C0FBADDA1D7B41BA00C1C998 /* RLMManager.swift in Sources */,
 				C08E43B31DCEF09200D9488E /* Marker.swift in Sources */,
 				C0FBADC51D7A751B00C1C998 /* FirebaseOperation.swift in Sources */,

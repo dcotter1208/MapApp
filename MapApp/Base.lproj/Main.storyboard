@@ -776,7 +776,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HopCat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPa-hx-jV2">
-                                        <rect key="frame" x="69" y="14" width="237" height="19"/>
+                                        <rect key="frame" x="69" y="13.5" width="237" height="19.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -842,17 +842,16 @@
                         <outlet property="tableView" destination="8Nn-2J-L3Y" id="yI7-RL-Uj9"/>
                         <outlet property="venueNameLabel" destination="qPa-hx-jV2" id="0gm-Ze-RiS"/>
                         <outlet property="venuePhotosCollectionView" destination="d6U-Dq-suh" id="4Jc-3P-TXo"/>
-                        <segue destination="ihI-LM-XUP" kind="presentation" identifier="FullChatViewSegue" id="UEf-a9-ilg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yiQ-IO-nqS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-21639.200000000001" y="-2919.490254872564"/>
+            <point key="canvasLocation" x="-20825" y="-2917"/>
         </scene>
         <!--ChatVC-->
         <scene sceneID="M4P-fK-Err">
             <objects>
-                <viewController id="ihI-LM-XUP" customClass="ChatVC" customModule="MapApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VenueChatViewController" id="ihI-LM-XUP" customClass="ChatVC" customModule="MapApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qQY-D8-ebh"/>
                         <viewControllerLayoutGuide type="bottom" id="xBe-Z9-9ao"/>
@@ -981,7 +980,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xR1-24-ZgE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-20519.200000000001" y="-2767.4662668665669"/>
+            <point key="canvasLocation" x="-21577" y="-2918"/>
         </scene>
         <!--Edit ProfileTVC-->
         <scene sceneID="MYl-Jp-Eae">
