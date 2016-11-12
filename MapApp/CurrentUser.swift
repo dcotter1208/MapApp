@@ -90,7 +90,7 @@ class CurrentUser: UserType {
         AlamoFireOperation.downloadProfileImageWithAlamoFire(URL: URL) {
             (image, error) in
             guard let image = image else {
-                print(error)
+                print(error as Any)
                 return
             }
             self.profileImage = image

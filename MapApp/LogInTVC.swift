@@ -25,7 +25,6 @@ class LogInTVC: UITableViewController {
     
     //MARK: Helper Methods:
     fileprivate func instantiateViewController(_ viewControllerIdentifier: String) {
-        print("Instantiate called")
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let istantiatedVC = storyboard.instantiateViewController(withIdentifier: viewControllerIdentifier)
         self.present(istantiatedVC, animated: true, completion: nil)
@@ -65,6 +64,10 @@ class LogInTVC: UITableViewController {
     }
 
     @IBAction func continueAnonymously(_ sender: AnyObject) {
+        print("Current User UID BEFORE: \(CurrentUser.sharedInstance.userID)")
+        CurrentUser.sharedInstance.resetProperties()
+        print("Anonymous FirAuth: \(FIRAuth.auth()?.currentUser?.uid)")
+        print("Current User UID AFTER: \(CurrentUser.sharedInstance.userID)")
         self.dismiss(animated: true, completion: nil)
     }
 }

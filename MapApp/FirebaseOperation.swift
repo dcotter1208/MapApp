@@ -105,6 +105,9 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
         FIRAuth.auth()?.signInAnonymously(completion: { (user, error) in
             if error != nil {
                 print("Anonymous Log In Error: \(error)")
+            } else {
+                print("TODO: create function to set the Current User Singleton for anonymous user")
+                CurrentUser.sharedInstance.userID = user!.uid
             }
         })
     }
