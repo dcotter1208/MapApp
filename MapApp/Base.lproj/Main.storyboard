@@ -776,7 +776,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HopCat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPa-hx-jV2">
-                                        <rect key="frame" x="69" y="14.5" width="237" height="18.5"/>
+                                        <rect key="frame" x="69" y="13" width="237" height="20"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -864,15 +864,15 @@
                                 <rect key="frame" x="0.0" y="72" width="375" height="595"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DefaultMessageCell" rowHeight="93" id="aPE-Dy-nHt" customClass="DefaultMessageCell" customModule="MapApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="93"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DefaultMessageCell" rowHeight="56" id="aPE-Dy-nHt" customClass="DefaultMessageCell" customModule="MapApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aPE-Dy-nHt" id="c9I-XQ-inc">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="93"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium  taur cillium " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="y3S-zC-BAy">
-                                                    <rect key="frame" x="58" y="22" width="193.5" height="63"/>
+                                                    <rect key="frame" x="58" y="13" width="194" height="35"/>
                                                     <color key="backgroundColor" red="0.92136718750000002" green="0.92136718750000002" blue="0.92136718750000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="215" id="xVJ-WO-mQe"/>
@@ -881,7 +881,7 @@
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gpW-PV-Yco">
-                                                    <rect key="frame" x="8" y="50" width="35" height="35"/>
+                                                    <rect key="frame" x="8" y="11" width="35" height="35"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="35" id="agp-sQ-uo1"/>
                                                         <constraint firstAttribute="width" constant="35" id="tIW-bV-k0e"/>
@@ -889,10 +889,10 @@
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="gpW-PV-Yco" firstAttribute="bottom" secondItem="c9I-XQ-inc" secondAttribute="bottomMargin" id="4ad-TS-XFA"/>
+                                                <constraint firstItem="gpW-PV-Yco" firstAttribute="bottom" secondItem="c9I-XQ-inc" secondAttribute="bottomMargin" constant="-2" id="4ad-TS-XFA"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="y3S-zC-BAy" secondAttribute="bottom" id="GGo-9M-eQc"/>
                                                 <constraint firstItem="y3S-zC-BAy" firstAttribute="leading" secondItem="gpW-PV-Yco" secondAttribute="trailing" constant="15" id="Kjn-EN-1Al"/>
-                                                <constraint firstItem="y3S-zC-BAy" firstAttribute="top" secondItem="c9I-XQ-inc" secondAttribute="topMargin" constant="14" id="URA-eJ-8cZ"/>
+                                                <constraint firstItem="y3S-zC-BAy" firstAttribute="top" secondItem="c9I-XQ-inc" secondAttribute="topMargin" constant="5" id="URA-eJ-8cZ"/>
                                                 <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="y3S-zC-BAy" secondAttribute="trailing" id="UpV-Pl-Sxb"/>
                                                 <constraint firstItem="gpW-PV-Yco" firstAttribute="leading" secondItem="c9I-XQ-inc" secondAttribute="leadingMargin" id="clr-s6-RXj"/>
                                             </constraints>
@@ -902,15 +902,15 @@
                                             <outlet property="profileImageView" destination="gpW-PV-Yco" id="1do-fT-bTB"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CurrentUserMessageCell" rowHeight="93" id="78A-ky-xzx" customClass="CurrentUserMessageCell" customModule="MapApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="121" width="375" height="93"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CurrentUserMessageCell" rowHeight="57" id="78A-ky-xzx" customClass="CurrentUserMessageCell" customModule="MapApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="84" width="375" height="57"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="78A-ky-xzx" id="j8E-L2-Rjl">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="93"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium  taur cillium " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rzv-Ro-9fA">
-                                                    <rect key="frame" x="127.5" y="16" width="193.5" height="69"/>
+                                                    <rect key="frame" x="127.5" y="14" width="193.5" height="35"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="215" id="TWB-bJ-7lA"/>
@@ -921,7 +921,7 @@
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ieM-Nx-hyP">
-                                                    <rect key="frame" x="332" y="50" width="35" height="35"/>
+                                                    <rect key="frame" x="332" y="14" width="35" height="35"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="35" id="iXR-Id-Epa"/>
                                                         <constraint firstAttribute="height" constant="35" id="imJ-bJ-ctV"/>
@@ -930,7 +930,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="rzv-Ro-9fA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="j8E-L2-Rjl" secondAttribute="leadingMargin" id="0GV-vP-ANs"/>
-                                                <constraint firstItem="rzv-Ro-9fA" firstAttribute="top" secondItem="j8E-L2-Rjl" secondAttribute="topMargin" constant="8" id="2tl-qZ-Cga"/>
+                                                <constraint firstItem="rzv-Ro-9fA" firstAttribute="top" secondItem="j8E-L2-Rjl" secondAttribute="topMargin" constant="6" id="2tl-qZ-Cga"/>
                                                 <constraint firstItem="ieM-Nx-hyP" firstAttribute="bottom" secondItem="j8E-L2-Rjl" secondAttribute="bottomMargin" id="Hm8-pa-9Pf"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="rzv-Ro-9fA" secondAttribute="bottom" id="cfo-9f-MI3"/>
                                                 <constraint firstItem="ieM-Nx-hyP" firstAttribute="leading" secondItem="rzv-Ro-9fA" secondAttribute="trailing" constant="11" id="d9p-OK-W4r"/>
@@ -976,17 +976,17 @@
                     </view>
                     <connections>
                         <outlet property="chatTableView" destination="ILa-76-dQV" id="ntW-Mo-l7e"/>
-                        <segue destination="BgG-5x-Wgj" kind="presentation" identifier="MediaMessageSegue" id="Orb-jA-LvO"/>
+                        <segue destination="dvi-49-Mbi" kind="presentation" identifier="MediaMessageSegue" id="Lvz-LZ-Xmj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xR1-24-ZgE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-21577" y="-2918"/>
+            <point key="canvasLocation" x="-21578.400000000001" y="-2918.5907046476764"/>
         </scene>
         <!--Chat Media MessageTVC-->
         <scene sceneID="eyB-JG-ixM">
             <objects>
-                <tableViewController id="Ino-Ox-y2C" customClass="ChatMediaMessageTVC" customModule="MapApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ChatMediaMessageTVC" id="Ino-Ox-y2C" customClass="ChatMediaMessageTVC" customModule="MapApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="9DF-gD-KTC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1043,15 +1043,15 @@
                             <outlet property="delegate" destination="Ino-Ox-y2C" id="k0c-zj-nTb"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="j9q-PP-LHD">
-                        <barButtonItem key="leftBarButtonItem" title="X" id="eWS-6i-9MK">
+                    <navigationItem key="navigationItem" id="xYO-v7-cWK">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="1Dz-uI-7Xv">
                             <connections>
-                                <action selector="cancelMessagePressed:" destination="Ino-Ox-y2C" id="aqh-Ri-p23"/>
+                                <action selector="cancelPressed:" destination="Ino-Ox-y2C" id="glP-hd-eZA"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Send" id="R2p-2c-T61">
+                        <barButtonItem key="rightBarButtonItem" title="Send" id="xhf-sZ-Nqu">
                             <connections>
-                                <action selector="sendMediaMessagePressed:" destination="Ino-Ox-y2C" id="XTf-r0-nZy"/>
+                                <action selector="sendPressed:" destination="Ino-Ox-y2C" id="K3J-tF-Wcr"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1062,7 +1062,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PEf-Ct-V6C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-20087.200000000001" y="-2919.490254872564"/>
+            <point key="canvasLocation" x="-20058" y="-2918"/>
         </scene>
         <!--Edit ProfileTVC-->
         <scene sceneID="MYl-Jp-Eae">
@@ -1192,7 +1192,7 @@
             <objects>
                 <navigationController storyboardIdentifier="LogInNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fcs-ls-Rhn" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="uln-nE-z3B">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uln-nE-z3B">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1210,7 +1210,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MapVCNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MRg-lX-Z71" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="iEt-FP-tgg">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iEt-FP-tgg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1224,11 +1224,11 @@
             <point key="canvasLocation" x="-23122" y="-2918"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="bmD-Vh-wVO">
+        <scene sceneID="j0v-Xg-2Vn">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BgG-5x-Wgj" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dvi-49-Mbi" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="TLc-bF-TvS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bH0-RB-FtT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1236,12 +1236,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Ino-Ox-y2C" kind="relationship" relationship="rootViewController" id="3Ar-qk-Yab"/>
+                        <segue destination="Ino-Ox-y2C" kind="relationship" relationship="rootViewController" id="ef3-mn-4cv"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1jb-Ix-8f8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fCg-6E-ThF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-20814" y="-2919"/>
+            <point key="canvasLocation" x="-20799.200000000001" y="-2918.5907046476764"/>
         </scene>
     </scenes>
     <resources>

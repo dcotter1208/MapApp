@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 import Firebase
 
-class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, MessageToolbarDelegate {
+class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, MessageToolbarDelegate {
     @IBOutlet weak var chatTableView: UITableView!
 
     let messageToolBarHeight:CGFloat = 44.0
@@ -22,14 +22,12 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     let firebaseOp = FirebaseOperation()
     var keyboardAnimationDuration = Double()
     var venueID: String?
-    let imagePicker = UIImagePickerController()
     var imageForMessage: UIImage?
     
     //MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        imagePicker.delegate = self
         chatTableView.rowHeight = UITableViewAutomaticDimension
         chatTableView.estimatedRowHeight = 140
         setUpKeyboardNotification()
@@ -206,7 +204,6 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     //MARK: MessageToolbarDelegate
 
     func addAttachment() {
-//        Alert.presentMediaActionSheet(presentingViewController: self, imagePicker: imagePicker)
         performSegue(withIdentifier: "MediaMessageSegue", sender: self)
     }
     
@@ -227,16 +224,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         messageToolbar.messageTextView.text = ""
         adjustMessageViewHeightWithMessageSize()
     }
-    
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-//        dismiss(animated: true, completion: nil)
-//        let choosenImage = info[UIImagePickerControllerOriginalImage] as? UIImage
-//        print("ChoosenIMage: \(choosenImage)")
-//        guard let image = choosenImage else { return }
-//        imageForMessage = image
-//        self.performSegue(withIdentifier: "MediaMessageSegue", sender: self)
-//    }
-    
+
     //MARK: TableView
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -245,7 +233,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messages[indexPath.row]
-
+                
         guard message.userID == CurrentUser.sharedInstance.userID else {
             let defaultMessageCell = tableView.dequeueReusableCell(withIdentifier: "DefaultMessageCell", for: indexPath) as! DefaultMessageCell
             defaultMessageCell.setCellViewAttributesWithMessage(message: message)
@@ -265,8 +253,9 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "MediaMessageSegue" {
-//            let chatMediaMessageTVC = segue.destination as! UINavigationController
-//            chatMediaMessageTVC.imageForMessage = imageForMessage
+            let destionationNavController = segue.destination as! UINavigationController
+            let chatMediaMessageTVC = destionationNavController.childViewControllers.first as! ChatMediaMessageTVC
+            chatMediaMessageTVC.venueID = venueID
         }
     }
     

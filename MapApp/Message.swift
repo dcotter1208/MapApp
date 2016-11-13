@@ -20,6 +20,8 @@ struct Message: MessageProtocol {
         let messageSnapshot = snapshot.value as! NSDictionary
         var message: Message
         
+        print("SNAPSHOT: \(messageSnapshot)")
+        
         if messageSnapshot["mediaURL"] == nil {
             message = Message(text: messageSnapshot["text"] as! String, timestamp: messageSnapshot["timestamp"] as! String, locationID: messageSnapshot["locationID"] as! String, userID: messageSnapshot["userID"] as! String, mediaURL: nil)
         } else {

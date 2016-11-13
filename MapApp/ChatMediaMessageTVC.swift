@@ -17,9 +17,11 @@ class ChatMediaMessageTVC: UITableViewController, UINavigationControllerDelegate
     var imageForMessage: UIImage?
     var imagePicker = UIImagePickerController()
     let firebaseOperation = FirebaseOperation()
+    var venueID: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         imagePicker.delegate = self
         Alert.presentMediaActionSheet(presentingViewController: self, imagePicker: imagePicker)
         self.tableView.tableFooterView = UIView(frame: CGRect.zero)
@@ -50,23 +52,23 @@ class ChatMediaMessageTVC: UITableViewController, UINavigationControllerDelegate
 
         CloudinaryOperation().uploadImageToCloudinary(media, delegate: self, completion: {
             (photoURL) in
-            let mediaMessage = ["text" : self.messageTextView.text, "timestamp" : "", "locationID" : "", "userID" : currentUserID, "mediaURL" : photoURL] as [String : Any]
-            self.firebaseOperation.setValueForChild(child: "messages", value: mediaMessage)
-            self.dismiss(animated: true, completion: nil)
+            if let venueID = self.venueID {
+                let mediaMessage = ["text" : self.messageTextView.text, "timestamp" : "", "locationID" : venueID, "userID" : currentUserID, "mediaURL" : photoURL] as [String : Any]
+                self.firebaseOperation.setValueForChild(child: "messages", value: mediaMessage)
+                self.dismiss(animated: true, completion: nil)
+            }
         })
     }
+    
+    @IBAction func cancelPressed(_ sender: Any) {
+        self.messageTextView.resignFirstResponder()
+        self.dismiss(animated: true, completion: nil)
+    }
 
-    @IBAction func sendMediaMessagePressed(_ sender: Any) {
+    @IBAction func sendPressed(_ sender: Any) {
         if mediaImageView.image != nil {
             saveMessageToFirebaseAndCloudinary()
         }
-        
-
-    }
-    
-    @IBAction func cancelMessagePressed(_ sender: Any) {
-        self.messageTextView.resignFirstResponder()
-        self.dismiss(animated: true, completion: nil)
     }
 
 }
