@@ -11,6 +11,7 @@
 		C0197D2B1DA0868D00F68AF0 /* Callout.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0197D2A1DA0868D00F68AF0 /* Callout.xib */; };
 		C0197D2D1DA0875900F68AF0 /* CalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0197D2C1DA0875900F68AF0 /* CalloutView.swift */; };
 		C01E79E11D7CFDBD00700FEA /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01E79E01D7CFDBD00700FEA /* Alert.swift */; };
+		C03C09D51DD8240000ADBAD3 /* MessageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C09D41DD8240000ADBAD3 /* MessageProtocol.swift */; };
 		C077751D1D986E5800B7DF68 /* VenueContactInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C077751C1D986E5800B7DF68 /* VenueContactInfo.swift */; };
 		C078577B1D8CD07D00B9AF06 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C078577A1D8CD07D00B9AF06 /* UIImageExtension.swift */; };
 		C084BEA81D8DA2BF00BD579F /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C084BEA71D8DA2BF00BD579F /* Venue.swift */; };
@@ -84,6 +85,7 @@
 		C0197D2A1DA0868D00F68AF0 /* Callout.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Callout.xib; sourceTree = "<group>"; };
 		C0197D2C1DA0875900F68AF0 /* CalloutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalloutView.swift; sourceTree = "<group>"; };
 		C01E79E01D7CFDBD00700FEA /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		C03C09D41DD8240000ADBAD3 /* MessageProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageProtocol.swift; sourceTree = "<group>"; };
 		C077751C1D986E5800B7DF68 /* VenueContactInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueContactInfo.swift; sourceTree = "<group>"; };
 		C078577A1D8CD07D00B9AF06 /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImageExtension.swift; path = ../UIImageExtension.swift; sourceTree = "<group>"; };
 		C084BEA71D8DA2BF00BD579F /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
@@ -355,6 +357,7 @@
 		C0FD5FCB1DBAFED10000923B /* Message */ = {
 			isa = PBXGroup;
 			children = (
+				C03C09D41DD8240000ADBAD3 /* MessageProtocol.swift */,
 				C0FD5FC91DBAFD3F0000923B /* Message.swift */,
 				C0FD5FCC1DBAFF680000923B /* DefaultMessageCell.swift */,
 				C0FD5FCE1DBAFF770000923B /* CurrentUserMessageCell.swift */,
@@ -667,6 +670,7 @@
 				C0197D2D1DA0875900F68AF0 /* CalloutView.swift in Sources */,
 				C0FBADC81D7A783600C1C998 /* User.swift in Sources */,
 				C0FBADD81D7B3F4200C1C998 /* RLMUser.swift in Sources */,
+				C03C09D51DD8240000ADBAD3 /* MessageProtocol.swift in Sources */,
 				C0FBADD41D7B289300C1C998 /* CloudinaryOperation.swift in Sources */,
 				C084BEB01D8DC89E00BD579F /* Coordinate.swift in Sources */,
 				C08E43B11DCEEB5600D9488E /* MarkerExtension.swift in Sources */,

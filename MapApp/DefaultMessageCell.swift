@@ -26,7 +26,7 @@ class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
     func setCellViewAttributesWithMessage(message: Message) {
         let profileImage = #imageLiteral(resourceName: "bill_murray_ghost")
         let messageTuple = (message: message, user: User(name: "Scrooged", location: "NY, NY", userID: "123", profileImageURL: "", profileImage: profileImage))
-        messageTextView.text = messageTuple.message.message
+        messageTextView.text = messageTuple.message.text
         DispatchQueue.main.async {
             self.configureMessageTextView()
             self.configureProfileImageView()

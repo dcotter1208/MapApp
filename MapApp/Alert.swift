@@ -20,4 +20,25 @@ class Alert {
         presentingViewController.present(alertController, animated: true, completion: nil)
     }
     
+   class func presentMediaActionSheet(presentingViewController: UIViewController, imagePicker: UIImagePickerController) {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    
+        let camera = UIAlertAction(title: "Camera", style: .default) { handler -> Void in
+            imagePicker.sourceType = .camera
+            presentingViewController.present(imagePicker, animated: true, completion: nil)
+        }
+        let mediaLibrary = UIAlertAction(title: "Choose from gallery", style: .default) { handler -> Void in
+            imagePicker.sourceType = .photoLibrary
+            presentingViewController.present(imagePicker, animated: true, completion: nil)
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { handler -> Void in
+            presentingViewController.dismiss(animated: true, completion: nil)
+        }
+    
+        actionSheet.addAction(camera)
+        actionSheet.addAction(mediaLibrary)
+        actionSheet.addAction(cancel)
+        presentingViewController.present(actionSheet, animated: true, completion: nil)
+    }
+    
 }

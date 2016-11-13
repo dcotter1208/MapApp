@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 import Firebase
 
-class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, MessageToolbarDelegate {
+class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, MessageToolbarDelegate {
     @IBOutlet weak var chatTableView: UITableView!
 
     let messageToolBarHeight:CGFloat = 44.0
@@ -22,11 +22,14 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     let firebaseOp = FirebaseOperation()
     var keyboardAnimationDuration = Double()
     var venueID: String?
+    let imagePicker = UIImagePickerController()
+    var imageForMessage: UIImage?
     
     //MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        imagePicker.delegate = self
         chatTableView.rowHeight = UITableViewAutomaticDimension
         chatTableView.estimatedRowHeight = 140
         setUpKeyboardNotification()
@@ -116,7 +119,6 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     }
     
     func setNewTextViewFrameSize() {
-        
         guard let messageToolbar = messageToolbar else { return }
         
             //Get the Text View's Content Size
@@ -204,7 +206,8 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     //MARK: MessageToolbarDelegate
 
     func addAttachment() {
-        self.performSegue(withIdentifier: "MediaMessageSegue", sender: self)
+//        Alert.presentMediaActionSheet(presentingViewController: self, imagePicker: imagePicker)
+        performSegue(withIdentifier: "MediaMessageSegue", sender: self)
     }
     
     func sendMessage() {
@@ -219,11 +222,20 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         
         guard let messageToolbar = messageToolbar else { return }
     
-        let message = Message(message: messageToolbar.messageTextView.text, timestamp: "11/05/16", locationID: venueID!,userID: currentUserID)
-        firebaseOp.setValueForChild(child: "messages", value: ["message" : message.message, "timestamp" : message.timestamp, "locationID" : message.locationID, "userID" : message.userID])
+        let message = Message(text: messageToolbar.messageTextView.text, timestamp: "11/05/16", locationID: venueID!,userID: currentUserID, mediaURL: nil)
+        firebaseOp.setValueForChild(child: "messages", value: ["text" : message.text, "timestamp" : message.timestamp, "locationID" : message.locationID, "userID" : message.userID])
         messageToolbar.messageTextView.text = ""
         adjustMessageViewHeightWithMessageSize()
     }
+    
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+//        dismiss(animated: true, completion: nil)
+//        let choosenImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+//        print("ChoosenIMage: \(choosenImage)")
+//        guard let image = choosenImage else { return }
+//        imageForMessage = image
+//        self.performSegue(withIdentifier: "MediaMessageSegue", sender: self)
+//    }
     
     //MARK: TableView
 
@@ -248,6 +260,13 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         if messages.count > 0 {
             let indexPath = IndexPath(row: messages.count - 1, section: 0)
             self.chatTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "MediaMessageSegue" {
+//            let chatMediaMessageTVC = segue.destination as! UINavigationController
+//            chatMediaMessageTVC.imageForMessage = imageForMessage
         }
     }
     

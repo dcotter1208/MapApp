@@ -209,7 +209,7 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
                 completion(nil)
             })
             case true:
-            CloudinaryOperation().uploadProfileImageToCloudinary(profileImage!, delegate: self, completion: {
+            CloudinaryOperation().uploadImageToCloudinary(profileImage!, delegate: self, completion: {
                     (photoURL) in
                     let userProfile = ["name": name, "location": "", "profileImageURL": photoURL, "userID": user!.uid]
                     self.createUserProfile(userProfile: userProfile, completion: {

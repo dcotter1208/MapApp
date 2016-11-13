@@ -9,15 +9,22 @@
 import Foundation
 import FirebaseDatabase
 
-struct Message {
-    var message: String
+struct Message: MessageProtocol {
+    var text: String
     var timestamp: String
     var locationID: String
     var userID: String
+    var mediaURL: String?
     
     static func createMessageWithFirebaseData(snapshot: FIRDataSnapshot) -> Message {
         let messageSnapshot = snapshot.value as! NSDictionary
-        let message = Message(message: messageSnapshot["message"] as! String, timestamp: messageSnapshot["timestamp"] as! String, locationID: messageSnapshot["locationID"] as! String, userID: messageSnapshot["userID"] as! String)
+        var message: Message
+        
+        if messageSnapshot["mediaURL"] == nil {
+            message = Message(text: messageSnapshot["text"] as! String, timestamp: messageSnapshot["timestamp"] as! String, locationID: messageSnapshot["locationID"] as! String, userID: messageSnapshot["userID"] as! String, mediaURL: nil)
+        } else {
+            message = Message(text: messageSnapshot["text"] as! String, timestamp: messageSnapshot["timestamp"] as! String, locationID: messageSnapshot["locationID"] as! String, userID: messageSnapshot["userID"] as! String, mediaURL: messageSnapshot["mediaURL"] as? String)
+        }
         return message
     }
     

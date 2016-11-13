@@ -1000,6 +1000,17 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="l4w-GF-TYv" id="UXw-TL-Qtc">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="224"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vdg-pD-bdD">
+                                                    <rect key="frame" x="80" y="5" width="215" height="215"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="vdg-pD-bdD" firstAttribute="leading" secondItem="UXw-TL-Qtc" secondAttribute="leadingMargin" constant="72" id="YT5-tI-7M4"/>
+                                                <constraint firstItem="vdg-pD-bdD" firstAttribute="top" secondItem="UXw-TL-Qtc" secondAttribute="topMargin" constant="-3" id="m4D-8c-ykZ"/>
+                                                <constraint firstItem="vdg-pD-bdD" firstAttribute="centerX" secondItem="UXw-TL-Qtc" secondAttribute="centerX" id="tCl-gR-GLa"/>
+                                                <constraint firstItem="vdg-pD-bdD" firstAttribute="centerY" secondItem="UXw-TL-Qtc" secondAttribute="centerY" id="uHl-RM-ha1"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="188" id="EmR-1w-BlB">
@@ -1045,12 +1056,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="mediaImageView" destination="vdg-pD-bdD" id="Erc-QE-9kY"/>
                         <outlet property="messageTextView" destination="dxp-eh-ak5" id="Rj4-YE-Pur"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PEf-Ct-V6C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-20086" y="-2919"/>
+            <point key="canvasLocation" x="-20087.200000000001" y="-2919.490254872564"/>
         </scene>
         <!--Edit ProfileTVC-->
         <scene sceneID="MYl-Jp-Eae">
