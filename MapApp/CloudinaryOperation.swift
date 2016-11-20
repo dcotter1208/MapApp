@@ -31,9 +31,7 @@ class CloudinaryOperation: NSObject {
     }
     
     
-    
     /*LOOK INTO THIS DESTROY METHOD FOR DELETING PHOTOS:
-     
      
    A destroy method is available through the mobile uploader (CLUploader). --> mobileUploader.destroy
     

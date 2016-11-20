@@ -14,11 +14,9 @@ class CurrentUserMediaMessageCell: UITableViewCell, MessageCellProtocol {
     @IBOutlet weak var mediaImageView: UIImageView!
     @IBOutlet weak var profileImageView: UIImageView!
 
-    let photoCache = AutoPurgingImageCache(
-        memoryCapacity: 400 * 1024 * 1024,
-        preferredMemoryUsageAfterPurge: 60 * 1024 * 1024)
+    let imageCacher = ImageCacher()
     
-    let profileImageCacheIdentifier = "currentUserProfilePhoto"
+    let profileImageCacheIdentifier = "currentUserProfileimage"
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,10 +35,10 @@ class CurrentUserMediaMessageCell: UITableViewCell, MessageCellProtocol {
             profileImage = #imageLiteral(resourceName: "default_user")
         }
 
-        if let cachedImage = getCachedImage(cacheIdentifier: profileImageCacheIdentifier) {
+        if let cachedImage = imageCacher.retrieveImageFromCache(cacheIdentifier: profileImageCacheIdentifier) {
             self.profileImageView.image = cachedImage
         } else {
-            photoCache.add(profileImage, withIdentifier: profileImageCacheIdentifier)
+            imageCacher.addImageToCache(image: profileImage, cacheIdentifier: profileImageCacheIdentifier)
             self.profileImageView.image = self.setProfileImageWithResizedImage(image: profileImage)
         }
         self.configureMediaImageView()
@@ -70,28 +68,16 @@ class CurrentUserMediaMessageCell: UITableViewCell, MessageCellProtocol {
     
     fileprivate func loadMediaForMessage(message: Message) {
         if let mediaURL = message.mediaURL {
-            if let cachedImage = getCachedImage(cacheIdentifier: mediaURL) {
+            if let cachedImage = imageCacher.retrieveImageFromCache(cacheIdentifier: mediaURL) {
                 self.mediaImageView.image = cachedImage
                 return
             }
             Alamofire.request(mediaURL).responseImage { response in
                 if let image = response.result.value {
                     self.mediaImageView.image = image
-                    self.cacheImage(image: image, cacheIdentifier: mediaURL)
+                    self.imageCacher.addImageToCache(image: image, cacheIdentifier: mediaURL)
                 }
             }
         }
     }
-
-    fileprivate func cacheImage(image: UIImage, cacheIdentifier: String) {
-        photoCache.add(image, withIdentifier: cacheIdentifier)
-    }
-    
-    fileprivate func getCachedImage(cacheIdentifier: String) -> UIImage? {
-        if let image = photoCache.image(withIdentifier: cacheIdentifier) {
-            return image
-        }
-        return nil
-    }
-
 }

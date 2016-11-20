@@ -14,9 +14,10 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
     @IBOutlet weak var mediaImageView: UIImageView!
     @IBOutlet weak var profileImageView: UIImageView!
     
-    let photoCache = AutoPurgingImageCache(
-        memoryCapacity: 400 * 1024 * 1024,
-        preferredMemoryUsageAfterPurge: 60 * 1024 * 1024)
+    typealias FirebaseUserProfileResult = (User) -> Void
+    let defaultProfileImageCacheIdentifer = "defaultProfileImage"
+    let firebaseOp = FirebaseOperation()
+    let imageCacher = ImageCacher()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,18 +31,22 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
         
         //****NEED TO CACHE PROFILE IMAGES OF SENDERS TO INCREASE SPEED//*****
         
-//        var profileImage: UIImage
-//        if senders profile image != nil {
-//            profileImage = senders profile image
-//        } else {
-//            profileImage = #imageLiteral(resourceName: "default_user")
-//        }
-        
-//        self.profileImageView.image = self.setProfileImageWithResizedImage(image: profileImage)
-        self.configureMediaImageView()
-        self.configureProfileImageView()
-        
+        var profileImage: UIImage?
+
+        //Cache Image with sender userID
+
+        getUserProfileForMessage(message: message, completion: { (user) in
+            if user.profileImage != nil {
+                profileImage = user.profileImage!
+                self.profileImageView.image = self.setProfileImageWithResizedImage(image: profileImage!)
+            } else {
+                profileImage = #imageLiteral(resourceName: "default_user")
+                self.profileImageView.image = profileImage
+            }
+        })
         loadMediaForMessage(message: message)
+        configureMediaImageView()
+        configureProfileImageView()
     }
     
     //MARK: Cell Attribute Helper Methods
@@ -53,8 +58,6 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
     }
     
     fileprivate func configureProfileImageView() {
-        let profileImage = #imageLiteral(resourceName: "bill_murray_scrooged")
-        self.profileImageView.image = profileImage
         self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height / 2
         self.profileImageView.layer.masksToBounds = true
         self.profileImageView.layer.shadowColor = UIColor.black.cgColor
@@ -67,28 +70,33 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
     
     fileprivate func loadMediaForMessage(message: Message) {
         if let mediaURL = message.mediaURL {
-            if let cachedImage = getCachedImage(cacheIdentifier: mediaURL) {
+            if let cachedImage = imageCacher.retrieveImageFromCache(cacheIdentifier: mediaURL) {
                 self.mediaImageView.image = cachedImage
                 return
             }
             Alamofire.request(mediaURL).responseImage { response in
                 if let image = response.result.value {
                     self.mediaImageView.image = image
-                    self.cacheImage(image: image, cacheIdentifier: mediaURL)
+                    self.imageCacher.addImageToCache(image: image, cacheIdentifier: mediaURL)
                 }
             }
         }
     }
     
-    fileprivate func cacheImage(image: UIImage, cacheIdentifier: String) {
-        photoCache.add(image, withIdentifier: cacheIdentifier)
+    fileprivate func getUserProfileForMessage(message: Message, completion: @escaping FirebaseUserProfileResult) {
+        let userProfileQuery = firebaseOp.firebaseDatabaseRef.ref.child("users").queryOrdered(byChild: "userID").queryEqual(toValue: message.userID)
+        
+        firebaseOp.queryChildWithConstraints(userProfileQuery, firebaseDataEventType: .value, observeSingleEventType: true, completion: { (snapshot) in
+            if snapshot.exists() {
+                User.createUserWithFirebaseSnapshot(snapshot, completion: { (user) in
+                    print("created user from snapshot: \(user)")
+                    completion(user)
+                })
+            }
+        })
+        
     }
     
-    fileprivate func getCachedImage(cacheIdentifier: String) -> UIImage? {
-        if let image = photoCache.image(withIdentifier: cacheIdentifier) {
-            return image
-        }
-        return nil
-    }
+    
 
 }
