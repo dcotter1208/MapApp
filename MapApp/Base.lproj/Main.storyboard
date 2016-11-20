@@ -776,7 +776,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HopCat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPa-hx-jV2">
-                                        <rect key="frame" x="69" y="13" width="237" height="20"/>
+                                        <rect key="frame" x="69" y="15" width="237" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -872,7 +872,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium  taur cillium " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="y3S-zC-BAy">
-                                                    <rect key="frame" x="58" y="13" width="194" height="35"/>
+                                                    <rect key="frame" x="58" y="13" width="193.5" height="35"/>
                                                     <color key="backgroundColor" red="0.92136718750000002" green="0.92136718750000002" blue="0.92136718750000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="215" id="xVJ-WO-mQe"/>
@@ -940,6 +940,80 @@
                                         <connections>
                                             <outlet property="messageTextView" destination="rzv-Ro-9fA" id="wus-Z2-PqF"/>
                                             <outlet property="profileImageView" destination="ieM-Nx-hyP" id="Zyt-d4-0fA"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CurrentUserMediaMessageCell" rowHeight="185" id="xso-6S-4nj" customClass="CurrentUserMediaMessageCell" customModule="MapApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="141" width="375" height="185"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xso-6S-4nj" id="Wzo-Ro-3hD">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="185"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="r0b-BW-FLo">
+                                                    <rect key="frame" x="332" y="143" width="35" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="35" id="8Iz-ud-aGB"/>
+                                                        <constraint firstAttribute="height" constant="35" id="Kjn-hX-4TS"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cbn-C7-m2V">
+                                                    <rect key="frame" x="139" y="0.0" width="185" height="177"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="185" id="ehN-Sj-jxJ"/>
+                                                        <constraint firstAttribute="height" constant="177" id="jA0-Ga-fD5"/>
+                                                        <constraint firstAttribute="width" constant="185" id="jfK-o5-EJV"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="cbn-C7-m2V" firstAttribute="top" secondItem="Wzo-Ro-3hD" secondAttribute="top" id="E0t-Bk-JTP"/>
+                                                <constraint firstItem="cbn-C7-m2V" firstAttribute="leading" secondItem="Wzo-Ro-3hD" secondAttribute="leadingMargin" constant="131" id="LRf-y0-NsS"/>
+                                                <constraint firstItem="r0b-BW-FLo" firstAttribute="trailing" secondItem="Wzo-Ro-3hD" secondAttribute="trailingMargin" id="MXf-lR-P5f"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="r0b-BW-FLo" secondAttribute="bottom" constant="-1" id="e55-Ij-Q59"/>
+                                                <constraint firstItem="cbn-C7-m2V" firstAttribute="bottom" secondItem="Wzo-Ro-3hD" secondAttribute="bottomMargin" id="x70-bj-IRs"/>
+                                                <constraint firstItem="r0b-BW-FLo" firstAttribute="leading" secondItem="cbn-C7-m2V" secondAttribute="trailing" constant="8" symbolic="YES" id="yKI-rQ-L9p"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="mediaImageView" destination="cbn-C7-m2V" id="ZqF-LN-vmp"/>
+                                            <outlet property="profileImageView" destination="r0b-BW-FLo" id="n2t-ZM-vMG"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DefaultMediaMessageCell" rowHeight="185" id="Gw3-GT-cOg" customClass="DefaultMediaMessageCell" customModule="MapApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="326" width="375" height="185"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gw3-GT-cOg" id="pBR-Sz-pfc">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="185"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8GW-bU-DWg">
+                                                    <rect key="frame" x="8" y="142" width="35" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="35" id="6r8-JS-QoM"/>
+                                                        <constraint firstAttribute="height" constant="35" id="stk-7d-Ksk"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fzE-tz-ZTo">
+                                                    <rect key="frame" x="51" y="0.0" width="185" height="177"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="185" id="1ej-kB-O3w"/>
+                                                        <constraint firstAttribute="height" constant="177" id="c3G-HR-RoW"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="185" id="jGh-mA-LGr"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="8GW-bU-DWg" firstAttribute="bottom" secondItem="fzE-tz-ZTo" secondAttribute="bottom" id="AGz-4f-cZW"/>
+                                                <constraint firstItem="8GW-bU-DWg" firstAttribute="leading" secondItem="pBR-Sz-pfc" secondAttribute="leadingMargin" id="I3Q-nd-F1W"/>
+                                                <constraint firstItem="8GW-bU-DWg" firstAttribute="bottom" secondItem="pBR-Sz-pfc" secondAttribute="bottomMargin" id="IY5-kQ-VJz"/>
+                                                <constraint firstItem="fzE-tz-ZTo" firstAttribute="leading" secondItem="8GW-bU-DWg" secondAttribute="trailing" constant="8" symbolic="YES" id="LEn-MT-YhJ"/>
+                                                <constraint firstItem="fzE-tz-ZTo" firstAttribute="top" secondItem="pBR-Sz-pfc" secondAttribute="top" id="LF6-R8-HoR"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="fzE-tz-ZTo" secondAttribute="trailing" constant="131" id="MSJ-qP-KwN"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="mediaImageView" destination="fzE-tz-ZTo" id="Qce-z9-GPb"/>
+                                            <outlet property="profileImageView" destination="8GW-bU-DWg" id="Ce1-OY-oqt"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1192,7 +1266,7 @@
             <objects>
                 <navigationController storyboardIdentifier="LogInNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fcs-ls-Rhn" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uln-nE-z3B">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="uln-nE-z3B">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1210,7 +1284,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MapVCNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MRg-lX-Z71" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iEt-FP-tgg">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="iEt-FP-tgg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1228,7 +1302,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dvi-49-Mbi" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bH0-RB-FtT">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="bH0-RB-FtT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>

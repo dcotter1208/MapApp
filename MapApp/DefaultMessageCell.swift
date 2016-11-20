@@ -11,7 +11,6 @@ import UIKit
 class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var messageTextView: UITextView!
-    @IBOutlet weak var messageLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -19,8 +18,6 @@ class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     func setCellViewAttributesWithMessage(message: Message) {
@@ -35,11 +32,8 @@ class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
             }
         }
     }
-    fileprivate func setProfileImageWithResizedImage(image: UIImage) -> UIImage {
-        let newSize = CGSize(width: image.size.width/5, height: image.size.width/5)
-        return image.resizedImage(newSize)
-    }
     
+    //MARK: Cell Attribute Helper Methods
     fileprivate func configureMessageTextView() {
         self.messageTextView.layer.cornerRadius = 5
         self.messageTextView.backgroundColor = UIColor.lightGray
@@ -49,5 +43,12 @@ class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
     fileprivate func configureProfileImageView() {
         self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height/2
         self.profileImageView.layer.masksToBounds = true
+        self.profileImageView.layer.shadowColor = UIColor.black.cgColor
     }
+    
+    fileprivate func setProfileImageWithResizedImage(image: UIImage) -> UIImage {
+        let newSize = CGSize(width: image.size.width/5, height: image.size.width/5)
+        return image.resizedImage(newSize)
+    }
+    
 }

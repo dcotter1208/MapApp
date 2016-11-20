@@ -218,9 +218,8 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         }
         
         guard let messageToolbar = messageToolbar else { return }
-    
-        let message = Message(text: messageToolbar.messageTextView.text, timestamp: "11/05/16", locationID: venueID!,userID: currentUserID, mediaURL: nil)
-        firebaseOp.setValueForChild(child: "messages", value: ["text" : message.text, "timestamp" : message.timestamp, "locationID" : message.locationID, "userID" : message.userID])
+
+        firebaseOp.setValueForChild(child: "messages", value: ["text" : messageToolbar.messageTextView.text, "timestamp" : "11/05/16", "locationID" : venueID!, "userID" : currentUserID, "messageType" : MessageType.text.rawValue])
         messageToolbar.messageTextView.text = ""
         adjustMessageViewHeightWithMessageSize()
     }
@@ -233,15 +232,69 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messages[indexPath.row]
-                
-        guard message.userID == CurrentUser.sharedInstance.userID else {
-            let defaultMessageCell = tableView.dequeueReusableCell(withIdentifier: "DefaultMessageCell", for: indexPath) as! DefaultMessageCell
+        let isCurrentUser = messageIsFromCurrentUser(message: message)
+        let defaultCell = UITableViewCell()
+        
+        switch message.messageType {
+        case .text:
+            if isCurrentUser {
+                return createChatCell(withMessage: message, andCellIdentifier: "CurrentUserMessageCell", atIndexPath: indexPath)!
+            } else {
+                return createChatCell(withMessage: message, andCellIdentifier: "DefaultMessageCell", atIndexPath: indexPath)!
+            }
+        case .media:
+            if isCurrentUser {
+                return createChatCell(withMessage: message, andCellIdentifier: "CurrentUserMediaMessageCell", atIndexPath: indexPath)!
+            } else {
+                return createChatCell(withMessage: message, andCellIdentifier: "DefaultMediaMessageCell", atIndexPath: indexPath)!
+            }
+//        case .mediaText:
+//            if isCurrentUser {
+//                return createChatCell(withMessage: message, andCellIdentifier: "CurrentUserMediaTextMessageCell", atIndexPath: indexPath)!
+//            } else {
+//                return createChatCell(withMessage: message, andCellIdentifier: "DefaultMediaTextMessageCell", atIndexPath: indexPath)!
+//            }
+        default:
+            return defaultCell
+        }
+        
+        
+//        
+//        guard message.userID == CurrentUser.sharedInstance.userID else {
+//            let defaultMessageCell = tableView.dequeueReusableCell(withIdentifier: "DefaultMessageCell", for: indexPath) as! DefaultMessageCell
+//            defaultMessageCell.setCellViewAttributesWithMessage(message: message)
+//            return defaultMessageCell
+//        }
+//        let currentUserMessageCell = tableView.dequeueReusableCell(withIdentifier: "CurrentUserMessageCell", for: indexPath) as! CurrentUserMessageCell
+//        currentUserMessageCell.setCellViewAttributesWithMessage(message: message)
+//        return currentUserMessageCell
+    }
+    
+    fileprivate func createChatCell(withMessage message: Message, andCellIdentifier cellIdentifier: String, atIndexPath indexPath: IndexPath) -> UITableViewCell? {
+        switch cellIdentifier {
+        case "DefaultMessageCell":
+            let defaultMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! DefaultMessageCell
             defaultMessageCell.setCellViewAttributesWithMessage(message: message)
             return defaultMessageCell
+        case "CurrentUserMessageCell":
+            let currentUserMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CurrentUserMessageCell
+            currentUserMessageCell.setCellViewAttributesWithMessage(message: message)
+            return currentUserMessageCell
+        case "CurrentUserMediaMessageCell":
+            let currentUserMediaMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CurrentUserMediaMessageCell
+            currentUserMediaMessageCell.setCellViewAttributesWithMessage(message: message)
+            return currentUserMediaMessageCell
+        case "DefaultMediaMessageCell":
+            let defaultMediaMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! DefaultMediaMessageCell
+            defaultMediaMessageCell.setCellViewAttributesWithMessage(message: message)
+            return defaultMediaMessageCell
+        default:
+            return nil
         }
-        let currentUserMessageCell = tableView.dequeueReusableCell(withIdentifier: "CurrentUserMessageCell", for: indexPath) as! CurrentUserMessageCell
-        currentUserMessageCell.setCellViewAttributesWithMessage(message: message)
-        return currentUserMessageCell
+    }
+    
+    fileprivate func messageIsFromCurrentUser(message: Message) -> Bool {
+        return message.userID == CurrentUser.sharedInstance.userID
     }
 
     func scrollToLastMessage() {

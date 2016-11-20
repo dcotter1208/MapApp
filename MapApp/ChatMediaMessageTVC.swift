@@ -53,7 +53,7 @@ class ChatMediaMessageTVC: UITableViewController, UINavigationControllerDelegate
         CloudinaryOperation().uploadImageToCloudinary(media, delegate: self, completion: {
             (photoURL) in
             if let venueID = self.venueID {
-                let mediaMessage = ["text" : self.messageTextView.text, "timestamp" : "", "locationID" : venueID, "userID" : currentUserID, "mediaURL" : photoURL] as [String : Any]
+                let mediaMessage = ["text" : self.messageTextView.text, "timestamp" : "", "locationID" : venueID, "userID" : currentUserID, "mediaURL" : photoURL, "messageType" : MessageType.media.rawValue] as [String : Any]
                 self.firebaseOperation.setValueForChild(child: "messages", value: mediaMessage)
                 self.dismiss(animated: true, completion: nil)
             }
