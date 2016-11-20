@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import AlamofireImage
 
 class CurrentUserMediaMessageCell: UITableViewCell, MessageCellProtocol {
     @IBOutlet weak var mediaImageView: UIImageView!
@@ -27,19 +29,14 @@ class CurrentUserMediaMessageCell: UITableViewCell, MessageCellProtocol {
         } else {
             profileImage = #imageLiteral(resourceName: "default_user")
         }
-        let messageTuple = (message: message, user: User(name: "Current User", location: "Detroit, MI", userID: CurrentUser.sharedInstance.userID, profileImageURL: "", profileImage: profileImage))
         
-        DispatchQueue.main.async {
-            if let mediaURL = message.mediaURL, let profileImage = messageTuple.user.profileImage {
-                self.profileImageView.image = self.setProfileImageWithResizedImage(image: profileImage)
-                self.configureMediaImageView()
-                self.configureProfileImageView()
-                AlamoFireOperation.downloadProfileImageWithAlamoFire(URL: mediaURL,
-                    completion: { (image, error) in
-                        self.mediaImageView.image = image
-                                                                        
-                })
-            }
+        self.profileImageView.image = self.setProfileImageWithResizedImage(image: profileImage)
+        self.configureMediaImageView()
+        self.configureProfileImageView()
+        
+        if let mediaURL = message.mediaURL {
+            let url = URL(string: mediaURL)
+            self.mediaImageView.af_setImage(withURL: url!, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.50), runImageTransitionIfCached: false, completion: nil)
         }
     }
     

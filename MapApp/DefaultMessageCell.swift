@@ -41,7 +41,7 @@ class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
     }
 
     fileprivate func configureProfileImageView() {
-        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height/2
+        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height / 2
         self.profileImageView.layer.masksToBounds = true
         self.profileImageView.layer.shadowColor = UIColor.black.cgColor
     }
