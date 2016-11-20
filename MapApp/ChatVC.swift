@@ -9,6 +9,8 @@
 import UIKit
 import FirebaseAuth
 import Firebase
+import AlamofireImage
+import Alamofire
 
 class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, MessageToolbarDelegate {
     @IBOutlet weak var chatTableView: UITableView!
@@ -23,7 +25,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     var keyboardAnimationDuration = Double()
     var venueID: String?
     var imageForMessage: UIImage?
-    
+        
     //MARK: Lifecycle
     
     override func viewDidLoad() {

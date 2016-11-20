@@ -7,10 +7,16 @@
 //
 
 import UIKit
+import Alamofire
+import AlamofireImage
 
 class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
     @IBOutlet weak var mediaImageView: UIImageView!
     @IBOutlet weak var profileImageView: UIImageView!
+    
+    let photoCache = AutoPurgingImageCache(
+        memoryCapacity: 400 * 1024 * 1024,
+        preferredMemoryUsageAfterPurge: 60 * 1024 * 1024)
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,21 +27,21 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
     }
 
     func setCellViewAttributesWithMessage(message: Message) {
-        var profileImage: UIImage
-        if CurrentUser.sharedInstance.profileImage != nil {
-            profileImage = CurrentUser.sharedInstance.profileImage!
-        } else {
-            profileImage = #imageLiteral(resourceName: "default_user")
-        }
         
-        self.profileImageView.image = self.setProfileImageWithResizedImage(image: profileImage)
+        //****NEED TO CACHE PROFILE IMAGES OF SENDERS TO INCREASE SPEED//*****
+        
+//        var profileImage: UIImage
+//        if senders profile image != nil {
+//            profileImage = senders profile image
+//        } else {
+//            profileImage = #imageLiteral(resourceName: "default_user")
+//        }
+        
+//        self.profileImageView.image = self.setProfileImageWithResizedImage(image: profileImage)
         self.configureMediaImageView()
         self.configureProfileImageView()
         
-        if let mediaURL = message.mediaURL {
-            let url = URL(string: mediaURL)
-            self.mediaImageView.af_setImage(withURL: url!, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.50), runImageTransitionIfCached: false, completion: nil)
-        }
+        loadMediaForMessage(message: message)
     }
     
     //MARK: Cell Attribute Helper Methods
@@ -44,9 +50,6 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
         self.mediaImageView.layer.cornerRadius = 10
         self.mediaImageView.layer.masksToBounds = true
         self.mediaImageView.layer.shadowColor = UIColor.black.cgColor
-        self.mediaImageView.layer.borderColor = UIColor.lightGray.cgColor
-        self.mediaImageView.layer.backgroundColor = UIColor.blue.cgColor
-        self.mediaImageView.layer.borderWidth = 5
     }
     
     fileprivate func configureProfileImageView() {
@@ -60,6 +63,32 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
     fileprivate func setProfileImageWithResizedImage(image: UIImage) -> UIImage {
         let newSize = CGSize(width: image.size.width/5, height: image.size.width/5)
         return image.resizedImage(newSize)
+    }
+    
+    fileprivate func loadMediaForMessage(message: Message) {
+        if let mediaURL = message.mediaURL {
+            if let cachedImage = getCachedImage(cacheIdentifier: mediaURL) {
+                self.mediaImageView.image = cachedImage
+                return
+            }
+            Alamofire.request(mediaURL).responseImage { response in
+                if let image = response.result.value {
+                    self.mediaImageView.image = image
+                    self.cacheImage(image: image, cacheIdentifier: mediaURL)
+                }
+            }
+        }
+    }
+    
+    fileprivate func cacheImage(image: UIImage, cacheIdentifier: String) {
+        photoCache.add(image, withIdentifier: cacheIdentifier)
+    }
+    
+    fileprivate func getCachedImage(cacheIdentifier: String) -> UIImage? {
+        if let image = photoCache.image(withIdentifier: cacheIdentifier) {
+            return image
+        }
+        return nil
     }
 
 }
