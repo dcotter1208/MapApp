@@ -19,14 +19,10 @@ class CurrentUser: UserType {
     var userID = ""
     var profileImage: UIImage? = nil
     
-    //1
     class var sharedInstance: CurrentUser {
-        //2
         struct Singleton {
-            //3
             static let instance = CurrentUser()
         }
-        //4
         return Singleton.instance
     }
 
@@ -54,19 +50,11 @@ class CurrentUser: UserType {
     }
     
     func setCurrentUserWithFirebase(snapshot: FIRDataSnapshot) {
-        print("Snapshot: \(snapshot)")
-        
         let snapshotDict = snapshot.value as! NSDictionary
-        
-        print("Snapshot Dict: \(snapshotDict)")
 
-        
         for child in snapshotDict {
             let snapshotChildDict = child.value as! NSDictionary
-            
-            print("Snapshot Child Dict: \(snapshotChildDict)")
 
-            
             guard let
                 name = snapshotChildDict["name"] as? String,
                 let imageURL = snapshotChildDict["profileImageURL"] as? String,
@@ -78,9 +66,6 @@ class CurrentUser: UserType {
             self.location = location
             self.userID = userID
             self.profileImageURL = imageURL
-            
-            print("Username set with Firebase:::: \(self.name)")
-            
         }
         guard self.profileImageURL != "" else {return}
         downloadUserProfileImage(self.profileImageURL)

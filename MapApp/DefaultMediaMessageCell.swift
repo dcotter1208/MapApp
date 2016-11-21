@@ -15,9 +15,11 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
     @IBOutlet weak var profileImageView: UIImageView!
     
     typealias FirebaseUserProfileResult = (User) -> Void
+    
     let defaultProfileImageCacheIdentifer = "defaultProfileImage"
     let firebaseOp = FirebaseOperation()
     let imageCacher = ImageCacher()
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,12 +30,7 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
     }
 
     func setCellViewAttributesWithMessage(message: Message) {
-        
-        //****NEED TO CACHE PROFILE IMAGES OF SENDERS TO INCREASE SPEED//*****
-        
         var profileImage: UIImage?
-
-        //Cache Image with sender userID
 
         getUserProfileForMessage(message: message, completion: { (user) in
             if user.profileImage != nil {
@@ -89,12 +86,10 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
         firebaseOp.queryChildWithConstraints(userProfileQuery, firebaseDataEventType: .value, observeSingleEventType: true, completion: { (snapshot) in
             if snapshot.exists() {
                 User.createUserWithFirebaseSnapshot(snapshot, completion: { (user) in
-                    print("created user from snapshot: \(user)")
                     completion(user)
                 })
             }
         })
-        
     }
     
     

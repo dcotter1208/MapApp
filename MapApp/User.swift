@@ -13,6 +13,8 @@ import UIKit
 
 typealias ImageResult = (UIImage?, Error?) -> Void
 typealias UserResult = (User) -> Void
+let imageCacher = ImageCacher()
+
 
 struct User: UserType {
     var name: String
@@ -36,10 +38,15 @@ struct User: UserType {
                 return
             }
             
-            downloadUserProfileImage(profileImageURL, completion: {
-                (image, error) in
-                completion(User(name: name, location: location, userID: userID, profileImageURL: profileImageURL, profileImage: image))
-            })
+            if let profileImage = imageCacher.retrieveImageFromCache(cacheIdentifier: profileImageURL) {
+                completion(User(name: name, location: location, userID: userID, profileImageURL: profileImageURL, profileImage: profileImage))
+            } else {
+                downloadUserProfileImage(profileImageURL, completion: {
+                    (image, error) in
+                    completion(User(name: name, location: location, userID: userID, profileImageURL: profileImageURL, profileImage: image))
+                    imageCacher.addImageToCache(image: image!, cacheIdentifier: profileImageURL)
+                })
+            }
         }
     }
 }
