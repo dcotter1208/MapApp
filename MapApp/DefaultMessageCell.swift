@@ -12,6 +12,9 @@ class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var messageTextView: UITextView!
     
+    typealias FirebaseUserProfileResult = (User) -> Void
+    let firebaseOp = FirebaseOperation()
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -21,16 +24,19 @@ class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
     }
     
     func setCellViewAttributesWithMessage(message: Message) {
-        let profileImage = #imageLiteral(resourceName: "bill_murray_ghost")
-        let messageTuple = (message: message, user: User(name: "Scrooged", location: "NY, NY", userID: "123", profileImageURL: "", profileImage: profileImage))
-        messageTextView.text = messageTuple.message.text
-        DispatchQueue.main.async {
-            self.configureMessageTextView()
-            self.configureProfileImageView()
-            if let profileImage = messageTuple.user.profileImage {
-                self.profileImageView.image = self.setProfileImageWithResizedImage(image: profileImage)
+        var profileImage: UIImage?
+        var messageTuple: (message: Message?, user: User?)
+
+        getUserProfileForMessage(message: message, completion: { (user) in
+            profileImage = self.setProfileImageForUser(user: user)
+            messageTuple = (message: message, user: User(name: user.name, location: user.location, userID: user.userID, profileImageURL: user.profileImageURL, profileImage: profileImage))
+            self.messageTextView.text = messageTuple.message?.text
+            DispatchQueue.main.async {
+                self.configureMessageTextView()
+                self.profileImageView.image = messageTuple.user?.profileImage
+                self.configureProfileImageView()
             }
-        }
+        })
     }
     
     //MARK: Cell Attribute Helper Methods
@@ -45,10 +51,33 @@ class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
         self.profileImageView.layer.masksToBounds = true
         self.profileImageView.layer.shadowColor = UIColor.black.cgColor
     }
-    
-    fileprivate func setProfileImageWithResizedImage(image: UIImage) -> UIImage {
-        let newSize = CGSize(width: image.size.width/5, height: image.size.width/5)
+
+    fileprivate func resizeProfileImage(image: UIImage) -> UIImage {
+        let newSize = CGSize(width: image.size.width / 5, height: image.size.width / 5)
         return image.resizedImage(newSize)
+    }
+
+    fileprivate func getUserProfileForMessage(message: Message, completion: @escaping FirebaseUserProfileResult) {
+        let userProfileQuery = firebaseOp.firebaseDatabaseRef.ref.child("users").queryOrdered(byChild: "userID").queryEqual(toValue: message.userID)
+        firebaseOp.queryChildWithConstraints(userProfileQuery, firebaseDataEventType: .value, observeSingleEventType: true, completion: { (snapshot) in
+            if snapshot.exists() {
+                User.createUserWithFirebaseSnapshot(snapshot, completion: { (user) in
+                    completion(user)
+                })
+            }
+        })
+    }
+    
+    fileprivate func setProfileImageForUser(user: User) -> UIImage {
+        var profileImage: UIImage
+        if user.profileImage != nil {
+            profileImage = user.profileImage!
+            self.profileImageView.image = self.resizeProfileImage(image: profileImage)
+        } else {
+            profileImage = #imageLiteral(resourceName: "default_user")
+            self.profileImageView.image = profileImage
+        }
+        return profileImage
     }
     
 }

@@ -12,6 +12,8 @@ class CurrentUserMessageCell: UITableViewCell, MessageCellProtocol {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var messageTextView: UITextView!
     
+    let profileImageCacheIdentifier = "currentUserProfileImage"
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -22,19 +24,14 @@ class CurrentUserMessageCell: UITableViewCell, MessageCellProtocol {
     
     func setCellViewAttributesWithMessage(message: Message) {
         var profileImage: UIImage
-        if CurrentUser.sharedInstance.profileImage != nil {
-            profileImage = CurrentUser.sharedInstance.profileImage!
-        } else {
-            profileImage = #imageLiteral(resourceName: "default_user")
-        }
-        let messageTuple = (message: message, user: User(name: "Current User", location: "Detroit, MI", userID: CurrentUser.sharedInstance.userID, profileImageURL: "", profileImage: profileImage))
+        profileImage = setMessageProfileImageForCurrentUser()
+        let currentUser = CurrentUser.sharedInstance
+        let messageTuple = (message: message, user: User(name: currentUser.name, location: currentUser.location, userID: currentUser.userID, profileImageURL: currentUser.profileImageURL, profileImage: profileImage))
         self.messageTextView.text = messageTuple.message.text
         DispatchQueue.main.async {
             self.configureMessageTextView()
+            self.profileImageView.image = messageTuple.user.profileImage
             self.configureProfileImageView()
-            if let profileImage = messageTuple.user.profileImage {
-                self.profileImageView.image = self.setProfileImageWithResizedImage(image: profileImage)
-            }
         }
     }
     
@@ -50,12 +47,21 @@ class CurrentUserMessageCell: UITableViewCell, MessageCellProtocol {
         self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height/2
         self.profileImageView.layer.masksToBounds = true
         self.profileImageView.layer.shadowColor = UIColor.black.cgColor
-
     }
     
-    fileprivate func setProfileImageWithResizedImage(image: UIImage) -> UIImage {
-        let newSize = CGSize(width: image.size.width/5, height: image.size.width/5)
+    fileprivate func resizeProfileImage(image: UIImage) -> UIImage {
+        let newSize = CGSize(width: image.size.width / 5, height: image.size.width / 5)
         return image.resizedImage(newSize)
     }
-    
+
+    fileprivate func setMessageProfileImageForCurrentUser() -> UIImage {
+        var profileImage: UIImage
+        if CurrentUser.sharedInstance.profileImage != nil {
+            profileImage = resizeProfileImage(image: CurrentUser.sharedInstance.profileImage!)
+        } else {
+            profileImage = #imageLiteral(resourceName: "default_user")
+        }
+        return profileImage
+    }
+
 }

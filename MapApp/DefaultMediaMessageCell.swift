@@ -16,10 +16,8 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
     
     typealias FirebaseUserProfileResult = (User) -> Void
     
-    let defaultProfileImageCacheIdentifer = "defaultProfileImage"
     let firebaseOp = FirebaseOperation()
     let imageCacher = ImageCacher()
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,16 +28,9 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
     }
 
     func setCellViewAttributesWithMessage(message: Message) {
-        var profileImage: UIImage?
-
+        self.mediaImageView.image = #imageLiteral(resourceName: "placeholder")
         getUserProfileForMessage(message: message, completion: { (user) in
-            if user.profileImage != nil {
-                profileImage = user.profileImage!
-                self.profileImageView.image = self.setProfileImageWithResizedImage(image: profileImage!)
-            } else {
-                profileImage = #imageLiteral(resourceName: "default_user")
-                self.profileImageView.image = profileImage
-            }
+            self.setMessageProfileImageForUser(user: user)
         })
         loadMediaForMessage(message: message)
         configureMediaImageView()
@@ -59,12 +50,23 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
         self.profileImageView.layer.masksToBounds = true
         self.profileImageView.layer.shadowColor = UIColor.black.cgColor
     }
-    
-    fileprivate func setProfileImageWithResizedImage(image: UIImage) -> UIImage {
-        let newSize = CGSize(width: image.size.width/5, height: image.size.width/5)
+
+    fileprivate func resizeProfileImage(image: UIImage) -> UIImage {
+        let newSize = CGSize(width: image.size.width / 5, height: image.size.width / 5)
         return image.resizedImage(newSize)
     }
     
+    fileprivate func setMessageProfileImageForUser(user: User) {
+        var profileImage: UIImage
+        if user.profileImage != nil {
+            profileImage = user.profileImage!
+            self.profileImageView.image = self.resizeProfileImage(image: profileImage)
+        } else {
+            profileImage = #imageLiteral(resourceName: "default_user")
+            self.profileImageView.image = profileImage
+        }
+    }
+
     fileprivate func loadMediaForMessage(message: Message) {
         if let mediaURL = message.mediaURL {
             if let cachedImage = imageCacher.retrieveImageFromCache(cacheIdentifier: mediaURL) {
@@ -82,7 +84,6 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
     
     fileprivate func getUserProfileForMessage(message: Message, completion: @escaping FirebaseUserProfileResult) {
         let userProfileQuery = firebaseOp.firebaseDatabaseRef.ref.child("users").queryOrdered(byChild: "userID").queryEqual(toValue: message.userID)
-        
         firebaseOp.queryChildWithConstraints(userProfileQuery, firebaseDataEventType: .value, observeSingleEventType: true, completion: { (snapshot) in
             if snapshot.exists() {
                 User.createUserWithFirebaseSnapshot(snapshot, completion: { (user) in
@@ -91,7 +92,5 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
             }
         })
     }
-    
-    
 
 }

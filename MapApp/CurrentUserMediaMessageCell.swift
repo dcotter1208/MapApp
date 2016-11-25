@@ -15,8 +15,7 @@ class CurrentUserMediaMessageCell: UITableViewCell, MessageCellProtocol {
     @IBOutlet weak var profileImageView: UIImageView!
 
     let imageCacher = ImageCacher()
-    
-    let profileImageCacheIdentifier = "currentUserProfileimage"
+    let profileImageCacheIdentifier = "currentUserProfileImage"
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,20 +26,8 @@ class CurrentUserMediaMessageCell: UITableViewCell, MessageCellProtocol {
     }
     
     func setCellViewAttributesWithMessage(message: Message) {
-        self.mediaImageView.image = nil
-        var profileImage: UIImage
-        if CurrentUser.sharedInstance.profileImage != nil {
-            profileImage = CurrentUser.sharedInstance.profileImage!
-        } else {
-            profileImage = #imageLiteral(resourceName: "default_user")
-        }
-
-        if let cachedImage = imageCacher.retrieveImageFromCache(cacheIdentifier: profileImageCacheIdentifier) {
-            self.profileImageView.image = cachedImage
-        } else {
-            imageCacher.addImageToCache(image: profileImage, cacheIdentifier: profileImageCacheIdentifier)
-            self.profileImageView.image = self.setProfileImageWithResizedImage(image: profileImage)
-        }
+        self.mediaImageView.image = #imageLiteral(resourceName: "placeholder")
+        setMessageProfileImageForCurrentUser()
         self.configureMediaImageView()
         self.configureProfileImageView()
         loadMediaForMessage(message: message)
@@ -51,8 +38,6 @@ class CurrentUserMediaMessageCell: UITableViewCell, MessageCellProtocol {
     fileprivate func configureMediaImageView() {
         self.mediaImageView.layer.cornerRadius = 10
         self.mediaImageView.layer.masksToBounds = true
-//        self.mediaImageView.layer.shadowColor = UIColor.black.cgColor
-//        self.mediaImageView.layer.shadowOffset = CGSize(width: self.mediaImageView.frame.size.width + 5, height: self.mediaImageView.frame.size.height + 5)
     }
     
     fileprivate func configureProfileImageView() {
@@ -61,9 +46,25 @@ class CurrentUserMediaMessageCell: UITableViewCell, MessageCellProtocol {
         self.profileImageView.layer.shadowColor = UIColor.black.cgColor
     }
     
-    fileprivate func setProfileImageWithResizedImage(image: UIImage) -> UIImage {
+    fileprivate func resizeProfileImage(image: UIImage) -> UIImage {
         let newSize = CGSize(width: image.size.width / 5, height: image.size.width / 5)
         return image.resizedImage(newSize)
+    }
+    
+    fileprivate func setMessageProfileImageForCurrentUser() {
+        var profileImage: UIImage
+        if CurrentUser.sharedInstance.profileImage != nil {
+            profileImage = resizeProfileImage(image: CurrentUser.sharedInstance.profileImage!)
+        } else {
+            profileImage = #imageLiteral(resourceName: "default_user")
+        }
+        
+        if let cachedImage = imageCacher.retrieveImageFromCache(cacheIdentifier: profileImageCacheIdentifier) {
+            self.profileImageView.image = cachedImage
+        } else {
+            imageCacher.addImageToCache(image: profileImage, cacheIdentifier: profileImageCacheIdentifier)
+            self.profileImageView.image = profileImage
+        }
     }
     
     fileprivate func loadMediaForMessage(message: Message) {
