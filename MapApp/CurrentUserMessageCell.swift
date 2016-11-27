@@ -10,38 +10,32 @@ import UIKit
 
 class CurrentUserMessageCell: UITableViewCell, MessageCellProtocol {
     @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var messageTextView: UITextView!
     
+    var messageTuple: (message: Message, currentUser: CurrentUser)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
     }
     
     func setCellViewAttributesWithMessage(message: Message) {
-        let profileImage = #imageLiteral(resourceName: "current_user")
-        let messageTuple = (message: message, user: User(name: "Current User", location: "Detroit, MI", userID: CurrentUser.sharedInstance.userID, profileImageURL: "", profileImage: profileImage))
-        self.messageTextView.text = messageTuple.message.message
+        setMessageProfileImageForCurrentUser()
+        
+        messageTuple = (message: message, currentUser: CurrentUser.sharedInstance)
+        
+        self.messageTextView.text = messageTuple?.message.text
         DispatchQueue.main.async {
             self.configureMessageTextView()
             self.configureProfileImageView()
-            if let profileImage = messageTuple.user.profileImage {
-                self.profileImageView.image = self.setProfileImageWithResizedImage(image: profileImage)
-            }
         }
     }
     
-    fileprivate func setProfileImageWithResizedImage(image: UIImage) -> UIImage {
-        let newSize = CGSize(width: image.size.width/5, height: image.size.width/5)
-        return image.resizedImage(newSize)
-    }
-    
+    //MARK: Cell Attribute Helper Methods
+
     fileprivate func configureMessageTextView() {
         self.messageTextView.layer.cornerRadius = 5
         self.messageTextView.backgroundColor = UIColor.blue
@@ -49,8 +43,22 @@ class CurrentUserMessageCell: UITableViewCell, MessageCellProtocol {
     }
     
     fileprivate func configureProfileImageView() {
-        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height/2
+        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height / 2
         self.profileImageView.layer.masksToBounds = true
     }
-
+    
+    fileprivate func setProfileImageWithResizedImage(image: UIImage) -> UIImage {
+        let newSize = CGSize(width: image.size.width/5, height: image.size.width/5)
+        return image.resizedImage(newSize)
+    }
+    
+    fileprivate func setMessageProfileImageForCurrentUser() {
+        if CurrentUser.sharedInstance.profileImage == nil {
+            messageTuple?.currentUser.profileImage = #imageLiteral(resourceName: "default_user")
+        }
+        DispatchQueue.main.async {
+            self.profileImageView.image = self.messageTuple?.currentUser.profileImage
+        }
+    }
+    
 }

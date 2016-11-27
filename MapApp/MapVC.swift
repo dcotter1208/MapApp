@@ -13,6 +13,7 @@ import GoogleMaps
 import GooglePlaces
 import FirebaseAuth
 import RealmSwift
+import Alamofire
 
 class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate, CustomCalloutActionDelegate {
     @IBOutlet weak var mapStyleBarButton: UIBarButtonItem!
@@ -32,10 +33,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
         setupGoogleMaps()
         getCurrentUser()
         setUpCalloutView()
-        
-        print("Current User: \(CurrentUser.sharedInstance.userID)")
-        
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -107,10 +104,18 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
     
     
     func moreInfoButtonSelected(sender: AnyObject) {
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        if let venueDetailVC = storyboard.instantiateViewController(withIdentifier: "VenueChatDisplayDetailVC") as? VenueChatDisplayDetailVC {
+//            venueDetailVC.venueID = venueIDForSelectedMarker
+//            self.navigationController?.pushViewController(venueDetailVC, animated: true)
+//        }
+    }
+    
+    func enterChatSelected(sender: AnyObject) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let venueDetailVC = storyboard.instantiateViewController(withIdentifier: "VenueChatDisplayDetailVC") as? VenueChatDisplayDetailVC {
-            venueDetailVC.venueID = venueIDForSelectedMarker
-            self.navigationController?.pushViewController(venueDetailVC, animated: true)
+        if let venueChatVC = storyboard.instantiateViewController(withIdentifier: "VenueChatViewController") as? ChatVC {
+            venueChatVC.venueID = venueIDForSelectedMarker
+            self.navigationController?.pushViewController(venueChatVC, animated: true)
         }
     }
     
@@ -323,6 +328,5 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
             return ("Place", "place", "place")
         }
     }
-        
     
 }

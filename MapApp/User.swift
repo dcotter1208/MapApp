@@ -13,6 +13,8 @@ import UIKit
 
 typealias ImageResult = (UIImage?, Error?) -> Void
 typealias UserResult = (User) -> Void
+let imageCacher = ImageCacher()
+
 
 struct User: UserType {
     var name: String
@@ -21,19 +23,30 @@ struct User: UserType {
     var profileImageURL: String
     var profileImage: UIImage?
   
-    func createUserWithFirebaseSnapshot(_ snapshot:FIRDataSnapshot, completion: @escaping UserResult) {
+    static func createUserWithFirebaseSnapshot(_ snapshot:FIRDataSnapshot, completion: @escaping UserResult) {
         let snapshotDict = snapshot.value as! NSDictionary
         for child in snapshotDict {
-            let snapshotChidDict = child.value as! NSDictionary
-            guard let name = snapshotChidDict["name"] as? String, let profileImageURL = snapshotChidDict["profilePhotoURL"] as? String, let userID = snapshotChidDict["userID"] as? String, let location = snapshotChidDict["location"] as? String else { return }
+            let snapshotChildDict = child.value as! NSDictionary
+
+            guard let name = snapshotChildDict["name"] as? String,
+                let profileImageURL = snapshotChildDict["profileImageURL"] as? String,
+                let userID = snapshotChildDict["userID"] as? String,
+                let location = snapshotChildDict["location"] as? String else { return }
+            
             guard profileImageURL != "" else {
                 completion(User(name: name, location: location, userID: userID, profileImageURL: profileImageURL, profileImage: nil))
                 return
             }
-            downloadUserProfileImage(profileImageURL, completion: {
-                (image, error) in
-                completion(User(name: name, location: location, userID: userID, profileImageURL: profileImageURL, profileImage: image))
-            })
+            
+            if let profileImage = imageCacher.retrieveImageFromCache(cacheIdentifier: profileImageURL) {
+                completion(User(name: name, location: location, userID: userID, profileImageURL: profileImageURL, profileImage: profileImage))
+            } else {
+                downloadUserProfileImage(profileImageURL, completion: {
+                    (image, error) in
+                    completion(User(name: name, location: location, userID: userID, profileImageURL: profileImageURL, profileImage: image))
+                    imageCacher.addImageToCache(image: image!, cacheIdentifier: profileImageURL)
+                })
+            }
         }
     }
 }

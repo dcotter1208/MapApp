@@ -13,7 +13,7 @@ typealias URLResult = (String) -> Void
 
 class CloudinaryOperation: NSObject {
     
-    func uploadProfileImageToCloudinary(_ image:UIImage, delegate: CLUploaderDelegate, completion:@escaping URLResult) {
+    func uploadImageToCloudinary(_ image:UIImage, delegate: CLUploaderDelegate, completion:@escaping URLResult) {
         let resizedImage = image.resizedImage(CGSize(width: image.size.width/11, height: image.size.width/11))
         let imageData = UIImageJPEGRepresentation(resizedImage, 1.0)
         let keys = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Keys", ofType: "plist")!)!
@@ -32,7 +32,6 @@ class CloudinaryOperation: NSObject {
     
     
     /*LOOK INTO THIS DESTROY METHOD FOR DELETING PHOTOS:
-     
      
    A destroy method is available through the mobile uploader (CLUploader). --> mobileUploader.destroy
     
