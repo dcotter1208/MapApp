@@ -20,7 +20,6 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
     let firebaseOp = FirebaseOperation()
     let imageCacher = ImageCacher()
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -41,7 +40,6 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
                 self.profileImageView.image = profileImage
             }
         })
-        loadMediaForMessage(message: message)
         configureMediaImageView()
         configureProfileImageView()
     }
@@ -51,7 +49,6 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
     fileprivate func configureMediaImageView() {
         self.mediaImageView.layer.cornerRadius = 10
         self.mediaImageView.layer.masksToBounds = true
-        self.mediaImageView.layer.shadowColor = UIColor.black.cgColor
     }
     
     fileprivate func configureProfileImageView() {
@@ -83,9 +80,11 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
     fileprivate func getUserProfileForMessage(message: Message, completion: @escaping FirebaseUserProfileResult) {
         let userProfileQuery = firebaseOp.firebaseDatabaseRef.ref.child("users").queryOrdered(byChild: "userID").queryEqual(toValue: message.userID)
         
-        firebaseOp.queryChildWithConstraints(userProfileQuery, firebaseDataEventType: .value, observeSingleEventType: true, completion: { (snapshot) in
+        firebaseOp.queryChildWithConstraints(userProfileQuery, firebaseDataEventType: .value, observeSingleEventType: true, completion: {
+            (snapshot) in
             if snapshot.exists() {
-                User.createUserWithFirebaseSnapshot(snapshot, completion: { (user) in
+                User.createUserWithFirebaseSnapshot(snapshot, completion: {
+                    (user) in
                     completion(user)
                 })
             }

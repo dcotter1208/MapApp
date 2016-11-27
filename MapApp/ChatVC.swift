@@ -15,6 +15,13 @@ import Alamofire
 class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, MessageToolbarDelegate {
     @IBOutlet weak var chatTableView: UITableView!
 
+    //Cell Identifiers
+    let CurrentUserMediaMessageCellIdentifier = "CurrentUserMediaMessageCell"
+    let DefaultMediaMessageCellIdentifier = "DefaultMediaMessageCell"
+    let CurrentUserMessageCellIdentifier = "CurrentUserMessageCell"
+    let DefaultMessageCellIdentifier = "DefaultMessageCell"
+
+    
     let messageToolBarHeight:CGFloat = 44.0
     var messages = [Message]()
     var keyboardHeight: CGFloat?
@@ -240,15 +247,15 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         switch message.messageType {
         case .text:
             if isCurrentUser {
-                return createChatCell(withMessage: message, andCellIdentifier: "CurrentUserMessageCell", atIndexPath: indexPath)!
+                return createChatCell(withMessage: message, andCellIdentifier: CurrentUserMessageCellIdentifier, atIndexPath: indexPath)!
             } else {
-                return createChatCell(withMessage: message, andCellIdentifier: "DefaultMessageCell", atIndexPath: indexPath)!
+                return createChatCell(withMessage: message, andCellIdentifier: DefaultMessageCellIdentifier, atIndexPath: indexPath)!
             }
         case .media:
             if isCurrentUser {
-                return createChatCell(withMessage: message, andCellIdentifier: "CurrentUserMediaMessageCell", atIndexPath: indexPath)!
+                return createChatCell(withMessage: message, andCellIdentifier: CurrentUserMediaMessageCellIdentifier, atIndexPath: indexPath)!
             } else {
-                return createChatCell(withMessage: message, andCellIdentifier: "DefaultMediaMessageCell", atIndexPath: indexPath)!
+                return createChatCell(withMessage: message, andCellIdentifier: DefaultMediaMessageCellIdentifier, atIndexPath: indexPath)!
             }
 //        case .mediaText:
 //            if isCurrentUser {
@@ -260,38 +267,42 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
             return defaultCell
         }
         
-        
-//        
-//        guard message.userID == CurrentUser.sharedInstance.userID else {
-//            let defaultMessageCell = tableView.dequeueReusableCell(withIdentifier: "DefaultMessageCell", for: indexPath) as! DefaultMessageCell
-//            defaultMessageCell.setCellViewAttributesWithMessage(message: message)
-//            return defaultMessageCell
-//        }
-//        let currentUserMessageCell = tableView.dequeueReusableCell(withIdentifier: "CurrentUserMessageCell", for: indexPath) as! CurrentUserMessageCell
-//        currentUserMessageCell.setCellViewAttributesWithMessage(message: message)
-//        return currentUserMessageCell
     }
+
     
     fileprivate func createChatCell(withMessage message: Message, andCellIdentifier cellIdentifier: String, atIndexPath indexPath: IndexPath) -> UITableViewCell? {
         switch cellIdentifier {
-        case "DefaultMessageCell":
+        case DefaultMessageCellIdentifier:
             let defaultMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! DefaultMessageCell
             defaultMessageCell.setCellViewAttributesWithMessage(message: message)
             return defaultMessageCell
-        case "CurrentUserMessageCell":
+        case CurrentUserMessageCellIdentifier:
             let currentUserMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CurrentUserMessageCell
             currentUserMessageCell.setCellViewAttributesWithMessage(message: message)
             return currentUserMessageCell
-        case "CurrentUserMediaMessageCell":
+        case CurrentUserMediaMessageCellIdentifier:
             let currentUserMediaMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CurrentUserMediaMessageCell
+            if let URLString = message.mediaURL {
+                downloadMediaForCellImageView(imageView: currentUserMediaMessageCell.mediaImageView, mediaURL: URLString)
+            }
             currentUserMediaMessageCell.setCellViewAttributesWithMessage(message: message)
             return currentUserMediaMessageCell
-        case "DefaultMediaMessageCell":
+        case DefaultMediaMessageCellIdentifier:
             let defaultMediaMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! DefaultMediaMessageCell
+            if let URLString = message.mediaURL {
+                downloadMediaForCellImageView(imageView: defaultMediaMessageCell.mediaImageView, mediaURL: URLString)
+            }
             defaultMediaMessageCell.setCellViewAttributesWithMessage(message: message)
             return defaultMediaMessageCell
         default:
             return nil
+        }
+    }
+    
+    fileprivate func downloadMediaForCellImageView(imageView: UIImageView, mediaURL: String) {
+        if let url = URL(string: mediaURL) {
+          imageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .noTransition, runImageTransitionIfCached: false, completion: { (data) in
+          })
         }
     }
     

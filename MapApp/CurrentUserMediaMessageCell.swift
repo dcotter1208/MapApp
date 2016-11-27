@@ -14,9 +14,10 @@ class CurrentUserMediaMessageCell: UITableViewCell, MessageCellProtocol {
     @IBOutlet weak var mediaImageView: UIImageView!
     @IBOutlet weak var profileImageView: UIImageView!
 
+    typealias FirebaseUserProfileResult = (User) -> Void
+    let firebaseOp = FirebaseOperation()
     let imageCacher = ImageCacher()
-    
-    let profileImageCacheIdentifier = "currentUserProfileimage"
+    var messageTuple: (media: UIImage?, user: CurrentUser?)
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,23 +28,11 @@ class CurrentUserMediaMessageCell: UITableViewCell, MessageCellProtocol {
     }
     
     func setCellViewAttributesWithMessage(message: Message) {
-        self.mediaImageView.image = nil
-        var profileImage: UIImage
-        if CurrentUser.sharedInstance.profileImage != nil {
-            profileImage = CurrentUser.sharedInstance.profileImage!
-        } else {
-            profileImage = #imageLiteral(resourceName: "default_user")
-        }
-
-        if let cachedImage = imageCacher.retrieveImageFromCache(cacheIdentifier: profileImageCacheIdentifier) {
-            self.profileImageView.image = cachedImage
-        } else {
-            imageCacher.addImageToCache(image: profileImage, cacheIdentifier: profileImageCacheIdentifier)
-            self.profileImageView.image = self.setProfileImageWithResizedImage(image: profileImage)
-        }
+        messageTuple = (nil, CurrentUser.sharedInstance)
+        setMessageProfileImageForCurrentUser()
         self.configureMediaImageView()
         self.configureProfileImageView()
-        loadMediaForMessage(message: message)
+//        loadMediaForMessage(message: message)
     }
     
     //MARK: Cell Attribute Helper Methods
@@ -51,8 +40,6 @@ class CurrentUserMediaMessageCell: UITableViewCell, MessageCellProtocol {
     fileprivate func configureMediaImageView() {
         self.mediaImageView.layer.cornerRadius = 10
         self.mediaImageView.layer.masksToBounds = true
-//        self.mediaImageView.layer.shadowColor = UIColor.black.cgColor
-//        self.mediaImageView.layer.shadowOffset = CGSize(width: self.mediaImageView.frame.size.width + 5, height: self.mediaImageView.frame.size.height + 5)
     }
     
     fileprivate func configureProfileImageView() {
@@ -61,23 +48,39 @@ class CurrentUserMediaMessageCell: UITableViewCell, MessageCellProtocol {
         self.profileImageView.layer.shadowColor = UIColor.black.cgColor
     }
     
-    fileprivate func setProfileImageWithResizedImage(image: UIImage) -> UIImage {
+    fileprivate func resizeProfileImage(image: UIImage) -> UIImage {
         let newSize = CGSize(width: image.size.width / 5, height: image.size.width / 5)
         return image.resizedImage(newSize)
     }
     
+    fileprivate func setMessageProfileImageForCurrentUser() {
+        if CurrentUser.sharedInstance.profileImage == nil {
+            messageTuple.user?.profileImage = #imageLiteral(resourceName: "default_user")
+        }
+        self.profileImageView.image = messageTuple.user?.profileImage
+    }
+    
     fileprivate func loadMediaForMessage(message: Message) {
-        if let mediaURL = message.mediaURL {
-            if let cachedImage = imageCacher.retrieveImageFromCache(cacheIdentifier: mediaURL) {
-                self.mediaImageView.image = cachedImage
-                return
-            }
-            Alamofire.request(mediaURL).responseImage { response in
-                if let image = response.result.value {
-                    self.mediaImageView.image = image
-                    self.imageCacher.addImageToCache(image: image, cacheIdentifier: mediaURL)
+            if let mediaURL = message.mediaURL {
+                if let cachedImage = imageCacher.retrieveImageFromCache(cacheIdentifier: mediaURL) {
+                    messageTuple.media = cachedImage
+                    DispatchQueue.main.async {
+                        self.mediaImageView.image = cachedImage
+                    }
+                    return
+                }
+                
+                Alamofire.request(mediaURL).responseImage { response in
+                    if let image = response.result.value {
+                        self.messageTuple.media = image
+                        DispatchQueue.main.async {
+                            self.mediaImageView.image = image
+                        }
+                        self.imageCacher.addImageToCache(image: image, cacheIdentifier: mediaURL)
+                        return
+                    }
                 }
             }
         }
-    }
+
 }
