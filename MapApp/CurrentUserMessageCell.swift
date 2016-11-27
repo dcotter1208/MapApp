@@ -24,7 +24,9 @@ class CurrentUserMessageCell: UITableViewCell, MessageCellProtocol {
     
     func setCellViewAttributesWithMessage(message: Message) {
         setMessageProfileImageForCurrentUser()
+        
         messageTuple = (message: message, currentUser: CurrentUser.sharedInstance)
+        
         self.messageTextView.text = messageTuple?.message.text
         DispatchQueue.main.async {
             self.configureMessageTextView()

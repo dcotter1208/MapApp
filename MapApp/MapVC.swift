@@ -13,6 +13,7 @@ import GoogleMaps
 import GooglePlaces
 import FirebaseAuth
 import RealmSwift
+import Alamofire
 
 class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate, CustomCalloutActionDelegate {
     @IBOutlet weak var mapStyleBarButton: UIBarButtonItem!
@@ -327,6 +328,5 @@ extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutoco
             return ("Place", "place", "place")
         }
     }
-        
     
 }

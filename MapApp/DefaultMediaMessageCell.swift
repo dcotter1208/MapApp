@@ -16,9 +16,7 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
     
     typealias FirebaseUserProfileResult = (User) -> Void
     
-    let defaultProfileImageCacheIdentifer = "defaultProfileImage"
     let firebaseOp = FirebaseOperation()
-    let imageCacher = ImageCacher()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -55,6 +53,13 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
         self.profileImageView.layer.shadowColor = UIColor.black.cgColor
     }
     
+    fileprivate func downloadMediaForCellImageView(mediaURL: String) {
+        if let url = URL(string: mediaURL) {
+            self.mediaImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .noTransition, runImageTransitionIfCached: false, completion: { (data) in
+            })
+        }
+    }
+    
     fileprivate func setUserProfileImageForMessage(user: User) {
         var profileImage: UIImage
         if user.profileImage != nil {
@@ -71,13 +76,6 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
         return image.resizedImage(newSize)
     }
     
-    fileprivate func downloadMediaForCellImageView(mediaURL: String) {
-        if let url = URL(string: mediaURL) {
-            self.mediaImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .noTransition, runImageTransitionIfCached: false, completion: { (data) in
-            })
-        }
-    }
- 
     fileprivate func getUserProfileForMessage(message: Message, completion: @escaping FirebaseUserProfileResult) {
         let userProfileQuery = firebaseOp.firebaseDatabaseRef.ref.child("users").queryOrdered(byChild: "userID").queryEqual(toValue: message.userID)
         

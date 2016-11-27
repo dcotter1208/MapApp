@@ -15,8 +15,6 @@ class CurrentUserMediaMessageCell: UITableViewCell, MessageCellProtocol {
     @IBOutlet weak var profileImageView: UIImageView!
 
     typealias FirebaseUserProfileResult = (User) -> Void
-    let firebaseOp = FirebaseOperation()
-    let imageCacher = ImageCacher()
     var messageTuple: (media: UIImage?, user: CurrentUser?)
     
     override func awakeFromNib() {
