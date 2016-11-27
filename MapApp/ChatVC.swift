@@ -282,30 +282,18 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
             return currentUserMessageCell
         case CurrentUserMediaMessageCellIdentifier:
             let currentUserMediaMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CurrentUserMediaMessageCell
-            if let URLString = message.mediaURL {
-                downloadMediaForCellImageView(imageView: currentUserMediaMessageCell.mediaImageView, mediaURL: URLString)
-            }
+
             currentUserMediaMessageCell.setCellViewAttributesWithMessage(message: message)
             return currentUserMediaMessageCell
         case DefaultMediaMessageCellIdentifier:
             let defaultMediaMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! DefaultMediaMessageCell
-            if let URLString = message.mediaURL {
-                downloadMediaForCellImageView(imageView: defaultMediaMessageCell.mediaImageView, mediaURL: URLString)
-            }
             defaultMediaMessageCell.setCellViewAttributesWithMessage(message: message)
             return defaultMediaMessageCell
         default:
             return nil
         }
     }
-    
-    fileprivate func downloadMediaForCellImageView(imageView: UIImageView, mediaURL: String) {
-        if let url = URL(string: mediaURL) {
-          imageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .noTransition, runImageTransitionIfCached: false, completion: { (data) in
-          })
-        }
-    }
-    
+
     fileprivate func messageIsFromCurrentUser(message: Message) -> Bool {
         return message.userID == CurrentUser.sharedInstance.userID
     }

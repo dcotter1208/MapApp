@@ -29,19 +29,17 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
     }
 
     func setCellViewAttributesWithMessage(message: Message) {
-        var profileImage: UIImage?
-
         getUserProfileForMessage(message: message, completion: { (user) in
-            if user.profileImage != nil {
-                profileImage = user.profileImage!
-                self.profileImageView.image = self.setProfileImageWithResizedImage(image: profileImage!)
-            } else {
-                profileImage = #imageLiteral(resourceName: "default_user")
-                self.profileImageView.image = profileImage
-            }
+            self.setUserProfileImageForMessage(user: user)
         })
-        configureMediaImageView()
-        configureProfileImageView()
+        
+        if let URLString = message.mediaURL {
+            downloadMediaForCellImageView(mediaURL: URLString)
+        }
+        DispatchQueue.main.async {
+            self.configureMediaImageView()
+            self.configureProfileImageView()
+        }
     }
     
     //MARK: Cell Attribute Helper Methods
@@ -57,26 +55,29 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
         self.profileImageView.layer.shadowColor = UIColor.black.cgColor
     }
     
+    fileprivate func setUserProfileImageForMessage(user: User) {
+        var profileImage: UIImage
+        if user.profileImage != nil {
+            profileImage = user.profileImage!
+            self.profileImageView.image = self.setProfileImageWithResizedImage(image: profileImage)
+        } else {
+            profileImage = #imageLiteral(resourceName: "default_user")
+            self.profileImageView.image = profileImage
+        }
+    }
+    
     fileprivate func setProfileImageWithResizedImage(image: UIImage) -> UIImage {
         let newSize = CGSize(width: image.size.width/5, height: image.size.width/5)
         return image.resizedImage(newSize)
     }
     
-    fileprivate func loadMediaForMessage(message: Message) {
-        if let mediaURL = message.mediaURL {
-            if let cachedImage = imageCacher.retrieveImageFromCache(cacheIdentifier: mediaURL) {
-                self.mediaImageView.image = cachedImage
-                return
-            }
-            Alamofire.request(mediaURL).responseImage { response in
-                if let image = response.result.value {
-                    self.mediaImageView.image = image
-                    self.imageCacher.addImageToCache(image: image, cacheIdentifier: mediaURL)
-                }
-            }
+    fileprivate func downloadMediaForCellImageView(mediaURL: String) {
+        if let url = URL(string: mediaURL) {
+            self.mediaImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .noTransition, runImageTransitionIfCached: false, completion: { (data) in
+            })
         }
     }
-    
+ 
     fileprivate func getUserProfileForMessage(message: Message, completion: @escaping FirebaseUserProfileResult) {
         let userProfileQuery = firebaseOp.firebaseDatabaseRef.ref.child("users").queryOrdered(byChild: "userID").queryEqual(toValue: message.userID)
         

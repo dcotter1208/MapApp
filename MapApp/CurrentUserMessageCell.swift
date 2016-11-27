@@ -12,7 +12,7 @@ class CurrentUserMessageCell: UITableViewCell, MessageCellProtocol {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var messageTextView: UITextView!
     
-    var messageTuple: (message: Message, user: CurrentUser)?
+    var messageTuple: (message: Message, currentUser: CurrentUser)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,7 +24,7 @@ class CurrentUserMessageCell: UITableViewCell, MessageCellProtocol {
     
     func setCellViewAttributesWithMessage(message: Message) {
         setMessageProfileImageForCurrentUser()
-        messageTuple = (message: message, user: CurrentUser.sharedInstance)
+        messageTuple = (message: message, currentUser: CurrentUser.sharedInstance)
         self.messageTextView.text = messageTuple?.message.text
         DispatchQueue.main.async {
             self.configureMessageTextView()
@@ -52,10 +52,10 @@ class CurrentUserMessageCell: UITableViewCell, MessageCellProtocol {
     
     fileprivate func setMessageProfileImageForCurrentUser() {
         if CurrentUser.sharedInstance.profileImage == nil {
-            messageTuple?.user.profileImage = #imageLiteral(resourceName: "default_user")
+            messageTuple?.currentUser.profileImage = #imageLiteral(resourceName: "default_user")
         }
         DispatchQueue.main.async {
-            self.profileImageView.image = self.messageTuple?.user.profileImage
+            self.profileImageView.image = self.messageTuple?.currentUser.profileImage
         }
     }
     

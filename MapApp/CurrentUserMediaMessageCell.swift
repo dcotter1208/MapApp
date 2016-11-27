@@ -30,9 +30,13 @@ class CurrentUserMediaMessageCell: UITableViewCell, MessageCellProtocol {
     func setCellViewAttributesWithMessage(message: Message) {
         messageTuple = (nil, CurrentUser.sharedInstance)
         setMessageProfileImageForCurrentUser()
-        self.configureMediaImageView()
-        self.configureProfileImageView()
-//        loadMediaForMessage(message: message)
+        if let URLString = message.mediaURL {
+            downloadMediaForCellImageView(mediaURL: URLString)
+        }
+        DispatchQueue.main.async {
+            self.configureMediaImageView()
+            self.configureProfileImageView()
+        }
     }
     
     //MARK: Cell Attribute Helper Methods
@@ -45,7 +49,6 @@ class CurrentUserMediaMessageCell: UITableViewCell, MessageCellProtocol {
     fileprivate func configureProfileImageView() {
         self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height / 2
         self.profileImageView.layer.masksToBounds = true
-        self.profileImageView.layer.shadowColor = UIColor.black.cgColor
     }
     
     fileprivate func resizeProfileImage(image: UIImage) -> UIImage {
@@ -60,27 +63,11 @@ class CurrentUserMediaMessageCell: UITableViewCell, MessageCellProtocol {
         self.profileImageView.image = messageTuple.user?.profileImage
     }
     
-    fileprivate func loadMediaForMessage(message: Message) {
-            if let mediaURL = message.mediaURL {
-                if let cachedImage = imageCacher.retrieveImageFromCache(cacheIdentifier: mediaURL) {
-                    messageTuple.media = cachedImage
-                    DispatchQueue.main.async {
-                        self.mediaImageView.image = cachedImage
-                    }
-                    return
-                }
-                
-                Alamofire.request(mediaURL).responseImage { response in
-                    if let image = response.result.value {
-                        self.messageTuple.media = image
-                        DispatchQueue.main.async {
-                            self.mediaImageView.image = image
-                        }
-                        self.imageCacher.addImageToCache(image: image, cacheIdentifier: mediaURL)
-                        return
-                    }
-                }
-            }
+    fileprivate func downloadMediaForCellImageView(mediaURL: String) {
+        if let url = URL(string: mediaURL) {
+            self.mediaImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .noTransition, runImageTransitionIfCached: false, completion: { (data) in
+            })
         }
+    }
 
 }
