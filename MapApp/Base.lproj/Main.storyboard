@@ -864,15 +864,15 @@
                                 <rect key="frame" x="0.0" y="72" width="375" height="595"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DefaultMessageCell" rowHeight="56" id="aPE-Dy-nHt" customClass="DefaultMessageCell" customModule="MapApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="56"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DefaultMessageCell" rowHeight="62" id="aPE-Dy-nHt" customClass="DefaultMessageCell" customModule="MapApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="62"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aPE-Dy-nHt" id="c9I-XQ-inc">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="62"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium  taur cillium " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="y3S-zC-BAy">
-                                                    <rect key="frame" x="58" y="13" width="193.5" height="35"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Lorem ipsum dolor sit er elit " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="y3S-zC-BAy">
+                                                    <rect key="frame" x="58" y="13" width="194" height="41"/>
                                                     <color key="backgroundColor" red="0.92136718750000002" green="0.92136718750000002" blue="0.92136718750000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="215" id="xVJ-WO-mQe"/>
@@ -881,7 +881,7 @@
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gpW-PV-Yco">
-                                                    <rect key="frame" x="8" y="11" width="35" height="35"/>
+                                                    <rect key="frame" x="8" y="17" width="35" height="35"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="35" id="agp-sQ-uo1"/>
                                                         <constraint firstAttribute="width" constant="35" id="tIW-bV-k0e"/>
@@ -902,15 +902,15 @@
                                             <outlet property="profileImageView" destination="gpW-PV-Yco" id="1do-fT-bTB"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CurrentUserMessageCell" rowHeight="57" id="78A-ky-xzx" customClass="CurrentUserMessageCell" customModule="MapApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="84" width="375" height="57"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CurrentUserMessageCell" rowHeight="62" id="78A-ky-xzx" customClass="CurrentUserMessageCell" customModule="MapApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="90" width="375" height="62"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="78A-ky-xzx" id="j8E-L2-Rjl">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="62"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium  taur cillium " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rzv-Ro-9fA">
-                                                    <rect key="frame" x="127.5" y="14" width="193.5" height="35"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Lorem ipsum dolor sit er elit " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rzv-Ro-9fA">
+                                                    <rect key="frame" x="128" y="13" width="194" height="41"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="215" id="TWB-bJ-7lA"/>
@@ -921,7 +921,7 @@
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ieM-Nx-hyP">
-                                                    <rect key="frame" x="332" y="14" width="35" height="35"/>
+                                                    <rect key="frame" x="332" y="19" width="35" height="35"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="35" id="iXR-Id-Epa"/>
                                                         <constraint firstAttribute="height" constant="35" id="imJ-bJ-ctV"/>
@@ -930,10 +930,10 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="rzv-Ro-9fA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="j8E-L2-Rjl" secondAttribute="leadingMargin" id="0GV-vP-ANs"/>
-                                                <constraint firstItem="rzv-Ro-9fA" firstAttribute="top" secondItem="j8E-L2-Rjl" secondAttribute="topMargin" constant="6" id="2tl-qZ-Cga"/>
+                                                <constraint firstItem="rzv-Ro-9fA" firstAttribute="top" secondItem="j8E-L2-Rjl" secondAttribute="topMargin" constant="5" id="9cK-fM-cTK"/>
                                                 <constraint firstItem="ieM-Nx-hyP" firstAttribute="bottom" secondItem="j8E-L2-Rjl" secondAttribute="bottomMargin" id="Hm8-pa-9Pf"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="rzv-Ro-9fA" secondAttribute="bottom" id="cfo-9f-MI3"/>
-                                                <constraint firstItem="ieM-Nx-hyP" firstAttribute="leading" secondItem="rzv-Ro-9fA" secondAttribute="trailing" constant="11" id="d9p-OK-W4r"/>
+                                                <constraint firstItem="ieM-Nx-hyP" firstAttribute="leading" secondItem="rzv-Ro-9fA" secondAttribute="trailing" constant="10" id="d9p-OK-W4r"/>
                                                 <constraint firstItem="ieM-Nx-hyP" firstAttribute="trailing" secondItem="j8E-L2-Rjl" secondAttribute="trailingMargin" id="yVe-6w-4ot"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -942,36 +942,35 @@
                                             <outlet property="profileImageView" destination="ieM-Nx-hyP" id="Zyt-d4-0fA"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CurrentUserMediaMessageCell" rowHeight="185" id="xso-6S-4nj" customClass="CurrentUserMediaMessageCell" customModule="MapApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="141" width="375" height="185"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CurrentUserMediaMessageCell" rowHeight="182" id="xso-6S-4nj" customClass="CurrentUserMediaMessageCell" customModule="MapApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="152" width="375" height="182"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xso-6S-4nj" id="Wzo-Ro-3hD">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="185"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="182"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="r0b-BW-FLo">
-                                                    <rect key="frame" x="332" y="143" width="35" height="35"/>
+                                                    <rect key="frame" x="332" y="139" width="35" height="35"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="35" id="8Iz-ud-aGB"/>
                                                         <constraint firstAttribute="height" constant="35" id="Kjn-hX-4TS"/>
                                                     </constraints>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cbn-C7-m2V">
-                                                    <rect key="frame" x="139" y="0.0" width="185" height="177"/>
+                                                    <rect key="frame" x="131" y="8" width="193" height="166"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="185" id="ehN-Sj-jxJ"/>
-                                                        <constraint firstAttribute="height" constant="177" id="jA0-Ga-fD5"/>
-                                                        <constraint firstAttribute="width" constant="185" id="jfK-o5-EJV"/>
+                                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="180" id="efO-dw-luL"/>
+                                                        <constraint firstAttribute="width" constant="193" id="oBI-aa-ZUX"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="134" id="yTQ-rN-fzQ"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="cbn-C7-m2V" firstAttribute="top" secondItem="Wzo-Ro-3hD" secondAttribute="top" id="E0t-Bk-JTP"/>
-                                                <constraint firstItem="cbn-C7-m2V" firstAttribute="leading" secondItem="Wzo-Ro-3hD" secondAttribute="leadingMargin" constant="131" id="LRf-y0-NsS"/>
+                                                <constraint firstItem="r0b-BW-FLo" firstAttribute="leading" secondItem="cbn-C7-m2V" secondAttribute="trailing" constant="8" id="1Wh-ti-cF4"/>
+                                                <constraint firstAttribute="topMargin" secondItem="cbn-C7-m2V" secondAttribute="top" id="D0U-Fi-k7r"/>
                                                 <constraint firstItem="r0b-BW-FLo" firstAttribute="trailing" secondItem="Wzo-Ro-3hD" secondAttribute="trailingMargin" id="MXf-lR-P5f"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="r0b-BW-FLo" secondAttribute="bottom" constant="-1" id="e55-Ij-Q59"/>
-                                                <constraint firstItem="cbn-C7-m2V" firstAttribute="bottom" secondItem="Wzo-Ro-3hD" secondAttribute="bottomMargin" id="x70-bj-IRs"/>
-                                                <constraint firstItem="r0b-BW-FLo" firstAttribute="leading" secondItem="cbn-C7-m2V" secondAttribute="trailing" constant="8" symbolic="YES" id="yKI-rQ-L9p"/>
+                                                <constraint firstItem="cbn-C7-m2V" firstAttribute="bottom" secondItem="r0b-BW-FLo" secondAttribute="bottom" id="d9B-id-2cJ"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="r0b-BW-FLo" secondAttribute="bottom" id="e55-Ij-Q59"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -979,41 +978,93 @@
                                             <outlet property="profileImageView" destination="r0b-BW-FLo" id="n2t-ZM-vMG"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DefaultMediaMessageCell" rowHeight="185" id="Gw3-GT-cOg" customClass="DefaultMediaMessageCell" customModule="MapApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="326" width="375" height="185"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DefaultMediaMessageCell" rowHeight="182" id="Gw3-GT-cOg" customClass="DefaultMediaMessageCell" customModule="MapApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="334" width="375" height="182"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gw3-GT-cOg" id="pBR-Sz-pfc">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="185"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="182"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8GW-bU-DWg">
-                                                    <rect key="frame" x="8" y="142" width="35" height="35"/>
+                                                    <rect key="frame" x="8" y="139" width="35" height="35"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="35" id="6r8-JS-QoM"/>
                                                         <constraint firstAttribute="height" constant="35" id="stk-7d-Ksk"/>
                                                     </constraints>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fzE-tz-ZTo">
-                                                    <rect key="frame" x="51" y="0.0" width="185" height="177"/>
+                                                    <rect key="frame" x="51" y="8" width="193" height="166"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="185" id="1ej-kB-O3w"/>
-                                                        <constraint firstAttribute="height" constant="177" id="c3G-HR-RoW"/>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="185" id="jGh-mA-LGr"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="134" id="ch4-ts-oEJ"/>
+                                                        <constraint firstAttribute="width" constant="193" id="nh2-nG-ima"/>
+                                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="180" id="qum-fl-WPu"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="8GW-bU-DWg" firstAttribute="bottom" secondItem="fzE-tz-ZTo" secondAttribute="bottom" id="AGz-4f-cZW"/>
+                                                <constraint firstAttribute="topMargin" secondItem="fzE-tz-ZTo" secondAttribute="top" id="AC7-TL-rN0"/>
                                                 <constraint firstItem="8GW-bU-DWg" firstAttribute="leading" secondItem="pBR-Sz-pfc" secondAttribute="leadingMargin" id="I3Q-nd-F1W"/>
                                                 <constraint firstItem="8GW-bU-DWg" firstAttribute="bottom" secondItem="pBR-Sz-pfc" secondAttribute="bottomMargin" id="IY5-kQ-VJz"/>
-                                                <constraint firstItem="fzE-tz-ZTo" firstAttribute="leading" secondItem="8GW-bU-DWg" secondAttribute="trailing" constant="8" symbolic="YES" id="LEn-MT-YhJ"/>
-                                                <constraint firstItem="fzE-tz-ZTo" firstAttribute="top" secondItem="pBR-Sz-pfc" secondAttribute="top" id="LF6-R8-HoR"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="fzE-tz-ZTo" secondAttribute="trailing" constant="131" id="MSJ-qP-KwN"/>
+                                                <constraint firstItem="fzE-tz-ZTo" firstAttribute="leading" secondItem="8GW-bU-DWg" secondAttribute="trailing" constant="8" id="itd-lp-ONC"/>
+                                                <constraint firstItem="fzE-tz-ZTo" firstAttribute="bottom" secondItem="8GW-bU-DWg" secondAttribute="bottom" id="lUS-6v-GwE"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="mediaImageView" destination="fzE-tz-ZTo" id="Qce-z9-GPb"/>
                                             <outlet property="profileImageView" destination="8GW-bU-DWg" id="Ce1-OY-oqt"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CurrentUserMediaTextMessageCell" rowHeight="212" id="b9A-h7-3fH" customClass="CurrentUserMediaTextMessageCell" customModule="MapApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="516" width="375" height="212"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="b9A-h7-3fH" id="ogi-2u-1eP">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="212"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LbW-x0-awT">
+                                                    <rect key="frame" x="127" y="0.0" width="193" height="166"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="134" id="FzE-uG-FBP"/>
+                                                        <constraint firstAttribute="width" constant="193" id="eCi-zF-PT7"/>
+                                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="180" id="iZj-rL-4Lf"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YI7-51-wrl">
+                                                    <rect key="frame" x="332" y="169" width="35" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="35" id="7Ab-BY-zdo"/>
+                                                        <constraint firstAttribute="height" constant="35" id="px2-xv-Rgs"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Lorem ipsum dolor sit er elit l" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gRr-s1-WG0">
+                                                    <rect key="frame" x="123" y="171" width="197" height="34"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="215" id="QrC-R2-0t3"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" id="fw7-rA-OU7"/>
+                                                    </constraints>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="gRr-s1-WG0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ogi-2u-1eP" secondAttribute="leadingMargin" id="9bP-q9-J6T"/>
+                                                <constraint firstItem="LbW-x0-awT" firstAttribute="top" secondItem="ogi-2u-1eP" secondAttribute="topMargin" constant="-8" id="9lR-Ft-uGu"/>
+                                                <constraint firstItem="gRr-s1-WG0" firstAttribute="top" secondItem="LbW-x0-awT" secondAttribute="bottom" constant="5" id="Mtb-OW-93B"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="LbW-x0-awT" secondAttribute="bottom" constant="38" id="SCg-i4-20a"/>
+                                                <constraint firstItem="YI7-51-wrl" firstAttribute="trailing" secondItem="ogi-2u-1eP" secondAttribute="trailingMargin" id="YoN-TO-nLU"/>
+                                                <constraint firstItem="YI7-51-wrl" firstAttribute="leading" secondItem="gRr-s1-WG0" secondAttribute="trailing" constant="12" id="eQl-Wz-vjO"/>
+                                                <constraint firstItem="YI7-51-wrl" firstAttribute="leading" secondItem="LbW-x0-awT" secondAttribute="trailing" constant="12" id="ewL-10-ne7"/>
+                                                <constraint firstItem="gRr-s1-WG0" firstAttribute="bottom" secondItem="ogi-2u-1eP" secondAttribute="bottomMargin" constant="1" id="hia-5E-xcY"/>
+                                                <constraint firstItem="YI7-51-wrl" firstAttribute="bottom" secondItem="ogi-2u-1eP" secondAttribute="bottomMargin" id="kmC-eH-PID"/>
+                                                <constraint firstItem="gRr-s1-WG0" firstAttribute="top" secondItem="ogi-2u-1eP" secondAttribute="topMargin" constant="163" id="wJv-2q-wYn"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="mediaImageView" destination="LbW-x0-awT" id="5Xf-qO-EnC"/>
+                                            <outlet property="messageTextView" destination="gRr-s1-WG0" id="tJN-sh-arW"/>
+                                            <outlet property="profileImageView" destination="YI7-51-wrl" id="gNQ-SI-OD2"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

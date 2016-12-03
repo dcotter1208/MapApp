@@ -14,6 +14,8 @@
 		C03C09D51DD8240000ADBAD3 /* MessageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C09D41DD8240000ADBAD3 /* MessageProtocol.swift */; };
 		C03C09D91DE0FC5800ADBAD3 /* CurrentUserMediaMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C09D81DE0FC5800ADBAD3 /* CurrentUserMediaMessageCell.swift */; };
 		C03C09DB1DE1196B00ADBAD3 /* DefaultMediaMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C09DA1DE1196B00ADBAD3 /* DefaultMediaMessageCell.swift */; };
+		C05F7CC91DEB9357004058B7 /* CurrentUserMediaTextMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05F7CC81DEB9357004058B7 /* CurrentUserMediaTextMessageCell.swift */; };
+		C05F7CCB1DEB953E004058B7 /* DefaultMediaTextMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05F7CCA1DEB953E004058B7 /* DefaultMediaTextMessageCell.swift */; };
 		C077751D1D986E5800B7DF68 /* VenueContactInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C077751C1D986E5800B7DF68 /* VenueContactInfo.swift */; };
 		C078577B1D8CD07D00B9AF06 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C078577A1D8CD07D00B9AF06 /* UIImageExtension.swift */; };
 		C084BEA81D8DA2BF00BD579F /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C084BEA71D8DA2BF00BD579F /* Venue.swift */; };
@@ -91,6 +93,8 @@
 		C03C09D41DD8240000ADBAD3 /* MessageProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageProtocol.swift; sourceTree = "<group>"; };
 		C03C09D81DE0FC5800ADBAD3 /* CurrentUserMediaMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUserMediaMessageCell.swift; sourceTree = "<group>"; };
 		C03C09DA1DE1196B00ADBAD3 /* DefaultMediaMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultMediaMessageCell.swift; sourceTree = "<group>"; };
+		C05F7CC81DEB9357004058B7 /* CurrentUserMediaTextMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUserMediaTextMessageCell.swift; sourceTree = "<group>"; };
+		C05F7CCA1DEB953E004058B7 /* DefaultMediaTextMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultMediaTextMessageCell.swift; sourceTree = "<group>"; };
 		C077751C1D986E5800B7DF68 /* VenueContactInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueContactInfo.swift; sourceTree = "<group>"; };
 		C078577A1D8CD07D00B9AF06 /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImageExtension.swift; path = ../UIImageExtension.swift; sourceTree = "<group>"; };
 		C084BEA71D8DA2BF00BD579F /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
@@ -371,6 +375,8 @@
 				C0FD5FCE1DBAFF770000923B /* CurrentUserMessageCell.swift */,
 				C03C09D81DE0FC5800ADBAD3 /* CurrentUserMediaMessageCell.swift */,
 				C03C09DA1DE1196B00ADBAD3 /* DefaultMediaMessageCell.swift */,
+				C05F7CC81DEB9357004058B7 /* CurrentUserMediaTextMessageCell.swift */,
+				C05F7CCA1DEB953E004058B7 /* DefaultMediaTextMessageCell.swift */,
 			);
 			name = Message;
 			sourceTree = "<group>";
@@ -675,6 +681,7 @@
 				C0E5906E1D9E028500C4D068 /* GoogleSearchAPI.swift in Sources */,
 				C0FBADCD1D7A7BCA00C1C998 /* AlamoFireOperation.swift in Sources */,
 				C01E79E11D7CFDBD00700FEA /* Alert.swift in Sources */,
+				C05F7CC91DEB9357004058B7 /* CurrentUserMediaTextMessageCell.swift in Sources */,
 				C0B14D591DBC2A39003748A6 /* MessageCellProtocol.swift in Sources */,
 				C0197D2D1DA0875900F68AF0 /* CalloutView.swift in Sources */,
 				C0FBADC81D7A783600C1C998 /* User.swift in Sources */,
@@ -692,6 +699,7 @@
 				C0D21B021DE24E3100B17BB2 /* ImageCacher.swift in Sources */,
 				C03C09D91DE0FC5800ADBAD3 /* CurrentUserMediaMessageCell.swift in Sources */,
 				C0FD5FCA1DBAFD3F0000923B /* Message.swift in Sources */,
+				C05F7CCB1DEB953E004058B7 /* DefaultMediaTextMessageCell.swift in Sources */,
 				C0FD5FCF1DBAFF770000923B /* CurrentUserMessageCell.swift in Sources */,
 				C0FBADCF1D7B0FB800C1C998 /* LogInTVC.swift in Sources */,
 				C078577B1D8CD07D00B9AF06 /* UIImageExtension.swift in Sources */,

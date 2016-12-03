@@ -20,6 +20,8 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     let DefaultMediaMessageCellIdentifier = "DefaultMediaMessageCell"
     let CurrentUserMessageCellIdentifier = "CurrentUserMessageCell"
     let DefaultMessageCellIdentifier = "DefaultMessageCell"
+    let CurrentUserMediaTextMessageCellIdentifier = "CurrentUserMediaTextMessageCell"
+    let DefaultMediaTextMessageCellIdentifier = "DefaultMediaTextMessageCell"
 
     
     let messageToolBarHeight:CGFloat = 44.0
@@ -242,35 +244,35 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messages[indexPath.row]
         let isCurrentUser = messageIsFromCurrentUser(message: message)
-        let defaultCell = UITableViewCell()
         
         switch message.messageType {
         case .text:
             if isCurrentUser {
-                return createChatCell(withMessage: message, andCellIdentifier: CurrentUserMessageCellIdentifier, atIndexPath: indexPath)!
+                return createChatCell(withMessage: message, andCellIdentifier: CurrentUserMessageCellIdentifier, atIndexPath: indexPath)
             } else {
-                return createChatCell(withMessage: message, andCellIdentifier: DefaultMessageCellIdentifier, atIndexPath: indexPath)!
+                return createChatCell(withMessage: message, andCellIdentifier: DefaultMessageCellIdentifier, atIndexPath: indexPath)
             }
         case .media:
             if isCurrentUser {
-                return createChatCell(withMessage: message, andCellIdentifier: CurrentUserMediaMessageCellIdentifier, atIndexPath: indexPath)!
+                return createChatCell(withMessage: message, andCellIdentifier: CurrentUserMediaMessageCellIdentifier, atIndexPath: indexPath)
             } else {
-                return createChatCell(withMessage: message, andCellIdentifier: DefaultMediaMessageCellIdentifier, atIndexPath: indexPath)!
+                return createChatCell(withMessage: message, andCellIdentifier: DefaultMediaMessageCellIdentifier, atIndexPath: indexPath)
             }
-//        case .mediaText:
-//            if isCurrentUser {
-//                return createChatCell(withMessage: message, andCellIdentifier: "CurrentUserMediaTextMessageCell", atIndexPath: indexPath)!
-//            } else {
-//                return createChatCell(withMessage: message, andCellIdentifier: "DefaultMediaTextMessageCell", atIndexPath: indexPath)!
-//            }
-        default:
-            return defaultCell
+        case .mediaText:
+            if isCurrentUser {
+                return createChatCell(withMessage: message, andCellIdentifier: CurrentUserMediaTextMessageCellIdentifier, atIndexPath: indexPath)
+            } else {
+                return createChatCell(withMessage: message, andCellIdentifier: DefaultMediaTextMessageCellIdentifier, atIndexPath: indexPath)
+            }
         }
-        
     }
 
     
-    fileprivate func createChatCell(withMessage message: Message, andCellIdentifier cellIdentifier: String, atIndexPath indexPath: IndexPath) -> UITableViewCell? {
+    fileprivate func createChatCell(withMessage message: Message, andCellIdentifier cellIdentifier: String, atIndexPath indexPath: IndexPath) -> UITableViewCell {
+        
+        
+        let tempCell = UITableViewCell()
+        
         switch cellIdentifier {
         case DefaultMessageCellIdentifier:
             let defaultMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! DefaultMessageCell
@@ -282,15 +284,21 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
             return currentUserMessageCell
         case CurrentUserMediaMessageCellIdentifier:
             let currentUserMediaMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CurrentUserMediaMessageCell
-
             currentUserMediaMessageCell.setCellViewAttributesWithMessage(message: message)
             return currentUserMediaMessageCell
         case DefaultMediaMessageCellIdentifier:
             let defaultMediaMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! DefaultMediaMessageCell
             defaultMediaMessageCell.setCellViewAttributesWithMessage(message: message)
             return defaultMediaMessageCell
+        case CurrentUserMediaTextMessageCellIdentifier:
+            let currentUserMediaTextMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CurrentUserMediaTextMessageCell
+            currentUserMediaTextMessageCell.setCellViewAttributesWithMessage(message: message)
+            return currentUserMediaTextMessageCell
+        case DefaultMediaTextMessageCellIdentifier:
+            //Will return DefaultMediaTextMessageCell
+            return tempCell
         default:
-            return nil
+            return tempCell
         }
     }
 

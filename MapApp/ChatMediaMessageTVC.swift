@@ -18,6 +18,7 @@ class ChatMediaMessageTVC: UITableViewController, UINavigationControllerDelegate
     var imagePicker = UIImagePickerController()
     let firebaseOperation = FirebaseOperation()
     var venueID: String?
+    var currentUserID = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +42,6 @@ class ChatMediaMessageTVC: UITableViewController, UINavigationControllerDelegate
     func saveMessageToFirebaseAndCloudinary() {
         guard let media = imageForMessage else { return }
         
-        var currentUserID = ""
         if CurrentUser.sharedInstance.userID == "" {
             if let anonymousUserID = FIRAuth.auth()?.currentUser?.uid {
                 currentUserID = anonymousUserID
@@ -52,11 +52,12 @@ class ChatMediaMessageTVC: UITableViewController, UINavigationControllerDelegate
 
         CloudinaryOperation().uploadImageToCloudinary(media, delegate: self, completion: {
             (photoURL) in
-            if let venueID = self.venueID {
-                let mediaMessage = ["text" : self.messageTextView.text, "timestamp" : "", "locationID" : venueID, "userID" : currentUserID, "mediaURL" : photoURL, "messageType" : MessageType.media.rawValue] as [String : Any]
+            guard let mediaMessage = self.createMediaMessageWithMediaURL(mediaURL: photoURL) else {
+                //Send a failed to send message alert.
+                return
+            }
                 self.firebaseOperation.setValueForChild(child: "messages", value: mediaMessage)
                 self.dismiss(animated: true, completion: nil)
-            }
         })
     }
     
@@ -69,6 +70,25 @@ class ChatMediaMessageTVC: UITableViewController, UINavigationControllerDelegate
         if mediaImageView.image != nil {
             saveMessageToFirebaseAndCloudinary()
         }
+    }
+    
+    func createMediaMessageWithMediaURL(mediaURL: String) -> Dictionary<String, Any>? {
+        
+        var messageType: MessageType
+        
+        if (messageTextView.text) != nil {
+            messageType = .mediaText
+        } else {
+            messageType = .media
+        }
+        
+        guard let venueID = venueID else {
+            return nil
+        }
+        
+        let mediaMessage = ["text" : self.messageTextView.text, "timestamp" : "", "locationID" : venueID, "userID" : currentUserID, "mediaURL" : mediaURL, "messageType" : messageType.rawValue] as [String : Any]
+        
+        return mediaMessage
     }
 
 }

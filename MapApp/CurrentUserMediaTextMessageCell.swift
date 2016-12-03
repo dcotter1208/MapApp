@@ -1,8 +1,8 @@
 //
-//  CurrentUserMediaMessageCell.swift
+//  CurrentUserMediaTextMessageCell.swift
 //  MapApp
 //
-//  Created by Donovan Cotter on 11/19/16.
+//  Created by Donovan Cotter on 11/27/16.
 //  Copyright © 2016 DonovanCotter. All rights reserved.
 //
 
@@ -10,34 +10,44 @@ import UIKit
 import Alamofire
 import AlamofireImage
 
-class CurrentUserMediaMessageCell: UITableViewCell, MessageCellProtocol {
+class CurrentUserMediaTextMessageCell: UITableViewCell {
+    
     @IBOutlet weak var mediaImageView: UIImageView!
     @IBOutlet weak var profileImageView: UIImageView!
-
-    var messageTuple: (media: UIImage?, user: CurrentUser?)
+    @IBOutlet weak var messageTextView: UITextView!
+    
+    var messageTuple: (media: UIImage?, message: Message?, user: CurrentUser?)
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+
     }
     
     func setCellViewAttributesWithMessage(message: Message) {
-        messageTuple = (nil, CurrentUser.sharedInstance)
+        messageTuple = (nil, message, CurrentUser.sharedInstance)
         setMessageProfileImageForCurrentUser()
         if let URLString = message.mediaURL {
             downloadMediaForCellImageView(mediaURL: URLString)
         }
         DispatchQueue.main.async {
+            self.messageTextView.text = self.messageTuple.message?.text
+            self.configureMessageTextView()
             self.configureMediaImageView()
             self.configureProfileImageView()
         }
     }
     
-    //MARK: Cell Attribute Helper Methods
-    
+    fileprivate func configureMessageTextView() {
+        self.messageTextView.layer.cornerRadius = 5
+        self.messageTextView.backgroundColor = UIColor.blue
+        self.messageTextView.textColor = UIColor.white
+    }
+
     fileprivate func configureMediaImageView() {
         self.mediaImageView.layer.cornerRadius = 10
         self.mediaImageView.layer.masksToBounds = true
@@ -66,5 +76,5 @@ class CurrentUserMediaMessageCell: UITableViewCell, MessageCellProtocol {
             })
         }
     }
-
+    
 }
