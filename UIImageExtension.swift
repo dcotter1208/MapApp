@@ -11,17 +11,20 @@ import UIKit
 
 enum ImageFilter: String {
     case redSky = "CISepiaTone"
-    case colorSwap = "CIColorCrossPolynomial"
-    case beauty = "CIColorCubeWithColorSpace"
     case blackAndWhite = "CIPhotoEffectNoir"
     case effectiveness = "CIPhotoEffectProcess"
     case chromedOut = "CIPhotoEffectChrome"
-    case heat = "CIColorMap"
-    case feelinBlue = "CIColorMonochrome"
-    case blur = "CIGaussianBlur"
-    case cali = "CIColorClamp"
-    case bright = "CIColorMatrix"
-    case mellow = "CITemperatureAndTint"
+    case tonal = "CIPhotoEffectTonal"
+    case instant = "CIPhotoEffectInstant"
+    case fade = "CIPhotoEffectFade"
+    case transfer = "CIPhotoEffectTransfer"
+//    case beauty = "CIColorCubeWithColorSpace"
+//    case heat = "CIColorMap"
+//    case feelinBlue = "CIColorMonochrome"
+//    case blur = "CIGaussianBlur"
+//    case cali = "CIColorClamp"
+//    case bright = "CIColorMatrix"
+//    case mellow = "CITemperatureAndTint"
     
 }
 

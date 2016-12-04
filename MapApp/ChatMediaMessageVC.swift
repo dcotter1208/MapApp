@@ -14,6 +14,9 @@ class ChatMediaMessageVC: UIViewController, UINavigationControllerDelegate, UIIm
     @IBOutlet weak var mediaImageView: UIImageView!
     @IBOutlet weak var filterCollectionView: UICollectionView!
 
+    
+    typealias filteredImageResult = (UIImage) -> Void
+    
     var imageForMessage: UIImage?
     var imagePicker = UIImagePickerController()
     let firebaseOperation = FirebaseOperation()
@@ -21,24 +24,21 @@ class ChatMediaMessageVC: UIViewController, UINavigationControllerDelegate, UIIm
     var currentUserID = ""
     var filteredImage: UIImage?
     var imageFilters = [ImageFilter]()
+    var filteredImages = [UIImage]()
     
 //    case redSky = "CISepiaTone"
-//    case colorSwap = "CIColorCrossPolynomial"
-//    case beauty = "CIColorCubeWithColorSpace"
 //    case blackAndWhite = "CIPhotoEffectNoir"
 //    case effectiveness = "CIPhotoEffectProcess"
 //    case chromedOut = "CIPhotoEffectChrome"
-//    case heat = "CIColorMap"
-//    case feelinBlue = "CIColorMonochrome"
-//    case blur = "CIGaussianBlur"
-//    case cali = "CIColorClamp"
-//    case bright = "CIColorMatrix"
-//    case mellow = "CITemperatureAndTint"
+//    case tonal = "CIPhotoEffectTonal"
+//    case instant = "CIPhotoEffectInstant"
+//    case fade = "CIPhotoEffectFade"
+//    case transfer = "CIPhotoEffectTransfer"
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        imageFilters = [.redSky, .colorSwap, .beauty, .blackAndWhite, .effectiveness, .chromedOut, .heat, .feelinBlue, .blur, .cali, .bright, .mellow]
+        imageFilters = [.redSky, .blackAndWhite, .effectiveness, .chromedOut, .tonal, .instant, .fade, .transfer]
         
         imagePicker.delegate = self
         Alert.presentMediaActionSheet(presentingViewController: self, imagePicker: imagePicker)
@@ -52,7 +52,10 @@ class ChatMediaMessageVC: UIViewController, UINavigationControllerDelegate, UIIm
         dismiss(animated: true, completion: nil)
         imageForMessage = info[UIImagePickerControllerOriginalImage] as? UIImage
         guard let image = imageForMessage else { return }
-        self.mediaImageView.image = image
+        DispatchQueue.main.async {
+            self.mediaImageView.image = image
+        }
+        createArrayOfFilteredImagesWithImage(image: image)
     }
 
     func saveMessageToFirebaseAndCloudinary() {
@@ -98,29 +101,45 @@ class ChatMediaMessageVC: UIViewController, UINavigationControllerDelegate, UIIm
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageFilters.count
+        return filteredImages.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        applyFilterAtIndexPath(indexPath: indexPath)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedFilteredImage = filteredImages[indexPath.item]
+        mediaImageView.image = selectedFilteredImage
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let imageFilter = imageFilters[indexPath.item]
+        let imageForFilter = filteredImages[indexPath.item]
         let filterCell = filterCollectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath)
-        let cellLabel = filterCell.viewWithTag(101) as! UILabel
-        cellLabel.text = imageFilter.rawValue
+        let cellImageView = filterCell.viewWithTag(102) as! UIImageView
+            cellImageView.image = imageForFilter
         return filterCell
     }
+
+    func createArrayOfFilteredImagesWithImage(image: UIImage) {
+        
+        filteredImages.append(image)
+        
+        guard let cgImg = image.cgImage else { return }
     
-    func applyFilterAtIndexPath(indexPath: IndexPath) {
-        let imageFilter = imageFilters[indexPath.item]
-        
-        
-        mediaImageView.image? = (mediaImageView.image?.af_imageFiltered(withCoreImageFilter: imageFilter.rawValue))!
-            let filteredImage = imageForMessage?.af_imageFiltered(withCoreImageFilter: imageFilter.rawValue)
-            mediaImageView.image = filteredImage
-        
+        for filter in imageFilters {
+            let openGLContext = EAGLContext(api: .openGLES2)
+            let context = CIContext(eaglContext: openGLContext!)
+            let coreImage = CIImage(cgImage: cgImg)
+            
+            let filter = CIFilter(name: filter.rawValue)
+            filter?.setValue(coreImage, forKey: kCIInputImageKey)
+            
+            if let output = filter?.value(forKey: kCIOutputImageKey) as? CIImage {
+                let cgimgresult = context.createCGImage(output, from: output.extent)
+                let result = UIImage(cgImage: cgimgresult!)
+                filteredImages.append(result)
+                if filteredImages.count == imageFilters.count + 1 {
+                self.filterCollectionView.reloadData()
+                }
+            }
+        }
     }
     
 }
