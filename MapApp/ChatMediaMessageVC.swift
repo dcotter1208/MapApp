@@ -114,6 +114,7 @@ class ChatMediaMessageVC: UIViewController, UINavigationControllerDelegate, UIIm
         let imageWithFilter = filteredImages[indexPath.item]
         let filterCell = filterCollectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath)
         let cellImageView = filterCell.viewWithTag(102) as! UIImageView
+        cellImageView.image = nil
         DispatchQueue.main.async {
          cellImageView.image = imageWithFilter
         }
