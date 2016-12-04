@@ -316,8 +316,8 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "MediaMessageSegue" {
             let destionationNavController = segue.destination as! UINavigationController
-            let chatMediaMessageTVC = destionationNavController.childViewControllers.first as! ChatMediaMessageTVC
-            chatMediaMessageTVC.venueID = venueID
+            let chatMediaMessageVC = destionationNavController.childViewControllers.first as! ChatMediaMessageVC
+            chatMediaMessageVC.venueID = venueID
         }
     }
     

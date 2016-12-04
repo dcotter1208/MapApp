@@ -44,8 +44,6 @@ class CurrentUserMediaTextMessageCell: UITableViewCell {
     
     fileprivate func configureMessageTextView() {
         self.messageTextView.layer.cornerRadius = 5
-        self.messageTextView.backgroundColor = UIColor.blue
-        self.messageTextView.textColor = UIColor.white
     }
 
     fileprivate func configureMediaImageView() {
