@@ -25,27 +25,28 @@ class ChatMediaMessageVC: UIViewController, UINavigationControllerDelegate, UIIm
     var filteredImage: UIImage?
     var imageFilters = [ImageFilter]()
     var filteredImages = [UIImage]()
-    
-//    case redSky = "CISepiaTone"
-//    case blackAndWhite = "CIPhotoEffectNoir"
-//    case effectiveness = "CIPhotoEffectProcess"
-//    case chromedOut = "CIPhotoEffectChrome"
-//    case tonal = "CIPhotoEffectTonal"
-//    case instant = "CIPhotoEffectInstant"
-//    case fade = "CIPhotoEffectFade"
-//    case transfer = "CIPhotoEffectTransfer"
-    
+    var openGLContext: EAGLContext?
+    var context: CIContext?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setContextForFilter()
+        
         imageFilters = [.redSky, .blackAndWhite, .effectiveness, .chromedOut, .tonal, .instant, .fade, .transfer]
         
         imagePicker.delegate = self
         Alert.presentMediaActionSheet(presentingViewController: self, imagePicker: imagePicker)
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func setContextForFilter() {
+        openGLContext = EAGLContext(api: .openGLES2)
+        if let eaglContext = openGLContext {
+            context = CIContext(eaglContext: eaglContext)
+        }
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -54,8 +55,8 @@ class ChatMediaMessageVC: UIViewController, UINavigationControllerDelegate, UIIm
         guard let image = imageForMessage else { return }
         DispatchQueue.main.async {
             self.mediaImageView.image = image
+            self.createArrayOfFilteredImagesWithImage(image: image)
         }
-        createArrayOfFilteredImagesWithImage(image: image)
     }
 
     func saveMessageToFirebaseAndCloudinary() {
@@ -110,33 +111,37 @@ class ChatMediaMessageVC: UIViewController, UINavigationControllerDelegate, UIIm
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let imageForFilter = filteredImages[indexPath.item]
+        let imageWithFilter = filteredImages[indexPath.item]
         let filterCell = filterCollectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath)
         let cellImageView = filterCell.viewWithTag(102) as! UIImageView
-            cellImageView.image = imageForFilter
+        DispatchQueue.main.async {
+         cellImageView.image = imageWithFilter
+        }
         return filterCell
     }
 
     func createArrayOfFilteredImagesWithImage(image: UIImage) {
-        
+        let imageScale = image.scale
+        let imageOrientation = image.imageOrientation
         filteredImages.append(image)
         
         guard let cgImg = image.cgImage else { return }
-    
+
+        let coreImage = CIImage(cgImage: cgImg)
+        
         for filter in imageFilters {
-            let openGLContext = EAGLContext(api: .openGLES2)
-            let context = CIContext(eaglContext: openGLContext!)
-            let coreImage = CIImage(cgImage: cgImg)
-            
+
             let filter = CIFilter(name: filter.rawValue)
             filter?.setValue(coreImage, forKey: kCIInputImageKey)
             
             if let output = filter?.value(forKey: kCIOutputImageKey) as? CIImage {
-                let cgimgresult = context.createCGImage(output, from: output.extent)
-                let result = UIImage(cgImage: cgimgresult!)
-                filteredImages.append(result)
-                if filteredImages.count == imageFilters.count + 1 {
-                self.filterCollectionView.reloadData()
+                let cgimgresult = context?.createCGImage(output, from: output.extent)
+                if let CGImgResult = cgimgresult {
+                    let result = UIImage(cgImage: CGImgResult, scale: imageScale, orientation: imageOrientation)
+                    filteredImages.append(result)
+                    if filteredImages.count == imageFilters.count + 1 {
+                        self.filterCollectionView.reloadData()
+                    }
                 }
             }
         }
