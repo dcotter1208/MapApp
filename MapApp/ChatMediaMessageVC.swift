@@ -119,41 +119,26 @@ class ChatMediaMessageVC: UIViewController, UINavigationControllerDelegate, UIIm
         
         DispatchQueue.global(qos: .background).async {
             let imageWithFilter = self.filteredImages[indexPath.item]
-            let newSize = CGSize(width: imageWithFilter.size.width/4, height: imageWithFilter.size.height/4)
-            UIGraphicsBeginImageContext(newSize)
-            imageWithFilter.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
-            let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-            UIGraphicsEndImageContext()
-
+            let newSize = CGSize(width: imageWithFilter.size.width/2, height: imageWithFilter.size.height/2)
+            let newImage = imageWithFilter.resizedImage(newSize)
             DispatchQueue.main.async {
                 cellImageView.image = newImage
             }
         }
         return filterCell
     }
-
+    
     func createArrayOfFilteredImagesWithImage(image: UIImage) {
         filteredImages.append(image)
-        let imageScale = image.scale
-        let imageOrientation = image.imageOrientation
-        
-        guard let cgImg = image.cgImage else { return }
-        let coreImage = CIImage(cgImage: cgImg)
         for filter in imageFilters {
-            let filter = CIFilter(name: filter.rawValue)
-            filter?.setValue(coreImage, forKey: kCIInputImageKey)
-            
-            if let output = filter?.value(forKey: kCIOutputImageKey) as? CIImage {
-                let cgimgresult = context?.createCGImage(output, from: output.extent)
-                if let CGImgResult = cgimgresult {
-                    let result = UIImage(cgImage: CGImgResult, scale: imageScale, orientation: imageOrientation)
-                    filteredImages.append(result)
+            let filteredImageResult = image.applyFilter(filterType: filter, context: context)
+            guard let filteredImgResult = filteredImageResult else { return }
+                    filteredImages.append(filteredImgResult)
                     if filteredImages.count == imageFilters.count + 1 {
                         self.filterCollectionView.reloadData()
-                    }
                 }
             }
         }
-    }
-    
 }
+
+

@@ -38,17 +38,38 @@ extension UIImage {
         return newImage
     }
     
-    func applyFilter(filterType: ImageFilter) -> UIImage? {
-        let originalImage = CIImage(image: self)
-        let filter = CIFilter(name: filterType.rawValue)
-        filter?.setDefaults()
-        filter?.setValue(originalImage, forKey: kCIInputImageKey)
-        let outputImage = filter?.outputImage
-        if let outputImage = outputImage {
-            let filteredImage = UIImage(ciImage: outputImage)
-            return filteredImage
+//    func applyFilter(filterType: ImageFilter) -> UIImage? {
+//        let originalImage = CIImage(image: self)
+//        let filter = CIFilter(name: filterType.rawValue)
+//        filter?.setDefaults()
+//        filter?.setValue(originalImage, forKey: kCIInputImageKey)
+//        let outputImage = filter?.outputImage
+//        if let outputImage = outputImage {
+//            let filteredImage = UIImage(ciImage: outputImage)
+//            return filteredImage
+//        }
+//        return nil
+//    }
+//    
+    func applyFilter(filterType: ImageFilter, context: CIContext?) -> UIImage? {
+    guard let cgImg = self.cgImage, let coreImageContext = context else { return nil }
+        
+    let imageScale = self.scale
+    let imageOrientation = self.imageOrientation
+    let coreImage = CIImage(cgImage: cgImg)
+    let filter = CIFilter(name: filterType.rawValue)
+    filter?.setValue(coreImage, forKey: kCIInputImageKey)
+        
+    if let output = filter?.value(forKey: kCIOutputImageKey) as? CIImage {
+    let CGImg = coreImageContext.createCGImage(output, from: output.extent)
+        
+    guard let CGImgResult = CGImg else { return nil }
+    let result = UIImage(cgImage: CGImgResult, scale: imageScale, orientation: imageOrientation)
+        
+    return result
         }
         return nil
     }
-    
+
+
 }
