@@ -50,13 +50,15 @@ class ChatMediaMessageVC: UIViewController, UINavigationControllerDelegate, UIIm
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        dismiss(animated: true, completion: nil)
-        imageForMessage = info[UIImagePickerControllerOriginalImage] as? UIImage
-        guard let image = imageForMessage else { return }
-        DispatchQueue.main.async {
-            self.mediaImageView.image = image
-            self.createArrayOfFilteredImagesWithImage(image: image)
-        }
+        self.imageForMessage = info[UIImagePickerControllerOriginalImage] as? UIImage
+        guard let image = self.imageForMessage else { return }
+        self.mediaImageView.image = image
+
+        dismiss(animated: true, completion: {
+            DispatchQueue.main.async {
+                self.createArrayOfFilteredImagesWithImage(image: image)
+            }
+        })
     }
 
     func saveMessageToFirebaseAndCloudinary() {
@@ -111,27 +113,33 @@ class ChatMediaMessageVC: UIViewController, UINavigationControllerDelegate, UIIm
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let imageWithFilter = filteredImages[indexPath.item]
         let filterCell = filterCollectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath)
         let cellImageView = filterCell.viewWithTag(102) as! UIImageView
         cellImageView.image = nil
-        DispatchQueue.main.async {
-         cellImageView.image = imageWithFilter
+        
+        DispatchQueue.global(qos: .background).async {
+            let imageWithFilter = self.filteredImages[indexPath.item]
+            let newSize = CGSize(width: imageWithFilter.size.width/4, height: imageWithFilter.size.height/4)
+            UIGraphicsBeginImageContext(newSize)
+            imageWithFilter.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
+            let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+            UIGraphicsEndImageContext()
+
+            DispatchQueue.main.async {
+                cellImageView.image = newImage
+            }
         }
         return filterCell
     }
 
     func createArrayOfFilteredImagesWithImage(image: UIImage) {
+        filteredImages.append(image)
         let imageScale = image.scale
         let imageOrientation = image.imageOrientation
-        filteredImages.append(image)
         
         guard let cgImg = image.cgImage else { return }
-
         let coreImage = CIImage(cgImage: cgImg)
-        
         for filter in imageFilters {
-
             let filter = CIFilter(name: filter.rawValue)
             filter?.setValue(coreImage, forKey: kCIInputImageKey)
             

@@ -776,7 +776,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HopCat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPa-hx-jV2">
-                                        <rect key="frame" x="69" y="14" width="237" height="19"/>
+                                        <rect key="frame" x="69" y="14.5" width="237" height="18.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1235,7 +1235,7 @@
             <objects>
                 <navigationController storyboardIdentifier="LogInNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fcs-ls-Rhn" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uln-nE-z3B">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="uln-nE-z3B">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1253,7 +1253,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MapVCNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MRg-lX-Z71" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iEt-FP-tgg">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="iEt-FP-tgg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1271,7 +1271,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dvi-49-Mbi" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bH0-RB-FtT">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="bH0-RB-FtT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
