@@ -14,8 +14,7 @@ class ChatMediaMessageVC: UIViewController, UINavigationControllerDelegate, UIIm
     @IBOutlet weak var mediaImageView: UIImageView!
     @IBOutlet weak var filterCollectionView: UICollectionView!
 
-    
-    typealias filteredImageResult = (UIImage) -> Void
+    typealias filteredImagesCompleted = (Bool) -> Void
     
     var imageForMessage: UIImage?
     var imagePicker = UIImagePickerController()
@@ -53,12 +52,18 @@ class ChatMediaMessageVC: UIViewController, UINavigationControllerDelegate, UIIm
         self.imageForMessage = info[UIImagePickerControllerOriginalImage] as? UIImage
         guard let image = self.imageForMessage else { return }
         self.mediaImageView.image = image
-
-        dismiss(animated: true, completion: {
-            DispatchQueue.main.async {
-                self.createArrayOfFilteredImagesWithImage(image: image)
+        self.createArrayOfFilteredImagesWithImage(image: image, completion: { (filteringCompleted) in
+            if filteringCompleted {
+                dismiss(animated: true, completion: nil)
             }
         })
+        
+        
+//        dismiss(animated: true, completion: {
+//            DispatchQueue.main.async {
+//                self.createArrayOfFilteredImagesWithImage(image: image)
+//            }
+//        })
     }
 
     func saveMessageToFirebaseAndCloudinary() {
@@ -128,7 +133,7 @@ class ChatMediaMessageVC: UIViewController, UINavigationControllerDelegate, UIIm
         return filterCell
     }
     
-    func createArrayOfFilteredImagesWithImage(image: UIImage) {
+    func createArrayOfFilteredImagesWithImage(image: UIImage, completion: filteredImagesCompleted) {
         filteredImages.append(image)
         for filter in imageFilters {
             let filteredImageResult = image.applyFilter(filterType: filter, context: context)
@@ -136,6 +141,7 @@ class ChatMediaMessageVC: UIViewController, UINavigationControllerDelegate, UIIm
                     filteredImages.append(filteredImgResult)
                     if filteredImages.count == imageFilters.count + 1 {
                         self.filterCollectionView.reloadData()
+                        completion(true)
                 }
             }
         }
