@@ -78,7 +78,9 @@ class ChatMediaMessageVC: UIViewController, UINavigationControllerDelegate, UIIm
 
         CloudinaryOperation().uploadImageToCloudinary(mediaImageView.image!, delegate: self, completion: {
             (photoURL) in
-            guard let mediaMessage = self.createMediaMessageWithMediaURL(mediaURL: photoURL) else {
+                let mediaOrientation = self.mediaImageView.image?.mediaOrientation()
+                guard let safeMediaOrientation = mediaOrientation else { return }
+                guard let mediaMessage = self.createMediaMessage(mediaOrientation: safeMediaOrientation, mediaURL: photoURL) else {
                 //Send a failed to send message alert.
                 return
             }
@@ -97,17 +99,16 @@ class ChatMediaMessageVC: UIViewController, UINavigationControllerDelegate, UIIm
         }
     }
     
-    func createMediaMessageWithMediaURL(mediaURL: String) -> Dictionary<String, Any>? {
+    func createMediaMessage(mediaOrientation: MediaOrientation, mediaURL: String) -> Dictionary<String, Any>? {
 
         guard let venueID = venueID else {
             return nil
         }
-        
-        let mediaMessage = ["timestamp" : "", "locationID" : venueID, "userID" : currentUserID, "mediaURL" : mediaURL, "messageType" : MessageType.media.rawValue] as [String : Any]
+        let mediaMessage = ["timestamp" : "", "locationID" : venueID, "userID" : currentUserID, "mediaURL" : mediaURL, "mediaOrientation" : mediaOrientation.rawValue, "messageType" : MessageType.media.rawValue] as [String : Any]
         
         return mediaMessage
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filteredImages.count
     }

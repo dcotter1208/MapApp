@@ -12,8 +12,8 @@
 		C0197D2D1DA0875900F68AF0 /* CalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0197D2C1DA0875900F68AF0 /* CalloutView.swift */; };
 		C01E79E11D7CFDBD00700FEA /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01E79E01D7CFDBD00700FEA /* Alert.swift */; };
 		C03C09D51DD8240000ADBAD3 /* MessageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C09D41DD8240000ADBAD3 /* MessageProtocol.swift */; };
-		C03C09D91DE0FC5800ADBAD3 /* CurrentUserMediaMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C09D81DE0FC5800ADBAD3 /* CurrentUserMediaMessageCell.swift */; };
-		C03C09DB1DE1196B00ADBAD3 /* DefaultMediaMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C09DA1DE1196B00ADBAD3 /* DefaultMediaMessageCell.swift */; };
+		C03C09D91DE0FC5800ADBAD3 /* CurrentUserPortraitMediaMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C09D81DE0FC5800ADBAD3 /* CurrentUserPortraitMediaMessageCell.swift */; };
+		C03C09DB1DE1196B00ADBAD3 /* DefaultPortraitMediaMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C09DA1DE1196B00ADBAD3 /* DefaultPortraitMediaMessageCell.swift */; };
 		C05F7CC91DEB9357004058B7 /* CurrentUserMediaTextMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05F7CC81DEB9357004058B7 /* CurrentUserMediaTextMessageCell.swift */; };
 		C05F7CCB1DEB953E004058B7 /* DefaultMediaTextMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05F7CCA1DEB953E004058B7 /* DefaultMediaTextMessageCell.swift */; };
 		C077751D1D986E5800B7DF68 /* VenueContactInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C077751C1D986E5800B7DF68 /* VenueContactInfo.swift */; };
@@ -30,6 +30,7 @@
 		C0B14D5F1DBD1E64003748A6 /* MessageToolbar.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0B14D5E1DBD1E64003748A6 /* MessageToolbar.xib */; };
 		C0C5D9ED1D844CC300124846 /* UserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C5D9EC1D844CC300124846 /* UserType.swift */; };
 		C0CE3BCB1DA182D80072AE17 /* VenueChatDisplayDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CE3BCA1DA182D80072AE17 /* VenueChatDisplayDetailVC.swift */; };
+		C0D02EAA1E0516EC0040B18C /* DefaultLandscapeMediaMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D02EA91E0516EC0040B18C /* DefaultLandscapeMediaMessageCell.swift */; };
 		C0D21B021DE24E3100B17BB2 /* ImageCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D21B011DE24E3100B17BB2 /* ImageCacher.swift */; };
 		C0E4E2D71DD7B4C900998A90 /* ChatMediaMessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4E2D61DD7B4C900998A90 /* ChatMediaMessageVC.swift */; };
 		C0E5906E1D9E028500C4D068 /* GoogleSearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E5906D1D9E028500C4D068 /* GoogleSearchAPI.swift */; };
@@ -52,6 +53,7 @@
 		C0FBADD81D7B3F4200C1C998 /* RLMUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADD71D7B3F4200C1C998 /* RLMUser.swift */; };
 		C0FBADDA1D7B41BA00C1C998 /* RLMManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADD91D7B41BA00C1C998 /* RLMManager.swift */; };
 		C0FBADDC1D7B464B00C1C998 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADDB1D7B464B00C1C998 /* ImagePicker.swift */; };
+		C0FD0C8B1E04FB1F00A5D13C /* CurrentUserLandscapeMediaMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FD0C8A1E04FB1F00A5D13C /* CurrentUserLandscapeMediaMessageCell.swift */; };
 		C0FD5FCA1DBAFD3F0000923B /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FD5FC91DBAFD3F0000923B /* Message.swift */; };
 		C0FD5FCD1DBAFF680000923B /* DefaultMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FD5FCC1DBAFF680000923B /* DefaultMessageCell.swift */; };
 		C0FD5FCF1DBAFF770000923B /* CurrentUserMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FD5FCE1DBAFF770000923B /* CurrentUserMessageCell.swift */; };
@@ -91,8 +93,8 @@
 		C0197D2C1DA0875900F68AF0 /* CalloutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalloutView.swift; sourceTree = "<group>"; };
 		C01E79E01D7CFDBD00700FEA /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		C03C09D41DD8240000ADBAD3 /* MessageProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageProtocol.swift; sourceTree = "<group>"; };
-		C03C09D81DE0FC5800ADBAD3 /* CurrentUserMediaMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUserMediaMessageCell.swift; sourceTree = "<group>"; };
-		C03C09DA1DE1196B00ADBAD3 /* DefaultMediaMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultMediaMessageCell.swift; sourceTree = "<group>"; };
+		C03C09D81DE0FC5800ADBAD3 /* CurrentUserPortraitMediaMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUserPortraitMediaMessageCell.swift; sourceTree = "<group>"; };
+		C03C09DA1DE1196B00ADBAD3 /* DefaultPortraitMediaMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultPortraitMediaMessageCell.swift; sourceTree = "<group>"; };
 		C05F7CC81DEB9357004058B7 /* CurrentUserMediaTextMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUserMediaTextMessageCell.swift; sourceTree = "<group>"; };
 		C05F7CCA1DEB953E004058B7 /* DefaultMediaTextMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultMediaTextMessageCell.swift; sourceTree = "<group>"; };
 		C077751C1D986E5800B7DF68 /* VenueContactInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueContactInfo.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 		C0B14D5E1DBD1E64003748A6 /* MessageToolbar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageToolbar.xib; sourceTree = "<group>"; };
 		C0C5D9EC1D844CC300124846 /* UserType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserType.swift; sourceTree = "<group>"; };
 		C0CE3BCA1DA182D80072AE17 /* VenueChatDisplayDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueChatDisplayDetailVC.swift; sourceTree = "<group>"; };
+		C0D02EA91E0516EC0040B18C /* DefaultLandscapeMediaMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultLandscapeMediaMessageCell.swift; sourceTree = "<group>"; };
 		C0D21B011DE24E3100B17BB2 /* ImageCacher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCacher.swift; sourceTree = "<group>"; };
 		C0E4E2D61DD7B4C900998A90 /* ChatMediaMessageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMediaMessageVC.swift; sourceTree = "<group>"; };
 		C0E5906D1D9E028500C4D068 /* GoogleSearchAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleSearchAPI.swift; sourceTree = "<group>"; };
@@ -137,6 +140,7 @@
 		C0FBADD71D7B3F4200C1C998 /* RLMUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLMUser.swift; sourceTree = "<group>"; };
 		C0FBADD91D7B41BA00C1C998 /* RLMManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLMManager.swift; sourceTree = "<group>"; };
 		C0FBADDB1D7B464B00C1C998 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		C0FD0C8A1E04FB1F00A5D13C /* CurrentUserLandscapeMediaMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUserLandscapeMediaMessageCell.swift; sourceTree = "<group>"; };
 		C0FD5FC91DBAFD3F0000923B /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		C0FD5FCC1DBAFF680000923B /* DefaultMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultMessageCell.swift; sourceTree = "<group>"; };
 		C0FD5FCE1DBAFF770000923B /* CurrentUserMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUserMessageCell.swift; sourceTree = "<group>"; };
@@ -365,18 +369,28 @@
 			name = ImageProcessing;
 			sourceTree = "<group>";
 		};
+		C0FD0C8C1E04FB2C00A5D13C /* UnimplementedCells */ = {
+			isa = PBXGroup;
+			children = (
+				C05F7CC81DEB9357004058B7 /* CurrentUserMediaTextMessageCell.swift */,
+				C05F7CCA1DEB953E004058B7 /* DefaultMediaTextMessageCell.swift */,
+			);
+			name = UnimplementedCells;
+			sourceTree = "<group>";
+		};
 		C0FD5FCB1DBAFED10000923B /* Message */ = {
 			isa = PBXGroup;
 			children = (
 				C03C09D41DD8240000ADBAD3 /* MessageProtocol.swift */,
 				C0B14D581DBC2A39003748A6 /* MessageCellProtocol.swift */,
 				C0FD5FC91DBAFD3F0000923B /* Message.swift */,
-				C0FD5FCC1DBAFF680000923B /* DefaultMessageCell.swift */,
 				C0FD5FCE1DBAFF770000923B /* CurrentUserMessageCell.swift */,
-				C03C09D81DE0FC5800ADBAD3 /* CurrentUserMediaMessageCell.swift */,
-				C03C09DA1DE1196B00ADBAD3 /* DefaultMediaMessageCell.swift */,
-				C05F7CC81DEB9357004058B7 /* CurrentUserMediaTextMessageCell.swift */,
-				C05F7CCA1DEB953E004058B7 /* DefaultMediaTextMessageCell.swift */,
+				C03C09D81DE0FC5800ADBAD3 /* CurrentUserPortraitMediaMessageCell.swift */,
+				C0FD0C8A1E04FB1F00A5D13C /* CurrentUserLandscapeMediaMessageCell.swift */,
+				C0FD5FCC1DBAFF680000923B /* DefaultMessageCell.swift */,
+				C03C09DA1DE1196B00ADBAD3 /* DefaultPortraitMediaMessageCell.swift */,
+				C0D02EA91E0516EC0040B18C /* DefaultLandscapeMediaMessageCell.swift */,
+				C0FD0C8C1E04FB2C00A5D13C /* UnimplementedCells */,
 			);
 			name = Message;
 			sourceTree = "<group>";
@@ -689,16 +703,18 @@
 				C03C09D51DD8240000ADBAD3 /* MessageProtocol.swift in Sources */,
 				C0FBADD41D7B289300C1C998 /* CloudinaryOperation.swift in Sources */,
 				C084BEB01D8DC89E00BD579F /* Coordinate.swift in Sources */,
-				C03C09DB1DE1196B00ADBAD3 /* DefaultMediaMessageCell.swift in Sources */,
+				C03C09DB1DE1196B00ADBAD3 /* DefaultPortraitMediaMessageCell.swift in Sources */,
 				C08E43B11DCEEB5600D9488E /* MarkerExtension.swift in Sources */,
 				C0FBADD11D7B0FC700C1C998 /* SignUpTVC.swift in Sources */,
 				C0C5D9ED1D844CC300124846 /* UserType.swift in Sources */,
 				C0FBADCB1D7A786D00C1C998 /* CurrentUser.swift in Sources */,
 				C0B14D5D1DBD1E16003748A6 /* MessageToolbar.swift in Sources */,
 				C0FBAD8B1D7A4AD800C1C998 /* AppDelegate.swift in Sources */,
+				C0D02EAA1E0516EC0040B18C /* DefaultLandscapeMediaMessageCell.swift in Sources */,
 				C0D21B021DE24E3100B17BB2 /* ImageCacher.swift in Sources */,
-				C03C09D91DE0FC5800ADBAD3 /* CurrentUserMediaMessageCell.swift in Sources */,
+				C03C09D91DE0FC5800ADBAD3 /* CurrentUserPortraitMediaMessageCell.swift in Sources */,
 				C0FD5FCA1DBAFD3F0000923B /* Message.swift in Sources */,
+				C0FD0C8B1E04FB1F00A5D13C /* CurrentUserLandscapeMediaMessageCell.swift in Sources */,
 				C05F7CCB1DEB953E004058B7 /* DefaultMediaTextMessageCell.swift in Sources */,
 				C0FD5FCF1DBAFF770000923B /* CurrentUserMessageCell.swift in Sources */,
 				C0FBADCF1D7B0FB800C1C998 /* LogInTVC.swift in Sources */,

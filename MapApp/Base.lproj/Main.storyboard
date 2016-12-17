@@ -942,26 +942,25 @@
                                             <outlet property="profileImageView" destination="ieM-Nx-hyP" id="Zyt-d4-0fA"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CurrentUserMediaMessageCell" rowHeight="182" id="xso-6S-4nj" customClass="CurrentUserMediaMessageCell" customModule="MapApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="152" width="375" height="182"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CurrentUserPortraitMediaMessageCell" rowHeight="250" id="xso-6S-4nj" customClass="CurrentUserPortraitMediaMessageCell" customModule="MapApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="152" width="375" height="250"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xso-6S-4nj" id="Wzo-Ro-3hD">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="182"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="r0b-BW-FLo">
-                                                    <rect key="frame" x="332" y="139" width="35" height="35"/>
+                                                    <rect key="frame" x="332" y="207" width="35" height="35"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="35" id="8Iz-ud-aGB"/>
                                                         <constraint firstAttribute="height" constant="35" id="Kjn-hX-4TS"/>
                                                     </constraints>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cbn-C7-m2V">
-                                                    <rect key="frame" x="131" y="8" width="193" height="166"/>
+                                                    <rect key="frame" x="131" y="8" width="193" height="234"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="180" id="efO-dw-luL"/>
+                                                        <constraint firstAttribute="height" constant="234" id="efO-dw-luL"/>
                                                         <constraint firstAttribute="width" constant="193" id="oBI-aa-ZUX"/>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="134" id="yTQ-rN-fzQ"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
@@ -978,33 +977,32 @@
                                             <outlet property="profileImageView" destination="r0b-BW-FLo" id="n2t-ZM-vMG"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DefaultMediaMessageCell" rowHeight="182" id="Gw3-GT-cOg" customClass="DefaultMediaMessageCell" customModule="MapApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="334" width="375" height="182"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DefaultPortraitMediaMessageCell" rowHeight="258" id="Gw3-GT-cOg" customClass="DefaultPortraitMediaMessageCell" customModule="MapApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="402" width="375" height="258"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gw3-GT-cOg" id="pBR-Sz-pfc">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="182"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="258"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8GW-bU-DWg">
-                                                    <rect key="frame" x="8" y="139" width="35" height="35"/>
+                                                    <rect key="frame" x="8" y="207" width="35" height="35"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="35" id="6r8-JS-QoM"/>
                                                         <constraint firstAttribute="height" constant="35" id="stk-7d-Ksk"/>
                                                     </constraints>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fzE-tz-ZTo">
-                                                    <rect key="frame" x="51" y="8" width="193" height="166"/>
+                                                    <rect key="frame" x="51" y="8" width="193" height="234"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="134" id="ch4-ts-oEJ"/>
                                                         <constraint firstAttribute="width" constant="193" id="nh2-nG-ima"/>
-                                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="180" id="qum-fl-WPu"/>
+                                                        <constraint firstAttribute="height" constant="234" id="qum-fl-WPu"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="topMargin" secondItem="fzE-tz-ZTo" secondAttribute="top" id="AC7-TL-rN0"/>
                                                 <constraint firstItem="8GW-bU-DWg" firstAttribute="leading" secondItem="pBR-Sz-pfc" secondAttribute="leadingMargin" id="I3Q-nd-F1W"/>
-                                                <constraint firstItem="8GW-bU-DWg" firstAttribute="bottom" secondItem="pBR-Sz-pfc" secondAttribute="bottomMargin" id="IY5-kQ-VJz"/>
+                                                <constraint firstItem="8GW-bU-DWg" firstAttribute="bottom" secondItem="pBR-Sz-pfc" secondAttribute="bottomMargin" constant="-8" id="IY5-kQ-VJz"/>
                                                 <constraint firstItem="fzE-tz-ZTo" firstAttribute="leading" secondItem="8GW-bU-DWg" secondAttribute="trailing" constant="8" id="itd-lp-ONC"/>
                                                 <constraint firstItem="fzE-tz-ZTo" firstAttribute="bottom" secondItem="8GW-bU-DWg" secondAttribute="bottom" id="lUS-6v-GwE"/>
                                             </constraints>
@@ -1014,8 +1012,78 @@
                                             <outlet property="profileImageView" destination="8GW-bU-DWg" id="Ce1-OY-oqt"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CurrentUserLandscapeMediaMessageCell" rowHeight="192" id="DOQ-kO-7gl" customClass="CurrentUserLandscapeMediaMessageCell" customModule="MapApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="660" width="375" height="192"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DOQ-kO-7gl" id="W3G-MO-TUY">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="192"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Heg-Qq-QCl">
+                                                    <rect key="frame" x="332" y="149" width="35" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="0k0-tt-Lvv"/>
+                                                        <constraint firstAttribute="width" constant="35" id="6ia-B4-5Tz"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rjy-gg-9UI">
+                                                    <rect key="frame" x="79" y="0.0" width="245" height="184"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="184" id="4Ae-As-E6B"/>
+                                                        <constraint firstAttribute="width" constant="245" id="8Hn-n9-Tay"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Heg-Qq-QCl" firstAttribute="leading" secondItem="Rjy-gg-9UI" secondAttribute="trailing" constant="8" id="1ai-Q9-I1z"/>
+                                                <constraint firstItem="Rjy-gg-9UI" firstAttribute="bottom" secondItem="Heg-Qq-QCl" secondAttribute="bottom" id="I98-ju-I6W"/>
+                                                <constraint firstAttribute="topMargin" secondItem="Rjy-gg-9UI" secondAttribute="top" constant="8" id="RqA-OQ-Lps"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Heg-Qq-QCl" secondAttribute="bottom" id="cyU-Bw-Xd0"/>
+                                                <constraint firstItem="Heg-Qq-QCl" firstAttribute="trailing" secondItem="W3G-MO-TUY" secondAttribute="trailingMargin" id="h7a-1a-nzd"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="mediaImageView" destination="Rjy-gg-9UI" id="PA3-MF-Y2f"/>
+                                            <outlet property="profileImageView" destination="Heg-Qq-QCl" id="BZf-xO-ZAH"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DefaultLandscapeMediaMessageCell" rowHeight="192" id="to3-sp-dXJ" customClass="DefaultLandscapeMediaMessageCell" customModule="MapApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="852" width="375" height="192"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="to3-sp-dXJ" id="syf-mA-xhz">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="192"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OAL-ng-c9q">
+                                                    <rect key="frame" x="8" y="157" width="35" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="78p-OW-Bg7"/>
+                                                        <constraint firstAttribute="width" constant="35" id="JXz-4w-B71"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iLk-ol-sfi">
+                                                    <rect key="frame" x="51" y="8" width="245" height="184"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="245" id="37b-ZX-nI4"/>
+                                                        <constraint firstAttribute="height" constant="184" id="mO3-bn-2cK"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="iLk-ol-sfi" firstAttribute="bottom" secondItem="OAL-ng-c9q" secondAttribute="bottom" id="6Yf-7P-dA0"/>
+                                                <constraint firstAttribute="topMargin" secondItem="iLk-ol-sfi" secondAttribute="top" id="aAl-9o-F1J"/>
+                                                <constraint firstItem="iLk-ol-sfi" firstAttribute="leading" secondItem="OAL-ng-c9q" secondAttribute="trailing" constant="8" id="lkL-po-6Yf"/>
+                                                <constraint firstItem="OAL-ng-c9q" firstAttribute="bottom" secondItem="syf-mA-xhz" secondAttribute="bottomMargin" constant="8" id="m35-4S-eg5"/>
+                                                <constraint firstItem="OAL-ng-c9q" firstAttribute="leading" secondItem="syf-mA-xhz" secondAttribute="leadingMargin" id="tCY-dC-YlH"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="mediaImageView" destination="iLk-ol-sfi" id="3VQ-fO-gkE"/>
+                                            <outlet property="profileImageView" destination="OAL-ng-c9q" id="s6Z-bC-d9W"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CurrentUserMediaTextMessageCell" rowHeight="225" id="b9A-h7-3fH" customClass="CurrentUserMediaTextMessageCell" customModule="MapApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="516" width="375" height="225"/>
+                                        <rect key="frame" x="0.0" y="1044" width="375" height="225"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="b9A-h7-3fH" id="ogi-2u-1eP">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="225"/>

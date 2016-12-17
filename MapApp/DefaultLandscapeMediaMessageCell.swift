@@ -1,16 +1,14 @@
 //
-//  DefaultMediaMessageCell.swift
+//  DefaultLandscapeMediaMessageCell.swift
 //  MapApp
 //
-//  Created by Donovan Cotter on 11/19/16.
+//  Created by Donovan Cotter on 12/17/16.
 //  Copyright © 2016 DonovanCotter. All rights reserved.
 //
 
 import UIKit
-import Alamofire
-import AlamofireImage
 
-class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
+class DefaultLandscapeMediaMessageCell: UITableViewCell {
     @IBOutlet weak var mediaImageView: UIImageView!
     @IBOutlet weak var profileImageView: UIImageView!
     
@@ -21,11 +19,11 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-
+    
     func setCellViewAttributesWithMessage(message: Message) {
         getUserProfileForMessage(message: message, completion: { (user) in
             self.setUserProfileImageForMessage(user: user)

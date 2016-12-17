@@ -1,5 +1,5 @@
 //
-//  CurrentUserMediaMessageCell.swift
+//  CurrentUserPortraitMediaMessageCell.swift
 //  MapApp
 //
 //  Created by Donovan Cotter on 11/19/16.
@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import AlamofireImage
 
-class CurrentUserMediaMessageCell: UITableViewCell, MessageCellProtocol {
+class CurrentUserPortraitMediaMessageCell: UITableViewCell, MessageCellProtocol {
     @IBOutlet weak var mediaImageView: UIImageView!
     @IBOutlet weak var profileImageView: UIImageView!
 
@@ -39,6 +39,7 @@ class CurrentUserMediaMessageCell: UITableViewCell, MessageCellProtocol {
     //MARK: Cell Attribute Helper Methods
     
     fileprivate func configureMediaImageView() {
+        self.mediaImageView.clipsToBounds = true
         self.mediaImageView.layer.cornerRadius = 10
         self.mediaImageView.layer.masksToBounds = true
     }
