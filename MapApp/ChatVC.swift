@@ -17,19 +17,16 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
 
     //** Cell Identifiers **//
     
-    //Portrait Media Cell Identifiers
+    //Media Message Cell Identifiers
     let CurrentUserPortraitMediaMessageCellIdentifier = "CurrentUserPortraitMediaMessageCell"
     let DefaultPortraitMediaMessageCellIdentifier = "DefaultPortraitMediaMessageCell"
     let CurrentUserLandscapeMediaMessageCellIdentifier = "CurrentUserLandscapeMediaMessageCell"
     let DefaultLandscapeMediaMessageCellIdentifier = "DefaultLandscapeMediaMessageCell"
     
-    //Landscape Media Cell Identifiers
+    //Text Message Cell Identifiers
     let CurrentUserMessageCellIdentifier = "CurrentUserMessageCell"
     let DefaultMessageCellIdentifier = "DefaultMessageCell"
-//    let CurrentUserMediaTextMessageCellIdentifier = "CurrentUserMediaTextMessageCell"
-//    let DefaultMediaTextMessageCellIdentifier = "DefaultMediaTextMessageCell"
 
-    
     let messageToolBarHeight:CGFloat = 44.0
     var messages = [Message]()
     var keyboardHeight: CGFloat?
@@ -273,12 +270,6 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
                 }
                 return createChatCell(withMessage: message, andCellIdentifier: DefaultLandscapeMediaMessageCellIdentifier, atIndexPath: indexPath)
             }
-//        case .mediaText:
-//            if isCurrentUser {
-//                return createChatCell(withMessage: message, andCellIdentifier: CurrentUserMediaTextMessageCellIdentifier, atIndexPath: indexPath)
-//            } else {
-//                return createChatCell(withMessage: message, andCellIdentifier: DefaultMediaTextMessageCellIdentifier, atIndexPath: indexPath)
-//            }
         }
     }
 
@@ -295,18 +286,21 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     
     fileprivate func createChatCell(withMessage message: Message, andCellIdentifier cellIdentifier: String, atIndexPath indexPath: IndexPath) -> UITableViewCell {
         
-        
         let tempCell = UITableViewCell()
         
         switch cellIdentifier {
+            //Text Message Cells
         case DefaultMessageCellIdentifier:
             let defaultMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! DefaultMessageCell
             defaultMessageCell.setCellViewAttributesWithMessage(message: message)
             return defaultMessageCell
+            
         case CurrentUserMessageCellIdentifier:
             let currentUserMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CurrentUserMessageCell
             currentUserMessageCell.setCellViewAttributesWithMessage(message: message)
             return currentUserMessageCell
+            
+            //Media Message Cells
         case CurrentUserPortraitMediaMessageCellIdentifier:
             let currentUserPortraitMediaMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CurrentUserPortraitMediaMessageCell
             currentUserPortraitMediaMessageCell.setCellViewAttributesWithMessage(message: message)
@@ -326,16 +320,6 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
             let defaultLandscapeMediaMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! DefaultLandscapeMediaMessageCell
             defaultLandscapeMediaMessageCell.setCellViewAttributesWithMessage(message: message)
             return defaultLandscapeMediaMessageCell
-            
-            /*
-        case CurrentUserMediaTextMessageCellIdentifier:
-            let currentUserMediaTextMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CurrentUserMediaTextMessageCell
-            currentUserMediaTextMessageCell.setCellViewAttributesWithMessage(message: message)
-            return currentUserMediaTextMessageCell
-        case DefaultMediaTextMessageCellIdentifier:
-            //Will return DefaultMediaTextMessageCell
-            return tempCell
-             */
         default:
             return tempCell
         }

@@ -64,8 +64,7 @@ class CurrentUserLandscapeMediaMessageCell: UITableViewCell, MessageCellProtocol
     
     fileprivate func downloadMediaForCellImageView(mediaURL: String) {
         if let url = URL(string: mediaURL) {
-            self.mediaImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .noTransition, runImageTransitionIfCached: false, completion: { (data) in
-            })
+            self.mediaImageView.downloadAFImage(url: url)
         }
     }
     //END

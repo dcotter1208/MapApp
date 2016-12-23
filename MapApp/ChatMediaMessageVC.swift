@@ -54,16 +54,9 @@ class ChatMediaMessageVC: UIViewController, UINavigationControllerDelegate, UIIm
         self.mediaImageView.image = image
         self.createArrayOfFilteredImagesWithImage(image: image, completion: { (filteringCompleted) in
             if filteringCompleted {
-                dismiss(animated: true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
             }
         })
-        
-        
-//        dismiss(animated: true, completion: {
-//            DispatchQueue.main.async {
-//                self.createArrayOfFilteredImagesWithImage(image: image)
-//            }
-//        })
     }
 
     func saveMessageToFirebaseAndCloudinary() {
@@ -134,15 +127,17 @@ class ChatMediaMessageVC: UIViewController, UINavigationControllerDelegate, UIIm
         return filterCell
     }
     
-    func createArrayOfFilteredImagesWithImage(image: UIImage, completion: filteredImagesCompleted) {
+    func createArrayOfFilteredImagesWithImage(image: UIImage, completion: @escaping filteredImagesCompleted) {
         filteredImages.append(image)
         for filter in imageFilters {
-            let filteredImageResult = image.applyFilter(filterType: filter, context: context)
-            guard let filteredImgResult = filteredImageResult else { return }
-                    filteredImages.append(filteredImgResult)
-                    if filteredImages.count == imageFilters.count + 1 {
-                        self.filterCollectionView.reloadData()
-                        completion(true)
+            DispatchQueue.main.async {
+                let filteredImageResult = image.applyFilter(filterType: filter, context: self.context)
+                guard let filteredImgResult = filteredImageResult else { return }
+                self.filteredImages.append(filteredImgResult)
+                if self.filteredImages.count == self.imageFilters.count + 1 {
+                    self.filterCollectionView.reloadData()
+                    completion(true)
+                    }
                 }
             }
         }
