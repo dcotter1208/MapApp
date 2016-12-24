@@ -15,13 +15,18 @@ import Alamofire
 class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, MessageToolbarDelegate {
     @IBOutlet weak var chatTableView: UITableView!
 
-    //Cell Identifiers
-    let CurrentUserMediaMessageCellIdentifier = "CurrentUserMediaMessageCell"
-    let DefaultMediaMessageCellIdentifier = "DefaultMediaMessageCell"
+    //** Cell Identifiers **//
+    
+    //Media Message Cell Identifiers
+    let CurrentUserPortraitMediaMessageCellIdentifier = "CurrentUserPortraitMediaMessageCell"
+    let DefaultPortraitMediaMessageCellIdentifier = "DefaultPortraitMediaMessageCell"
+    let CurrentUserLandscapeMediaMessageCellIdentifier = "CurrentUserLandscapeMediaMessageCell"
+    let DefaultLandscapeMediaMessageCellIdentifier = "DefaultLandscapeMediaMessageCell"
+    
+    //Text Message Cell Identifiers
     let CurrentUserMessageCellIdentifier = "CurrentUserMessageCell"
     let DefaultMessageCellIdentifier = "DefaultMessageCell"
 
-    
     let messageToolBarHeight:CGFloat = 44.0
     var messages = [Message]()
     var keyboardHeight: CGFloat?
@@ -61,9 +66,11 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         let venueMessageQuery = firebaseOp.firebaseDatabaseRef.ref.child("messages").queryOrdered(byChild: "locationID").queryEqual(toValue: venueID)
         firebaseOp.queryChildWithConstraints(venueMessageQuery, firebaseDataEventType: FIRDataEventType.childAdded, observeSingleEventType: false) { (snapshot) in
             let message = Message.createMessageWithFirebaseData(snapshot: snapshot)
-            self.messages.append(message)
-            self.chatTableView.reloadData()
-            self.scrollToLastMessage()
+            if let safeMessage = message {
+                self.messages.append(safeMessage)
+                self.chatTableView.reloadData()
+                self.scrollToLastMessage()
+            }
          }
     }
 
@@ -242,55 +249,79 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messages[indexPath.row]
         let isCurrentUser = messageIsFromCurrentUser(message: message)
-        let defaultCell = UITableViewCell()
         
         switch message.messageType {
         case .text:
             if isCurrentUser {
-                return createChatCell(withMessage: message, andCellIdentifier: CurrentUserMessageCellIdentifier, atIndexPath: indexPath)!
+                return createChatCell(withMessage: message, andCellIdentifier: CurrentUserMessageCellIdentifier, atIndexPath: indexPath)
             } else {
-                return createChatCell(withMessage: message, andCellIdentifier: DefaultMessageCellIdentifier, atIndexPath: indexPath)!
+                return createChatCell(withMessage: message, andCellIdentifier: DefaultMessageCellIdentifier, atIndexPath: indexPath)
             }
         case .media:
             if isCurrentUser {
-                return createChatCell(withMessage: message, andCellIdentifier: CurrentUserMediaMessageCellIdentifier, atIndexPath: indexPath)!
+                if isMediaOrientationPortait(message: message)! {
+                    return createChatCell(withMessage: message, andCellIdentifier: CurrentUserPortraitMediaMessageCellIdentifier, atIndexPath: indexPath)
+                } else {
+                    return createChatCell(withMessage: message, andCellIdentifier: CurrentUserLandscapeMediaMessageCellIdentifier, atIndexPath: indexPath)
+                }
             } else {
-                return createChatCell(withMessage: message, andCellIdentifier: DefaultMediaMessageCellIdentifier, atIndexPath: indexPath)!
+                if isMediaOrientationPortait(message: message)! {
+                return self.createChatCell(withMessage: message, andCellIdentifier: DefaultPortraitMediaMessageCellIdentifier, atIndexPath: indexPath)
+                }
+                return createChatCell(withMessage: message, andCellIdentifier: DefaultLandscapeMediaMessageCellIdentifier, atIndexPath: indexPath)
             }
-//        case .mediaText:
-//            if isCurrentUser {
-//                return createChatCell(withMessage: message, andCellIdentifier: "CurrentUserMediaTextMessageCell", atIndexPath: indexPath)!
-//            } else {
-//                return createChatCell(withMessage: message, andCellIdentifier: "DefaultMediaTextMessageCell", atIndexPath: indexPath)!
-//            }
-        default:
-            return defaultCell
         }
-        
     }
 
+    func isMediaOrientationPortait(message: Message?) -> Bool? {
+        guard let mediaOrientation = message?.mediaOrientation else { return nil }
+        
+        switch mediaOrientation{
+        case .portrait:
+            return true
+        default:
+            return false
+        }
+    }
     
-    fileprivate func createChatCell(withMessage message: Message, andCellIdentifier cellIdentifier: String, atIndexPath indexPath: IndexPath) -> UITableViewCell? {
+    fileprivate func createChatCell(withMessage message: Message, andCellIdentifier cellIdentifier: String, atIndexPath indexPath: IndexPath) -> UITableViewCell {
+        
+        let tempCell = UITableViewCell()
+        
         switch cellIdentifier {
+            //Text Message Cells
         case DefaultMessageCellIdentifier:
             let defaultMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! DefaultMessageCell
             defaultMessageCell.setCellViewAttributesWithMessage(message: message)
             return defaultMessageCell
+            
         case CurrentUserMessageCellIdentifier:
             let currentUserMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CurrentUserMessageCell
             currentUserMessageCell.setCellViewAttributesWithMessage(message: message)
             return currentUserMessageCell
-        case CurrentUserMediaMessageCellIdentifier:
-            let currentUserMediaMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CurrentUserMediaMessageCell
-
-            currentUserMediaMessageCell.setCellViewAttributesWithMessage(message: message)
-            return currentUserMediaMessageCell
-        case DefaultMediaMessageCellIdentifier:
-            let defaultMediaMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! DefaultMediaMessageCell
-            defaultMediaMessageCell.setCellViewAttributesWithMessage(message: message)
-            return defaultMediaMessageCell
+            
+            //Media Message Cells
+        case CurrentUserPortraitMediaMessageCellIdentifier:
+            let currentUserPortraitMediaMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CurrentUserPortraitMediaMessageCell
+            currentUserPortraitMediaMessageCell.setCellViewAttributesWithMessage(message: message)
+            return currentUserPortraitMediaMessageCell
+            
+        case DefaultPortraitMediaMessageCellIdentifier:
+            let defaultPortraitMediaMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! DefaultPortraitMediaMessageCell
+            defaultPortraitMediaMessageCell.setCellViewAttributesWithMessage(message: message)
+            return defaultPortraitMediaMessageCell
+            
+        case CurrentUserLandscapeMediaMessageCellIdentifier:
+            let currentUserLandscapeMediaMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CurrentUserLandscapeMediaMessageCell
+            currentUserLandscapeMediaMessageCell.setCellViewAttributesWithMessage(message: message)
+            return currentUserLandscapeMediaMessageCell
+            
+        case DefaultLandscapeMediaMessageCellIdentifier:
+            let defaultLandscapeMediaMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! DefaultLandscapeMediaMessageCell
+            defaultLandscapeMediaMessageCell.setCellViewAttributesWithMessage(message: message)
+            return defaultLandscapeMediaMessageCell
         default:
-            return nil
+            return tempCell
         }
     }
 
@@ -308,8 +339,8 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "MediaMessageSegue" {
             let destionationNavController = segue.destination as! UINavigationController
-            let chatMediaMessageTVC = destionationNavController.childViewControllers.first as! ChatMediaMessageTVC
-            chatMediaMessageTVC.venueID = venueID
+            let chatMediaMessageVC = destionationNavController.childViewControllers.first as! ChatMediaMessageVC
+            chatMediaMessageVC.venueID = venueID
         }
     }
     

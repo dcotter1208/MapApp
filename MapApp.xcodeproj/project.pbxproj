@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		ADABE05809EAD2CB2A388DCD /* Pods_MapApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D3AB176DAB41C2A89B08403 /* Pods_MapApp.framework */; };
+		C01010C51E0DD42D00F27055 /* UIImageView+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01010C41E0DD42D00F27055 /* UIImageView+Alamofire.swift */; };
 		C0197D2B1DA0868D00F68AF0 /* Callout.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0197D2A1DA0868D00F68AF0 /* Callout.xib */; };
 		C0197D2D1DA0875900F68AF0 /* CalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0197D2C1DA0875900F68AF0 /* CalloutView.swift */; };
 		C01E79E11D7CFDBD00700FEA /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01E79E01D7CFDBD00700FEA /* Alert.swift */; };
 		C03C09D51DD8240000ADBAD3 /* MessageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C09D41DD8240000ADBAD3 /* MessageProtocol.swift */; };
-		C03C09D91DE0FC5800ADBAD3 /* CurrentUserMediaMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C09D81DE0FC5800ADBAD3 /* CurrentUserMediaMessageCell.swift */; };
-		C03C09DB1DE1196B00ADBAD3 /* DefaultMediaMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C09DA1DE1196B00ADBAD3 /* DefaultMediaMessageCell.swift */; };
+		C03C09D91DE0FC5800ADBAD3 /* CurrentUserPortraitMediaMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C09D81DE0FC5800ADBAD3 /* CurrentUserPortraitMediaMessageCell.swift */; };
+		C03C09DB1DE1196B00ADBAD3 /* DefaultPortraitMediaMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C09DA1DE1196B00ADBAD3 /* DefaultPortraitMediaMessageCell.swift */; };
 		C077751D1D986E5800B7DF68 /* VenueContactInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C077751C1D986E5800B7DF68 /* VenueContactInfo.swift */; };
 		C078577B1D8CD07D00B9AF06 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C078577A1D8CD07D00B9AF06 /* UIImageExtension.swift */; };
 		C084BEA81D8DA2BF00BD579F /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C084BEA71D8DA2BF00BD579F /* Venue.swift */; };
@@ -28,8 +29,9 @@
 		C0B14D5F1DBD1E64003748A6 /* MessageToolbar.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0B14D5E1DBD1E64003748A6 /* MessageToolbar.xib */; };
 		C0C5D9ED1D844CC300124846 /* UserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C5D9EC1D844CC300124846 /* UserType.swift */; };
 		C0CE3BCB1DA182D80072AE17 /* VenueChatDisplayDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CE3BCA1DA182D80072AE17 /* VenueChatDisplayDetailVC.swift */; };
+		C0D02EAA1E0516EC0040B18C /* DefaultLandscapeMediaMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D02EA91E0516EC0040B18C /* DefaultLandscapeMediaMessageCell.swift */; };
 		C0D21B021DE24E3100B17BB2 /* ImageCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D21B011DE24E3100B17BB2 /* ImageCacher.swift */; };
-		C0E4E2D71DD7B4C900998A90 /* ChatMediaMessageTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4E2D61DD7B4C900998A90 /* ChatMediaMessageTVC.swift */; };
+		C0E4E2D71DD7B4C900998A90 /* ChatMediaMessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4E2D61DD7B4C900998A90 /* ChatMediaMessageVC.swift */; };
 		C0E5906E1D9E028500C4D068 /* GoogleSearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E5906D1D9E028500C4D068 /* GoogleSearchAPI.swift */; };
 		C0FBAD8B1D7A4AD800C1C998 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBAD8A1D7A4AD800C1C998 /* AppDelegate.swift */; };
 		C0FBAD901D7A4AD800C1C998 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0FBAD8E1D7A4AD800C1C998 /* Main.storyboard */; };
@@ -50,6 +52,7 @@
 		C0FBADD81D7B3F4200C1C998 /* RLMUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADD71D7B3F4200C1C998 /* RLMUser.swift */; };
 		C0FBADDA1D7B41BA00C1C998 /* RLMManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADD91D7B41BA00C1C998 /* RLMManager.swift */; };
 		C0FBADDC1D7B464B00C1C998 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADDB1D7B464B00C1C998 /* ImagePicker.swift */; };
+		C0FD0C8B1E04FB1F00A5D13C /* CurrentUserLandscapeMediaMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FD0C8A1E04FB1F00A5D13C /* CurrentUserLandscapeMediaMessageCell.swift */; };
 		C0FD5FCA1DBAFD3F0000923B /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FD5FC91DBAFD3F0000923B /* Message.swift */; };
 		C0FD5FCD1DBAFF680000923B /* DefaultMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FD5FCC1DBAFF680000923B /* DefaultMessageCell.swift */; };
 		C0FD5FCF1DBAFF770000923B /* CurrentUserMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FD5FCE1DBAFF770000923B /* CurrentUserMessageCell.swift */; };
@@ -84,13 +87,14 @@
 		88C4D124264C225C74D7532D /* Pods-MapAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapAppTests/Pods-MapAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		A54A865E4BD5A05D65D538E2 /* Pods-MapApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MapApp/Pods-MapApp.debug.xcconfig"; sourceTree = "<group>"; };
 		AA0B9DD29D7C239517FBFFB2 /* Pods-MapAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapAppUITests/Pods-MapAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		C01010C41E0DD42D00F27055 /* UIImageView+Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Alamofire.swift"; sourceTree = "<group>"; };
 		C010ADEE1DB1B3110093E389 /* MapApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MapApp.entitlements; sourceTree = "<group>"; };
 		C0197D2A1DA0868D00F68AF0 /* Callout.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Callout.xib; sourceTree = "<group>"; };
 		C0197D2C1DA0875900F68AF0 /* CalloutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalloutView.swift; sourceTree = "<group>"; };
 		C01E79E01D7CFDBD00700FEA /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		C03C09D41DD8240000ADBAD3 /* MessageProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageProtocol.swift; sourceTree = "<group>"; };
-		C03C09D81DE0FC5800ADBAD3 /* CurrentUserMediaMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUserMediaMessageCell.swift; sourceTree = "<group>"; };
-		C03C09DA1DE1196B00ADBAD3 /* DefaultMediaMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultMediaMessageCell.swift; sourceTree = "<group>"; };
+		C03C09D81DE0FC5800ADBAD3 /* CurrentUserPortraitMediaMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUserPortraitMediaMessageCell.swift; sourceTree = "<group>"; };
+		C03C09DA1DE1196B00ADBAD3 /* DefaultPortraitMediaMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultPortraitMediaMessageCell.swift; sourceTree = "<group>"; };
 		C077751C1D986E5800B7DF68 /* VenueContactInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueContactInfo.swift; sourceTree = "<group>"; };
 		C078577A1D8CD07D00B9AF06 /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImageExtension.swift; path = ../UIImageExtension.swift; sourceTree = "<group>"; };
 		C084BEA71D8DA2BF00BD579F /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
@@ -105,8 +109,9 @@
 		C0B14D5E1DBD1E64003748A6 /* MessageToolbar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageToolbar.xib; sourceTree = "<group>"; };
 		C0C5D9EC1D844CC300124846 /* UserType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserType.swift; sourceTree = "<group>"; };
 		C0CE3BCA1DA182D80072AE17 /* VenueChatDisplayDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueChatDisplayDetailVC.swift; sourceTree = "<group>"; };
+		C0D02EA91E0516EC0040B18C /* DefaultLandscapeMediaMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultLandscapeMediaMessageCell.swift; sourceTree = "<group>"; };
 		C0D21B011DE24E3100B17BB2 /* ImageCacher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCacher.swift; sourceTree = "<group>"; };
-		C0E4E2D61DD7B4C900998A90 /* ChatMediaMessageTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMediaMessageTVC.swift; sourceTree = "<group>"; };
+		C0E4E2D61DD7B4C900998A90 /* ChatMediaMessageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMediaMessageVC.swift; sourceTree = "<group>"; };
 		C0E5906D1D9E028500C4D068 /* GoogleSearchAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleSearchAPI.swift; sourceTree = "<group>"; };
 		C0FBAD871D7A4AD800C1C998 /* MapApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0FBAD8A1D7A4AD800C1C998 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -133,6 +138,7 @@
 		C0FBADD71D7B3F4200C1C998 /* RLMUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLMUser.swift; sourceTree = "<group>"; };
 		C0FBADD91D7B41BA00C1C998 /* RLMManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLMManager.swift; sourceTree = "<group>"; };
 		C0FBADDB1D7B464B00C1C998 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		C0FD0C8A1E04FB1F00A5D13C /* CurrentUserLandscapeMediaMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUserLandscapeMediaMessageCell.swift; sourceTree = "<group>"; };
 		C0FD5FC91DBAFD3F0000923B /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		C0FD5FCC1DBAFF680000923B /* DefaultMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultMessageCell.swift; sourceTree = "<group>"; };
 		C0FD5FCE1DBAFF770000923B /* CurrentUserMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUserMessageCell.swift; sourceTree = "<group>"; };
@@ -179,6 +185,35 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C01010C11E0DD22D00F27055 /* ChatCells */ = {
+			isa = PBXGroup;
+			children = (
+				C01010C31E0DD2DB00F27055 /* DefaultCells */,
+				C01010C21E0DD2CE00F27055 /* CurrentUserCells */,
+			);
+			name = ChatCells;
+			sourceTree = "<group>";
+		};
+		C01010C21E0DD2CE00F27055 /* CurrentUserCells */ = {
+			isa = PBXGroup;
+			children = (
+				C0FD5FCE1DBAFF770000923B /* CurrentUserMessageCell.swift */,
+				C03C09D81DE0FC5800ADBAD3 /* CurrentUserPortraitMediaMessageCell.swift */,
+				C0FD0C8A1E04FB1F00A5D13C /* CurrentUserLandscapeMediaMessageCell.swift */,
+			);
+			name = CurrentUserCells;
+			sourceTree = "<group>";
+		};
+		C01010C31E0DD2DB00F27055 /* DefaultCells */ = {
+			isa = PBXGroup;
+			children = (
+				C0FD5FCC1DBAFF680000923B /* DefaultMessageCell.swift */,
+				C03C09DA1DE1196B00ADBAD3 /* DefaultPortraitMediaMessageCell.swift */,
+				C0D02EA91E0516EC0040B18C /* DefaultLandscapeMediaMessageCell.swift */,
+			);
+			name = DefaultCells;
+			sourceTree = "<group>";
+		};
 		C0197D291DA085F500F68AF0 /* Callout */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +229,15 @@
 				C01E79E01D7CFDBD00700FEA /* Alert.swift */,
 			);
 			name = Alert;
+			sourceTree = "<group>";
+		};
+		C058F8B61E08BF9300E5CD9C /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				C03C09D41DD8240000ADBAD3 /* MessageProtocol.swift */,
+				C0B14D581DBC2A39003748A6 /* MessageCellProtocol.swift */,
+			);
+			name = Protocols;
 			sourceTree = "<group>";
 		};
 		C084BEA11D8DA0DA00BD579F /* Screens */ = {
@@ -252,7 +296,7 @@
 			children = (
 				C0CE3BCA1DA182D80072AE17 /* VenueChatDisplayDetailVC.swift */,
 				C0B14D5A1DBC5C36003748A6 /* ChatVC.swift */,
-				C0E4E2D61DD7B4C900998A90 /* ChatMediaMessageTVC.swift */,
+				C0E4E2D61DD7B4C900998A90 /* ChatMediaMessageVC.swift */,
 				C0B14D5C1DBD1E16003748A6 /* MessageToolbar.swift */,
 				C0B14D5E1DBD1E64003748A6 /* MessageToolbar.xib */,
 			);
@@ -357,6 +401,7 @@
 				C0FBADDB1D7B464B00C1C998 /* ImagePicker.swift */,
 				C078577A1D8CD07D00B9AF06 /* UIImageExtension.swift */,
 				C0D21B011DE24E3100B17BB2 /* ImageCacher.swift */,
+				C01010C41E0DD42D00F27055 /* UIImageView+Alamofire.swift */,
 			);
 			name = ImageProcessing;
 			sourceTree = "<group>";
@@ -364,13 +409,9 @@
 		C0FD5FCB1DBAFED10000923B /* Message */ = {
 			isa = PBXGroup;
 			children = (
-				C03C09D41DD8240000ADBAD3 /* MessageProtocol.swift */,
-				C0B14D581DBC2A39003748A6 /* MessageCellProtocol.swift */,
+				C058F8B61E08BF9300E5CD9C /* Protocols */,
 				C0FD5FC91DBAFD3F0000923B /* Message.swift */,
-				C0FD5FCC1DBAFF680000923B /* DefaultMessageCell.swift */,
-				C0FD5FCE1DBAFF770000923B /* CurrentUserMessageCell.swift */,
-				C03C09D81DE0FC5800ADBAD3 /* CurrentUserMediaMessageCell.swift */,
-				C03C09DA1DE1196B00ADBAD3 /* DefaultMediaMessageCell.swift */,
+				C01010C11E0DD22D00F27055 /* ChatCells */,
 			);
 			name = Message;
 			sourceTree = "<group>";
@@ -666,13 +707,14 @@
 				C0CE3BCB1DA182D80072AE17 /* VenueChatDisplayDetailVC.swift in Sources */,
 				C084BEA81D8DA2BF00BD579F /* Venue.swift in Sources */,
 				C0FBADB91D7A5DD600C1C998 /* MapVC.swift in Sources */,
-				C0E4E2D71DD7B4C900998A90 /* ChatMediaMessageTVC.swift in Sources */,
+				C0E4E2D71DD7B4C900998A90 /* ChatMediaMessageVC.swift in Sources */,
 				C0FBADDA1D7B41BA00C1C998 /* RLMManager.swift in Sources */,
 				C08E43B31DCEF09200D9488E /* Marker.swift in Sources */,
 				C0FBADC51D7A751B00C1C998 /* FirebaseOperation.swift in Sources */,
 				C0B14D5B1DBC5C36003748A6 /* ChatVC.swift in Sources */,
 				C084BEAE1D8DBFE700BD579F /* Annotation.swift in Sources */,
 				C0E5906E1D9E028500C4D068 /* GoogleSearchAPI.swift in Sources */,
+				C01010C51E0DD42D00F27055 /* UIImageView+Alamofire.swift in Sources */,
 				C0FBADCD1D7A7BCA00C1C998 /* AlamoFireOperation.swift in Sources */,
 				C01E79E11D7CFDBD00700FEA /* Alert.swift in Sources */,
 				C0B14D591DBC2A39003748A6 /* MessageCellProtocol.swift in Sources */,
@@ -682,16 +724,18 @@
 				C03C09D51DD8240000ADBAD3 /* MessageProtocol.swift in Sources */,
 				C0FBADD41D7B289300C1C998 /* CloudinaryOperation.swift in Sources */,
 				C084BEB01D8DC89E00BD579F /* Coordinate.swift in Sources */,
-				C03C09DB1DE1196B00ADBAD3 /* DefaultMediaMessageCell.swift in Sources */,
+				C03C09DB1DE1196B00ADBAD3 /* DefaultPortraitMediaMessageCell.swift in Sources */,
 				C08E43B11DCEEB5600D9488E /* MarkerExtension.swift in Sources */,
 				C0FBADD11D7B0FC700C1C998 /* SignUpTVC.swift in Sources */,
 				C0C5D9ED1D844CC300124846 /* UserType.swift in Sources */,
 				C0FBADCB1D7A786D00C1C998 /* CurrentUser.swift in Sources */,
 				C0B14D5D1DBD1E16003748A6 /* MessageToolbar.swift in Sources */,
 				C0FBAD8B1D7A4AD800C1C998 /* AppDelegate.swift in Sources */,
+				C0D02EAA1E0516EC0040B18C /* DefaultLandscapeMediaMessageCell.swift in Sources */,
 				C0D21B021DE24E3100B17BB2 /* ImageCacher.swift in Sources */,
-				C03C09D91DE0FC5800ADBAD3 /* CurrentUserMediaMessageCell.swift in Sources */,
+				C03C09D91DE0FC5800ADBAD3 /* CurrentUserPortraitMediaMessageCell.swift in Sources */,
 				C0FD5FCA1DBAFD3F0000923B /* Message.swift in Sources */,
+				C0FD0C8B1E04FB1F00A5D13C /* CurrentUserLandscapeMediaMessageCell.swift in Sources */,
 				C0FD5FCF1DBAFF770000923B /* CurrentUserMessageCell.swift in Sources */,
 				C0FBADCF1D7B0FB800C1C998 /* LogInTVC.swift in Sources */,
 				C078577B1D8CD07D00B9AF06 /* UIImageExtension.swift in Sources */,

@@ -8,10 +8,18 @@
 
 import Foundation
 
+/* Unimplemented MessageType
+ case mediaText
+ */
+
 enum MessageType: String {
     case text
     case media
-    case mediaText
+}
+
+enum MediaOrientation: String {
+    case portrait
+    case landscape
 }
 
 protocol MessageProtocol {
@@ -20,6 +28,6 @@ protocol MessageProtocol {
     var locationID: String {get set}
     var userID: String {get set}
     var mediaURL: String? {get set}
+    var mediaOrientation: MediaOrientation? {get set}
     var messageType: MessageType {get set}
-    
 }

@@ -32,35 +32,12 @@ struct User: UserType {
                 let profileImageURL = snapshotChildDict["profileImageURL"] as? String,
                 let userID = snapshotChildDict["userID"] as? String,
                 let location = snapshotChildDict["location"] as? String else { return }
-            
-            guard profileImageURL != "" else {
                 completion(User(name: name, location: location, userID: userID, profileImageURL: profileImageURL, profileImage: nil))
-                return
-            }
-            
-            if let profileImage = imageCacher.retrieveImageFromCache(cacheIdentifier: profileImageURL) {
-                completion(User(name: name, location: location, userID: userID, profileImageURL: profileImageURL, profileImage: profileImage))
-            } else {
-                downloadUserProfileImage(profileImageURL, completion: {
-                    (image, error) in
-                    completion(User(name: name, location: location, userID: userID, profileImageURL: profileImageURL, profileImage: image))
-                    imageCacher.addImageToCache(image: image!, cacheIdentifier: profileImageURL)
-                })
             }
         }
+    
     }
-}
 
-    private func downloadUserProfileImage(_ URL: String, completion: @escaping ImageResult) {
-        AlamoFireOperation.downloadProfileImageWithAlamoFire(URL: URL) {
-            (image, error) in
-            guard let image = image else {
-                completion(nil, error)
-                return
-            }
-            completion(image, nil)
-        }
-    }
 
 
     

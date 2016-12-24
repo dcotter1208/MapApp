@@ -1,5 +1,5 @@
 //
-//  DefaultMediaMessageCell.swift
+//  DefaultPortraitMediaMessageCell.swift
 //  MapApp
 //
 //  Created by Donovan Cotter on 11/19/16.
@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import AlamofireImage
 
-class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
+class DefaultPortraitMediaMessageCell: UITableViewCell, MessageCellProtocol {
     @IBOutlet weak var mediaImageView: UIImageView!
     @IBOutlet weak var profileImageView: UIImageView!
     
@@ -55,27 +55,22 @@ class DefaultMediaMessageCell: UITableViewCell, MessageCellProtocol {
     
     fileprivate func downloadMediaForCellImageView(mediaURL: String) {
         if let url = URL(string: mediaURL) {
-            self.mediaImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .noTransition, runImageTransitionIfCached: false, completion: { (data) in
-            })
+            self.mediaImageView.downloadAFImage(url: url)
         }
     }
     
     fileprivate func setUserProfileImageForMessage(user: User) {
-        var profileImage: UIImage
-        if user.profileImage != nil {
-            profileImage = user.profileImage!
-            self.profileImageView.image = self.setProfileImageWithResizedImage(image: profileImage)
-        } else {
-            profileImage = #imageLiteral(resourceName: "default_user")
-            self.profileImageView.image = profileImage
+        guard user.profileImageURL != "" else {
+            self.profileImageView.image = #imageLiteral(resourceName: "default_user")
+            return
         }
+        guard let profileURL = URL(string: user.profileImageURL) else {
+            self.profileImageView.image = #imageLiteral(resourceName: "default_user")
+            return
+        }
+        self.profileImageView.downloadAFImage(url: profileURL)
     }
-    
-    fileprivate func setProfileImageWithResizedImage(image: UIImage) -> UIImage {
-        let newSize = CGSize(width: image.size.width/5, height: image.size.width/5)
-        return image.resizedImage(newSize)
-    }
-    
+
     fileprivate func getUserProfileForMessage(message: Message, completion: @escaping FirebaseUserProfileResult) {
         let userProfileQuery = firebaseOp.firebaseDatabaseRef.ref.child("users").queryOrdered(byChild: "userID").queryEqual(toValue: message.userID)
         

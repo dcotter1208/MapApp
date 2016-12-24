@@ -15,9 +15,10 @@ struct Message: MessageProtocol {
     var locationID: String
     var userID: String
     var mediaURL: String?
+    var mediaOrientation: MediaOrientation?
     var messageType: MessageType
     
-    static func createMessageWithFirebaseData(snapshot: FIRDataSnapshot) -> Message {
+    static func createMessageWithFirebaseData(snapshot: FIRDataSnapshot) -> Message? {
         let messageSnapshot = snapshot.value as! NSDictionary
         var message: Message
         let messageType = mapMessageType(messageType: messageSnapshot["messageType"] as! String)
@@ -29,22 +30,30 @@ struct Message: MessageProtocol {
                               locationID: messageSnapshot["locationID"] as! String,
                               userID: messageSnapshot["userID"] as! String,
                               mediaURL: nil,
+                              mediaOrientation: nil,
                               messageType: messageType)
             return message
-        case .mediaText:
+        case .media:
+            
+            var mediaOrientation: MediaOrientation
+            
+            guard let mediaTypeRawValue = messageSnapshot["mediaOrientation"] as? String else { return nil }
+
+            switch mediaTypeRawValue {
+            case MediaOrientation.portrait.rawValue:
+                mediaOrientation = .portrait
+            case MediaOrientation.landscape.rawValue:
+                mediaOrientation = .landscape
+            default:
+                mediaOrientation = .portrait
+            }
+            
             message = Message(text: messageSnapshot["text"] as? String,
                               timestamp: messageSnapshot["timestamp"] as! String,
                               locationID: messageSnapshot["locationID"] as! String,
                               userID: messageSnapshot["userID"] as! String,
                               mediaURL: messageSnapshot["mediaURL"] as? String,
-                              messageType: messageType)
-            return message
-        case .media:
-            message = Message(text: nil,
-                              timestamp: messageSnapshot["timestamp"] as! String,
-                              locationID: messageSnapshot["locationID"] as! String,
-                              userID: messageSnapshot["userID"] as! String,
-                              mediaURL: messageSnapshot["mediaURL"] as? String,
+                              mediaOrientation: mediaOrientation,
                               messageType: messageType)
             return message
         }
@@ -54,8 +63,6 @@ struct Message: MessageProtocol {
         switch messageType {
         case "text":
             return .text
-        case "mediaText":
-            return .mediaText
         case "media":
             return .media
         default:

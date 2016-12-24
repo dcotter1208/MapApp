@@ -1,16 +1,16 @@
 //
-//  DefaultMessageCell.swift
+//  DefaultLandscapeMediaMessageCell.swift
 //  MapApp
 //
-//  Created by Donovan Cotter on 10/21/16.
+//  Created by Donovan Cotter on 12/17/16.
 //  Copyright © 2016 DonovanCotter. All rights reserved.
 //
 
 import UIKit
 
-class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
+class DefaultLandscapeMediaMessageCell: UITableViewCell {
+    @IBOutlet weak var mediaImageView: UIImageView!
     @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var messageTextView: UITextView!
     
     typealias FirebaseUserProfileResult = (User) -> Void
     
@@ -19,39 +19,44 @@ class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
     func setCellViewAttributesWithMessage(message: Message) {
-        var messageTuple = (message: message, user: User(name: "", location: "", userID: "", profileImageURL: "", profileImage: #imageLiteral(resourceName: "default_user")))
-
         getUserProfileForMessage(message: message, completion: { (user) in
             self.setUserProfileImageForMessage(user: user)
-            messageTuple.user = user
         })
         
-        messageTextView.text = messageTuple.message.text
+        if let URLString = message.mediaURL {
+            downloadMediaForCellImageView(mediaURL: URLString)
+        }
         DispatchQueue.main.async {
-            self.configureMessageTextView()
+            self.configureMediaImageView()
             self.configureProfileImageView()
         }
     }
     
     //MARK: Cell Attribute Helper Methods
-    fileprivate func configureMessageTextView() {
-        self.messageTextView.layer.cornerRadius = 5
-        self.messageTextView.backgroundColor = UIColor.lightGray
-        self.messageTextView.textColor = UIColor.black
+    
+    fileprivate func configureMediaImageView() {
+        self.mediaImageView.layer.cornerRadius = 10
+        self.mediaImageView.layer.masksToBounds = true
     }
-
+    
     fileprivate func configureProfileImageView() {
         self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height / 2
         self.profileImageView.layer.masksToBounds = true
         self.profileImageView.layer.shadowColor = UIColor.black.cgColor
     }
-
+    
+    fileprivate func downloadMediaForCellImageView(mediaURL: String) {
+        if let url = URL(string: mediaURL) {
+            self.mediaImageView.downloadAFImage(url: url)
+        }
+    }
+    
     fileprivate func setUserProfileImageForMessage(user: User) {
         guard user.profileImageURL != "" else {
             self.profileImageView.image = #imageLiteral(resourceName: "default_user")
@@ -63,7 +68,7 @@ class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
         }
         self.profileImageView.downloadAFImage(url: profileURL)
     }
-
+    
     fileprivate func getUserProfileForMessage(message: Message, completion: @escaping FirebaseUserProfileResult) {
         let userProfileQuery = firebaseOp.firebaseDatabaseRef.ref.child("users").queryOrdered(byChild: "userID").queryEqual(toValue: message.userID)
         
@@ -78,4 +83,6 @@ class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
         })
     }
     
+    
+
 }

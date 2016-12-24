@@ -14,7 +14,7 @@ typealias URLResult = (String) -> Void
 class CloudinaryOperation: NSObject {
     
     func uploadImageToCloudinary(_ image:UIImage, delegate: CLUploaderDelegate, completion:@escaping URLResult) {
-        let resizedImage = image.resizedImage(CGSize(width: image.size.width/11, height: image.size.width/11))
+        let resizedImage = image.resizedImage(CGSize(width: image.size.width/11, height: image.size.height/11))
         let imageData = UIImageJPEGRepresentation(resizedImage, 1.0)
         let keys = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Keys", ofType: "plist")!)!
         let cloudinary = CLCloudinary(url: "cloudinary://\(keys["cloudinaryAPIKey"] as! String):\(keys["cloudinaryAPISecret"] as! String)@mapspot")
@@ -24,6 +24,8 @@ class CloudinaryOperation: NSObject {
             guard let photoURL = successResult?["secure_url"] else {
                 return
             }
+            print("SUCCESS RESULT: \(successResult)")
+
             completion(photoURL as! String)
         }) { (bytesWritten, totalBytesWritten, totalBytesExpectedToWrite, context) in
             
