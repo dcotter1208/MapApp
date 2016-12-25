@@ -35,12 +35,6 @@ class SignUpTVC: UITableViewController, UINavigationControllerDelegate, UIImageP
     
     //MARK: Helper Methods
 
-    fileprivate func checkForCurrentUser() {
-        if CurrentUser.sharedInstance.name != "" {
-            
-        }
-    }
-    
     fileprivate func instantiateViewController(_ viewControllerIdentifier: String) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let istantiatedVC = storyboard.instantiateViewController(withIdentifier: viewControllerIdentifier)

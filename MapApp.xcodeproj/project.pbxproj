@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		ADABE05809EAD2CB2A388DCD /* Pods_MapApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D3AB176DAB41C2A89B08403 /* Pods_MapApp.framework */; };
 		C01010C51E0DD42D00F27055 /* UIImageView+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01010C41E0DD42D00F27055 /* UIImageView+Alamofire.swift */; };
+		C01010C71E0DF92700F27055 /* SignUpView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C01010C61E0DF92700F27055 /* SignUpView.xib */; };
+		C01010C91E0DF9C400F27055 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01010C81E0DF9C400F27055 /* SignUpView.swift */; };
 		C0197D2B1DA0868D00F68AF0 /* Callout.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0197D2A1DA0868D00F68AF0 /* Callout.xib */; };
 		C0197D2D1DA0875900F68AF0 /* CalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0197D2C1DA0875900F68AF0 /* CalloutView.swift */; };
 		C01E79E11D7CFDBD00700FEA /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01E79E01D7CFDBD00700FEA /* Alert.swift */; };
@@ -88,6 +90,8 @@
 		A54A865E4BD5A05D65D538E2 /* Pods-MapApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MapApp/Pods-MapApp.debug.xcconfig"; sourceTree = "<group>"; };
 		AA0B9DD29D7C239517FBFFB2 /* Pods-MapAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapAppUITests/Pods-MapAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C01010C41E0DD42D00F27055 /* UIImageView+Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Alamofire.swift"; sourceTree = "<group>"; };
+		C01010C61E0DF92700F27055 /* SignUpView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignUpView.xib; sourceTree = "<group>"; };
+		C01010C81E0DF9C400F27055 /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		C010ADEE1DB1B3110093E389 /* MapApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MapApp.entitlements; sourceTree = "<group>"; };
 		C0197D2A1DA0868D00F68AF0 /* Callout.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Callout.xib; sourceTree = "<group>"; };
 		C0197D2C1DA0875900F68AF0 /* CalloutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalloutView.swift; sourceTree = "<group>"; };
@@ -263,6 +267,8 @@
 			isa = PBXGroup;
 			children = (
 				C0FBADD01D7B0FC700C1C998 /* SignUpTVC.swift */,
+				C01010C61E0DF92700F27055 /* SignUpView.xib */,
+				C01010C81E0DF9C400F27055 /* SignUpView.swift */,
 			);
 			name = SignUp;
 			sourceTree = "<group>";
@@ -547,6 +553,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C01010C71E0DF92700F27055 /* SignUpView.xib in Resources */,
 				C0197D2B1DA0868D00F68AF0 /* Callout.xib in Resources */,
 				C0FBAD951D7A4AD800C1C998 /* LaunchScreen.storyboard in Resources */,
 				C0FBADC11D7A6E3900C1C998 /* GoogleService-Info.plist in Resources */,
@@ -737,6 +744,7 @@
 				C0FD5FCA1DBAFD3F0000923B /* Message.swift in Sources */,
 				C0FD0C8B1E04FB1F00A5D13C /* CurrentUserLandscapeMediaMessageCell.swift in Sources */,
 				C0FD5FCF1DBAFF770000923B /* CurrentUserMessageCell.swift in Sources */,
+				C01010C91E0DF9C400F27055 /* SignUpView.swift in Sources */,
 				C0FBADCF1D7B0FB800C1C998 /* LogInTVC.swift in Sources */,
 				C078577B1D8CD07D00B9AF06 /* UIImageExtension.swift in Sources */,
 				C0FD5FCD1DBAFF680000923B /* DefaultMessageCell.swift in Sources */,

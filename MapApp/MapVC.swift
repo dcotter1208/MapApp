@@ -15,7 +15,7 @@ import FirebaseAuth
 import RealmSwift
 import Alamofire
 
-class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate, CustomCalloutActionDelegate {
+class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, GMSMapViewDelegate, CustomCalloutActionDelegate {
     @IBOutlet weak var mapStyleBarButton: UIBarButtonItem!
     @IBOutlet weak var googleMapView: GMSMapView!
     @IBOutlet var mapTapGesture: UITapGestureRecognizer!
@@ -26,6 +26,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
     fileprivate var newestLocation = CLLocation()
     fileprivate var userLocation: CLLocation?
     fileprivate var calloutView: CalloutView?
+    fileprivate var signUpView: SignUpView?
     fileprivate var venueIDForSelectedMarker = ""
     
     override func viewDidLoad() {
@@ -33,6 +34,11 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
         setupGoogleMaps()
         getCurrentUser()
         setUpCalloutView()
+        
+        if currentUserExists() {
+            setUpSignUpView()
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -164,6 +170,10 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
     }
     
     func isCurrentUserLoggedIn() -> Bool {
+        let realmUserResults = RLMDBManager().getCurrentUserProfileFromRealm()
+        
+        
+        
         guard FIRAuth.auth()?.currentUser != nil else {
             return false
         }
@@ -222,6 +232,59 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
         if sender.state == .began {
             print("SENDER**: \(sender)")
         }
+    }
+
+    //MARK: Camera Methods
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        //    guard let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
+        //    profileImageChanged = true
+        //    profileImageView.image = pickedImage
+        //    profileImage = pickedImage
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    //displays action sheet for the camera or photo gallery
+    func displayCameraActionSheet() {
+        let imagePicker = ImagePicker()
+        imagePicker.imagePicker.delegate = self
+        let actionsheet = UIAlertController(title: "Choose an option", message: nil, preferredStyle: .actionSheet)
+        let camera = UIAlertAction(title: "Camera", style: .default) { (action) in
+            imagePicker.configureImagePicker(.camera)
+            imagePicker.presentCameraSource(self)
+        }
+        let photoGallery = UIAlertAction(title: "Photo Gallery", style: .default) { (action) in
+            imagePicker.configureImagePicker(.photoLibrary)
+            imagePicker.presentCameraSource(self)
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        actionsheet.addAction(camera)
+        actionsheet.addAction(photoGallery)
+        actionsheet.addAction(cancel)
+        self.present(actionsheet, animated: true, completion: nil)
+    }
+    
+    func currentUserExists() -> Bool {
+        if CurrentUser.sharedInstance.userID != "" {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    //MARK: SignUpView Helper Methods
+    func setUpSignUpView() {
+        let viewRectSize = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+        signUpView = SignUpView(frame: viewRectSize)
+        if let safeSignUpView = signUpView {
+            self.view.addSubview(safeSignUpView)
+            disableMapView()
+        }
+    }
+    
+    func disableMapView() {
+        self.view.isUserInteractionEnabled = false
+        self.navigationController?.navigationBar.isUserInteractionEnabled = false
     }
     
 }
