@@ -117,27 +117,7 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
      user from Realm. If there is no user profile in realm then it gets the user profile from Firebase
      and then writes the user profile to realm.
 */
-    func loginWithEmailAndPassword(email: String, password: String, completion: @escaping LogInResult) {
-        FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: {
-            (user, error) in
-            guard error == nil else {
-                completion(nil, error as NSError?)
-                return
-            }
-            guard let user = user else {return}
-            let results = RLMDBManager().getCurrentUserFromRealm(user.uid)
-            guard results.isEmpty == false else {
-                self.setCurrentUserWithFirebase(user, completion: { (currentUser) in
-                    completion(CurrentUser.sharedInstance, error as NSError?)
-                })
-                return
-            }
-            self.setCurrentUserWithRealm(results, completion: { (currentUser) in
-                completion(CurrentUser.sharedInstance, error as NSError?)
-            })
-        })
-    }
-    
+  
     //Used to write the current user's profile to realm when it is obtained from Firebase.
     fileprivate func writeCurrentUserToRealm(user: FIRUser, snapshot:FIRDataSnapshot) {
         let snapshotDict = snapshot.value as! NSDictionary
@@ -146,7 +126,7 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
             let rlmUser = RLMUser()
             guard let email = user.email, let name = snapChildDict["name"] as? String, let location =  snapChildDict["location"] as? String else {return}
 
-            rlmUser.createUser(name, email: email, userID: user.uid, snapshotKey: snapshot.key, location: location)
+            rlmUser.createUser(name, userID: user.uid, snapshotKey: snapshot.key)
 
             guard snapChildDict["profileImageURL"] as! String != "" else {
                 rlmUser.profileImageURL = snapChildDict["profileImageURL"] as! String
@@ -203,9 +183,9 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
             self.createUserProfile(userProfile: userProfile, completion: {
                 (snapshotKey) in
                 let rlmUser = RLMUser()
-                rlmUser.createUser(name, email: email, userID: user!.uid, snapshotKey: snapshotKey!, location: "")
+                rlmUser.createUser(name, userID: user!.uid, snapshotKey: snapshotKey!)
                 RLMDBManager().writeObject(rlmUser)
-                CurrentUser.sharedInstance.setCurrentUserProperties(name, location: "", imageURL: "", userID: user!.uid, snapshotKey: snapshotKey!)
+                CurrentUser.sharedInstance.setCurrentUserProperties(name, imageURL: "", userID: user!.uid, snapshotKey: snapshotKey!)
                 completion(nil)
             })
             case true:
@@ -215,10 +195,10 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
                     self.createUserProfile(userProfile: userProfile, completion: {
                         (snapshotKey) in
                         let rlmUser = RLMUser()
-                        rlmUser.createUser(name, email: email, userID: user!.uid, snapshotKey: snapshotKey!, location: "")
+                        rlmUser.createUser(name, userID: user!.uid, snapshotKey: snapshotKey!)
                         rlmUser.setRLMUserProfileImageAndURL(photoURL, image: UIImageJPEGRepresentation(profileImage!, 1.0)!)
                         RLMDBManager().writeObject(rlmUser)
-                        CurrentUser.sharedInstance.setCurrentUserProperties(name, location: "", imageURL: photoURL, userID: user!.uid, snapshotKey: snapshotKey!)
+                        CurrentUser.sharedInstance.setCurrentUserProperties(name, imageURL: photoURL, userID: user!.uid, snapshotKey: snapshotKey!)
                         CurrentUser.sharedInstance.profileImage = profileImage!
                         completion(nil)
                     })

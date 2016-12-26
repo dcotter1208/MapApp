@@ -48,8 +48,6 @@
 		C0FBADC81D7A783600C1C998 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADC71D7A783600C1C998 /* User.swift */; };
 		C0FBADCB1D7A786D00C1C998 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADCA1D7A786D00C1C998 /* CurrentUser.swift */; };
 		C0FBADCD1D7A7BCA00C1C998 /* AlamoFireOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADCC1D7A7BCA00C1C998 /* AlamoFireOperation.swift */; };
-		C0FBADCF1D7B0FB800C1C998 /* LogInTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADCE1D7B0FB800C1C998 /* LogInTVC.swift */; };
-		C0FBADD11D7B0FC700C1C998 /* SignUpTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADD01D7B0FC700C1C998 /* SignUpTVC.swift */; };
 		C0FBADD41D7B289300C1C998 /* CloudinaryOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADD31D7B289300C1C998 /* CloudinaryOperation.swift */; };
 		C0FBADD81D7B3F4200C1C998 /* RLMUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADD71D7B3F4200C1C998 /* RLMUser.swift */; };
 		C0FBADDA1D7B41BA00C1C998 /* RLMManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBADD91D7B41BA00C1C998 /* RLMManager.swift */; };
@@ -136,8 +134,6 @@
 		C0FBADC71D7A783600C1C998 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C0FBADCA1D7A786D00C1C998 /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		C0FBADCC1D7A7BCA00C1C998 /* AlamoFireOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamoFireOperation.swift; sourceTree = "<group>"; };
-		C0FBADCE1D7B0FB800C1C998 /* LogInTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInTVC.swift; sourceTree = "<group>"; };
-		C0FBADD01D7B0FC700C1C998 /* SignUpTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpTVC.swift; sourceTree = "<group>"; };
 		C0FBADD31D7B289300C1C998 /* CloudinaryOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudinaryOperation.swift; sourceTree = "<group>"; };
 		C0FBADD71D7B3F4200C1C998 /* RLMUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLMUser.swift; sourceTree = "<group>"; };
 		C0FBADD91D7B41BA00C1C998 /* RLMManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLMManager.swift; sourceTree = "<group>"; };
@@ -255,18 +251,9 @@
 			name = Screens;
 			sourceTree = "<group>";
 		};
-		C084BEA21D8DA0E600BD579F /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				C0FBADCE1D7B0FB800C1C998 /* LogInTVC.swift */,
-			);
-			name = Login;
-			sourceTree = "<group>";
-		};
 		C084BEA31D8DA11200BD579F /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
-				C0FBADD01D7B0FC700C1C998 /* SignUpTVC.swift */,
 				C01010C61E0DF92700F27055 /* SignUpView.xib */,
 				C01010C81E0DF9C400F27055 /* SignUpView.swift */,
 			);
@@ -312,7 +299,6 @@
 		C0CE3BC91DA178640072AE17 /* AccountRelated */ = {
 			isa = PBXGroup;
 			children = (
-				C084BEA21D8DA0E600BD579F /* Login */,
 				C084BEA31D8DA11200BD579F /* SignUp */,
 			);
 			name = AccountRelated;
@@ -733,7 +719,6 @@
 				C084BEB01D8DC89E00BD579F /* Coordinate.swift in Sources */,
 				C03C09DB1DE1196B00ADBAD3 /* DefaultPortraitMediaMessageCell.swift in Sources */,
 				C08E43B11DCEEB5600D9488E /* MarkerExtension.swift in Sources */,
-				C0FBADD11D7B0FC700C1C998 /* SignUpTVC.swift in Sources */,
 				C0C5D9ED1D844CC300124846 /* UserType.swift in Sources */,
 				C0FBADCB1D7A786D00C1C998 /* CurrentUser.swift in Sources */,
 				C0B14D5D1DBD1E16003748A6 /* MessageToolbar.swift in Sources */,
@@ -745,7 +730,6 @@
 				C0FD0C8B1E04FB1F00A5D13C /* CurrentUserLandscapeMediaMessageCell.swift in Sources */,
 				C0FD5FCF1DBAFF770000923B /* CurrentUserMessageCell.swift in Sources */,
 				C01010C91E0DF9C400F27055 /* SignUpView.swift in Sources */,
-				C0FBADCF1D7B0FB800C1C998 /* LogInTVC.swift in Sources */,
 				C078577B1D8CD07D00B9AF06 /* UIImageExtension.swift in Sources */,
 				C0FD5FCD1DBAFF680000923B /* DefaultMessageCell.swift in Sources */,
 			);

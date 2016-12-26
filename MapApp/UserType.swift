@@ -11,7 +11,6 @@ import UIKit
 
 public protocol UserType {
     var name : String { get }
-    var location: String { get }
     var userID: String { get }
     var profileImageURL: String { get }
     var profileImage: UIImage? { get }

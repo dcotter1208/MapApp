@@ -49,13 +49,5 @@ struct RLMDBManager {
         }
     }
     
-    //DELETE
-    func getCurrentUserFromRealm(_ userID:String) -> Results<RLMUser> {
-        print("DEAD CODE")
-        let user = realm?.objects(RLMUser.self).filter("userID = '\(userID)'")
-        return user!
-    }
-    
-    
 }
 

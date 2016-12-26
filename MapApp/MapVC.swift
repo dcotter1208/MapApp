@@ -8,6 +8,7 @@
 // AIzaSyCDFhefMFtHul5d-RNCVy_1QMIasy8K78o 
 
 import UIKit
+import Cloudinary
 import MapKit
 import GoogleMaps
 import GooglePlaces
@@ -28,11 +29,16 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
     fileprivate var calloutView: CalloutView?
     fileprivate var signUpView: SignUpView?
     fileprivate var venueIDForSelectedMarker = ""
+    fileprivate var profileImageChanged = true
+    fileprivate var profileImage: UIImage?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupGoogleMaps()
-        getCurrentUser()
+        print("realm**: \(RLMDBManager().realm?.configuration.fileURL)")
+        
+//        getCurrentUser()
         setUpCalloutView()
         
         if currentUserExists() {
@@ -133,31 +139,24 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
         self.present(istantiatedVC, animated: true, completion: nil)
     }
     
-    func getCurrentUser() {
-        guard isCurrentUserLoggedIn() else {
-            FirebaseOperation().loginWithAnonymousUser()
-            return
-        }
-        getUserProfile()
-    }
+//    func getCurrentUser() {
+//        guard isCurrentUserLoggedIn() else {
+//            FirebaseOperation().loginWithAnonymousUser()
+//            return
+//        }
+//        getUserProfile()
+//    }
     
-    func getUserProfile() {
-        getUserProfileFromRealm {
-            (isRealmProfile) in
-            guard isRealmProfile == false else { return }
-            self.getUserProfileFromFirebase()
-        }
-    }
-    
+//    func getUserProfile() {
+//        getUserProfileFromRealm {
+//            (isRealmProfile) in
+//            guard isRealmProfile == false else { return }
+//            self.getUserProfileFromFirebase()
+//        }
+//    }
+//    
     func getUserProfileFromRealm(_ completion: (Bool) -> Void) {
-        if let userID = FIRAuth.auth()?.currentUser?.uid {
-            let results = RLMDBManager().getCurrentUserFromRealm(userID)
-            guard results.isEmpty == false else {
-            completion(true)
-            return
-            }
-            CurrentUser.sharedInstance.setCurrentUserWithRealm(results: results)
-        }
+            RLMDBManager().getCurrentUserProfileFromRealm()
     }
     
     func getUserProfileFromFirebase() {
@@ -169,16 +168,14 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
         }
     }
     
-    func isCurrentUserLoggedIn() -> Bool {
-        let realmUserResults = RLMDBManager().getCurrentUserProfileFromRealm()
-        
-        
-        
-        guard FIRAuth.auth()?.currentUser != nil else {
-            return false
-        }
-        return true
-    }
+//    func isCurrentUserLoggedIn() -> Bool {
+//        let realmUserResults = RLMDBManager().getCurrentUserProfileFromRealm()
+//
+//        guard FIRAuth.auth()?.currentUser != nil else {
+//            return false
+//        }
+//        return true
+//    }
 
     //MARK: Location Methods
     func getUserLocation() -> CLLocation? {
@@ -237,10 +234,10 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
     //MARK: Camera Methods
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        //    guard let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
-        //    profileImageChanged = true
-        //    profileImageView.image = pickedImage
-        //    profileImage = pickedImage
+            guard let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
+            profileImageChanged = true
+            signUpView?.profileImageView.image = pickedImage
+            profileImage = pickedImage
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -265,28 +262,68 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
     }
     
     func currentUserExists() -> Bool {
-        if CurrentUser.sharedInstance.userID != "" {
+        if CurrentUser.sharedInstance.userID != "000" {
             return true
         } else {
             return false
         }
     }
     
-    //MARK: SignUpView Helper Methods
+}
+
+//MARK: SignUpViewDelegateExtension
+
+extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
     func setUpSignUpView() {
         let viewRectSize = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
         signUpView = SignUpView(frame: viewRectSize)
         if let safeSignUpView = signUpView {
+            safeSignUpView.delegate = self
             self.view.addSubview(safeSignUpView)
             disableMapView()
         }
     }
     
     func disableMapView() {
-        self.view.isUserInteractionEnabled = false
         self.navigationController?.navigationBar.isUserInteractionEnabled = false
     }
     
+    func photoSelected(sender: Any) {
+        displayCameraActionSheet()
+    }
+    
+    func createProfile(sender: Any) {
+        if let username = signUpView?.usernameTextField.text {
+            var newUserProfile = ["username" : username, "profilePhotoURL": ""]
+
+            if profileImageChanged {
+                CloudinaryOperation().uploadImageToCloudinary(profileImage!, delegate: self, completion: { (url) in
+                    newUserProfile["profilePhotoURL"] = url
+                    self.createFirebaseUserProfile(userProfile: newUserProfile)
+                })
+            } else {
+                self.createFirebaseUserProfile(userProfile: newUserProfile)
+            }
+    }
+}
+    
+    func createFirebaseUserProfile(userProfile: [String : String]) {
+        FirebaseOperation().createUserProfile(userProfile: userProfile) {
+            (snapshotKey) in
+            guard let safeSnapshotKey = snapshotKey else { return }
+            let realmUser = RLMUser().createUser(userProfile["username"]!, userID: UUID().uuidString, snapshotKey: safeSnapshotKey)
+            if userProfile["profilePhotoURL"] != "" {
+                if let safeProfileImage = profileImage {
+                    let resizedImage = safeProfileImage.resizedImage(CGSize(width: safeProfileImage.size.width / 2, height: safeProfileImage.size.height / 2))
+                    if let data = UIImagePNGRepresentation(resizedImage) {
+                        realmUser.setRLMUserProfileImageAndURL(userProfile["profilePhotoURL"]!, image: data)
+                    }
+                }
+            }
+            RLMDBManager().writeObject(realmUser)
+            RLMDBManager().getCurrentUserProfileFromRealm()
+        }
+    }
 }
 
 
