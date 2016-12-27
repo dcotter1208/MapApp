@@ -18,7 +18,6 @@ let imageCacher = ImageCacher()
 
 struct User: UserType {
     var name: String
-    var location: String
     var userID: String
     var profileImageURL: String
     var profileImage: UIImage?
@@ -28,11 +27,12 @@ struct User: UserType {
         for child in snapshotDict {
             let snapshotChildDict = child.value as! NSDictionary
 
-            guard let name = snapshotChildDict["name"] as? String,
+            guard let name = snapshotChildDict["username"] as? String,
                 let profileImageURL = snapshotChildDict["profileImageURL"] as? String,
-                let userID = snapshotChildDict["userID"] as? String,
-                let location = snapshotChildDict["location"] as? String else { return }
-                completion(User(name: name, location: location, userID: userID, profileImageURL: profileImageURL, profileImage: nil))
+                let userID = snapshotChildDict["userID"] as? String else {
+                    print("\(snapshotChildDict["userID"])")
+                    return }
+                completion(User(name: name, userID: userID, profileImageURL: profileImageURL, profileImage: nil))
             }
         }
     
