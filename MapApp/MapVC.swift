@@ -111,6 +111,9 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
                 calloutView.removeFromSuperview()
                 self.navigationController?.navigationBar.isHidden = false
             }
+            if let signUpView = self.signUpView {
+                signUpView.removeFromSuperview()
+            }
         }
     }
     
