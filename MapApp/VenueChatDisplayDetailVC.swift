@@ -18,9 +18,9 @@ class VenueChatDisplayDetailVC: UIViewController, UICollectionViewDelegate, UICo
     
     //TEST DATA***********
     
-    let scrooged = User(name: "Frank Cross", userID: "01", profileImageURL: "", profileImage: #imageLiteral(resourceName: "bill_murray_scrooged"))
-    let ghostBuster = User(name: "Dr. Peter Venkman", userID: "02", profileImageURL: "", profileImage: #imageLiteral(resourceName: "bill_murray_ghost"))
-    let currentUser = User(name: "Donovan", userID: "12345", profileImageURL: "", profileImage:#imageLiteral(resourceName: "current_user"))
+    let scrooged = User(username: "Frank Cross", userID: "01", profileImageURL: "", profileImage: #imageLiteral(resourceName: "bill_murray_scrooged"))
+    let ghostBuster = User(username: "Dr. Peter Venkman", userID: "02", profileImageURL: "", profileImage: #imageLiteral(resourceName: "bill_murray_ghost"))
+    let currentUser = User(username: "Donovan", userID: "12345", profileImageURL: "", profileImage:#imageLiteral(resourceName: "current_user"))
     
     //TEST DATA***********
 

@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 class RLMUser: Object {
-    dynamic var name = ""
+    dynamic var username = ""
     dynamic var profileImageURL = ""
     dynamic var userID = ""
     dynamic var snapshotKey = ""
@@ -20,8 +20,8 @@ class RLMUser: Object {
         return "userID"
     }
     
-    func createUser(_ name: String, userID: String, snapshotKey: String) -> RLMUser {
-        self.name = name
+    func createUser(_ username: String, userID: String, snapshotKey: String) -> RLMUser {
+        self.username = username
         self.userID = userID
         self.snapshotKey = snapshotKey
         return self

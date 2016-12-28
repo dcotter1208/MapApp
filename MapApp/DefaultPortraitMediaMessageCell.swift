@@ -64,10 +64,7 @@ class DefaultPortraitMediaMessageCell: UITableViewCell, MessageCellProtocol {
             self.profileImageView.image = #imageLiteral(resourceName: "default_user")
             return
         }
-        guard let profileURL = URL(string: user.profileImageURL) else {
-            self.profileImageView.image = #imageLiteral(resourceName: "default_user")
-            return
-        }
+        guard let profileURL = URL(string: user.profileImageURL) else { return }
         self.profileImageView.downloadAFImage(url: profileURL)
     }
 

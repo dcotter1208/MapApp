@@ -33,13 +33,15 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
     fileprivate var profileImage: UIImage?
     fileprivate var pickedImage: UIImage?
     fileprivate var rlmDBManager = RLMDBManager()
-    
+    fileprivate let keyboardAnimationDuration = 0.25
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupGoogleMaps()
         
         setUpCalloutView()
+        
+        setUpKeyboardNotification()
         
         if !currentUserExists() {
             setUpSignUpView()
@@ -245,7 +247,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
 
 extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
     func setUpSignUpView() {
-        let viewRectSize = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+        let viewRectSize = CGRect(x: 5, y: self.view.frame.maxY / 3, width: self.view.frame.size.width - 10, height: self.view.frame.size.height / 3)
         signUpView = SignUpView(frame: viewRectSize)
         if let safeSignUpView = signUpView {
             safeSignUpView.delegate = self
@@ -280,6 +282,30 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
      
 }
     
+    func setUpKeyboardNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowNotification), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideNotification), name: .UIKeyboardWillHide, object: nil)
+    }
+    
+    func keyboardWillShowNotification(notification: NSNotification) {
+        var newYPosition: CGFloat?
+        if let navigationBarHeight = self.navigationController?.navigationBar.frame.size.height {
+            newYPosition = self.view.frame.minY + navigationBarHeight + 50
+        }
+        UIView.animate(withDuration: keyboardAnimationDuration, delay: 0.0, options: [.curveEaseIn], animations: {
+            if let yPosition = newYPosition {
+                self.signUpView?.frame.origin.y = yPosition
+            }
+        }, completion: nil)
+    }
+    
+    func keyboardWillHideNotification() {
+        let originalYPosition = self.view.frame.maxY / 3
+        UIView.animate(withDuration: keyboardAnimationDuration, delay: 0.0, options: [.curveEaseIn], animations: {
+                self.signUpView?.frame.origin.y = originalYPosition
+        }, completion: nil)
+    }
+
     func createFirebaseUserProfile(userProfile: [String : String]) {
         FirebaseOperation().createUserProfile(userProfile: userProfile) {
             (snapshotKey) in
