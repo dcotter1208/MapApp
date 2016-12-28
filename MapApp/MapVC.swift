@@ -37,8 +37,8 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        CurrentUser.sharedInstance.resetProperties()
         setupGoogleMaps()
-        
         setUpCalloutView()
         
         setUpKeyboardNotification()
@@ -179,14 +179,10 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
     }
 
     @IBAction func profileButtonSelected(_ sender: AnyObject) {
-        //This will change based on actually having an account profile.
-        guard FIRAuth.auth()?.currentUser == nil else {
-            do {
-                try FIRAuth.auth()?.signOut()
-            } catch {
-                print(error)
-            }
-            return
+        if CurrentUser.sharedInstance.userID != "" {
+            profileImageChanged = false
+            setUpSignUpView()
+            configureSignUpViewWithCurrentUserInfo()
         }
     }
     
@@ -256,6 +252,15 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
         }
     }
     
+    func configureSignUpViewWithCurrentUserInfo() {
+        self.signUpView?.usernameTextField.text = CurrentUser.sharedInstance.username
+        guard let profileImage = CurrentUser.sharedInstance.profileImage else {
+            signUpView?.profileImageView.image = #imageLiteral(resourceName: "default_user")
+            return
+        }
+        self.signUpView?.profileImageView.image = profileImage
+    }
+    
     func disableMapView() {
         self.navigationController?.navigationBar.isUserInteractionEnabled = false
     }
@@ -266,9 +271,9 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
     
     func createProfile(sender: Any) {
         if let username = signUpView?.usernameTextField.text {
-            let userID = UUID().uuidString
+            let userID = generateUserID()
             var newUserProfile = ["username" : username, "userID" : userID, "profileImageURL": ""]
-            if profileImageChanged {
+            if signUpView?.profileImageView.image != #imageLiteral(resourceName: "default_user") {
                 CloudinaryOperation().uploadImageToCloudinary(profileImage!, delegate: self, completion: { (url) in
                     newUserProfile["profileImageURL"] = url
                     self.createFirebaseUserProfile(userProfile: newUserProfile)
@@ -282,6 +287,39 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
      
 }
     
+    func createFirebaseUserProfile(userProfile: [String : String]) {
+        FirebaseOperation().createUserProfile(userProfile: userProfile) {
+            (snapshotKey) in
+            guard let safeSnapshotKey = snapshotKey else { return }
+            let realmUser = RLMUser().createUser(userProfile["username"]!, userID: userProfile["userID"]!, snapshotKey: safeSnapshotKey)
+            if userProfile["profileImageURL"] != "" {
+                if let safeProfileImage = profileImage {
+                    let resizedImage = safeProfileImage.resizedImage(CGSize(width: safeProfileImage.size.width / 4, height: safeProfileImage.size.height / 4))
+                    if let data = UIImagePNGRepresentation(resizedImage) {
+                        realmUser.setRLMUserProfileImageAndURL(userProfile["profileImageURL"]!, image: data)
+                        writeRealmUser(user: realmUser)
+                    }
+                }
+            } else {
+                writeRealmUser(user: realmUser)
+            }
+        }
+    }
+    
+    func generateUserID() -> String {
+        if CurrentUser.sharedInstance.userID != "" {
+            return CurrentUser.sharedInstance.userID
+        } else {
+            return UUID().uuidString
+        }
+    }
+    
+    func writeRealmUser(user: RLMUser) {
+        rlmDBManager.updateObject(user)
+        rlmDBManager.getCurrentUserProfileFromRealm()
+    }
+    
+    //SignUpView+Keyboard Animation Helper Methods
     func setUpKeyboardNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowNotification), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideNotification), name: .UIKeyboardWillHide, object: nil)
@@ -302,33 +340,10 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
     func keyboardWillHideNotification() {
         let originalYPosition = self.view.frame.maxY / 3
         UIView.animate(withDuration: keyboardAnimationDuration, delay: 0.0, options: [.curveEaseIn], animations: {
-                self.signUpView?.frame.origin.y = originalYPosition
+            self.signUpView?.frame.origin.y = originalYPosition
         }, completion: nil)
     }
 
-    func createFirebaseUserProfile(userProfile: [String : String]) {
-        FirebaseOperation().createUserProfile(userProfile: userProfile) {
-            (snapshotKey) in
-            guard let safeSnapshotKey = snapshotKey else { return }
-            let realmUser = RLMUser().createUser(userProfile["username"]!, userID: userProfile["userID"]!, snapshotKey: safeSnapshotKey)
-            if userProfile["profileImageURL"] != "" {
-                if let safeProfileImage = profileImage {
-                    let resizedImage = safeProfileImage.resizedImage(CGSize(width: safeProfileImage.size.width / 4, height: safeProfileImage.size.height / 4))
-                    if let data = UIImagePNGRepresentation(resizedImage) {
-                        realmUser.setRLMUserProfileImageAndURL(userProfile["profileImageURL"]!, image: data)
-                        writeRealmUser(user: realmUser)
-                    }
-                }
-            } else {
-                writeRealmUser(user: realmUser)
-            }
-        }
-    }
-    
-    func writeRealmUser(user: RLMUser) {
-        rlmDBManager.writeObject(user)
-        rlmDBManager.getCurrentUserProfileFromRealm()
-    }
 }
 
 
