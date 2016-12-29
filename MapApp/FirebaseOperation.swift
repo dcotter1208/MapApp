@@ -116,11 +116,7 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
             }
         }
     }
-    
-    func ss () {
-        let query = firebaseDatabaseRef.ref.child("").queryOrdered(byChild: "").queryEqual(toValue: "")
-    }
-    
+
     func getSnapshotChildValueForKey(snapshot: FIRDataSnapshot, key: String) -> String? {
         var value = ""
         for childSnap in snapshot.children {
