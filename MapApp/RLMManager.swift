@@ -16,6 +16,8 @@ struct RLMDBManager {
     init() {
         do {
             realm = try Realm()
+            print("realm**: \(realm?.configuration.fileURL)")
+
         } catch let error as NSError {
             print(error)
         }
@@ -42,11 +44,14 @@ struct RLMDBManager {
         }
     }
     
-    func getCurrentUserFromRealm(_ userID:String) -> Results<RLMUser> {
-        let user = realm?.objects(RLMUser.self).filter("userID = '\(userID)'")
-        return user!
+    func getCurrentUserProfileFromRealm() {
+        let realmResults = realm?.objects(RLMUser.self)
+        if let results = realmResults {
+            if results.count > 0 {
+                CurrentUser.sharedInstance.setCurrentUserWithRealm(results: results)
+            }
+        }
     }
-    
     
 }
 

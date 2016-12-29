@@ -25,15 +25,16 @@ class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
     }
     
     func setCellViewAttributesWithMessage(message: Message) {
-        var messageTuple = (message: message, user: User(name: "", location: "", userID: "", profileImageURL: "", profileImage: #imageLiteral(resourceName: "default_user")))
+        var messageTuple = (message: message, user: User(username: "", userID: "", profileImageURL: "", profileImage: nil))
 
-        getUserProfileForMessage(message: message, completion: { (user) in
-            self.setUserProfileImageForMessage(user: user)
+        getUserProfileForMessage(message: message, completion: {
+            (user) in
             messageTuple.user = user
+            self.setUserProfileImageForMessage(user: messageTuple.user)
         })
         
-        messageTextView.text = messageTuple.message.text
         DispatchQueue.main.async {
+            self.messageTextView.text = messageTuple.message.text
             self.configureMessageTextView()
             self.configureProfileImageView()
         }
@@ -57,10 +58,7 @@ class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
             self.profileImageView.image = #imageLiteral(resourceName: "default_user")
             return
         }
-        guard let profileURL = URL(string: user.profileImageURL) else {
-            self.profileImageView.image = #imageLiteral(resourceName: "default_user")
-            return
-        }
+        guard let profileURL = URL(string: user.profileImageURL) else { return }
         self.profileImageView.downloadAFImage(url: profileURL)
     }
 

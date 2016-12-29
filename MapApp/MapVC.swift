@@ -8,6 +8,7 @@
 // AIzaSyCDFhefMFtHul5d-RNCVy_1QMIasy8K78o 
 
 import UIKit
+import Cloudinary
 import MapKit
 import GoogleMaps
 import GooglePlaces
@@ -15,10 +16,12 @@ import FirebaseAuth
 import RealmSwift
 import Alamofire
 
-class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate, CustomCalloutActionDelegate {
+class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, GMSMapViewDelegate, CustomCalloutActionDelegate {
     @IBOutlet weak var mapStyleBarButton: UIBarButtonItem!
     @IBOutlet weak var googleMapView: GMSMapView!
     @IBOutlet var mapTapGesture: UITapGestureRecognizer!
+    
+    typealias isUsernameUniqueHandler = (Bool) -> Void
     
     fileprivate var resultSearchController:UISearchController? = nil
     fileprivate var searchedLocation:MKPlacemark? = nil
@@ -26,13 +29,31 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
     fileprivate var newestLocation = CLLocation()
     fileprivate var userLocation: CLLocation?
     fileprivate var calloutView: CalloutView?
+    fileprivate var signUpView: SignUpView?
     fileprivate var venueIDForSelectedMarker = ""
+    fileprivate var profileImageChanged = false
+    fileprivate var profileImage: UIImage?
+    fileprivate var pickedImage: UIImage?
+    fileprivate var rlmDBManager = RLMDBManager()
+    fileprivate let keyboardAnimationDuration = 0.25
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        CurrentUser.sharedInstance.resetProperties()
         setupGoogleMaps()
-        getCurrentUser()
         setUpCalloutView()
+        
+        setUpKeyboardNotification()
+        
+        if !currentUserExists() {
+            setUpSignUpView()
+        }
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        profileImageChanged = false
     }
     
     override func didReceiveMemoryWarning() {
@@ -93,6 +114,9 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
                 calloutView.removeFromSuperview()
                 self.navigationController?.navigationBar.isHidden = false
             }
+            if let signUpView = self.signUpView {
+                signUpView.removeFromSuperview()
+            }
         }
     }
     
@@ -118,40 +142,9 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
             self.navigationController?.pushViewController(venueChatVC, animated: true)
         }
     }
-    
-    
-    //MARK: Helper Methods:
-    func instantiateViewController(_ viewControllerIdentifier: String) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let istantiatedVC = storyboard.instantiateViewController(withIdentifier: viewControllerIdentifier)
-        self.present(istantiatedVC, animated: true, completion: nil)
-    }
-    
-    func getCurrentUser() {
-        guard isCurrentUserLoggedIn() else {
-            FirebaseOperation().loginWithAnonymousUser()
-            return
-        }
-        getUserProfile()
-    }
-    
-    func getUserProfile() {
-        getUserProfileFromRealm {
-            (isRealmProfile) in
-            guard isRealmProfile == false else { return }
-            self.getUserProfileFromFirebase()
-        }
-    }
-    
+ 
     func getUserProfileFromRealm(_ completion: (Bool) -> Void) {
-        if let userID = FIRAuth.auth()?.currentUser?.uid {
-            let results = RLMDBManager().getCurrentUserFromRealm(userID)
-            guard results.isEmpty == false else {
-            completion(true)
-            return
-            }
-            CurrentUser.sharedInstance.setCurrentUserWithRealm(results: results)
-        }
+            rlmDBManager.getCurrentUserProfileFromRealm()
     }
     
     func getUserProfileFromFirebase() {
@@ -161,13 +154,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
             (result) in
             CurrentUser.sharedInstance.setCurrentUserWithFirebase(snapshot: result)
         }
-    }
-    
-    func isCurrentUserLoggedIn() -> Bool {
-        guard FIRAuth.auth()?.currentUser != nil else {
-            return false
-        }
-        return true
     }
 
     //MARK: Location Methods
@@ -199,16 +185,11 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
     }
 
     @IBAction func profileButtonSelected(_ sender: AnyObject) {
-        //This will change based on actually having an account profile.
-        guard FIRAuth.auth()?.currentUser == nil else {
-            do {
-                try FIRAuth.auth()?.signOut()
-            } catch {
-                print(error)
-            }
-            return
+        if CurrentUser.sharedInstance.userID != "" {
+            profileImageChanged = false
+            setUpSignUpView()
+            configureSignUpViewWithCurrentUserInfo()
         }
-        instantiateViewController("LogInNavController")
     }
     
     @IBAction func searchForPlaces(_ sender: AnyObject) {
@@ -223,7 +204,178 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GMS
             print("SENDER**: \(sender)")
         }
     }
+
+    //MARK: Camera Methods
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+            pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+            profileImageChanged = true
+            signUpView?.profileImageView.image = pickedImage
+            profileImage = pickedImage
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    //displays action sheet for the camera or photo gallery
+    func displayCameraActionSheet() {
+        let imagePicker = ImagePicker()
+        imagePicker.imagePicker.delegate = self
+        let actionsheet = UIAlertController(title: "Choose an option", message: nil, preferredStyle: .actionSheet)
+        let camera = UIAlertAction(title: "Camera", style: .default) { (action) in
+            imagePicker.configureImagePicker(.camera)
+            imagePicker.presentCameraSource(self)
+        }
+        let photoGallery = UIAlertAction(title: "Photo Gallery", style: .default) { (action) in
+            imagePicker.configureImagePicker(.photoLibrary)
+            imagePicker.presentCameraSource(self)
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        actionsheet.addAction(camera)
+        actionsheet.addAction(photoGallery)
+        actionsheet.addAction(cancel)
+        self.present(actionsheet, animated: true, completion: nil)
+    }
+
+    func currentUserExists() -> Bool {
+        rlmDBManager.getCurrentUserProfileFromRealm()
+        if CurrentUser.sharedInstance.userID != "" {
+            return true
+        } else {
+            return false
+        }
+    }
+}
+
+//MARK: SignUpViewDelegateExtension
+
+extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
+    func setUpSignUpView() {
+        let viewRectSize = CGRect(x: 5, y: self.view.frame.maxY / 3, width: self.view.frame.size.width - 10, height: self.view.frame.size.height / 3)
+        signUpView = SignUpView(frame: viewRectSize)
+        if let safeSignUpView = signUpView {
+            safeSignUpView.delegate = self
+            self.view.addSubview(safeSignUpView)
+            disableMapView()
+        }
+    }
+    
+    func configureSignUpViewWithCurrentUserInfo() {
+        self.signUpView?.usernameTextField.text = CurrentUser.sharedInstance.username
+        guard let profileImage = CurrentUser.sharedInstance.profileImage else {
+            signUpView?.profileImageView.image = #imageLiteral(resourceName: "default_user")
+            return
+        }
+        self.signUpView?.profileImageView.image = profileImage
+    }
+    
+    func disableMapView() {
+        self.navigationController?.navigationBar.isUserInteractionEnabled = false
+    }
+    
+    func photoSelected(sender: Any) {
+        displayCameraActionSheet()
+    }
+    
+    func createProfile(sender: Any) {
+        guard let username = signUpView?.usernameTextField.text else { return }
+        guard username.containsWhiteSpace() == false else {
+            Alert().displayGenericAlert("No White Spaces Allowed", message: "Please choose another name.", presentingViewController: self)
+            return
+        }
+    
+        guard username.characters.count >= 6 && username.characters.count <= 15 else {
+            Alert().displayGenericAlert("Whoops! Username is only \(username.characters.count) characters long.", message: "It needs to be 6-15 characters long.", presentingViewController: self)
+            return
+        }
+        
+        if let username = signUpView?.usernameTextField.text?.lowercased().replacingOccurrences(of: " ", with: "") {
+        isUsernameUnique(username: username, completion: { (isUnique) in
+            if isUnique {
+                let userID = self.generateUserID()
+                var newUserProfile = ["username" : username, "userID" : userID, "profileImageURL": ""]
+                if self.signUpView?.profileImageView.image != #imageLiteral(resourceName: "default_user") {
+                    CloudinaryOperation().uploadImageToCloudinary(self.profileImage!, delegate: self, completion: { (url) in
+                        newUserProfile["profileImageURL"] = url
+                        self.createFirebaseUserProfile(userProfile: newUserProfile)
+                        self.signUpView?.removeFromSuperview()
+                    })
+                } else {
+                    self.createFirebaseUserProfile(userProfile: newUserProfile)
+                    self.signUpView?.removeFromSuperview()
+                }
+            } else {
+                Alert().displayGenericAlert("Username Taken", message: "Please try a different one", presentingViewController: self)
+            }
+        })
+    }
+}
+    
+    func isUsernameUnique(username: String, completion: @escaping isUsernameUniqueHandler) {
+        FirebaseOperation().validateFirebaseChildUniqueness(child: "users", queryOrderedBy: "username", equaledTo: username) { (isUnique) in
+            if isUnique == true {
+                completion(true)
+            } else {
+                completion(false)
+            }
+        }
+    }
+
+    func createFirebaseUserProfile(userProfile: [String : String]) {
+        FirebaseOperation().createUserProfile(userProfile: userProfile) {
+            (snapshotKey) in
+            guard let safeSnapshotKey = snapshotKey else { return }
+            let realmUser = RLMUser().createUser(userProfile["username"]!, userID: userProfile["userID"]!, snapshotKey: safeSnapshotKey)
+            if userProfile["profileImageURL"] != "" {
+                if let safeProfileImage = profileImage {
+                    let resizedImage = safeProfileImage.resizedImage(CGSize(width: safeProfileImage.size.width / 4, height: safeProfileImage.size.height / 4))
+                    if let data = UIImagePNGRepresentation(resizedImage) {
+                        realmUser.setRLMUserProfileImageAndURL(userProfile["profileImageURL"]!, image: data)
+                        writeRealmUser(user: realmUser)
+                    }
+                }
+            } else {
+                writeRealmUser(user: realmUser)
+            }
+        }
+    }
+    
+    func generateUserID() -> String {
+        if CurrentUser.sharedInstance.userID != "" {
+            return CurrentUser.sharedInstance.userID
+        } else {
+            return UUID().uuidString
+        }
+    }
+    
+    func writeRealmUser(user: RLMUser) {
+        rlmDBManager.updateObject(user)
+        rlmDBManager.getCurrentUserProfileFromRealm()
+    }
+    
+    //SignUpView+Keyboard Animation Helper Methods
+    func setUpKeyboardNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowNotification), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideNotification), name: .UIKeyboardWillHide, object: nil)
+    }
+    
+    func keyboardWillShowNotification(notification: NSNotification) {
+        var newYPosition: CGFloat?
+        if let navigationBarHeight = self.navigationController?.navigationBar.frame.size.height {
+            newYPosition = self.view.frame.minY + navigationBarHeight + 50
+        }
+        UIView.animate(withDuration: keyboardAnimationDuration, delay: 0.0, options: [.curveEaseIn], animations: {
+            if let yPosition = newYPosition {
+                self.signUpView?.frame.origin.y = yPosition
+            }
+        }, completion: nil)
+    }
+    
+    func keyboardWillHideNotification() {
+        let originalYPosition = self.view.frame.maxY / 3
+        UIView.animate(withDuration: keyboardAnimationDuration, delay: 0.0, options: [.curveEaseIn], animations: {
+            self.signUpView?.frame.origin.y = originalYPosition
+        }, completion: nil)
+    }
+
 }
 
 
