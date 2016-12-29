@@ -29,6 +29,7 @@ class SignUpView: UIView {
         
         Bundle.main.loadNibNamed("SignUpView", owner: self, options: nil)
         view.frame = self.bounds
+        
         self.addSubview(view)
     }
     

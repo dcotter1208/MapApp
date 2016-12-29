@@ -21,6 +21,8 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
     @IBOutlet weak var googleMapView: GMSMapView!
     @IBOutlet var mapTapGesture: UITapGestureRecognizer!
     
+    typealias isUsernameUniqueHandler = (Bool) -> Void
+    
     fileprivate var resultSearchController:UISearchController? = nil
     fileprivate var searchedLocation:MKPlacemark? = nil
     fileprivate var locationManager: CLLocationManager?
@@ -34,6 +36,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
     fileprivate var pickedImage: UIImage?
     fileprivate var rlmDBManager = RLMDBManager()
     fileprivate let keyboardAnimationDuration = 0.25
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -273,23 +276,49 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
     }
     
     func createProfile(sender: Any) {
-        if let username = signUpView?.usernameTextField.text {
-            let userID = generateUserID()
-            var newUserProfile = ["username" : username, "userID" : userID, "profileImageURL": ""]
-            if signUpView?.profileImageView.image != #imageLiteral(resourceName: "default_user") {
-                CloudinaryOperation().uploadImageToCloudinary(profileImage!, delegate: self, completion: { (url) in
-                    newUserProfile["profileImageURL"] = url
+        guard let username = signUpView?.usernameTextField.text else { return }
+        guard username.containsWhiteSpace() == false else {
+            Alert().displayGenericAlert("No White Spaces Allowed", message: "Please choose another name.", presentingViewController: self)
+            return
+        }
+    
+        guard username.characters.count >= 6 && username.characters.count <= 15 else {
+            Alert().displayGenericAlert("Whoops! Username is only \(username.characters.count) characters long.", message: "It needs to be 6-15 characters long.", presentingViewController: self)
+            return
+        }
+        
+        if let username = signUpView?.usernameTextField.text?.lowercased().replacingOccurrences(of: " ", with: "") {
+        isUsernameUnique(username: username, completion: { (isUnique) in
+            if isUnique {
+                let userID = self.generateUserID()
+                var newUserProfile = ["username" : username, "userID" : userID, "profileImageURL": ""]
+                if self.signUpView?.profileImageView.image != #imageLiteral(resourceName: "default_user") {
+                    CloudinaryOperation().uploadImageToCloudinary(self.profileImage!, delegate: self, completion: { (url) in
+                        newUserProfile["profileImageURL"] = url
+                        self.createFirebaseUserProfile(userProfile: newUserProfile)
+                        self.signUpView?.removeFromSuperview()
+                    })
+                } else {
                     self.createFirebaseUserProfile(userProfile: newUserProfile)
                     self.signUpView?.removeFromSuperview()
-                })
+                }
             } else {
-                self.createFirebaseUserProfile(userProfile: newUserProfile)
-                self.signUpView?.removeFromSuperview()
+                Alert().displayGenericAlert("Username Taken", message: "Please try a different one", presentingViewController: self)
             }
+        })
     }
-     
 }
     
+    func isUsernameUnique(username: String, completion: @escaping isUsernameUniqueHandler) {
+        FirebaseOperation().validateFirebaseChildUniqueness(child: "users", queryOrderedBy: "username", equaledTo: username) { (isUnique) in
+            if isUnique == true {
+                completion(true)
+            } else {
+                completion(false)
+            }
+        }
+    }
+
     func createFirebaseUserProfile(userProfile: [String : String]) {
         FirebaseOperation().createUserProfile(userProfile: userProfile) {
             (snapshotKey) in

@@ -97,6 +97,49 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
             }
         }
     }
+    
+    //Validates if the venue exists on Firebase.
+    func validateFirebaseChildUniqueness(child: String, queryOrderedBy: String, equaledTo: String, completion: @escaping SnapshotExistsResult) {
+        let query = firebaseDatabaseRef.ref.child(child).queryOrdered(byChild: queryOrderedBy).queryEqual(toValue: equaledTo)
+        queryChildWithConstraints(query, firebaseDataEventType: .value, observeSingleEventType: true) { (snapshot) in
+            if snapshot.exists() {
+            let username = self.getSnapshotChildValueForKey(snapshot: snapshot, key: "username")
+                if let existingUsername = username {
+                    if self.lowerCaseStringsMatch(string1: existingUsername, string2: equaledTo) {
+                        completion(false)
+                    } else {
+                        completion(true)
+                    }
+                }
+            } else {
+                completion(true)
+            }
+        }
+    }
+    
+    func ss () {
+        let query = firebaseDatabaseRef.ref.child("").queryOrdered(byChild: "").queryEqual(toValue: "")
+    }
+    
+    func getSnapshotChildValueForKey(snapshot: FIRDataSnapshot, key: String) -> String? {
+        var value = ""
+        for childSnap in snapshot.children {
+            let snap = childSnap as! FIRDataSnapshot
+            if let snapshotValue = snapshot.value as? NSDictionary, let snapVal = snapshotValue[snap.key] as? NSDictionary {
+                value = snapVal[key] as! String
+                return value
+            }
+        }
+        return nil
+    }
+    
+    func lowerCaseStringsMatch (string1: String, string2: String) -> Bool {
+        if string1.lowercased() == string2.lowercased() {
+            return true
+        } else {
+            return false
+        }
+    }
 
     //MARK: Login & Signup Methods
     
@@ -124,7 +167,7 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
         for child in snapshotDict {
             let snapChildDict = child.value as! NSDictionary
             let rlmUser = RLMUser()
-            guard let email = user.email, let name = snapChildDict["name"] as? String, let location =  snapChildDict["location"] as? String else {return}
+            guard let name = snapChildDict["name"] as? String else {return}
 
             rlmUser.createUser(name, userID: user.uid, snapshotKey: snapshot.key)
 
