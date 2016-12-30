@@ -35,12 +35,11 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
     fileprivate var calloutView: CalloutView?
     fileprivate var signUpView: SignUpView?
     fileprivate var venueIDForSelectedMarker = ""
-    fileprivate var profileImageChanged = false
-    fileprivate var profileImage: UIImage?
-    fileprivate var pickedImage: UIImage?
     fileprivate var rlmDBManager = RLMDBManager()
     fileprivate let keyboardAnimationDuration = 0.25
     fileprivate var updateProfile = false
+    fileprivate var profileImageChanged = false
+    fileprivate var profileImage: UIImage?
     fileprivate var imageSourceType = UIImagePickerControllerSourceType.camera
     fileprivate let imagePicker = ImagePicker()
     
@@ -377,7 +376,10 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
     @IBAction func unwindToMapVC(segue: UIStoryboardSegue) {
         if segue.source.isKind(of: ImageEditorVC.self) {
             if let imageEditorVC = segue.source as? ImageEditorVC {
-                self.signUpView?.profileImageView.image = imageEditorVC.croppedImage
+                let croppedImage = imageEditorVC.croppedImage
+                self.signUpView?.profileImageView.image = croppedImage
+                profileImageChanged = true
+                profileImage = croppedImage
             }
         }
     }
