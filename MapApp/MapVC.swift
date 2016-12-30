@@ -17,11 +17,15 @@ import RealmSwift
 import Alamofire
 
 class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, GMSMapViewDelegate, CustomCalloutActionDelegate {
+    
+    //MARK: **IBOutlets**
     @IBOutlet weak var mapStyleBarButton: UIBarButtonItem!
     @IBOutlet weak var googleMapView: GMSMapView!
     @IBOutlet var mapTapGesture: UITapGestureRecognizer!
     
     typealias isUsernameUniqueHandler = (Bool) -> Void
+    
+    //MARK: **Private properties**
     
     fileprivate var resultSearchController:UISearchController? = nil
     fileprivate var searchedLocation:MKPlacemark? = nil
@@ -37,7 +41,10 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
     fileprivate var rlmDBManager = RLMDBManager()
     fileprivate let keyboardAnimationDuration = 0.25
     fileprivate var updateProfile = false
-
+    fileprivate var imageSourceType = UIImagePickerControllerSourceType.camera
+    fileprivate let imagePicker = ImagePicker()
+    
+    //MARK: **Life Cycle**
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +69,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
         // Dispose of any resources that can be recreated.
     }
     
-    //MARK: Google Maps Methods
+    //MARK: **Google Maps Methods**
     func setupGoogleMaps() {
         userLocation = getUserLocation()
         guard let userLocation = userLocation else { return }
@@ -157,7 +164,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
         }
     }
 
-    //MARK: Location Methods
+    //MARK: **Location Methods**
     func getUserLocation() -> CLLocation? {
         locationManager = CLLocationManager()
         guard let manager = locationManager else { return nil }
@@ -207,35 +214,53 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
         }
     }
 
-    //MARK: Camera Methods
+    //MARK: **Camera Methods**
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
             pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
             profileImageChanged = true
             updateProfile = true
-            signUpView?.profileImageView.image = pickedImage
             profileImage = pickedImage
-        self.dismiss(animated: true, completion: nil)
+//            self.imagePicker.imagePicker.navigationController?.pushViewController(vc!, animated: true)
+//            self.dismiss(animated: true, completion: nil)
+        
     }
     
     //displays action sheet for the camera or photo gallery
     func displayCameraActionSheet() {
         let imagePicker = ImagePicker()
         imagePicker.imagePicker.delegate = self
+
         let actionsheet = UIAlertController(title: "Choose an option", message: nil, preferredStyle: .actionSheet)
         let camera = UIAlertAction(title: "Camera", style: .default) { (action) in
-            imagePicker.configureImagePicker(.camera)
-            imagePicker.presentCameraSource(self)
+            self.presentCamera()
+//            self.presentImageEditorVC()
         }
         let photoGallery = UIAlertAction(title: "Photo Gallery", style: .default) { (action) in
             imagePicker.configureImagePicker(.photoLibrary)
             imagePicker.presentCameraSource(self)
+            self.presentPhotoLibrary()
+//            self.presentImageEditorVC()
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         actionsheet.addAction(camera)
         actionsheet.addAction(photoGallery)
         actionsheet.addAction(cancel)
         self.present(actionsheet, animated: true, completion: nil)
+    }
+    
+    func presentCamera() {
+        imagePicker.configureImagePicker(.camera)
+        imagePicker.presentCameraSource(self)
+    }
+    
+    func presentPhotoLibrary() {
+        imagePicker.configureImagePicker(.photoLibrary)
+        imagePicker.presentCameraSource(self)
+    }
+    
+    func presentImageEditorVC() {
+        self.performSegue(withIdentifier: "showImageEditorVC", sender: self)
     }
 
     func currentUserExists() -> Bool {
@@ -248,7 +273,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
     }
 }
 
-//MARK: SignUpViewDelegateExtension
+//MARK: **SignUpViewDelegate Extension**
 
 extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
     func setUpSignUpView() {
@@ -275,7 +300,7 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
     }
     
     func photoSelected(sender: Any) {
-        displayCameraActionSheet()
+        presentImageEditorVC()
     }
     
     func createProfile(sender: Any) {
@@ -333,8 +358,6 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
         }
     }
 
-    
-    //CALLS ADD OR UPDATE FIREBASE OP...WHICH WILL WRITE TO REALM.
     func addOrUpdateUserProfile(userProfile: [String : AnyObject]) {
         FirebaseOperation().addOrUpdateUserProfile(userProfile: userProfile) {
                 (snapshotKey) in
@@ -388,11 +411,19 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
             self.signUpView?.frame.origin.y = originalYPosition
         }, completion: nil)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showImageEditorVC" {
+            if let imageEditorVC = segue.destination as? ImageEditorVC {
+                imageEditorVC.imageSourceType = imageSourceType
+            }
+        }
+    }
 
 }
 
 
-//MARK: Extension For CollectionView
+//MARK: **Extension For CollectionView**
 extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutocompleteViewControllerDelegate {
     
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
