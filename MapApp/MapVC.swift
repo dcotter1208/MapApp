@@ -213,52 +213,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
             print("SENDER**: \(sender)")
         }
     }
-
-    //MARK: **Camera Methods**
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-            pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
-            profileImageChanged = true
-            updateProfile = true
-            profileImage = pickedImage
-//            self.imagePicker.imagePicker.navigationController?.pushViewController(vc!, animated: true)
-//            self.dismiss(animated: true, completion: nil)
-        
-    }
-    
-    //displays action sheet for the camera or photo gallery
-    func displayCameraActionSheet() {
-        let imagePicker = ImagePicker()
-        imagePicker.imagePicker.delegate = self
-
-        let actionsheet = UIAlertController(title: "Choose an option", message: nil, preferredStyle: .actionSheet)
-        let camera = UIAlertAction(title: "Camera", style: .default) { (action) in
-            self.presentCamera()
-//            self.presentImageEditorVC()
-        }
-        let photoGallery = UIAlertAction(title: "Photo Gallery", style: .default) { (action) in
-            imagePicker.configureImagePicker(.photoLibrary)
-            imagePicker.presentCameraSource(self)
-            self.presentPhotoLibrary()
-//            self.presentImageEditorVC()
-        }
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        actionsheet.addAction(camera)
-        actionsheet.addAction(photoGallery)
-        actionsheet.addAction(cancel)
-        self.present(actionsheet, animated: true, completion: nil)
-    }
-    
-    func presentCamera() {
-        imagePicker.configureImagePicker(.camera)
-        imagePicker.presentCameraSource(self)
-    }
-    
-    func presentPhotoLibrary() {
-        imagePicker.configureImagePicker(.photoLibrary)
-        imagePicker.presentCameraSource(self)
-    }
-    
     func presentImageEditorVC() {
         self.performSegue(withIdentifier: "showImageEditorVC", sender: self)
     }
