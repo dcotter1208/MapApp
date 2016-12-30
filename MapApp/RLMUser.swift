@@ -20,12 +20,32 @@ class RLMUser: Object {
         return "userID"
     }
     
-    func createUser(_ username: String, userID: String, snapshotKey: String) -> RLMUser {
-        self.username = username
-        self.userID = userID
-        self.snapshotKey = snapshotKey
-        return self
+    func createUser(userProfile: [String : AnyObject]) -> RLMUser? {
+        if let username = userProfile["username"] as? String, let userID = userProfile["userID"] as? String, let snapshotKey = userProfile["snapshotKey"] as? String {
+            self.username = username
+            self.userID = userID
+            self.snapshotKey = snapshotKey
+            
+            if let url = userProfile["profileImageURL"] as? String {
+                self.profileImageURL = url
+                if let image = userProfile["profileImage"] as? UIImage {
+                    let data = image.convertToData()
+                    self.profileImage = data
+                }
+            }
+            
+            return self
+        } else {
+            return nil
+        }
     }
+    
+//    func createUser(_ username: String, userID: String, snapshotKey: String) -> RLMUser {
+//        self.username = username
+//        self.userID = userID
+//        self.snapshotKey = snapshotKey
+//        return self
+//    }
     
     func setRLMUserProfileImageAndURL(_ URL: String, image: Data) {
         self.profileImageURL = URL
