@@ -18,14 +18,6 @@ enum ImageFilter: String {
     case instant = "CIPhotoEffectInstant"
     case fade = "CIPhotoEffectFade"
     case transfer = "CIPhotoEffectTransfer"
-//    case beauty = "CIColorCubeWithColorSpace"
-//    case heat = "CIColorMap"
-//    case feelinBlue = "CIColorMonochrome"
-//    case blur = "CIGaussianBlur"
-//    case cali = "CIColorClamp"
-//    case bright = "CIColorMatrix"
-//    case mellow = "CITemperatureAndTint"
-    
 }
 
 extension UIImage {
@@ -65,5 +57,13 @@ extension UIImage {
         return .landscape
     }
 
+    
+    func convertToData() -> Data? {
+        let resizedImage = self.resizedImage(CGSize(width: self.size.width / 4, height: self.size.height / 4))
+        if let data = UIImagePNGRepresentation(resizedImage) {
+            return data
+        }
+        return nil
+    }
 
 }

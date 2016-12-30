@@ -15,6 +15,7 @@ protocol SignUpViewDelegate {
 
 class SignUpView: UIView {
     
+    @IBOutlet weak var createProfileButton: UIButton!
     @IBOutlet var view: UIView!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var usernameTextField: UITextField!
@@ -29,6 +30,7 @@ class SignUpView: UIView {
         
         Bundle.main.loadNibNamed("SignUpView", owner: self, options: nil)
         view.frame = self.bounds
+        setButtonTitle()
         
         self.addSubview(view)
     }
@@ -38,14 +40,12 @@ class SignUpView: UIView {
     }
     
     //MARK: Helper Methods
-    fileprivate func removeWhiteSpace(_ string:String?, removeAllWhiteSpace:Bool) -> String {
-        guard let string = string else {return "nil"}
-        guard removeAllWhiteSpace == false else {
-            let newString = string.trimmingCharacters(in: CharacterSet.whitespaces).replacingOccurrences(of: " ", with: "")
-            return newString
+    fileprivate func setButtonTitle() {
+        if CurrentUser.sharedInstance.userID != "" {
+            createProfileButton.setTitle("Update Profile", for: .normal)
+        } else {
+            createProfileButton.setTitle("Create Profile", for: .normal)
         }
-        let newString = string.trimmingCharacters(in: CharacterSet.whitespaces)
-        return newString
     }
     
     @IBAction func createProfilePressed(_ sender: Any) {

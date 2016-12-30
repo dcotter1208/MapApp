@@ -36,6 +36,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
     fileprivate var pickedImage: UIImage?
     fileprivate var rlmDBManager = RLMDBManager()
     fileprivate let keyboardAnimationDuration = 0.25
+    fileprivate var updateProfile = false
 
     
     override func viewDidLoad() {
@@ -189,6 +190,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
             profileImageChanged = false
             setUpSignUpView()
             configureSignUpViewWithCurrentUserInfo()
+            updateProfile = true
         }
     }
     
@@ -210,6 +212,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
             pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
             profileImageChanged = true
+            updateProfile = true
             signUpView?.profileImageView.image = pickedImage
             profileImage = pickedImage
         self.dismiss(animated: true, completion: nil)
@@ -277,11 +280,11 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
     
     func createProfile(sender: Any) {
         guard let username = signUpView?.usernameTextField.text else { return }
+        
         guard username.containsWhiteSpace() == false else {
             Alert().displayGenericAlert("No White Spaces Allowed", message: "Please choose another name.", presentingViewController: self)
             return
         }
-    
         guard username.characters.count >= 6 && username.characters.count <= 15 else {
             Alert().displayGenericAlert("Whoops! Username is only \(username.characters.count) characters long.", message: "It needs to be 6-15 characters long.", presentingViewController: self)
             return
@@ -290,16 +293,27 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
         if let username = signUpView?.usernameTextField.text?.lowercased().replacingOccurrences(of: " ", with: "") {
         isUsernameUnique(username: username, completion: { (isUnique) in
             if isUnique {
+                //Generates a UserID
                 let userID = self.generateUserID()
-                var newUserProfile = ["username" : username, "userID" : userID, "profileImageURL": ""]
+                //Creates a user profile
+                var newUserProfile: [String: AnyObject] = ["username" : username as String as AnyObject, "userID" : userID as AnyObject, "profileImageURL": "" as AnyObject]
                 if self.signUpView?.profileImageView.image != #imageLiteral(resourceName: "default_user") {
-                    CloudinaryOperation().uploadImageToCloudinary(self.profileImage!, delegate: self, completion: { (url) in
-                        newUserProfile["profileImageURL"] = url
-                        self.createFirebaseUserProfile(userProfile: newUserProfile)
+                    if self.profileImageChanged == true {
+                        if let profileImage = self.profileImage {
+                            CloudinaryOperation().uploadImageToCloudinary(profileImage, delegate: self, completion: { (url) in
+                                newUserProfile["profileImageURL"] = url as AnyObject
+                                newUserProfile.updateValue(profileImage as AnyObject, forKey: "profileImage")
+                                self.addOrUpdateUserProfile(userProfile: newUserProfile)
+                                self.signUpView?.removeFromSuperview()
+                            })
+                        }
+                    } else {
+                        newUserProfile.updateValue(CurrentUser.sharedInstance.profileImage as AnyObject, forKey: "profileImage")
+                        self.addOrUpdateUserProfile(userProfile: newUserProfile)
                         self.signUpView?.removeFromSuperview()
-                    })
+                    }
                 } else {
-                    self.createFirebaseUserProfile(userProfile: newUserProfile)
+                    self.addOrUpdateUserProfile(userProfile: newUserProfile)
                     self.signUpView?.removeFromSuperview()
                 }
             } else {
@@ -311,7 +325,7 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
     
     func isUsernameUnique(username: String, completion: @escaping isUsernameUniqueHandler) {
         FirebaseOperation().validateFirebaseChildUniqueness(child: "users", queryOrderedBy: "username", equaledTo: username) { (isUnique) in
-            if isUnique == true {
+            if isUnique == true || CurrentUser.sharedInstance.username == username {
                 completion(true)
             } else {
                 completion(false)
@@ -319,22 +333,21 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
         }
     }
 
-    func createFirebaseUserProfile(userProfile: [String : String]) {
-        FirebaseOperation().createUserProfile(userProfile: userProfile) {
-            (snapshotKey) in
-            guard let safeSnapshotKey = snapshotKey else { return }
-            let realmUser = RLMUser().createUser(userProfile["username"]!, userID: userProfile["userID"]!, snapshotKey: safeSnapshotKey)
-            if userProfile["profileImageURL"] != "" {
-                if let safeProfileImage = profileImage {
-                    let resizedImage = safeProfileImage.resizedImage(CGSize(width: safeProfileImage.size.width / 4, height: safeProfileImage.size.height / 4))
-                    if let data = UIImagePNGRepresentation(resizedImage) {
-                        realmUser.setRLMUserProfileImageAndURL(userProfile["profileImageURL"]!, image: data)
-                        writeRealmUser(user: realmUser)
-                    }
-                }
-            } else {
-                writeRealmUser(user: realmUser)
+    
+    //CALLS ADD OR UPDATE FIREBASE OP...WHICH WILL WRITE TO REALM.
+    func addOrUpdateUserProfile(userProfile: [String : AnyObject]) {
+        FirebaseOperation().addOrUpdateUserProfile(userProfile: userProfile) {
+                (snapshotKey) in
+            var newUserProfileWithSnapshotKey = userProfile
+            newUserProfileWithSnapshotKey.updateValue(snapshotKey as AnyObject, forKey: "snapshotKey")
+            let rlmUser = RLMUser().createUser(userProfile: newUserProfileWithSnapshotKey)
+            RLMDBManager().updateObject(rlmUser!)
             }
+    }
+    
+    func updateProfileInFirebase(userProfile: [String : String]) {
+        if let snapshotKey = userProfile["snapshotKey"] {
+        FirebaseOperation().updateChildValue(child: "users", childKey: snapshotKey, nodeToUpdate: userProfile as [String : AnyObject])
         }
     }
     

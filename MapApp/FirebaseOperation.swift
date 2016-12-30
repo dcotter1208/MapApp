@@ -14,7 +14,12 @@ import FirebaseDatabase
 import Firebase
 import FirebaseAuth
 
-typealias SnapshotKey = (String?) -> Void
+enum AddOrUpdate: String {
+    case add
+    case update
+}
+
+typealias SnapshotKeyHandler = (String?) -> Void
 typealias SignUpResult = (NSError?) -> Void
 typealias LogInResult = (CurrentUser?, NSError?) -> Void
 typealias CurrentUserResult = (CurrentUser) -> Void
@@ -31,10 +36,42 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
     }
     
     //Creates a user profile on Firebase.
-    func createUserProfile(userProfile: [String: String], completion: SnapshotKey) {
+    func createUserProfile(userProfile: [String: String], completion: SnapshotKeyHandler) {
         let usersRef = firebaseDatabaseRef.ref.child("users").childByAutoId()
         usersRef.setValue(userProfile)
         completion(getSnapshotKeyFromRef(firebaseChildRef: usersRef))
+    }
+    
+    func addOrUpdateUserProfile(userProfile: [String: AnyObject], completion: SnapshotKeyHandler) {
+        var snapshotKey = ""
+        var addOrUpdate: AddOrUpdate = .add
+        if CurrentUser.sharedInstance.snapshotKey != "" {
+            snapshotKey = CurrentUser.sharedInstance.snapshotKey
+            addOrUpdate = .update
+        }
+        
+        switch addOrUpdate {
+        case .add:
+            var firebaseProfile = userProfile
+            firebaseProfile.removeValue(forKey: "profileImage")
+            let usersRef = firebaseDatabaseRef.ref.child("users").childByAutoId()
+            usersRef.setValue(firebaseProfile)
+            completion(getSnapshotKeyFromRef(firebaseChildRef: usersRef))
+        case .update:
+            var firebaseProfile = userProfile
+            firebaseProfile.removeValue(forKey: "profileImage")
+            self.updateChildValue(child: "users", childKey: snapshotKey, nodeToUpdate: firebaseProfile as [String : AnyObject])
+            var newUserProfile = userProfile
+            newUserProfile.updateValue(snapshotKey as AnyObject, forKey: "snapshotKey")
+            let rlmUser = RLMUser().createUser(userProfile: newUserProfile)
+                RLMDBManager().updateObject(rlmUser!)
+        }
+    }
+
+    fileprivate func writeToRealm(userProfile: [String : AnyObject]) {
+        if let realmUser = RLMUser().createUser(userProfile: userProfile) {
+            RLMDBManager().writeObject(realmUser)
+        }
     }
     
     //Creates a new value for a specified child
@@ -157,15 +194,18 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
      and then writes the user profile to realm.
 */
   
+    //WILL DELETE "WRITECURRENTUSERTOREALM"
+    
     //Used to write the current user's profile to realm when it is obtained from Firebase.
     fileprivate func writeCurrentUserToRealm(user: FIRUser, snapshot:FIRDataSnapshot) {
         let snapshotDict = snapshot.value as! NSDictionary
         for child in snapshotDict {
             let snapChildDict = child.value as! NSDictionary
             let rlmUser = RLMUser()
-            guard let name = snapChildDict["name"] as? String else {return}
+            guard let name = snapChildDict["username"] as? String else {return}
 
-            rlmUser.createUser(name, userID: user.uid, snapshotKey: snapshot.key)
+//            let userProfile = ["username" : name, "userID" : user.uid]
+//            rlmUser.createUser(name, userID: user.uid, snapshotKey: snapshot.key)
 
             guard snapChildDict["profileImageURL"] as! String != "" else {
                 rlmUser.profileImageURL = snapChildDict["profileImageURL"] as! String
@@ -222,7 +262,7 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
             self.createUserProfile(userProfile: userProfile, completion: {
                 (snapshotKey) in
                 let rlmUser = RLMUser()
-                rlmUser.createUser(name, userID: user!.uid, snapshotKey: snapshotKey!)
+//                rlmUser.createUser(name, userID: user!.uid, snapshotKey: snapshotKey!)
                 RLMDBManager().writeObject(rlmUser)
                 CurrentUser.sharedInstance.setCurrentUserProperties(name, imageURL: "", userID: user!.uid, snapshotKey: snapshotKey!)
                 completion(nil)
@@ -234,7 +274,7 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
                     self.createUserProfile(userProfile: userProfile, completion: {
                         (snapshotKey) in
                         let rlmUser = RLMUser()
-                        rlmUser.createUser(name, userID: user!.uid, snapshotKey: snapshotKey!)
+//                        rlmUser.createUser(name, userID: user!.uid, snapshotKey: snapshotKey!)
                         rlmUser.setRLMUserProfileImageAndURL(photoURL, image: UIImageJPEGRepresentation(profileImage!, 1.0)!)
                         RLMDBManager().writeObject(rlmUser)
                         CurrentUser.sharedInstance.setCurrentUserProperties(name, imageURL: photoURL, userID: user!.uid, snapshotKey: snapshotKey!)
