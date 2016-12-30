@@ -295,7 +295,6 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
             if isUnique {
                 //Generates a UserID
                 let userID = self.generateUserID()
-                
                 //Creates a user profile
                 var newUserProfile: [String: AnyObject] = ["username" : username as String as AnyObject, "userID" : userID as AnyObject, "profileImageURL": "" as AnyObject]
                 if self.signUpView?.profileImageView.image != #imageLiteral(resourceName: "default_user") {
@@ -326,7 +325,7 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
     
     func isUsernameUnique(username: String, completion: @escaping isUsernameUniqueHandler) {
         FirebaseOperation().validateFirebaseChildUniqueness(child: "users", queryOrderedBy: "username", equaledTo: username) { (isUnique) in
-            if isUnique == true {
+            if isUnique == true || CurrentUser.sharedInstance.username == username {
                 completion(true)
             } else {
                 completion(false)
@@ -337,53 +336,14 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
     
     //CALLS ADD OR UPDATE FIREBASE OP...WHICH WILL WRITE TO REALM.
     func addOrUpdateUserProfile(userProfile: [String : AnyObject]) {
-
         FirebaseOperation().addOrUpdateUserProfile(userProfile: userProfile) {
                 (snapshotKey) in
-
-        }
-    }
-    
-    
-    func createProfileTEST(userProfile: [String : AnyObject], addOrUpdate: AddOrUpdate, snapshotKey: String?) {
-            guard let safeSnapshotKey = snapshotKey else { return }
-//            userProfile["snapshotKey"] = safeSnapshotKey
-//            let realmUser = RLMUser().createUser(userProfile: userProfile)
-            if userProfile["profileImageURL"] as? String != "" {
-//                if let safeProfileImage = profileImage {
-//                    let resizedImage = safeProfileImage.resizedImage(CGSize(width: safeProfileImage.size.width / 4, height: safeProfileImage.size.height / 4))
-//                    if let data = UIImagePNGRepresentation(resizedImage) {
-//                        realmUser?.setRLMUserProfileImageAndURL(userProfile["profileImageURL"]!, image: data)
-//                        if let realmUser = realmUser {
-//                            writeRealmUser(user: realmUser)
-//                        }
-//                    }
-//                }
-            } else {
-//                writeRealmUser(user: realmUser)
+            var newUserProfileWithSnapshotKey = userProfile
+            newUserProfileWithSnapshotKey.updateValue(snapshotKey as AnyObject, forKey: "snapshotKey")
+            let rlmUser = RLMUser().createUser(userProfile: newUserProfileWithSnapshotKey)
+            RLMDBManager().updateObject(rlmUser!)
             }
-        
     }
-
-    
-//    func createProfile(userProfile: [String : String]) {
-//        FirebaseOperation().createUserProfile(userProfile: userProfile) {
-//            (snapshotKey) in
-//            guard let safeSnapshotKey = snapshotKey else { return }
-//            let realmUser = RLMUser().createUser(userProfile["username"]!, userID: userProfile["userID"]!, snapshotKey: safeSnapshotKey)
-//            if userProfile["profileImageURL"] != "" {
-//                if let safeProfileImage = profileImage {
-//                    let resizedImage = safeProfileImage.resizedImage(CGSize(width: safeProfileImage.size.width / 4, height: safeProfileImage.size.height / 4))
-//                    if let data = UIImagePNGRepresentation(resizedImage) {
-//                        realmUser.setRLMUserProfileImageAndURL(userProfile["profileImageURL"]!, image: data)
-//                        writeRealmUser(user: realmUser)
-//                    }
-//                }
-//            } else {
-//                writeRealmUser(user: realmUser)
-//            }
-//        }
-//    }
     
     func updateProfileInFirebase(userProfile: [String : String]) {
         if let snapshotKey = userProfile["snapshotKey"] {

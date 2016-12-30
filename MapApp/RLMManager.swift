@@ -37,6 +37,7 @@ struct RLMDBManager {
     func updateObject(_ object:Object) {
         realm?.beginWrite()
         realm?.add(object, update: true)
+        self.getCurrentUserProfileFromRealm()
         do {
             try realm?.commitWrite()
         } catch let error as NSError {

@@ -52,8 +52,10 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
         
         switch addOrUpdate {
         case .add:
+            var firebaseProfile = userProfile
+            firebaseProfile.removeValue(forKey: "profileImage")
             let usersRef = firebaseDatabaseRef.ref.child("users").childByAutoId()
-            usersRef.setValue(userProfile)
+            usersRef.setValue(firebaseProfile)
             completion(getSnapshotKeyFromRef(firebaseChildRef: usersRef))
         case .update:
             var firebaseProfile = userProfile
@@ -64,8 +66,6 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
             let rlmUser = RLMUser().createUser(userProfile: newUserProfile)
                 RLMDBManager().updateObject(rlmUser!)
         }
-        
-
     }
 
     fileprivate func writeToRealm(userProfile: [String : AnyObject]) {
