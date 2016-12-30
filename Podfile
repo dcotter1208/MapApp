@@ -17,6 +17,7 @@ pod 'Alamofire', '~> 4.0'
 pod 'AlamofireImage', '~> 3.0'
 pod ‘Realm’
 pod 'RealmSwift', '~> 1.1'
+pod 'TOCropViewController'
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|

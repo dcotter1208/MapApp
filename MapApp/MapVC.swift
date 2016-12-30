@@ -373,6 +373,14 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
             }
         }
     }
+    
+    @IBAction func unwindToMapVC(segue: UIStoryboardSegue) {
+        if segue.source.isKind(of: ImageEditorVC.self) {
+            if let imageEditorVC = segue.source as? ImageEditorVC {
+                self.signUpView?.profileImageView.image = imageEditorVC.croppedImage
+            }
+        }
+    }
 
 }
 

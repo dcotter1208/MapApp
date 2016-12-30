@@ -7,14 +7,16 @@
 //
 
 import UIKit
+import TOCropViewController
 
-class ImageEditorVC: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class ImageEditorVC: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, TOCropViewControllerDelegate {
     @IBOutlet weak var profileImageView: UIImageView!
 
     var imageSourceType: UIImagePickerControllerSourceType?
     let imagePicker = ImagePicker()
     fileprivate var profileImage: UIImage?
-    fileprivate var pickedImage: UIImage?
+    var pickedImage: UIImage?
+    var croppedImage: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,9 +54,13 @@ class ImageEditorVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
         profileImage = pickedImage
-        if let image = profileImage {
-        self.profileImageView.image = image
-        }
+        self.dismiss(animated: true, completion: nil)
+        presentCropViewController()
+    }
+    
+    func cropViewController(_ cropViewController: TOCropViewController, didCropToCircularImage image: UIImage, with cropRect: CGRect, angle: Int) {
+        croppedImage = image
+        self.profileImageView.image = croppedImage
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -62,6 +68,12 @@ class ImageEditorVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         self.dismiss(animated: true) { 
             Alert.presentMediaActionSheet(presentingViewController: self, imagePicker: self.imagePicker.imagePicker)
         }
+    }
+    func presentCropViewController() {
+        let image = pickedImage
+        let cropViewController = TOCropViewController(croppingStyle: .circular, image: image!)
+        cropViewController.delegate = self
+        self.present(cropViewController, animated: true, completion: nil)
     }
 
     //displays action sheet for the camera or photo gallery
@@ -87,11 +99,15 @@ class ImageEditorVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     }
 
     @IBAction func saveImage(_ sender: Any) {
-        
+        self.dismiss(animated: true, completion: nil)
     }
 
     @IBAction func cancel(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func imageTapped(_ sender: Any) {
+        Alert.presentMediaActionSheet(presentingViewController: self, imagePicker: imagePicker.imagePicker)
     }
     
 }
