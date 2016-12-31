@@ -44,6 +44,8 @@ class CurrentUserMessageCell: UITableViewCell, MessageCellProtocol {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        self.profileImageView.image = nil
+
         self.messageTextView.text = nil
         self.messageTextView.sizeToFit()
     }

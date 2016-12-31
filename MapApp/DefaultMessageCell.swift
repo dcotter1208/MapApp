@@ -24,6 +24,12 @@ class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
         super.setSelected(selected, animated: animated)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.messageTextView.text = nil
+        self.messageTextView.sizeToFit()
+    }
+    
     func setCellViewAttributesWithMessage(message: Message) {
         var messageTuple = (message: message, user: User(username: "", userID: "", profileImageURL: "", profileImage: nil))
 
@@ -46,13 +52,6 @@ class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
         self.messageTextView.textColor = UIColor.black
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.messageTextView.text = nil
-        self.messageTextView.sizeToFit()
-    }
-    
-
     fileprivate func setUserProfileImageForMessage(user: User) {
         guard user.profileImageURL != "" else {
             self.profileImageView.image = #imageLiteral(resourceName: "default_user")

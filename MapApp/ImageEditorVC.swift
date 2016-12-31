@@ -21,12 +21,21 @@ class ImageEditorVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.imagePicker.delegate = self
+        setProfileImgViewWithCurrentProfileImg()
         Alert.presentMediaActionSheet(presentingViewController: self, imagePicker: imagePicker.imagePicker)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func setProfileImgViewWithCurrentProfileImg() {
+        guard let currentProfileImage = CurrentUser.sharedInstance.profileImage else {
+            self.profileImageView.image = #imageLiteral(resourceName: "default_user").af_imageRoundedIntoCircle()
+            return
+        }
+        self.profileImageView.image = currentProfileImage
     }
     
     func presentImageSourceType() {

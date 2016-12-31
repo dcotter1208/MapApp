@@ -24,6 +24,16 @@ class DefaultLandscapeMediaMessageCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.profileImageView.af_cancelImageRequest()
+        self.profileImageView.layer.removeAllAnimations()
+        self.profileImageView.image = nil
+        self.mediaImageView.af_cancelImageRequest()
+        self.mediaImageView.layer.removeAllAnimations()
+        self.mediaImageView.image = nil
+    }
+    
     func setCellViewAttributesWithMessage(message: Message) {
         getUserProfileForMessage(message: message, completion: { (user) in
             self.setUserProfileImageForMessage(user: user)
@@ -62,16 +72,6 @@ class DefaultLandscapeMediaMessageCell: UITableViewCell {
         self.profileImageView.af_setImage(withURL: profileURL, placeholderImage: #imageLiteral(resourceName: "default_user"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .noTransition, runImageTransitionIfCached: true) { (data) in
             
         }
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.profileImageView.af_cancelImageRequest()
-        self.profileImageView.layer.removeAllAnimations()
-        self.profileImageView.image = nil
-        self.mediaImageView.af_cancelImageRequest()
-        self.mediaImageView.layer.removeAllAnimations()
-        self.mediaImageView.image = nil
     }
     
     fileprivate func getUserProfileForMessage(message: Message, completion: @escaping FirebaseUserProfileResult) {

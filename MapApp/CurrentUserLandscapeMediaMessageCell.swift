@@ -25,6 +25,16 @@ class CurrentUserLandscapeMediaMessageCell: UITableViewCell, MessageCellProtocol
         // Configure the view for the selected state
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.profileImageView.layer.removeAllAnimations()
+        self.profileImageView.image = nil
+        
+        self.mediaImageView.af_cancelImageRequest()
+        self.mediaImageView.layer.removeAllAnimations()
+        self.mediaImageView.image = nil
+    }
+    
     func setCellViewAttributesWithMessage(message: Message) {
         messageTuple = (nil, CurrentUser.sharedInstance)
         setMessageProfileImageForCurrentUser()
@@ -43,7 +53,7 @@ class CurrentUserLandscapeMediaMessageCell: UITableViewCell, MessageCellProtocol
         self.mediaImageView.layer.cornerRadius = 10
         self.mediaImageView.layer.masksToBounds = true
     }
-
+    
     fileprivate func resizeProfileImage(image: UIImage) -> UIImage {
         let newSize = CGSize(width: image.size.width / 5, height: image.size.width / 5)
         return image.resizedImage(newSize)

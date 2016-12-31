@@ -70,13 +70,14 @@
                         <subviews>
                             <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NUT-Bm-T5u">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="kW8-MF-myY" appends="YES" id="hpx-pB-8wo"/>
                                 </connections>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.40000000000000002" green="0.59999999999999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="NUT-Bm-T5u" firstAttribute="bottom" secondItem="toB-na-D0b" secondAttribute="top" id="Dzk-jb-R8u"/>
                             <constraint firstItem="NUT-Bm-T5u" firstAttribute="leading" secondItem="r5K-ga-ozE" secondAttribute="leading" id="IV8-bF-n9M"/>
@@ -437,7 +438,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HopCat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPa-hx-jV2">
-                                        <rect key="frame" x="69" y="15" width="237" height="18"/>
+                                        <rect key="frame" x="69" y="14" width="237" height="19"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>

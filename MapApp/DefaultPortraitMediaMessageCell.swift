@@ -26,6 +26,16 @@ class DefaultPortraitMediaMessageCell: UITableViewCell, MessageCellProtocol {
         super.setSelected(selected, animated: animated)
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.profileImageView.af_cancelImageRequest()
+        self.profileImageView.layer.removeAllAnimations()
+        self.profileImageView.image = nil
+        self.mediaImageView.af_cancelImageRequest()
+        self.mediaImageView.layer.removeAllAnimations()
+        self.mediaImageView.image = nil
+    }
+    
     func setCellViewAttributesWithMessage(message: Message) {
         getUserProfileForMessage(message: message, completion: { (user) in
             self.setUserProfileImageForMessage(user: user)
@@ -63,17 +73,6 @@ class DefaultPortraitMediaMessageCell: UITableViewCell, MessageCellProtocol {
         }
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.profileImageView.af_cancelImageRequest()
-        self.profileImageView.layer.removeAllAnimations()
-        self.profileImageView.image = nil
-        self.mediaImageView.af_cancelImageRequest()
-        self.mediaImageView.layer.removeAllAnimations()
-        self.mediaImageView.image = nil
-    }
-    
-
     fileprivate func getUserProfileForMessage(message: Message, completion: @escaping FirebaseUserProfileResult) {
         let userProfileQuery = firebaseOp.firebaseDatabaseRef.ref.child("users").queryOrdered(byChild: "userID").queryEqual(toValue: message.userID)
         
