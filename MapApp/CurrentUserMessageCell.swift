@@ -42,6 +42,12 @@ class CurrentUserMessageCell: UITableViewCell, MessageCellProtocol {
         self.messageTextView.sizeToFit()
     }
     
+    /*
+    This is important because it prepares the cell to be used again.
+    Inside of this method we can reset the cell's properties, fixing bugs
+    such as images not staying in proper imageviews, textView's from expanding,
+    cancel an Alamofire request, etc.
+     */
     override func prepareForReuse() {
         super.prepareForReuse()
         self.profileImageView.image = nil
