@@ -437,7 +437,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HopCat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPa-hx-jV2">
-                                        <rect key="frame" x="69" y="14" width="237" height="19"/>
+                                        <rect key="frame" x="69" y="15" width="237" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -533,16 +533,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Lorem ipsum dolor sit er elit " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="y3S-zC-BAy">
-                                                    <rect key="frame" x="58" y="13" width="194" height="41"/>
+                                                    <rect key="frame" x="53" y="13" width="194" height="41"/>
                                                     <color key="backgroundColor" red="0.92136718750000002" green="0.92136718750000002" blue="0.92136718750000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" id="YBI-hb-g84"/>
                                                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="215" id="xVJ-WO-mQe"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gpW-PV-Yco">
-                                                    <rect key="frame" x="8" y="17" width="35" height="35"/>
+                                                    <rect key="frame" x="8" y="19" width="35" height="35"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="35" id="agp-sQ-uo1"/>
                                                         <constraint firstAttribute="width" constant="35" id="tIW-bV-k0e"/>
@@ -550,9 +551,9 @@
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="gpW-PV-Yco" firstAttribute="bottom" secondItem="c9I-XQ-inc" secondAttribute="bottomMargin" constant="-2" id="4ad-TS-XFA"/>
+                                                <constraint firstItem="gpW-PV-Yco" firstAttribute="bottom" secondItem="c9I-XQ-inc" secondAttribute="bottomMargin" id="4ad-TS-XFA"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="y3S-zC-BAy" secondAttribute="bottom" id="GGo-9M-eQc"/>
-                                                <constraint firstItem="y3S-zC-BAy" firstAttribute="leading" secondItem="gpW-PV-Yco" secondAttribute="trailing" constant="15" id="Kjn-EN-1Al"/>
+                                                <constraint firstItem="y3S-zC-BAy" firstAttribute="leading" secondItem="gpW-PV-Yco" secondAttribute="trailing" constant="10" id="Kjn-EN-1Al"/>
                                                 <constraint firstItem="y3S-zC-BAy" firstAttribute="top" secondItem="c9I-XQ-inc" secondAttribute="topMargin" constant="5" id="URA-eJ-8cZ"/>
                                                 <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="y3S-zC-BAy" secondAttribute="trailing" id="UpV-Pl-Sxb"/>
                                                 <constraint firstItem="gpW-PV-Yco" firstAttribute="leading" secondItem="c9I-XQ-inc" secondAttribute="leadingMargin" id="clr-s6-RXj"/>
@@ -789,7 +790,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MapVCNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MRg-lX-Z71" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iEt-FP-tgg">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="iEt-FP-tgg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -807,7 +808,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dvi-49-Mbi" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bH0-RB-FtT">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="bH0-RB-FtT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -913,7 +914,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Dfy-2O-Mb4" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="64o-Fl-OGb">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="64o-Fl-OGb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>

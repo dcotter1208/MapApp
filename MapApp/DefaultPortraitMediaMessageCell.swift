@@ -53,7 +53,6 @@ class DefaultPortraitMediaMessageCell: UITableViewCell, MessageCellProtocol {
     }
     
     fileprivate func setUserProfileImageForMessage(user: User) {
-//        self.profileImageView.image = nil
         guard user.profileImageURL != "" else {
             self.profileImageView.image = #imageLiteral(resourceName: "default_user")
             return
@@ -62,7 +61,6 @@ class DefaultPortraitMediaMessageCell: UITableViewCell, MessageCellProtocol {
         self.profileImageView.af_setImage(withURL: profileURL, placeholderImage: #imageLiteral(resourceName: "default_user"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .noTransition, runImageTransitionIfCached: true) { (data) in
             
         }
-//        self.profileImageView.downloadAFImage(url: profileURL)
     }
     
     override func prepareForReuse() {
@@ -70,6 +68,9 @@ class DefaultPortraitMediaMessageCell: UITableViewCell, MessageCellProtocol {
         self.profileImageView.af_cancelImageRequest()
         self.profileImageView.layer.removeAllAnimations()
         self.profileImageView.image = nil
+        self.mediaImageView.af_cancelImageRequest()
+        self.mediaImageView.layer.removeAllAnimations()
+        self.mediaImageView.image = nil
     }
     
 

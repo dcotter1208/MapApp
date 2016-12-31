@@ -39,8 +39,15 @@ class CurrentUserMessageCell: UITableViewCell, MessageCellProtocol {
         self.messageTextView.layer.cornerRadius = 5
         self.messageTextView.backgroundColor = UIColor.blue
         self.messageTextView.textColor = UIColor.white
+        self.messageTextView.sizeToFit()
     }
-
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.messageTextView.text = nil
+        self.messageTextView.sizeToFit()
+    }
+    
     fileprivate func setProfileImageWithResizedImage(image: UIImage) -> UIImage {
         let newSize = CGSize(width: image.size.width/5, height: image.size.width/5)
         return image.resizedImage(newSize)

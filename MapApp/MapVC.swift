@@ -70,12 +70,12 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
     
     //MARK: **Google Maps Methods**
     func setupGoogleMaps() {
+        googleMapView?.isMyLocationEnabled = true
+        googleMapView.delegate = self
         userLocation = getUserLocation()
         guard let userLocation = userLocation else { return }
         let camera = createMapCameraWithCoordinateAndZoomLevel(coordinate: userLocation.coordinate, zoom: 15.0)
         googleMapView.camera = camera
-        googleMapView?.isMyLocationEnabled = true
-        googleMapView.delegate = self
     }
     
     func addMapMarkerForGMSPlace(place: GMSPlace) {

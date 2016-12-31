@@ -45,9 +45,15 @@ class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
         self.messageTextView.backgroundColor = UIColor.lightGray
         self.messageTextView.textColor = UIColor.black
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.messageTextView.text = nil
+        self.messageTextView.sizeToFit()
+    }
+    
 
     fileprivate func setUserProfileImageForMessage(user: User) {
-//        self.profileImageView.image = nil
         guard user.profileImageURL != "" else {
             self.profileImageView.image = #imageLiteral(resourceName: "default_user")
             return
@@ -56,17 +62,8 @@ class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
         self.profileImageView.af_setImage(withURL: profileURL, placeholderImage: #imageLiteral(resourceName: "default_user"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .noTransition, runImageTransitionIfCached: true) { (data) in
             
         }
-//        self.profileImageView.downloadAFImage(url: profileURL)
     }
 
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.profileImageView.af_cancelImageRequest()
-        self.profileImageView.layer.removeAllAnimations()
-        self.profileImageView.image = nil
-    }
-    
-    
     fileprivate func getUserProfileForMessage(message: Message, completion: @escaping FirebaseUserProfileResult) {
         let userProfileQuery = firebaseOp.firebaseDatabaseRef.ref.child("users").queryOrdered(byChild: "userID").queryEqual(toValue: message.userID)
         
