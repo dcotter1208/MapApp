@@ -33,7 +33,6 @@ class CurrentUserLandscapeMediaMessageCell: UITableViewCell, MessageCellProtocol
         }
         DispatchQueue.main.async {
             self.configureMediaImageView()
-            self.configureProfileImageView()
         }
     }
     
@@ -44,12 +43,7 @@ class CurrentUserLandscapeMediaMessageCell: UITableViewCell, MessageCellProtocol
         self.mediaImageView.layer.cornerRadius = 10
         self.mediaImageView.layer.masksToBounds = true
     }
-    
-    fileprivate func configureProfileImageView() {
-        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height / 2
-        self.profileImageView.layer.masksToBounds = true
-    }
-    
+
     fileprivate func resizeProfileImage(image: UIImage) -> UIImage {
         let newSize = CGSize(width: image.size.width / 5, height: image.size.width / 5)
         return image.resizedImage(newSize)

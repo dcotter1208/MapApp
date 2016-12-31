@@ -30,7 +30,6 @@ class CurrentUserMessageCell: UITableViewCell, MessageCellProtocol {
         self.messageTextView.text = messageTuple?.message.text
         DispatchQueue.main.async {
             self.configureMessageTextView()
-            self.configureProfileImageView()
         }
     }
     
@@ -41,12 +40,7 @@ class CurrentUserMessageCell: UITableViewCell, MessageCellProtocol {
         self.messageTextView.backgroundColor = UIColor.blue
         self.messageTextView.textColor = UIColor.white
     }
-    
-    fileprivate func configureProfileImageView() {
-        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height / 2
-        self.profileImageView.layer.masksToBounds = true
-    }
-    
+
     fileprivate func setProfileImageWithResizedImage(image: UIImage) -> UIImage {
         let newSize = CGSize(width: image.size.width/5, height: image.size.width/5)
         return image.resizedImage(newSize)

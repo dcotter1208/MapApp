@@ -36,7 +36,6 @@ class DefaultPortraitMediaMessageCell: UITableViewCell, MessageCellProtocol {
         }
         DispatchQueue.main.async {
             self.configureMediaImageView()
-            self.configureProfileImageView()
         }
     }
     
@@ -46,13 +45,7 @@ class DefaultPortraitMediaMessageCell: UITableViewCell, MessageCellProtocol {
         self.mediaImageView.layer.cornerRadius = 10
         self.mediaImageView.layer.masksToBounds = true
     }
-    
-    fileprivate func configureProfileImageView() {
-        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height / 2
-        self.profileImageView.layer.masksToBounds = true
-        self.profileImageView.layer.shadowColor = UIColor.black.cgColor
-    }
-    
+
     fileprivate func downloadMediaForCellImageView(mediaURL: String) {
         if let url = URL(string: mediaURL) {
             self.mediaImageView.downloadAFImage(url: url)
@@ -60,13 +53,25 @@ class DefaultPortraitMediaMessageCell: UITableViewCell, MessageCellProtocol {
     }
     
     fileprivate func setUserProfileImageForMessage(user: User) {
+//        self.profileImageView.image = nil
         guard user.profileImageURL != "" else {
             self.profileImageView.image = #imageLiteral(resourceName: "default_user")
             return
         }
         guard let profileURL = URL(string: user.profileImageURL) else { return }
-        self.profileImageView.downloadAFImage(url: profileURL)
+        self.profileImageView.af_setImage(withURL: profileURL, placeholderImage: #imageLiteral(resourceName: "default_user"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .noTransition, runImageTransitionIfCached: true) { (data) in
+            
+        }
+//        self.profileImageView.downloadAFImage(url: profileURL)
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.profileImageView.af_cancelImageRequest()
+        self.profileImageView.layer.removeAllAnimations()
+        self.profileImageView.image = nil
+    }
+    
 
     fileprivate func getUserProfileForMessage(message: Message, completion: @escaping FirebaseUserProfileResult) {
         let userProfileQuery = firebaseOp.firebaseDatabaseRef.ref.child("users").queryOrdered(byChild: "userID").queryEqual(toValue: message.userID)

@@ -48,9 +48,9 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
     override func viewDidLoad() {
         super.viewDidLoad()
         CurrentUser.sharedInstance.resetProperties()
-        setupGoogleMaps()
         setUpCalloutView()
-        
+        setupGoogleMaps()
+
         setUpKeyboardNotification()
         
         if !currentUserExists() {
