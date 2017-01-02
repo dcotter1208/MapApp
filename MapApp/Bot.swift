@@ -13,8 +13,8 @@ struct Bot {
     var botID = ""
     var userID = ""
     
-    static func createBot() -> Bot {
-        return Bot(name: "Bot", botID: UUID().uuidString, userID: CurrentUser.sharedInstance.userID)
+    static func createBotWithUserID(userID: String) -> Bot {
+        return Bot(name: "Bot", botID: UUID().uuidString, userID: userID)
     }
     
 }

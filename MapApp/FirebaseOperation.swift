@@ -48,9 +48,8 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
         
         switch addOrUpdate {
         case .add:
-            let newBot = Bot.createBot()
+            let newBot = Bot.createBotWithUserID(userID: firebaseProfile["userID"] as! String)
             writeBotToFirebase(bot: newBot)
-            
             firebaseProfile["botID"] = newBot.botID as AnyObject?
             
             let usersRef = firebaseDatabaseRef.ref.child("users").childByAutoId()
