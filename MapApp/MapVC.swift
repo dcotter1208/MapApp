@@ -282,7 +282,8 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
                             CloudinaryOperation().uploadImageToCloudinary(profileImage, delegate: self, completion: { (url) in
                                 newUserProfile["profileImageURL"] = url as AnyObject
                                 newUserProfile.updateValue(profileImage as AnyObject, forKey: "profileImage")
-//                                newUserProfile.updateValue(profileImage as AnyObject, forKey: "profileImage")
+//                                newUserProfile.updateValue(CurrentUser.sharedInstance.botID as AnyObject, forKey: "botID")
+
                                 self.addOrUpdateUserProfile(userProfile: newUserProfile)
                                 self.signUpView?.removeFromSuperview()
                             })
@@ -322,7 +323,6 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
             var newUserProfileWithSnapshotKey = userProfile
             newUserProfileWithSnapshotKey.updateValue(snapshotKey as AnyObject, forKey: "snapshotKey")
             newUserProfileWithSnapshotKey.updateValue(botID as AnyObject, forKey: "botID")
-
             let rlmUser = RLMUser().createUser(userProfile: newUserProfileWithSnapshotKey)
             RLMDBManager().updateObject(rlmUser!)
             }

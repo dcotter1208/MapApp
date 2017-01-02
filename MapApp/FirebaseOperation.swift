@@ -60,6 +60,8 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
             self.updateChildValue(child: "users", childKey: snapshotKey, nodeToUpdate: firebaseProfile as [String : AnyObject])
             var newUserProfile = userProfile
             newUserProfile.updateValue(snapshotKey as AnyObject, forKey: "snapshotKey")
+            newUserProfile.updateValue(CurrentUser.sharedInstance.botID as AnyObject, forKey: "botID")
+
             if let rlmUser = RLMUser().createUser(userProfile: newUserProfile) {
                     RLMDBManager().updateObject(rlmUser)
             }

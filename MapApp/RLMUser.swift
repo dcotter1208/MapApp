@@ -35,7 +35,6 @@ class RLMUser: Object {
                     self.profileImage = data
                 }
             }
-            
             return self
         } else {
             return nil
