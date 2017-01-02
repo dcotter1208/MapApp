@@ -13,9 +13,11 @@ import AlamofireImage
 import Alamofire
 
 class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, MessageToolbarDelegate {
-    @IBOutlet weak var chatTableView: UITableView!
+    //MARK: **IBOutlets**
 
-    //** Cell Identifiers **//
+    @IBOutlet weak var chatTableView: UITableView!
+    
+    //MARK: **Cell Identifiers**
     
     //Media Message Cell Identifiers
     let CurrentUserPortraitMediaMessageCellIdentifier = "CurrentUserPortraitMediaMessageCell"
@@ -27,6 +29,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     let CurrentUserMessageCellIdentifier = "CurrentUserMessageCell"
     let DefaultMessageCellIdentifier = "DefaultMessageCell"
 
+    //MARK: **Variables**
     let messageToolBarHeight:CGFloat = 44.0
     var messages = [Message]()
     var keyboardHeight: CGFloat?
@@ -38,10 +41,11 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     var venueID: String?
     var imageForMessage: UIImage?
         
-    //MARK: Lifecycle
+    //MARK: **Lifecycle**
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         chatTableView.rowHeight = UITableViewAutomaticDimension
         chatTableView.estimatedRowHeight = 140
         setUpKeyboardNotification()
@@ -61,7 +65,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         super.didReceiveMemoryWarning()
     }
     
-    //MARK: Firebase Helper Methods
+    //MARK: **Firebase Helper Methods**
     func queryAllMessagesFromFirebaseForVenue(venueID: String) {
         let venueMessageQuery = firebaseOp.firebaseDatabaseRef.ref.child("messages").queryOrdered(byChild: "locationID").queryEqual(toValue: venueID)
         firebaseOp.queryChildWithConstraints(venueMessageQuery, firebaseDataEventType: FIRDataEventType.childAdded, observeSingleEventType: false) { (snapshot) in
@@ -74,7 +78,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
          }
     }
 
-    //MARK: Helper Methods:
+    //MARK: **Helper Methods**
     func adjustTableViewInsetWithKeyboardShowing() {
         UIView.animate(withDuration: 0.25, animations: {
             if let keyboardHeight = self.keyboardHeight, let messageToolbar = self.messageToolbar {
@@ -92,7 +96,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         }
     }
 
-    //MARK: Message Toolbar Helper Methods
+    //MARK: **Message Toolbar Helper Methods**
     func setUpmessageToolbar() {
         maxmessageToolBarHeight = self.view.frame.height / 1.5
         let messageToolBarWidth = view.frame.size.width
@@ -171,7 +175,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         return true
     }
     
-    //MARK: UITextView Delegate
+    //MARK: **UITextView Delegate**
     
     func textViewDidChange(_ textView: UITextView) {
         adjustMessageViewHeightWithMessageSize()
@@ -194,7 +198,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         }, completion: nil)
     }
     
-    //MARK: Keyboard Notifications
+    //MARK: **Keyboard Notifications**
     
     func setUpKeyboardNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowNotification), name: .UIKeyboardWillShow, object: nil)
@@ -217,21 +221,14 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         adjustTableViewInsetWithKeyboardHiding()
     }
     
-    //MARK: MessageToolbarDelegate
+    //MARK: **MessageToolbarDelegate**
 
     func addAttachment() {
         performSegue(withIdentifier: "MediaMessageSegue", sender: self)
     }
     
     func sendMessage() {
-        var currentUserID = ""
-        if CurrentUser.sharedInstance.userID == "" {
-            if let anonymousUserID = FIRAuth.auth()?.currentUser?.uid {
-                currentUserID = anonymousUserID
-            }
-        } else {
-            currentUserID = CurrentUser.sharedInstance.userID
-        }
+        let currentUserID = CurrentUser.sharedInstance.userID
         
         guard let messageToolbar = messageToolbar else { return }
 
@@ -240,7 +237,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         adjustMessageViewHeightWithMessageSize()
     }
 
-    //MARK: TableView
+    //MARK: **TableView**
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
@@ -344,7 +341,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         }
     }
     
-    //MARK: IBActions
+    //MARK: **IBActions**
 
     @IBAction func backButtonPressed(_ sender: AnyObject) {
        _ = navigationController?.popViewController(animated: true)

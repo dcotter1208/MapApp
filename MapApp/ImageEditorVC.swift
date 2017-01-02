@@ -27,7 +27,6 @@ class ImageEditorVC: UIViewController, UINavigationControllerDelegate, UIImagePi
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func setProfileImgViewWithCurrentProfileImg() {

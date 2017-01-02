@@ -142,6 +142,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
 //        }
     }
     
+    //IF THIS IS THE BOT CHAT THEN SET IT THERE.
     func enterChatSelected(sender: AnyObject) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let venueChatVC = storyboard.instantiateViewController(withIdentifier: "VenueChatViewController") as? ChatVC {
@@ -281,12 +282,16 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
                             CloudinaryOperation().uploadImageToCloudinary(profileImage, delegate: self, completion: { (url) in
                                 newUserProfile["profileImageURL"] = url as AnyObject
                                 newUserProfile.updateValue(profileImage as AnyObject, forKey: "profileImage")
+//                                newUserProfile.updateValue(profileImage as AnyObject, forKey: "profileImage")
                                 self.addOrUpdateUserProfile(userProfile: newUserProfile)
                                 self.signUpView?.removeFromSuperview()
                             })
                         }
                     } else {
                         newUserProfile.updateValue(CurrentUser.sharedInstance.profileImage as AnyObject, forKey: "profileImage")
+                        newUserProfile.updateValue(CurrentUser.sharedInstance.profileImageURL as AnyObject, forKey: "profileImageURL")
+                        newUserProfile.updateValue(CurrentUser.sharedInstance.botID as AnyObject, forKey: "botID")
+
                         self.addOrUpdateUserProfile(userProfile: newUserProfile)
                         self.signUpView?.removeFromSuperview()
                     }
@@ -313,9 +318,11 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
 
     func addOrUpdateUserProfile(userProfile: [String : AnyObject]) {
         FirebaseOperation().addOrUpdateUserProfile(userProfile: userProfile) {
-                (snapshotKey) in
+                (snapshotKey, botID) in
             var newUserProfileWithSnapshotKey = userProfile
             newUserProfileWithSnapshotKey.updateValue(snapshotKey as AnyObject, forKey: "snapshotKey")
+            newUserProfileWithSnapshotKey.updateValue(botID as AnyObject, forKey: "botID")
+
             let rlmUser = RLMUser().createUser(userProfile: newUserProfileWithSnapshotKey)
             RLMDBManager().updateObject(rlmUser!)
             }
@@ -334,12 +341,7 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
             return UUID().uuidString
         }
     }
-    
-    func writeRealmUser(user: RLMUser) {
-        rlmDBManager.updateObject(user)
-        rlmDBManager.getCurrentUserProfileFromRealm()
-    }
-    
+
     //SignUpView+Keyboard Animation Helper Methods
     func setUpKeyboardNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowNotification), name: .UIKeyboardWillShow, object: nil)
@@ -385,7 +387,6 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
     }
 
 }
-
 
 //MARK: **Extension For CollectionView**
 extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutocompleteViewControllerDelegate {

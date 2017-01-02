@@ -16,6 +16,7 @@ class CurrentUser: UserType {
     var username = ""
     var profileImageURL = ""
     var userID = ""
+    var botID = ""
     var profileImage: UIImage? = nil
     
     class var sharedInstance: CurrentUser {
@@ -25,11 +26,12 @@ class CurrentUser: UserType {
         return Singleton.instance
     }
 
-    func setCurrentUserProperties(_ username: String, imageURL: String, userID: String, snapshotKey: String) {
+    func setCurrentUserProperties(_ username: String, imageURL: String, userID: String, botID: String, snapshotKey: String) {
         self.username = username
         self.profileImageURL = imageURL
         self.userID = userID
         self.snapshotKey = snapshotKey
+        self.botID = botID
     }
     
     func resetProperties() {
@@ -37,11 +39,12 @@ class CurrentUser: UserType {
         self.profileImageURL = ""
         self.userID = ""
         self.snapshotKey = ""
+        self.botID = ""
         self.profileImage = nil
     }
     
     func setCurrentUserWithRealm(results: Results<RLMUser>) {
-        self.setCurrentUserProperties(results[0].username, imageURL: results[0].profileImageURL, userID: results[0].userID, snapshotKey: results[0].snapshotKey)
+        self.setCurrentUserProperties(results[0].username, imageURL: results[0].profileImageURL, userID: results[0].userID, botID: results[0].botID, snapshotKey: results[0].snapshotKey)
         guard results[0].profileImage != nil else {return}
         self.profileImage = UIImage(data: results[0].profileImage!)
     }
