@@ -24,6 +24,16 @@ class CurrentUserPortraitMediaMessageCell: UITableViewCell, MessageCellProtocol 
         super.setSelected(selected, animated: animated)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.profileImageView.layer.removeAllAnimations()
+        self.profileImageView.image = nil
+        
+        self.mediaImageView.af_cancelImageRequest()
+        self.mediaImageView.layer.removeAllAnimations()
+        self.mediaImageView.image = nil
+    }
+    
     func setCellViewAttributesWithMessage(message: Message) {
         messageTuple = (nil, CurrentUser.sharedInstance)
         setMessageProfileImageForCurrentUser()
@@ -32,7 +42,6 @@ class CurrentUserPortraitMediaMessageCell: UITableViewCell, MessageCellProtocol 
         }
         DispatchQueue.main.async {
             self.configureMediaImageView()
-            self.configureProfileImageView()
         }
     }
     
@@ -42,11 +51,6 @@ class CurrentUserPortraitMediaMessageCell: UITableViewCell, MessageCellProtocol 
         self.mediaImageView.clipsToBounds = true
         self.mediaImageView.layer.cornerRadius = 10
         self.mediaImageView.layer.masksToBounds = true
-    }
-    
-    fileprivate func configureProfileImageView() {
-        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height / 2
-        self.profileImageView.layer.masksToBounds = true
     }
     
     fileprivate func resizeProfileImage(image: UIImage) -> UIImage {

@@ -17,11 +17,15 @@ import RealmSwift
 import Alamofire
 
 class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, GMSMapViewDelegate, CustomCalloutActionDelegate {
+    
+    //MARK: **IBOutlets**
     @IBOutlet weak var mapStyleBarButton: UIBarButtonItem!
     @IBOutlet weak var googleMapView: GMSMapView!
     @IBOutlet var mapTapGesture: UITapGestureRecognizer!
     
     typealias isUsernameUniqueHandler = (Bool) -> Void
+    
+    //MARK: **Private properties**
     
     fileprivate var resultSearchController:UISearchController? = nil
     fileprivate var searchedLocation:MKPlacemark? = nil
@@ -31,20 +35,22 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
     fileprivate var calloutView: CalloutView?
     fileprivate var signUpView: SignUpView?
     fileprivate var venueIDForSelectedMarker = ""
-    fileprivate var profileImageChanged = false
-    fileprivate var profileImage: UIImage?
-    fileprivate var pickedImage: UIImage?
     fileprivate var rlmDBManager = RLMDBManager()
     fileprivate let keyboardAnimationDuration = 0.25
     fileprivate var updateProfile = false
-
+    fileprivate var profileImageChanged = false
+    fileprivate var profileImage: UIImage?
+    fileprivate var imageSourceType = UIImagePickerControllerSourceType.camera
+    fileprivate let imagePicker = ImagePicker()
+    
+    //MARK: **Life Cycle**
     
     override func viewDidLoad() {
         super.viewDidLoad()
         CurrentUser.sharedInstance.resetProperties()
-        setupGoogleMaps()
         setUpCalloutView()
-        
+        setupGoogleMaps()
+
         setUpKeyboardNotification()
         
         if !currentUserExists() {
@@ -62,14 +68,14 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
         // Dispose of any resources that can be recreated.
     }
     
-    //MARK: Google Maps Methods
+    //MARK: **Google Maps Methods**
     func setupGoogleMaps() {
+        googleMapView?.isMyLocationEnabled = true
+        googleMapView.delegate = self
         userLocation = getUserLocation()
         guard let userLocation = userLocation else { return }
         let camera = createMapCameraWithCoordinateAndZoomLevel(coordinate: userLocation.coordinate, zoom: 15.0)
         googleMapView.camera = camera
-        googleMapView?.isMyLocationEnabled = true
-        googleMapView.delegate = self
     }
     
     func addMapMarkerForGMSPlace(place: GMSPlace) {
@@ -136,6 +142,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
 //        }
     }
     
+    //IF THIS IS THE BOT CHAT THEN SET IT THERE.
     func enterChatSelected(sender: AnyObject) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let venueChatVC = storyboard.instantiateViewController(withIdentifier: "VenueChatViewController") as? ChatVC {
@@ -157,7 +164,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
         }
     }
 
-    //MARK: Location Methods
+    //MARK: **Location Methods**
     func getUserLocation() -> CLLocation? {
         locationManager = CLLocationManager()
         guard let manager = locationManager else { return nil }
@@ -206,36 +213,8 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
             print("SENDER**: \(sender)")
         }
     }
-
-    //MARK: Camera Methods
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-            pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
-            profileImageChanged = true
-            updateProfile = true
-            signUpView?.profileImageView.image = pickedImage
-            profileImage = pickedImage
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    //displays action sheet for the camera or photo gallery
-    func displayCameraActionSheet() {
-        let imagePicker = ImagePicker()
-        imagePicker.imagePicker.delegate = self
-        let actionsheet = UIAlertController(title: "Choose an option", message: nil, preferredStyle: .actionSheet)
-        let camera = UIAlertAction(title: "Camera", style: .default) { (action) in
-            imagePicker.configureImagePicker(.camera)
-            imagePicker.presentCameraSource(self)
-        }
-        let photoGallery = UIAlertAction(title: "Photo Gallery", style: .default) { (action) in
-            imagePicker.configureImagePicker(.photoLibrary)
-            imagePicker.presentCameraSource(self)
-        }
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        actionsheet.addAction(camera)
-        actionsheet.addAction(photoGallery)
-        actionsheet.addAction(cancel)
-        self.present(actionsheet, animated: true, completion: nil)
+    func presentImageEditorVC() {
+        self.performSegue(withIdentifier: "showImageEditorVC", sender: self)
     }
 
     func currentUserExists() -> Bool {
@@ -248,7 +227,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
     }
 }
 
-//MARK: SignUpViewDelegateExtension
+//MARK: **SignUpViewDelegate Extension**
 
 extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
     func setUpSignUpView() {
@@ -275,7 +254,7 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
     }
     
     func photoSelected(sender: Any) {
-        displayCameraActionSheet()
+        presentImageEditorVC()
     }
     
     func createProfile(sender: Any) {
@@ -303,12 +282,16 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
                             CloudinaryOperation().uploadImageToCloudinary(profileImage, delegate: self, completion: { (url) in
                                 newUserProfile["profileImageURL"] = url as AnyObject
                                 newUserProfile.updateValue(profileImage as AnyObject, forKey: "profileImage")
+//                                newUserProfile.updateValue(profileImage as AnyObject, forKey: "profileImage")
                                 self.addOrUpdateUserProfile(userProfile: newUserProfile)
                                 self.signUpView?.removeFromSuperview()
                             })
                         }
                     } else {
                         newUserProfile.updateValue(CurrentUser.sharedInstance.profileImage as AnyObject, forKey: "profileImage")
+                        newUserProfile.updateValue(CurrentUser.sharedInstance.profileImageURL as AnyObject, forKey: "profileImageURL")
+                        newUserProfile.updateValue(CurrentUser.sharedInstance.botID as AnyObject, forKey: "botID")
+
                         self.addOrUpdateUserProfile(userProfile: newUserProfile)
                         self.signUpView?.removeFromSuperview()
                     }
@@ -333,13 +316,13 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
         }
     }
 
-    
-    //CALLS ADD OR UPDATE FIREBASE OP...WHICH WILL WRITE TO REALM.
     func addOrUpdateUserProfile(userProfile: [String : AnyObject]) {
         FirebaseOperation().addOrUpdateUserProfile(userProfile: userProfile) {
-                (snapshotKey) in
+                (snapshotKey, botID) in
             var newUserProfileWithSnapshotKey = userProfile
             newUserProfileWithSnapshotKey.updateValue(snapshotKey as AnyObject, forKey: "snapshotKey")
+            newUserProfileWithSnapshotKey.updateValue(botID as AnyObject, forKey: "botID")
+
             let rlmUser = RLMUser().createUser(userProfile: newUserProfileWithSnapshotKey)
             RLMDBManager().updateObject(rlmUser!)
             }
@@ -358,12 +341,7 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
             return UUID().uuidString
         }
     }
-    
-    func writeRealmUser(user: RLMUser) {
-        rlmDBManager.updateObject(user)
-        rlmDBManager.getCurrentUserProfileFromRealm()
-    }
-    
+
     //SignUpView+Keyboard Animation Helper Methods
     func setUpKeyboardNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowNotification), name: .UIKeyboardWillShow, object: nil)
@@ -388,11 +366,29 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
             self.signUpView?.frame.origin.y = originalYPosition
         }, completion: nil)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showImageEditorVC" {
+            if let imageEditorVC = segue.destination as? ImageEditorVC {
+                imageEditorVC.imageSourceType = imageSourceType
+            }
+        }
+    }
+    
+    @IBAction func unwindToMapVC(segue: UIStoryboardSegue) {
+        if segue.source.isKind(of: ImageEditorVC.self) {
+            if let imageEditorVC = segue.source as? ImageEditorVC {
+                let croppedImage = imageEditorVC.croppedImage
+                self.signUpView?.profileImageView.image = croppedImage
+                profileImageChanged = true
+                profileImage = croppedImage
+            }
+        }
+    }
 
 }
 
-
-//MARK: Extension For CollectionView
+//MARK: **Extension For CollectionView**
 extension MapVC: UICollectionViewDataSource, UICollectionViewDelegate, GMSAutocompleteViewControllerDelegate {
     
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {

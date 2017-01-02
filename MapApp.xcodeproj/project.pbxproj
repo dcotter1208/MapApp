@@ -14,9 +14,11 @@
 		C0197D2B1DA0868D00F68AF0 /* Callout.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0197D2A1DA0868D00F68AF0 /* Callout.xib */; };
 		C0197D2D1DA0875900F68AF0 /* CalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0197D2C1DA0875900F68AF0 /* CalloutView.swift */; };
 		C01E79E11D7CFDBD00700FEA /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01E79E01D7CFDBD00700FEA /* Alert.swift */; };
+		C01F3ACD1E1AB8B6009B13CA /* Bot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01F3ACC1E1AB8B6009B13CA /* Bot.swift */; };
 		C03C09D51DD8240000ADBAD3 /* MessageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C09D41DD8240000ADBAD3 /* MessageProtocol.swift */; };
 		C03C09D91DE0FC5800ADBAD3 /* CurrentUserPortraitMediaMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C09D81DE0FC5800ADBAD3 /* CurrentUserPortraitMediaMessageCell.swift */; };
 		C03C09DB1DE1196B00ADBAD3 /* DefaultPortraitMediaMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C09DA1DE1196B00ADBAD3 /* DefaultPortraitMediaMessageCell.swift */; };
+		C03D5CB81E16DB7500FC221E /* ImageEditorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03D5CB71E16DB7500FC221E /* ImageEditorVC.swift */; };
 		C077751D1D986E5800B7DF68 /* VenueContactInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C077751C1D986E5800B7DF68 /* VenueContactInfo.swift */; };
 		C078577B1D8CD07D00B9AF06 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C078577A1D8CD07D00B9AF06 /* UIImageExtension.swift */; };
 		C084BEA81D8DA2BF00BD579F /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C084BEA71D8DA2BF00BD579F /* Venue.swift */; };
@@ -95,9 +97,11 @@
 		C0197D2A1DA0868D00F68AF0 /* Callout.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Callout.xib; sourceTree = "<group>"; };
 		C0197D2C1DA0875900F68AF0 /* CalloutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalloutView.swift; sourceTree = "<group>"; };
 		C01E79E01D7CFDBD00700FEA /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		C01F3ACC1E1AB8B6009B13CA /* Bot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bot.swift; sourceTree = "<group>"; };
 		C03C09D41DD8240000ADBAD3 /* MessageProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageProtocol.swift; sourceTree = "<group>"; };
 		C03C09D81DE0FC5800ADBAD3 /* CurrentUserPortraitMediaMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUserPortraitMediaMessageCell.swift; sourceTree = "<group>"; };
 		C03C09DA1DE1196B00ADBAD3 /* DefaultPortraitMediaMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultPortraitMediaMessageCell.swift; sourceTree = "<group>"; };
+		C03D5CB71E16DB7500FC221E /* ImageEditorVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditorVC.swift; sourceTree = "<group>"; };
 		C077751C1D986E5800B7DF68 /* VenueContactInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueContactInfo.swift; sourceTree = "<group>"; };
 		C078577A1D8CD07D00B9AF06 /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImageExtension.swift; path = ../UIImageExtension.swift; sourceTree = "<group>"; };
 		C084BEA71D8DA2BF00BD579F /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
@@ -233,6 +237,14 @@
 			name = Alert;
 			sourceTree = "<group>";
 		};
+		C01F3ACE1E1AB8BA009B13CA /* Bot */ = {
+			isa = PBXGroup;
+			children = (
+				C01F3ACC1E1AB8B6009B13CA /* Bot.swift */,
+			);
+			name = Bot;
+			sourceTree = "<group>";
+		};
 		C058F8B61E08BF9300E5CD9C /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,6 +270,7 @@
 			children = (
 				C01010C61E0DF92700F27055 /* SignUpView.xib */,
 				C01010C81E0DF9C400F27055 /* SignUpView.swift */,
+				C03D5CB71E16DB7500FC221E /* ImageEditorVC.swift */,
 			);
 			name = SignUp;
 			sourceTree = "<group>";
@@ -353,6 +366,7 @@
 				C0FBADC01D7A6E3900C1C998 /* GoogleService-Info.plist */,
 				C0FBAD961D7A4AD800C1C998 /* Info.plist */,
 				C0FBADC21D7A6E4500C1C998 /* Keys.plist */,
+				C01F3ACE1E1AB8BA009B13CA /* Bot */,
 			);
 			path = MapApp;
 			sourceTree = "<group>";
@@ -709,10 +723,12 @@
 				C0FBADDC1D7B464B00C1C998 /* ImagePicker.swift in Sources */,
 				C077751D1D986E5800B7DF68 /* VenueContactInfo.swift in Sources */,
 				C0CE3BCB1DA182D80072AE17 /* VenueChatDisplayDetailVC.swift in Sources */,
+				C01F3ACD1E1AB8B6009B13CA /* Bot.swift in Sources */,
 				C084BEA81D8DA2BF00BD579F /* Venue.swift in Sources */,
 				C0FBADB91D7A5DD600C1C998 /* MapVC.swift in Sources */,
 				C0E4E2D71DD7B4C900998A90 /* ChatMediaMessageVC.swift in Sources */,
 				C0FBADDA1D7B41BA00C1C998 /* RLMManager.swift in Sources */,
+				C03D5CB81E16DB7500FC221E /* ImageEditorVC.swift in Sources */,
 				C08E43B31DCEF09200D9488E /* Marker.swift in Sources */,
 				C0FBADC51D7A751B00C1C998 /* FirebaseOperation.swift in Sources */,
 				C0B14D5B1DBC5C36003748A6 /* ChatVC.swift in Sources */,

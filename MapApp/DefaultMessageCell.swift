@@ -24,6 +24,12 @@ class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
         super.setSelected(selected, animated: animated)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.messageTextView.text = nil
+        self.messageTextView.sizeToFit()
+    }
+    
     func setCellViewAttributesWithMessage(message: Message) {
         var messageTuple = (message: message, user: User(username: "", userID: "", profileImageURL: "", profileImage: nil))
 
@@ -36,7 +42,6 @@ class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
         DispatchQueue.main.async {
             self.messageTextView.text = messageTuple.message.text
             self.configureMessageTextView()
-            self.configureProfileImageView()
         }
     }
     
@@ -46,20 +51,16 @@ class DefaultMessageCell: UITableViewCell, MessageCellProtocol {
         self.messageTextView.backgroundColor = UIColor.lightGray
         self.messageTextView.textColor = UIColor.black
     }
-
-    fileprivate func configureProfileImageView() {
-        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height / 2
-        self.profileImageView.layer.masksToBounds = true
-        self.profileImageView.layer.shadowColor = UIColor.black.cgColor
-    }
-
+    
     fileprivate func setUserProfileImageForMessage(user: User) {
         guard user.profileImageURL != "" else {
             self.profileImageView.image = #imageLiteral(resourceName: "default_user")
             return
         }
         guard let profileURL = URL(string: user.profileImageURL) else { return }
-        self.profileImageView.downloadAFImage(url: profileURL)
+        self.profileImageView.af_setImage(withURL: profileURL, placeholderImage: #imageLiteral(resourceName: "default_user"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .noTransition, runImageTransitionIfCached: true) { (data) in
+            
+        }
     }
 
     fileprivate func getUserProfileForMessage(message: Message, completion: @escaping FirebaseUserProfileResult) {

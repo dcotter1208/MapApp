@@ -19,7 +19,7 @@ enum AddOrUpdate: String {
     case update
 }
 
-typealias SnapshotKeyHandler = (String?) -> Void
+typealias FirebaseProfileCreatedCompletion = (String?, String?) -> Void
 typealias SignUpResult = (NSError?) -> Void
 typealias LogInResult = (CurrentUser?, NSError?) -> Void
 typealias CurrentUserResult = (CurrentUser) -> Void
@@ -34,38 +34,42 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
         let snapshotKey = "\(firebaseChildRef)".replacingOccurrences(of: "https://mapapp-943f3.firebaseio.com/users/", with: "")
         return snapshotKey
     }
-    
-    //Creates a user profile on Firebase.
-    func createUserProfile(userProfile: [String: String], completion: SnapshotKeyHandler) {
-        let usersRef = firebaseDatabaseRef.ref.child("users").childByAutoId()
-        usersRef.setValue(userProfile)
-        completion(getSnapshotKeyFromRef(firebaseChildRef: usersRef))
-    }
-    
-    func addOrUpdateUserProfile(userProfile: [String: AnyObject], completion: SnapshotKeyHandler) {
+
+    func addOrUpdateUserProfile(userProfile: [String: AnyObject], completion: FirebaseProfileCreatedCompletion) {
         var snapshotKey = ""
         var addOrUpdate: AddOrUpdate = .add
         if CurrentUser.sharedInstance.snapshotKey != "" {
             snapshotKey = CurrentUser.sharedInstance.snapshotKey
             addOrUpdate = .update
         }
+
+        var firebaseProfile = userProfile
+        firebaseProfile.removeValue(forKey: "profileImage")
         
         switch addOrUpdate {
         case .add:
-            var firebaseProfile = userProfile
-            firebaseProfile.removeValue(forKey: "profileImage")
+            let newBot = Bot.createBot()
+            writeBotToFirebase(bot: newBot)
+            
+            firebaseProfile["botID"] = newBot.botID as AnyObject?
+            
             let usersRef = firebaseDatabaseRef.ref.child("users").childByAutoId()
             usersRef.setValue(firebaseProfile)
-            completion(getSnapshotKeyFromRef(firebaseChildRef: usersRef))
+            completion(getSnapshotKeyFromRef(firebaseChildRef: usersRef), newBot.botID)
         case .update:
-            var firebaseProfile = userProfile
-            firebaseProfile.removeValue(forKey: "profileImage")
             self.updateChildValue(child: "users", childKey: snapshotKey, nodeToUpdate: firebaseProfile as [String : AnyObject])
             var newUserProfile = userProfile
             newUserProfile.updateValue(snapshotKey as AnyObject, forKey: "snapshotKey")
-            let rlmUser = RLMUser().createUser(userProfile: newUserProfile)
-                RLMDBManager().updateObject(rlmUser!)
+            if let rlmUser = RLMUser().createUser(userProfile: newUserProfile) {
+                    RLMDBManager().updateObject(rlmUser)
+            }
         }
+    }
+    
+    fileprivate func writeBotToFirebase(bot: Bot) {
+        let botsRef = firebaseDatabaseRef.ref.child("bots").childByAutoId()
+        let botProfile = ["name" : bot.name, "botID" : bot.botID, "userID" : bot.userID]
+        botsRef.setValue(botProfile)
     }
 
     fileprivate func writeToRealm(userProfile: [String : AnyObject]) {
@@ -177,6 +181,7 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
     //MARK: Login & Signup Methods
     
     //Logs user into the app as an anonymous user.
+    
     func loginWithAnonymousUser() {
         FIRAuth.auth()?.signInAnonymously(completion: { (user, error) in
             if error != nil {
@@ -187,104 +192,11 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
             }
         })
     }
-    
-    /*
-     Logs a user in with Firebase using email and password. If there is no error then it gets the
-     user from Realm. If there is no user profile in realm then it gets the user profile from Firebase
-     and then writes the user profile to realm.
-*/
-  
-    //WILL DELETE "WRITECURRENTUSERTOREALM"
-    
-    //Used to write the current user's profile to realm when it is obtained from Firebase.
-    fileprivate func writeCurrentUserToRealm(user: FIRUser, snapshot:FIRDataSnapshot) {
-        let snapshotDict = snapshot.value as! NSDictionary
-        for child in snapshotDict {
-            let snapChildDict = child.value as! NSDictionary
-            let rlmUser = RLMUser()
-            guard let name = snapChildDict["username"] as? String else {return}
 
-//            let userProfile = ["username" : name, "userID" : user.uid]
-//            rlmUser.createUser(name, userID: user.uid, snapshotKey: snapshot.key)
-
-            guard snapChildDict["profileImageURL"] as! String != "" else {
-                rlmUser.profileImageURL = snapChildDict["profileImageURL"] as! String
-                RLMDBManager().writeObject(rlmUser)
-                return
-            }
-            AlamoFireOperation.downloadProfileImageWithAlamoFire(URL: snapChildDict["profileImageURL"] as! String, completion: {
-                (image, error) in
-                guard error == nil else {return}
-                rlmUser.setRLMUserProfileImageAndURL(snapChildDict["profileImageURL"] as! String, image: UIImageJPEGRepresentation(image!, 1.0)!)
-                RLMDBManager().writeObject(rlmUser)
-            })
-        }
-    }
-    
-    /*
-     Sets the CurrentUser singleton with Firebase by querying the profile with the current user's userID.
-     It then calls the writeCurrentUserToRealm func to write that profile to Realm.
- */
-    fileprivate func setCurrentUserWithFirebase(_ user: FIRUser, completion: @escaping CurrentUserResult) {
-        let query = self.firebaseDatabaseRef.ref.child("users").queryOrdered(byChild: "userID").queryEqual(toValue: user.uid)
-        self.queryChildWithConstraints(query, firebaseDataEventType: .value, observeSingleEventType: true, completion: { (result) in
-            CurrentUser.sharedInstance.setCurrentUserWithFirebase(snapshot: result)
-            self.writeCurrentUserToRealm(user: user, snapshot: result)
-            completion(CurrentUser.sharedInstance)
-        })
-    }
-    
     //Sets the CurrentUser singleton with realm results.
     fileprivate func setCurrentUserWithRealm(_ results: Results<RLMUser>, completion:(CurrentUserResult)) {
         CurrentUser.sharedInstance.setCurrentUserWithRealm(results: results)
         completion(CurrentUser.sharedInstance)
     }
-
-    /*
-     Signs Up a user with an email & password account.
-     If a profileImage was not chosen then it signs up a user with Firebase,
-     creates the profile on Firebase with "" as the profileImageURL, saves that
-     profile to Realm and then sets the CurrentUser Singleton. If there was a
-     chosen profile image then all the same things occur except that it saves the image
-     to Cloudinary then saves the Firebase and Realm profile with the Cloudinary URL.
- */
-    func signUpWithEmailAndPassword(_ email:String, password: String, name: String, profileImageChoosen: Bool, profileImage: UIImage?, completion: @escaping SignUpResult) {
-        FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: {
-            (user, error) in
-            guard error == nil else {
-                //Decide Error Type here to then call appropriate alert controller.
-                completion(error as NSError?)
-                return
-            }
-            switch profileImageChoosen {
-            case false:
-            let userProfile = ["name": name, "location": "", "profileImageURL": "", "userID": user!.uid]
-            self.createUserProfile(userProfile: userProfile, completion: {
-                (snapshotKey) in
-                let rlmUser = RLMUser()
-//                rlmUser.createUser(name, userID: user!.uid, snapshotKey: snapshotKey!)
-                RLMDBManager().writeObject(rlmUser)
-                CurrentUser.sharedInstance.setCurrentUserProperties(name, imageURL: "", userID: user!.uid, snapshotKey: snapshotKey!)
-                completion(nil)
-            })
-            case true:
-            CloudinaryOperation().uploadImageToCloudinary(profileImage!, delegate: self, completion: {
-                    (photoURL) in
-                    let userProfile = ["name": name, "location": "", "profileImageURL": photoURL, "userID": user!.uid]
-                    self.createUserProfile(userProfile: userProfile, completion: {
-                        (snapshotKey) in
-                        let rlmUser = RLMUser()
-//                        rlmUser.createUser(name, userID: user!.uid, snapshotKey: snapshotKey!)
-                        rlmUser.setRLMUserProfileImageAndURL(photoURL, image: UIImageJPEGRepresentation(profileImage!, 1.0)!)
-                        RLMDBManager().writeObject(rlmUser)
-                        CurrentUser.sharedInstance.setCurrentUserProperties(name, imageURL: photoURL, userID: user!.uid, snapshotKey: snapshotKey!)
-                        CurrentUser.sharedInstance.profileImage = profileImage!
-                        completion(nil)
-                    })
-                })
-            }
-        })
-    }
-
     
 }

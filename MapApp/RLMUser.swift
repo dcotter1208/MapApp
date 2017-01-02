@@ -13,6 +13,7 @@ class RLMUser: Object {
     dynamic var username = ""
     dynamic var profileImageURL = ""
     dynamic var userID = ""
+    dynamic var botID = ""
     dynamic var snapshotKey = ""
     dynamic var profileImage: Data? = nil
     
@@ -21,9 +22,10 @@ class RLMUser: Object {
     }
     
     func createUser(userProfile: [String : AnyObject]) -> RLMUser? {
-        if let username = userProfile["username"] as? String, let userID = userProfile["userID"] as? String, let snapshotKey = userProfile["snapshotKey"] as? String {
+        if let username = userProfile["username"] as? String, let userID = userProfile["userID"] as? String, let botID = userProfile["botID"] as? String, let snapshotKey = userProfile["snapshotKey"] as? String {
             self.username = username
             self.userID = userID
+            self.botID = botID
             self.snapshotKey = snapshotKey
             
             if let url = userProfile["profileImageURL"] as? String {
@@ -39,14 +41,7 @@ class RLMUser: Object {
             return nil
         }
     }
-    
-//    func createUser(_ username: String, userID: String, snapshotKey: String) -> RLMUser {
-//        self.username = username
-//        self.userID = userID
-//        self.snapshotKey = snapshotKey
-//        return self
-//    }
-    
+
     func setRLMUserProfileImageAndURL(_ URL: String, image: Data) {
         self.profileImageURL = URL
         self.profileImage = image
