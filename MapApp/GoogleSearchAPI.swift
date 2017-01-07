@@ -11,13 +11,16 @@ import CoreLocation
 import Alamofire
 
 enum GooglePlacesCategoryType: String {
-    case AmusementPark = "amusement_park"
+    //USED FOR BOT
     case Bar = "bar"
-    case Campground = "campground"
     case Casino = "casino"
+    case Restaurant = "restaurant"
+    
+    //OTHERS
+    case AmusementPark = "amusement_park"
+    case Campground = "campground"
     case Lodging = "lodging"
     case Park = "park"
-    case Restaurant = "restaurant"
     case ShoppingMall = "shopping_mall"
     case Stadium = "stadium"
     case University = "university"
@@ -65,7 +68,7 @@ class GoogleSearchAPI {
             case .NearbySearch:
                 URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(coordinate.latitude),\(coordinate.longitude)&radius=1000&type=\(categoryType!.rawValue)&key=\(key)"
             case .TextSearch:
-                URL = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=\(searchText!)&location=\(coordinate.latitude),\(coordinate.longitude)&type=\(categoryType!.rawValue)&keyword=\(keyword!)&radius=1000&language=en&key=\(key)"
+                URL = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=\(searchText!)&location=\(coordinate.latitude),\(coordinate.longitude)&type=\(categoryType!.rawValue)&radius=1000&language=en&key=\(key)"
             }
         }
         return URL
