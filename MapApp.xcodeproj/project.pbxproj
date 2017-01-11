@@ -27,6 +27,7 @@
 		C084BEB01D8DC89E00BD579F /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C084BEAF1D8DC89E00BD579F /* Coordinate.swift */; };
 		C08E43B11DCEEB5600D9488E /* MarkerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08E43B01DCEEB5600D9488E /* MarkerExtension.swift */; };
 		C08E43B31DCEF09200D9488E /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08E43B21DCEF09200D9488E /* Marker.swift */; };
+		C090FA661E25C92100A8CDC1 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C090FA651E25C92100A8CDC1 /* LocationManager.swift */; };
 		C09833C01E14C974004B74FB /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09833BF1E14C974004B74FB /* StringExtensions.swift */; };
 		C0B14D591DBC2A39003748A6 /* MessageCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B14D581DBC2A39003748A6 /* MessageCellProtocol.swift */; };
 		C0B14D5B1DBC5C36003748A6 /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B14D5A1DBC5C36003748A6 /* ChatVC.swift */; };
@@ -110,6 +111,7 @@
 		C084BEAF1D8DC89E00BD579F /* Coordinate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
 		C08E43B01DCEEB5600D9488E /* MarkerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerExtension.swift; sourceTree = "<group>"; };
 		C08E43B21DCEF09200D9488E /* Marker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
+		C090FA651E25C92100A8CDC1 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		C09833BF1E14C974004B74FB /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		C0B14D581DBC2A39003748A6 /* MessageCellProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCellProtocol.swift; sourceTree = "<group>"; };
 		C0B14D5A1DBC5C36003748A6 /* ChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
@@ -299,6 +301,14 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
+		C090FA671E25C92800A8CDC1 /* LocationManagement */ = {
+			isa = PBXGroup;
+			children = (
+				C090FA651E25C92100A8CDC1 /* LocationManager.swift */,
+			);
+			name = LocationManagement;
+			sourceTree = "<group>";
+		};
 		C09833C21E14C993004B74FB /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -367,6 +377,7 @@
 				C0FBAD961D7A4AD800C1C998 /* Info.plist */,
 				C0FBADC21D7A6E4500C1C998 /* Keys.plist */,
 				C01F3ACE1E1AB8BA009B13CA /* Bot */,
+				C090FA671E25C92800A8CDC1 /* LocationManagement */,
 			);
 			path = MapApp;
 			sourceTree = "<group>";
@@ -720,6 +731,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C084BEAA1D8DA5F500BD579F /* Address.swift in Sources */,
+				C090FA661E25C92100A8CDC1 /* LocationManager.swift in Sources */,
 				C0FBADDC1D7B464B00C1C998 /* ImagePicker.swift in Sources */,
 				C077751D1D986E5800B7DF68 /* VenueContactInfo.swift in Sources */,
 				C0CE3BCB1DA182D80072AE17 /* VenueChatDisplayDetailVC.swift in Sources */,

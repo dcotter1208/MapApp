@@ -11,16 +11,11 @@ import CoreLocation
 
 private let TooManySearchWordsResponse = "🤔 I couldn't find what you were looking for. Please Try rephrasing that."
 
-
 //These are the keywords the bot will look for to perform a place search.
 let searchCommands = ["search", "find", "locate"]
 let searchKeywords = ["bars", "bar", "drinks", "drink", "sports bars", "club", "clubs", "beer", "brewery", "breweries", "restaurants", "restaurant", "food", "hungry", "eat"]
 
-fileprivate var userLocationManager: CLLocationManager?
-fileprivate var newestLocation = CLLocation()
-fileprivate var userLocation: CLLocation?
-
-struct Bot: CLLocationManagerDelegate, NSObjectProtocol {
+struct Bot  {
     var name = ""
     var botID = ""
     var userID = ""
@@ -38,6 +33,7 @@ struct Bot: CLLocationManagerDelegate, NSObjectProtocol {
     }
     
     fileprivate func respondToMessage(message: Message) {
+        filterTextForKeywords(text: message.text!)
         //Will Respond with a generic text message and perform a search if its necessary.
     }
     
@@ -48,26 +44,29 @@ struct Bot: CLLocationManagerDelegate, NSObjectProtocol {
         for word in lowercasedText.components(separatedBy: " ") {
             if searchKeywords.contains(word) {
                 foundKeywords.append(word)
-            } else {
-                //Non-Search related response
             }
-
-            if isSearchCommand(text: text) {
-                let searchTerm = determineSearchType(foundKeywords: foundKeywords)
-                guard let safeSearchTerm = searchTerm, let coordinate = getUserLocation() else { return }
-                let searchCoordinates = CLLocationCoordinate2DMake(coordinate.coordinate.latitude, coordinate.coordinate.longitude)
-                let googlePlaceCategoryType = mapSearchTermToGooglePlacesCategoryType(searchTerm: safeSearchTerm)
-                
-                Venue.getAllVenuesWithCoordinate(categoryType: googlePlaceCategoryType, searchText: safeSearchTerm, keyword: nil, coordinate: searchCoordinates, searchType: .TextSearch, completion: { (venues, error) in
-                    guard let foundPlaces = venues else {
-                        //Send Sorry Error Search Message
-                        print("BOT SEARCH ERROR: \(error)")
-                    }
-                    print("\(foundPlaces)")
-                })
-            } else {
-                //Non-Search related response
-            }
+        }
+        
+        if foundKeywords.count == 0 {
+            return
+        }
+        
+        if isSearchCommand(text: text) {
+            let searchTerm = determineSearchType(foundKeywords: foundKeywords)
+            guard let safeSearchTerm = searchTerm, let coordinate = LocationManager().getUserLocation() else { return }
+            let searchCoordinates = CLLocationCoordinate2DMake(coordinate.coordinate.latitude, coordinate.coordinate.longitude)
+            let googlePlaceCategoryType = mapSearchTermToGooglePlacesCategoryType(searchTerm: safeSearchTerm)
+            
+            Venue.getAllVenuesWithCoordinate(categoryType: googlePlaceCategoryType, searchText: safeSearchTerm, keyword: nil, coordinate: searchCoordinates, searchType: .TextSearch, completion: { (venues, error) in
+                guard let foundPlaces = venues else {
+                    //Send Sorry Error Search Message
+                    print("BOT SEARCH ERROR: \(error)")
+                    return
+                }
+                print("\(foundPlaces)")
+            })
+        } else {
+            //Non-Search related response
         }
         
     }
@@ -104,25 +103,6 @@ struct Bot: CLLocationManagerDelegate, NSObjectProtocol {
         default:
             return .Restaurant
         }
-    }
-
-    func getUserLocation() -> CLLocation? {
-        userLocationManager = CLLocationManager()
-        guard let manager = userLocationManager else { return nil }
-        manager.delegate = self
-        manager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        manager.requestWhenInUseAuthorization()
-        manager.distanceFilter = 100
-        manager.startUpdatingLocation()
-        guard let managerLocation = manager.location else { return nil }
-        newestLocation = managerLocation
-        return newestLocation
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let lastLocation = locations.last else { return }
-        newestLocation = lastLocation
-        userLocation = newestLocation
     }
 
 }
