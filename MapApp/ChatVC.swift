@@ -54,11 +54,14 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         adjustTableViewInsetWithKeyboardHiding()
         if let venueID = venueID {
             queryAllMessagesFromFirebaseForVenue(venueID: venueID)
+        } else {
+            //retrieve bot messages
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         messageToolbar?.messageTextView.resignFirstResponder()
+        venueID = nil
     }
     
     override func didReceiveMemoryWarning() {
@@ -94,6 +97,13 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
             chatTableView.contentInset = UIEdgeInsetsMake(0, 0, messageToolbar.frame.size.height, 0)
             self.chatTableView.scrollIndicatorInsets = self.chatTableView.contentInset
         }
+    }
+    
+    func isBotChat() -> Bool {
+        guard venueID != nil else {
+            return true
+        }
+        return false
     }
 
     //MARK: **Message Toolbar Helper Methods**
@@ -231,8 +241,18 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         let currentUserID = CurrentUser.sharedInstance.userID
         
         guard let messageToolbar = messageToolbar else { return }
+        
+        var message = ["text" : messageToolbar.messageTextView.text, "timestamp" : "11/05/16", "userID" : currentUserID, "messageType" : MessageType.text.rawValue] as [String : Any]
+        
+        if isBotChat() {
+            message["botID"] = CurrentUser.sharedInstance.botID
+            firebaseOp.setValueForChild(child: "botMessages", value: message)
+        } else {
+            guard let safeVenueID = venueID else { return }
+            message["locationID"] = safeVenueID
+            firebaseOp.setValueForChild(child: "botMessages", value: message)
+        }
 
-        firebaseOp.setValueForChild(child: "messages", value: ["text" : messageToolbar.messageTextView.text, "timestamp" : "11/05/16", "locationID" : venueID!, "userID" : currentUserID, "messageType" : MessageType.text.rawValue])
         messageToolbar.messageTextView.text = ""
         adjustMessageViewHeightWithMessageSize()
     }

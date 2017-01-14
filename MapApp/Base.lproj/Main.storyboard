@@ -189,9 +189,22 @@
                                     <outlet property="delegate" destination="COl-M3-9gI" id="M0J-o1-cO7"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wha-wa-0k8">
+                                <rect key="frame" x="301" y="72" width="58" height="58"/>
+                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="58" id="OT1-4W-i8y"/>
+                                    <constraint firstAttribute="width" constant="58" id="mzE-9y-Adh"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="happy_robot"/>
+                                <connections>
+                                    <segue destination="ihI-LM-XUP" kind="modal" identifier="enterBotChatSegue" id="BGG-Kk-bBN"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="wha-wa-0k8" firstAttribute="trailing" secondItem="Ssa-SH-9il" secondAttribute="trailingMargin" id="2Qy-2d-fHv"/>
                             <constraint firstItem="yh4-Ap-SDN" firstAttribute="bottom" secondItem="Xnl-pX-9bT" secondAttribute="top" id="3wq-c3-niJ"/>
                             <constraint firstItem="yh4-Ap-SDN" firstAttribute="trailing" secondItem="Ssa-SH-9il" secondAttribute="trailingMargin" id="7oa-vI-UCP"/>
                             <constraint firstItem="yh4-Ap-SDN" firstAttribute="leading" secondItem="Ssa-SH-9il" secondAttribute="leadingMargin" id="BuC-dv-3oE"/>
@@ -203,6 +216,7 @@
                             <constraint firstItem="Xnl-pX-9bT" firstAttribute="top" secondItem="PFi-UW-2fy" secondAttribute="bottom" id="QUt-bj-f9V"/>
                             <constraint firstItem="PFi-UW-2fy" firstAttribute="leading" secondItem="Ssa-SH-9il" secondAttribute="leading" id="SDL-17-SWz"/>
                             <constraint firstItem="yh4-Ap-SDN" firstAttribute="centerX" secondItem="Xnl-pX-9bT" secondAttribute="centerX" id="buK-by-6Pd"/>
+                            <constraint firstItem="wha-wa-0k8" firstAttribute="top" secondItem="jhY-Wu-As6" secondAttribute="bottom" constant="8" id="mtr-Ym-af9"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="2yv-If-bJj">
@@ -231,7 +245,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-22362" y="-2919"/>
+            <point key="canvasLocation" x="-22362.400000000001" y="-2919.490254872564"/>
         </scene>
         <!--Venue Chat Display DetailVC-->
         <scene sceneID="PgC-0z-NOX">
@@ -744,7 +758,7 @@
                                             <outlet property="profileImageView" destination="OAL-ng-c9q" id="s6Z-bC-d9W"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RobotSearchResultCell" rowHeight="329" id="2Cg-y9-zgy">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RobotSearchResultCell" rowHeight="329" id="2Cg-y9-zgy" customClass="RobotSearchResultCell" customModule="MapApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1044" width="375" height="329"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2Cg-y9-zgy" id="to6-f0-87c">
@@ -768,7 +782,7 @@
                                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
-                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="TRC-Jl-JOF">
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="TRC-Jl-JOF" customClass="BotResponseResultCollectionViewCell" customModule="MapApp" customModuleProvider="target">
                                                             <rect key="frame" x="40" y="0.0" width="235" height="311"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -787,7 +801,7 @@
                                                                         <rect key="frame" x="8" y="155" width="219" height="148"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <prototypes>
-                                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="55" id="PhL-5D-oL4">
+                                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="VenueOptionCell" rowHeight="55" id="PhL-5D-oL4">
                                                                                 <rect key="frame" x="0.0" y="28" width="219" height="55"/>
                                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PhL-5D-oL4" id="G7l-iI-Mz6">
@@ -817,6 +831,10 @@
                                                                 <constraint firstItem="3C1-YG-YU7" firstAttribute="leading" secondItem="FjP-BN-rpb" secondAttribute="leading" id="zbN-NE-Oxo"/>
                                                                 <constraint firstItem="3C1-YG-YU7" firstAttribute="trailing" secondItem="FjP-BN-rpb" secondAttribute="trailing" id="zgA-Cl-Moe"/>
                                                             </constraints>
+                                                            <connections>
+                                                                <outlet property="venueImageButton" destination="3C1-YG-YU7" id="wa3-10-mSt"/>
+                                                                <outlet property="venueOptionsTableView" destination="FjP-BN-rpb" id="uin-pN-6de"/>
+                                                            </connections>
                                                         </collectionViewCell>
                                                     </cells>
                                                 </collectionView>
@@ -830,6 +848,9 @@
                                                 <constraint firstItem="6w1-2c-eoX" firstAttribute="bottom" secondItem="YZf-99-phy" secondAttribute="bottom" id="xST-gx-A7s"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="responseCollectionView" destination="YZf-99-phy" id="vuR-sx-nFG"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -847,6 +868,7 @@
                                                 <action selector="backButtonPressed:" destination="ihI-LM-XUP" id="8vi-5i-kdV"/>
                                             </connections>
                                         </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Bot" id="qod-XI-jXw"/>
                                     </navigationItem>
                                 </items>
                             </navigationBar>

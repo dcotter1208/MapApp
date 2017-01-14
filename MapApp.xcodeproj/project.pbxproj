@@ -39,6 +39,8 @@
 		C0D21B021DE24E3100B17BB2 /* ImageCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D21B011DE24E3100B17BB2 /* ImageCacher.swift */; };
 		C0E4E2D71DD7B4C900998A90 /* ChatMediaMessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4E2D61DD7B4C900998A90 /* ChatMediaMessageVC.swift */; };
 		C0E5906E1D9E028500C4D068 /* GoogleSearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E5906D1D9E028500C4D068 /* GoogleSearchAPI.swift */; };
+		C0F953161E27032B00EA161F /* RobotSearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F953151E27032B00EA161F /* RobotSearchResultCell.swift */; };
+		C0F953181E27055300EA161F /* BotResponseResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F953171E27055300EA161F /* BotResponseResultCollectionViewCell.swift */; };
 		C0FBAD8B1D7A4AD800C1C998 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBAD8A1D7A4AD800C1C998 /* AppDelegate.swift */; };
 		C0FBAD901D7A4AD800C1C998 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0FBAD8E1D7A4AD800C1C998 /* Main.storyboard */; };
 		C0FBAD921D7A4AD800C1C998 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0FBAD911D7A4AD800C1C998 /* Assets.xcassets */; };
@@ -123,6 +125,8 @@
 		C0D21B011DE24E3100B17BB2 /* ImageCacher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCacher.swift; sourceTree = "<group>"; };
 		C0E4E2D61DD7B4C900998A90 /* ChatMediaMessageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMediaMessageVC.swift; sourceTree = "<group>"; };
 		C0E5906D1D9E028500C4D068 /* GoogleSearchAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleSearchAPI.swift; sourceTree = "<group>"; };
+		C0F953151E27032B00EA161F /* RobotSearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RobotSearchResultCell.swift; sourceTree = "<group>"; };
+		C0F953171E27055300EA161F /* BotResponseResultCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BotResponseResultCollectionViewCell.swift; sourceTree = "<group>"; };
 		C0FBAD871D7A4AD800C1C998 /* MapApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0FBAD8A1D7A4AD800C1C998 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0FBAD8F1D7A4AD800C1C998 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -243,6 +247,8 @@
 			isa = PBXGroup;
 			children = (
 				C01F3ACC1E1AB8B6009B13CA /* Bot.swift */,
+				C0F953151E27032B00EA161F /* RobotSearchResultCell.swift */,
+				C0F953171E27055300EA161F /* BotResponseResultCollectionViewCell.swift */,
 			);
 			name = Bot;
 			sourceTree = "<group>";
@@ -753,8 +759,10 @@
 				C0197D2D1DA0875900F68AF0 /* CalloutView.swift in Sources */,
 				C0FBADC81D7A783600C1C998 /* User.swift in Sources */,
 				C0FBADD81D7B3F4200C1C998 /* RLMUser.swift in Sources */,
+				C0F953161E27032B00EA161F /* RobotSearchResultCell.swift in Sources */,
 				C03C09D51DD8240000ADBAD3 /* MessageProtocol.swift in Sources */,
 				C0FBADD41D7B289300C1C998 /* CloudinaryOperation.swift in Sources */,
+				C0F953181E27055300EA161F /* BotResponseResultCollectionViewCell.swift in Sources */,
 				C084BEB01D8DC89E00BD579F /* Coordinate.swift in Sources */,
 				C03C09DB1DE1196B00ADBAD3 /* DefaultPortraitMediaMessageCell.swift in Sources */,
 				C09833C01E14C974004B74FB /* StringExtensions.swift in Sources */,

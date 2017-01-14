@@ -61,7 +61,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
         
         let bot = Bot(name: "Botman", botID: "123", userID: "456")
         
-        let message = Message(text: "Hello, please search for bars", timestamp: "", locationID: "", userID: "", mediaURL: nil, mediaOrientation: nil, messageType: .text)
+        let message = Message(text: "Hello, please search for the best bars", timestamp: "", locationID: "", userID: "", mediaURL: nil, mediaOrientation: nil, messageType: .text)
         
         bot.handleMessage(message: message)
         
