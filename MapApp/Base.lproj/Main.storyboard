@@ -452,7 +452,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HopCat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPa-hx-jV2">
-                                        <rect key="frame" x="69" y="13.5" width="237" height="19.5"/>
+                                        <rect key="frame" x="69" y="14.5" width="237" height="18.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -723,21 +723,21 @@
                                             <outlet property="profileImageView" destination="Heg-Qq-QCl" id="BZf-xO-ZAH"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DefaultLandscapeMediaMessageCell" rowHeight="192" id="to3-sp-dXJ" customClass="DefaultLandscapeMediaMessageCell" customModule="MapApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="852" width="375" height="192"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DefaultLandscapeMediaMessageCell" rowHeight="214" id="to3-sp-dXJ" customClass="DefaultLandscapeMediaMessageCell" customModule="MapApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="852" width="375" height="214"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="to3-sp-dXJ" id="syf-mA-xhz">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="192"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="to3-sp-dXJ" id="syf-mA-xhz">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="214"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OAL-ng-c9q">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OAL-ng-c9q">
                                                     <rect key="frame" x="8" y="149" width="35" height="35"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="35" id="78p-OW-Bg7"/>
                                                         <constraint firstAttribute="width" constant="35" id="JXz-4w-B71"/>
                                                     </constraints>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iLk-ol-sfi">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iLk-ol-sfi">
                                                     <rect key="frame" x="51" y="0.0" width="245" height="184"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="245" id="37b-ZX-nI4"/>
@@ -758,22 +758,21 @@
                                             <outlet property="profileImageView" destination="OAL-ng-c9q" id="s6Z-bC-d9W"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BotSearchResultCell" rowHeight="329" id="2Cg-y9-zgy" customClass="BotSearchResultCell" customModule="MapApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="1044" width="375" height="329"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BotSearchResultCell" rowHeight="421" id="2Cg-y9-zgy" customClass="BotSearchResultCell" customModule="MapApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="1066" width="375" height="421"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2Cg-y9-zgy" id="to6-f0-87c">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="329"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="421"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="happy_robot" translatesAutoresizingMaskIntoConstraints="NO" id="6w1-2c-eoX">
-                                                    <rect key="frame" x="8" y="286" width="35" height="35"/>
+                                                    <rect key="frame" x="8" y="378" width="35" height="35"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="35" id="piO-Jd-Jv1"/>
-                                                        <constraint firstAttribute="height" constant="35" id="tpV-IR-oJd"/>
+                                                        <constraint firstAttribute="height" constant="35" id="vi9-Lw-RT7"/>
                                                     </constraints>
                                                 </imageView>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="YZf-99-phy">
-                                                    <rect key="frame" x="51" y="8" width="315" height="313"/>
+                                                    <rect key="frame" x="52" y="99" width="315" height="314"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2oc-zn-VDM">
                                                         <size key="itemSize" width="235" height="311"/>
@@ -838,18 +837,32 @@
                                                         </collectionViewCell>
                                                     </cells>
                                                 </collectionView>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jbx-hL-TRl">
+                                                    <rect key="frame" x="52" y="0.0" width="277" height="83"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="83" id="7hR-40-4BB"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="YZf-99-phy" firstAttribute="leading" secondItem="6w1-2c-eoX" secondAttribute="trailing" constant="8" symbolic="YES" id="0tR-62-3U6"/>
-                                                <constraint firstItem="YZf-99-phy" firstAttribute="top" secondItem="to6-f0-87c" secondAttribute="topMargin" id="9HV-rO-nrw"/>
-                                                <constraint firstItem="6w1-2c-eoX" firstAttribute="leading" secondItem="to6-f0-87c" secondAttribute="leadingMargin" id="KbO-zo-RNn"/>
-                                                <constraint firstItem="6w1-2c-eoX" firstAttribute="bottom" secondItem="to6-f0-87c" secondAttribute="bottomMargin" id="gHP-ZV-ObD"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="YZf-99-phy" secondAttribute="trailing" constant="1" id="m9S-EL-ndS"/>
-                                                <constraint firstItem="6w1-2c-eoX" firstAttribute="bottom" secondItem="YZf-99-phy" secondAttribute="bottom" id="xST-gx-A7s"/>
+                                                <constraint firstItem="jbx-hL-TRl" firstAttribute="top" secondItem="to6-f0-87c" secondAttribute="top" id="4UV-e1-Gqy"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="jbx-hL-TRl" secondAttribute="trailing" constant="38" id="Fik-Hg-1PS"/>
+                                                <constraint firstItem="YZf-99-phy" firstAttribute="trailing" secondItem="to6-f0-87c" secondAttribute="trailingMargin" id="QUH-SU-sW3"/>
+                                                <constraint firstItem="jbx-hL-TRl" firstAttribute="leading" secondItem="to6-f0-87c" secondAttribute="leadingMargin" constant="44" id="Qr8-Yd-cN9"/>
+                                                <constraint firstItem="YZf-99-phy" firstAttribute="top" secondItem="jbx-hL-TRl" secondAttribute="bottom" constant="16" id="Y64-kA-3TW"/>
+                                                <constraint firstItem="6w1-2c-eoX" firstAttribute="leading" secondItem="to6-f0-87c" secondAttribute="leadingMargin" id="aM2-JR-mAS"/>
+                                                <constraint firstItem="6w1-2c-eoX" firstAttribute="bottom" secondItem="YZf-99-phy" secondAttribute="bottom" id="h7b-U3-Uqn"/>
+                                                <constraint firstItem="YZf-99-phy" firstAttribute="leading" secondItem="6w1-2c-eoX" secondAttribute="trailing" constant="9" id="hAf-9u-WRR"/>
+                                                <constraint firstItem="jbx-hL-TRl" firstAttribute="leading" secondItem="YZf-99-phy" secondAttribute="leading" id="t5a-GQ-wcM"/>
+                                                <constraint firstItem="6w1-2c-eoX" firstAttribute="bottom" secondItem="to6-f0-87c" secondAttribute="bottomMargin" id="xjY-HB-GzM"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="responseCollectionView" destination="YZf-99-phy" id="vuR-sx-nFG"/>
+                                            <outlet property="responseTextView" destination="jbx-hL-TRl" id="LHV-Z1-6AI"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

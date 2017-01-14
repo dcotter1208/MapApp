@@ -10,6 +10,7 @@ import UIKit
 
 class BotSearchResultCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
     @IBOutlet weak var responseCollectionView: UICollectionView!
+    @IBOutlet weak var responseTextView: UITextView!
 
     //Will change this to hold actual venues for collection view datasource
     let venues = [String]()
@@ -29,7 +30,9 @@ class BotSearchResultCell: UITableViewCell, UICollectionViewDelegate, UICollecti
     }
     
     func setCellViewAttributesWithMessage(message: Message) {
-        Bot().handleMessage(message: message)
+        responseTextView.text = message.text!
+        //at this point I have a bot response message from Firebase.
+        //set the bot cell's attributes w/ the message.
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

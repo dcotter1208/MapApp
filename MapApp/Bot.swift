@@ -24,16 +24,17 @@ struct Bot  {
         return Bot(name: "Bot", botID: UUID().uuidString, userID: userID)
     }
     
-    func handleMessage(message: Message) {
-        if message.messageType == .userMedia {
-            //Response to media with "can't tell what that picture is"
-        } else {
-            respondToTextMessage(message: message)
-        }
+    func handleMediaMessage() {
+        //respond to a media message.
+        //Response to media with "can't tell what that picture is"
     }
     
-    fileprivate func respondToTextMessage(message: Message) {
-        let foundKeywords = filterTextForKeywords(text: message.text!)
+    func handleMessage(messageText: String) {
+        respondToTextMessage(text: messageText)
+    }
+    
+    fileprivate func respondToTextMessage(text: String) {
+        let foundKeywords = filterTextForKeywords(text: text)
         
         if foundKeywords.count == 0 {
             //Will Respond with a generic text message if there are no keywords.
@@ -41,7 +42,7 @@ struct Bot  {
             return
         }
         
-        if isSearchCommand(text: message.text!) {
+        if isSearchCommand(text: text) {
             //Perform Search
             performSearchForKeywords(keywords: foundKeywords, completion: { (result, error) in
                 guard let venues = result else {
@@ -72,7 +73,7 @@ struct Bot  {
     
     fileprivate func isSearchCommand(text: String) -> Bool {
             for searchKeyword in searchCommands {
-                if text.contains(searchKeyword) {
+                if text.lowercased().contains(searchKeyword) {
                     return true
                 }
             }

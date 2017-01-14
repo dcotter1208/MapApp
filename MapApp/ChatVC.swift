@@ -243,6 +243,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         let message = ["text" : messageToolbar.messageTextView.text, "timestamp" : "11/05/16", "userID" : currentUserID, "locationID": "123456789", "messageType" : MessageType.userText.rawValue] as [String : Any]
         
         firebaseOp.setValueForChild(child: "messages", value: message)
+        bot.handleMessage(messageText: messageToolbar.messageTextView.text)
         
         messageToolbar.messageTextView.text = ""
         adjustMessageViewHeightWithMessageSize()
