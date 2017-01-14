@@ -25,19 +25,40 @@ struct Bot  {
     }
     
     func handleMessage(message: Message) {
-        if message.messageType == .media {
+        if message.messageType == .userMedia {
             //Response to media with "can't tell what that picture is"
         } else {
-            respondToMessage(message: message)
+            respondToTextMessage(message: message)
         }
     }
     
-    fileprivate func respondToMessage(message: Message) {
-        filterTextForKeywords(text: message.text!)
-        //Will Respond with a generic text message and perform a search if its necessary.
+    fileprivate func respondToTextMessage(message: Message) {
+        let foundKeywords = filterTextForKeywords(text: message.text!)
+        
+        if foundKeywords.count == 0 {
+            //Will Respond with a generic text message if there are no keywords.
+            //Send to firebase
+            return
+        }
+        
+        if isSearchCommand(text: message.text!) {
+            //Perform Search
+            performSearchForKeywords(keywords: foundKeywords, completion: { (result, error) in
+                guard let venues = result else {
+                    print("ERROR: \(error)")
+                    return
+                }
+                //Construct search result message
+                self.constructSearchResultMessageWithVenues(venues: venues)
+            })
+        } else {
+            //Respond to message with keywords but not search command.
+            //Send to Firebase
+        }
+    
     }
     
-    fileprivate func filterTextForKeywords(text: String) {
+    fileprivate func filterTextForKeywords(text: String) -> [String] {
         let lowercasedText = text.lowercased()
         var foundKeywords = [String]()
         
@@ -46,29 +67,7 @@ struct Bot  {
                 foundKeywords.append(word)
             }
         }
-        
-        if foundKeywords.count == 0 {
-            return
-        }
-        
-        if isSearchCommand(text: text) {
-            let searchTerm = determineSearchType(foundKeywords: foundKeywords)
-            guard let safeSearchTerm = searchTerm, let coordinate = LocationManager().getUserLocation() else { return }
-            let searchCoordinates = CLLocationCoordinate2DMake(coordinate.coordinate.latitude, coordinate.coordinate.longitude)
-            let googlePlaceCategoryType = mapSearchTermToGooglePlacesCategoryType(searchTerm: safeSearchTerm)
-            
-            Venue.getAllVenuesWithCoordinate(categoryType: googlePlaceCategoryType, searchText: safeSearchTerm, keyword: nil, coordinate: searchCoordinates, searchType: .TextSearch, completion: { (venues, error) in
-                guard let foundPlaces = venues else {
-                    //Send Sorry Error Search Message
-                    print("BOT SEARCH ERROR: \(error)")
-                    return
-                }
-                print("\(foundPlaces)")
-            })
-        } else {
-            //Non-Search related response
-        }
-        
+        return foundKeywords
     }
     
     fileprivate func isSearchCommand(text: String) -> Bool {
@@ -104,6 +103,39 @@ struct Bot  {
             return .Restaurant
         }
     }
+    
+    fileprivate func performSearchForKeywords(keywords: [String], completion: @escaping NetworkResult) {
+        let searchTerm = determineSearchType(foundKeywords: keywords)
+        guard let safeSearchTerm = searchTerm, let coordinate = LocationManager().getUserLocation() else { return }
+        let searchCoordinates = CLLocationCoordinate2DMake(coordinate.coordinate.latitude, coordinate.coordinate.longitude)
+        let googlePlaceCategoryType = mapSearchTermToGooglePlacesCategoryType(searchTerm: safeSearchTerm)
+        
+        Venue.getAllVenuesWithCoordinate(categoryType: googlePlaceCategoryType, searchText: safeSearchTerm, keyword: nil, coordinate: searchCoordinates, searchType: .TextSearch, completion: { (venues, error) in
+            guard let foundPlaces = venues else {
+                completion(nil, error)
+                //Send Sorry Error Search Message
+                print("BOT SEARCH ERROR: \(error)")
+                return
+            }
+            completion(foundPlaces, nil)
+        })
+    }
+    
+    fileprivate func constructSearchResultMessageWithVenues(venues:[Venue]) {
+        let venueIDs = extractVenueIDs(venues: venues)
+        let message = ["text" : "I hope this helps: \(CurrentUser.sharedInstance.username)", "timestamp" : "", "locationID" : "123456789", "userID" : CurrentUser.sharedInstance.userID, "messageType": MessageType.botSearchResponse.rawValue, "venueIDs" : [venueIDs]] as [String : Any]
+       FirebaseOperation().setValueForChild(child: "messages", value: message)
+    }
 
+    fileprivate func extractVenueIDs(venues: [Venue]) -> [String] {
+        var venueIDs = [""]
+        for venue in venues {
+            if let safeVenueID = venue.venueID {
+                venueIDs.append(safeVenueID)
+            }
+        }
+        return venueIDs
+    }
+    
 }
 

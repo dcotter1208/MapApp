@@ -1,5 +1,5 @@
 //
-//  RobotSearchResultCell.swift
+//  BotSearchResultCell.swift
 //  MapApp
 //
 //  Created by Donovan Cotter on 1/11/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RobotSearchResultCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
+class BotSearchResultCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
     @IBOutlet weak var responseCollectionView: UICollectionView!
 
     //Will change this to hold actual venues for collection view datasource
@@ -28,6 +28,9 @@ class RobotSearchResultCell: UITableViewCell, UICollectionViewDelegate, UICollec
         // Configure the view for the selected state
     }
     
+    func setCellViewAttributesWithMessage(message: Message) {
+        Bot().handleMessage(message: message)
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return venues.count

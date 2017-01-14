@@ -24,7 +24,7 @@ struct Message: MessageProtocol {
         let messageType = mapMessageType(messageType: messageSnapshot["messageType"] as! String)
         
         switch messageType {
-        case .text:
+        case .userText:
             message = Message(text: messageSnapshot["text"] as? String,
                               timestamp: messageSnapshot["timestamp"] as! String,
                               locationID: messageSnapshot["locationID"] as! String,
@@ -33,7 +33,7 @@ struct Message: MessageProtocol {
                               mediaOrientation: nil,
                               messageType: messageType)
             return message
-        case .media:
+        case .userMedia:
             
             var mediaOrientation: MediaOrientation
             
@@ -56,18 +56,48 @@ struct Message: MessageProtocol {
                               mediaOrientation: mediaOrientation,
                               messageType: messageType)
             return message
+        
+        case .botTextResponse:
+            
+            message = Message(text: messageSnapshot["text"] as? String,
+                              timestamp: messageSnapshot["timestamp"] as! String,
+                              locationID: messageSnapshot["locationID"] as! String,
+                              userID: messageSnapshot["userID"] as! String,
+                              mediaURL: nil,
+                              mediaOrientation: nil,
+                              messageType: messageType)
+            
+            return message
+        
+        case .botSearchResponse:
+            
+            message = Message(text: messageSnapshot["text"] as? String,
+                              timestamp: messageSnapshot["timestamp"] as! String,
+                              locationID: messageSnapshot["locationID"] as! String,
+                              userID: messageSnapshot["userID"] as! String,
+                              mediaURL: messageSnapshot["mediaURL"] as? String, //Will only have one URL for cell display.
+                              mediaOrientation: nil,
+                              messageType: messageType)
+            
+            return message
+            
         }
+        
     }
     
     fileprivate static func mapMessageType(messageType: String) -> MessageType {
         switch messageType {
-        case "text":
-            return .text
-        case "media":
-            return .media
+        case "userText":
+            return .userText
+        case "userMedia":
+            return .userMedia
+        case "botTextResponse":
+            return .botTextResponse
+        case "botSearchResponse":
+            return .botSearchResponse
         default:
-            return .text
+            return .botTextResponse
         }
     }
-    
+
 }

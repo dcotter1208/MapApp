@@ -97,7 +97,7 @@ class ChatMediaMessageVC: UIViewController, UINavigationControllerDelegate, UIIm
         guard let venueID = venueID else {
             return nil
         }
-        let mediaMessage = ["timestamp" : "", "locationID" : venueID, "userID" : currentUserID, "mediaURL" : mediaURL, "mediaOrientation" : mediaOrientation.rawValue, "messageType" : MessageType.media.rawValue] as [String : Any]
+        let mediaMessage = ["timestamp" : "", "locationID" : venueID, "userID" : currentUserID, "mediaURL" : mediaURL, "mediaOrientation" : mediaOrientation.rawValue, "messageType" : MessageType.userMedia.rawValue] as [String : Any]
         
         return mediaMessage
     }

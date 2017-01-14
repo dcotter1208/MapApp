@@ -56,16 +56,6 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
         if !currentUserExists() {
             setUpSignUpView()
         }
-        
-        
-        
-        let bot = Bot(name: "Botman", botID: "123", userID: "456")
-        
-        let message = Message(text: "Hello, please search for the best bars", timestamp: "", locationID: "", userID: "", mediaURL: nil, mediaOrientation: nil, messageType: .text)
-        
-        bot.handleMessage(message: message)
-        
-
     }
 
     override func viewWillDisappear(_ animated: Bool) {

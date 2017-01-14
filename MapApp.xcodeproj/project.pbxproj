@@ -39,7 +39,7 @@
 		C0D21B021DE24E3100B17BB2 /* ImageCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D21B011DE24E3100B17BB2 /* ImageCacher.swift */; };
 		C0E4E2D71DD7B4C900998A90 /* ChatMediaMessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4E2D61DD7B4C900998A90 /* ChatMediaMessageVC.swift */; };
 		C0E5906E1D9E028500C4D068 /* GoogleSearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E5906D1D9E028500C4D068 /* GoogleSearchAPI.swift */; };
-		C0F953161E27032B00EA161F /* RobotSearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F953151E27032B00EA161F /* RobotSearchResultCell.swift */; };
+		C0F953161E27032B00EA161F /* BotSearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F953151E27032B00EA161F /* BotSearchResultCell.swift */; };
 		C0F953181E27055300EA161F /* BotResponseResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F953171E27055300EA161F /* BotResponseResultCollectionViewCell.swift */; };
 		C0FBAD8B1D7A4AD800C1C998 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FBAD8A1D7A4AD800C1C998 /* AppDelegate.swift */; };
 		C0FBAD901D7A4AD800C1C998 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0FBAD8E1D7A4AD800C1C998 /* Main.storyboard */; };
@@ -125,7 +125,7 @@
 		C0D21B011DE24E3100B17BB2 /* ImageCacher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCacher.swift; sourceTree = "<group>"; };
 		C0E4E2D61DD7B4C900998A90 /* ChatMediaMessageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMediaMessageVC.swift; sourceTree = "<group>"; };
 		C0E5906D1D9E028500C4D068 /* GoogleSearchAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleSearchAPI.swift; sourceTree = "<group>"; };
-		C0F953151E27032B00EA161F /* RobotSearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RobotSearchResultCell.swift; sourceTree = "<group>"; };
+		C0F953151E27032B00EA161F /* BotSearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BotSearchResultCell.swift; sourceTree = "<group>"; };
 		C0F953171E27055300EA161F /* BotResponseResultCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BotResponseResultCollectionViewCell.swift; sourceTree = "<group>"; };
 		C0FBAD871D7A4AD800C1C998 /* MapApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0FBAD8A1D7A4AD800C1C998 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -247,7 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				C01F3ACC1E1AB8B6009B13CA /* Bot.swift */,
-				C0F953151E27032B00EA161F /* RobotSearchResultCell.swift */,
+				C0F953151E27032B00EA161F /* BotSearchResultCell.swift */,
 				C0F953171E27055300EA161F /* BotResponseResultCollectionViewCell.swift */,
 			);
 			name = Bot;
@@ -302,7 +302,6 @@
 				C084BEAD1D8DBFE700BD579F /* Annotation.swift */,
 				C084BEAF1D8DC89E00BD579F /* Coordinate.swift */,
 				C0FD5FCB1DBAFED10000923B /* Message */,
-				C0FBADC91D7A783F00C1C998 /* User */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -376,14 +375,15 @@
 				C084BEA61D8DA1B000BD579F /* Models */,
 				C0FBADC61D7A781C00C1C998 /* Networking */,
 				C09833C21E14C993004B74FB /* Extensions */,
+				C01F3ACE1E1AB8BA009B13CA /* Bot */,
+				C090FA671E25C92800A8CDC1 /* LocationManagement */,
+				C0FBADC91D7A783F00C1C998 /* User */,
 				C0FBAD8E1D7A4AD800C1C998 /* Main.storyboard */,
 				C0FBAD911D7A4AD800C1C998 /* Assets.xcassets */,
 				C0FBAD931D7A4AD800C1C998 /* LaunchScreen.storyboard */,
 				C0FBADC01D7A6E3900C1C998 /* GoogleService-Info.plist */,
 				C0FBAD961D7A4AD800C1C998 /* Info.plist */,
 				C0FBADC21D7A6E4500C1C998 /* Keys.plist */,
-				C01F3ACE1E1AB8BA009B13CA /* Bot */,
-				C090FA671E25C92800A8CDC1 /* LocationManagement */,
 			);
 			path = MapApp;
 			sourceTree = "<group>";
@@ -759,7 +759,7 @@
 				C0197D2D1DA0875900F68AF0 /* CalloutView.swift in Sources */,
 				C0FBADC81D7A783600C1C998 /* User.swift in Sources */,
 				C0FBADD81D7B3F4200C1C998 /* RLMUser.swift in Sources */,
-				C0F953161E27032B00EA161F /* RobotSearchResultCell.swift in Sources */,
+				C0F953161E27032B00EA161F /* BotSearchResultCell.swift in Sources */,
 				C03C09D51DD8240000ADBAD3 /* MessageProtocol.swift in Sources */,
 				C0FBADD41D7B289300C1C998 /* CloudinaryOperation.swift in Sources */,
 				C0F953181E27055300EA161F /* BotResponseResultCollectionViewCell.swift in Sources */,

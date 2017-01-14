@@ -13,8 +13,10 @@ import Foundation
  */
 
 enum MessageType: String {
-    case text
-    case media
+    case userText
+    case userMedia
+    case botTextResponse
+    case botSearchResponse
 }
 
 enum MediaOrientation: String {

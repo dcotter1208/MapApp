@@ -24,6 +24,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     let DefaultPortraitMediaMessageCellIdentifier = "DefaultPortraitMediaMessageCell"
     let CurrentUserLandscapeMediaMessageCellIdentifier = "CurrentUserLandscapeMediaMessageCell"
     let DefaultLandscapeMediaMessageCellIdentifier = "DefaultLandscapeMediaMessageCell"
+    let BotSearchResultCellIdentifier = "BotSearchResultCell"
     
     //Text Message Cell Identifiers
     let CurrentUserMessageCellIdentifier = "CurrentUserMessageCell"
@@ -40,6 +41,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     var keyboardAnimationDuration = Double()
     var venueID: String?
     var imageForMessage: UIImage?
+    let bot = Bot.createBotWithUserID(userID: CurrentUser.sharedInstance.userID)
         
     //MARK: **Lifecycle**
     
@@ -52,11 +54,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         setUpmessageToolbar()
         chatTableView.keyboardDismissMode = .onDrag
         adjustTableViewInsetWithKeyboardHiding()
-        if let venueID = venueID {
-            queryAllMessagesFromFirebaseForVenue(venueID: venueID)
-        } else {
-            //retrieve bot messages
-        }
+        queryAllMessagesFromFirebaseForVenue(venueID: "123456789")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -242,19 +240,13 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         
         guard let messageToolbar = messageToolbar else { return }
         
-        var message = ["text" : messageToolbar.messageTextView.text, "timestamp" : "11/05/16", "userID" : currentUserID, "messageType" : MessageType.text.rawValue] as [String : Any]
+        let message = ["text" : messageToolbar.messageTextView.text, "timestamp" : "11/05/16", "userID" : currentUserID, "locationID": "123456789", "messageType" : MessageType.userText.rawValue] as [String : Any]
         
-        if isBotChat() {
-            message["botID"] = CurrentUser.sharedInstance.botID
-            firebaseOp.setValueForChild(child: "botMessages", value: message)
-        } else {
-            guard let safeVenueID = venueID else { return }
-            message["locationID"] = safeVenueID
-            firebaseOp.setValueForChild(child: "botMessages", value: message)
-        }
-
+        firebaseOp.setValueForChild(child: "messages", value: message)
+        
         messageToolbar.messageTextView.text = ""
         adjustMessageViewHeightWithMessageSize()
+        
     }
 
     //MARK: **TableView**
@@ -268,13 +260,17 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         let isCurrentUser = messageIsFromCurrentUser(message: message)
         
         switch message.messageType {
-        case .text:
+            
+            //USER TEXT CELL CREATION
+        case .userText:
             if isCurrentUser {
                 return createChatCell(withMessage: message, andCellIdentifier: CurrentUserMessageCellIdentifier, atIndexPath: indexPath)
             } else {
                 return createChatCell(withMessage: message, andCellIdentifier: DefaultMessageCellIdentifier, atIndexPath: indexPath)
             }
-        case .media:
+            
+            //USER MEDIA CELL CREATION
+        case .userMedia:
             if isCurrentUser {
                 if isMediaOrientationPortait(message: message)! {
                     return createChatCell(withMessage: message, andCellIdentifier: CurrentUserPortraitMediaMessageCellIdentifier, atIndexPath: indexPath)
@@ -287,7 +283,16 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
                 }
                 return createChatCell(withMessage: message, andCellIdentifier: DefaultLandscapeMediaMessageCellIdentifier, atIndexPath: indexPath)
             }
+            
+            //BOT CELL CREATiON
+        case .botTextResponse:
+            return createChatCell(withMessage: message, andCellIdentifier: DefaultMessageCellIdentifier, atIndexPath: indexPath)
+        
+        case .botSearchResponse:
+            return createChatCell(withMessage: message, andCellIdentifier: BotSearchResultCellIdentifier, atIndexPath: indexPath)
+            
         }
+        
     }
 
     func isMediaOrientationPortait(message: Message?) -> Bool? {
@@ -318,6 +323,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
             return currentUserMessageCell
             
             //Media Message Cells
+            //Portrait Orientation
         case CurrentUserPortraitMediaMessageCellIdentifier:
             let currentUserPortraitMediaMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CurrentUserPortraitMediaMessageCell
             currentUserPortraitMediaMessageCell.setCellViewAttributesWithMessage(message: message)
@@ -328,6 +334,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
             defaultPortraitMediaMessageCell.setCellViewAttributesWithMessage(message: message)
             return defaultPortraitMediaMessageCell
             
+            //Landscape Orientation
         case CurrentUserLandscapeMediaMessageCellIdentifier:
             let currentUserLandscapeMediaMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CurrentUserLandscapeMediaMessageCell
             currentUserLandscapeMediaMessageCell.setCellViewAttributesWithMessage(message: message)
@@ -337,6 +344,13 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
             let defaultLandscapeMediaMessageCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! DefaultLandscapeMediaMessageCell
             defaultLandscapeMediaMessageCell.setCellViewAttributesWithMessage(message: message)
             return defaultLandscapeMediaMessageCell
+            
+            //Bot Search Result Cell
+        case BotSearchResultCellIdentifier:
+            let botSearchResultCell = chatTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! BotSearchResultCell
+            botSearchResultCell.setCellViewAttributesWithMessage(message: message)
+            return botSearchResultCell
+            
         default:
             return tempCell
         }

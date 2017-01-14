@@ -198,7 +198,7 @@
                                 </constraints>
                                 <state key="normal" backgroundImage="happy_robot"/>
                                 <connections>
-                                    <segue destination="ihI-LM-XUP" kind="modal" identifier="enterBotChatSegue" id="BGG-Kk-bBN"/>
+                                    <segue destination="ihI-LM-XUP" kind="modal" identifier="" id="BGG-Kk-bBN"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -452,7 +452,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HopCat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPa-hx-jV2">
-                                        <rect key="frame" x="69" y="14" width="237" height="19"/>
+                                        <rect key="frame" x="69" y="13.5" width="237" height="19.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -758,7 +758,7 @@
                                             <outlet property="profileImageView" destination="OAL-ng-c9q" id="s6Z-bC-d9W"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RobotSearchResultCell" rowHeight="329" id="2Cg-y9-zgy" customClass="RobotSearchResultCell" customModule="MapApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BotSearchResultCell" rowHeight="329" id="2Cg-y9-zgy" customClass="BotSearchResultCell" customModule="MapApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1044" width="375" height="329"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2Cg-y9-zgy" id="to6-f0-87c">
