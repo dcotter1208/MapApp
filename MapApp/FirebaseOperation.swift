@@ -62,7 +62,7 @@ class FirebaseOperation: NSObject, CLUploaderDelegate {
             newUserProfile.updateValue(CurrentUser.sharedInstance.botID as AnyObject, forKey: "botID")
 
             if let rlmUser = RLMUser().createUser(userProfile: newUserProfile) {
-                    RLMDBManager().updateObject(rlmUser)
+                    RLMDBManager().updateUserProfile(rlmUser)
             }
         }
     }

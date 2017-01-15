@@ -14,24 +14,73 @@ class RLMVenue: Object {
     dynamic var address: String?
     dynamic var lat: String?
     dynamic var long: String?
+    dynamic var phone: String?
+    dynamic var website: String?
     dynamic var priceLevel: String?
     dynamic var googleRating: String?
     dynamic var isOpenNow: String?
-    dynamic var phone: String?
-    dynamic var website: String?
     var photos: List<RLMVenuePhoto>?
-    dynamic var photoReference: String?
-    dynamic var photoAttribution: String? //Try setting this as a link in a textview.
     dynamic var venueID: String?
     
     override static func primaryKey() -> String? {
         return "venueID"
     }
     
-   func createVenue(venue: Venue) {
-        //Similar to how a user is created, create a realm Venue. It will
-        //accept either a Venue object or a dict to do this.
-    //*****MUST CREATE A RLMVenuePhoto and Store in array of photos on RLMVenue.***///
+   func createVenues(venues: [Venue]) {
+    let rlmVenues = List<RLMVenue>()
+        for venue in venues {
+            let rlmVenue = createRLMVenue(venue: venue)
+            rlmVenues.append(rlmVenue)
+        }
+    RLMDBManager().batchWriteVenues(objects: rlmVenues)
+    }
+
+    fileprivate func createRLMVenue(venue: Venue) -> RLMVenue {
+        let rlmVenue = RLMVenue()
+        if  let name = venue.name,
+            let address = venue.address.formattedAddress,
+            let lat =  venue.coordinate?.lat,
+            let long = venue.coordinate?.long,
+            let venueID = venue.venueID {
+            rlmVenue.name = name
+            rlmVenue.venueID = venueID
+            rlmVenue.address = address
+            rlmVenue.lat = "\(lat)"
+            rlmVenue.long = "\(long)"
+        }
+
+        if let phone = venue.contactInfo?.phone,
+            let webURL = venue.contactInfo?.websiteURL {
+            rlmVenue.phone = phone
+            rlmVenue.website = webURL
+        }
+        
+        if let priceLevel = venue.priceLevel {
+            rlmVenue.priceLevel = "\(priceLevel)"
+        }
+        
+        if let googleRating = venue.googleRating {
+            rlmVenue.googleRating = "\(googleRating)"
+        }
+        
+        if let isOpenNow = venue.isOpenNow {
+            rlmVenue.isOpenNow = isOpenNow.stringValue()
+        }
+        
+        if let venuePhotos = venue.venuePhotos {
+            rlmVenue.photos = constructRLMVenuePhotoList(venuePhotos: venuePhotos)
+        }
+        return rlmVenue
     }
     
+    
+    fileprivate func constructRLMVenuePhotoList(venuePhotos: [VenuePhoto]) -> List<RLMVenuePhoto> {
+        let rlmVenuePhotos = List<RLMVenuePhoto>()
+        for venuePhoto in venuePhotos {
+            let rlmVenuePhoto = RLMVenuePhoto().createPhoto(reference: venuePhoto.reference, attribution: venuePhoto.attribution)
+            rlmVenuePhotos.append(rlmVenuePhoto)
+        }
+        return rlmVenuePhotos
+    }
+
 }

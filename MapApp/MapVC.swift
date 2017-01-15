@@ -324,7 +324,7 @@ extension MapVC: SignUpViewDelegate, CLUploaderDelegate {
             newUserProfileWithSnapshotKey.updateValue(snapshotKey as AnyObject, forKey: "snapshotKey")
             newUserProfileWithSnapshotKey.updateValue(botID as AnyObject, forKey: "botID")
             let rlmUser = RLMUser().createUser(userProfile: newUserProfileWithSnapshotKey)
-            RLMDBManager().updateObject(rlmUser!)
+            RLMDBManager().updateUserProfile(rlmUser!)
             }
     }
     

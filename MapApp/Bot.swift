@@ -123,8 +123,12 @@ struct Bot  {
     }
     
     fileprivate func constructSearchResultMessageWithVenues(venues:[Venue]) {
+        
+        RLMVenue().createVenues(venues: venues)
+        
         let venueIDs = extractVenueIDs(venues: venues)
         let message = ["text" : "I hope this helps: \(CurrentUser.sharedInstance.username)", "timestamp" : "", "locationID" : "123456789", "userID" : CurrentUser.sharedInstance.userID, "messageType": MessageType.botSearchResponse.rawValue, "venueIDs" : [venueIDs]] as [String : Any]
+        
        FirebaseOperation().setValueForChild(child: "messages", value: message)
     }
 

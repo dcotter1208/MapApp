@@ -37,6 +37,28 @@ struct RLMDBManager {
     func updateObject(_ object:Object) {
         realm?.beginWrite()
         realm?.add(object, update: true)
+        do {
+            try realm?.commitWrite()
+        } catch let error as NSError {
+            print(error)
+        }
+    }
+    
+    func batchWriteVenues(objects: List<RLMVenue>) {
+        realm?.beginWrite()
+        for object in objects {
+            realm?.add(object, update: true)
+        }
+        do {
+            try realm?.commitWrite()
+        } catch let error as NSError {
+            print(error)
+        }
+    }
+    
+    func updateUserProfile(_ object:Object) {
+        realm?.beginWrite()
+        realm?.add(object, update: true)
         self.getCurrentUserProfileFromRealm()
         do {
             try realm?.commitWrite()

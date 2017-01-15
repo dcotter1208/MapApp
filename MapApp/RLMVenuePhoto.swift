@@ -10,6 +10,15 @@ import Foundation
 import RealmSwift
 
 class RLMVenuePhoto: Object {
-    let reference = ""
-    var attribution: String?
+    var reference = ""
+    var attribution: String? //Try setting this as a link in a textview.
+    
+  func createPhoto(reference: String, attribution: String?) -> RLMVenuePhoto {
+        self.reference = reference
+        if let safeAttribution = attribution {
+            self.attribution = safeAttribution
+        }
+    return self
+    }
+    
 }
