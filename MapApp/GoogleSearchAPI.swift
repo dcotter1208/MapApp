@@ -53,6 +53,7 @@ class GoogleSearchAPI {
             do {
                 guard let json = try JSONSerialization.jsonObject(with: jsonResponse.data!, options: .allowFragments) as? [String: AnyObject] else { return }
                 guard let places = json["results"] as? [[String: AnyObject]] else { return }
+                print("PLACES ************************PLACES ************************PLACES ************************ \(places)")
                 completion(places, nil)
             } catch {
                 print("error serializing JSON: \(error)")
@@ -73,6 +74,6 @@ class GoogleSearchAPI {
         }
         return URL
     }
-
     
+
 }

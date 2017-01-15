@@ -56,6 +56,7 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
         if !currentUserExists() {
             setUpSignUpView()
         }
+        
     }
 
     override func viewWillDisappear(_ animated: Bool) {

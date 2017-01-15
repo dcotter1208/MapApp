@@ -20,6 +20,7 @@ struct Venue {
     var isOpenNow: Bool?
     var venueID: String?
     var contactInfo: VenueContactInfo?
+    var venuePhotos: [VenuePhoto]?
  
     static func getAllVenuesWithCoordinate(categoryType: GooglePlacesCategoryType?, searchText: String?, keyword: String?, coordinate: CLLocationCoordinate2D, searchType: SearchType,  completion: @escaping NetworkResult) {
         var allVenues = [Venue]()
@@ -44,7 +45,10 @@ struct Venue {
                     let openNowStatus = getOpenStatusFromOpeningHours(openingHours: openingHours)
                     let rating = venue["rating"] as? Double
                     let placeID  = venue["place_id"] as? String
-                    let newVenue = Venue(name: name, address: Address(formattedAddress: address), coordinate: coordinate, priceLevel: priceLevel, googleRating: rating, isOpenNow: openNowStatus, venueID: placeID!, contactInfo: nil)
+                    let photos = venue["photos"] as? [[String: Any]]
+                    let venuePhotos = constructVenuePhotoArray(photosArray: photos)
+                    
+                    let newVenue = Venue(name: name, address: Address(formattedAddress: address), coordinate: coordinate, priceLevel: priceLevel, googleRating: rating, isOpenNow: openNowStatus, venueID: placeID!, contactInfo: nil, venuePhotos: venuePhotos)
                     allVenues.append(newVenue)
                     if i == places?.count {
                         completion(allVenues, nil)
@@ -54,6 +58,26 @@ struct Venue {
         }
 
 }
+    
+    static fileprivate func constructVenuePhotoArray(photosArray: [[String: Any]]?) -> [VenuePhoto]? {
+        guard let photos = photosArray else { return nil}
+        var venuePhotos = [VenuePhoto]()
+        
+        for photo in photos {
+            let photoRef = photo["photo_reference"] as? String
+            let photoAttributionsArray = photo["html_attributions"] as? [String]
+            guard let reference = photoRef else { return nil}
+            var venuePhoto = VenuePhoto(reference: reference, attribution: nil)
+            
+            if let attributions = photoAttributionsArray {
+                venuePhoto.attribution = attributions.first
+                venuePhotos.append(venuePhoto)
+            } else {
+                venuePhotos.append(venuePhoto)
+            }
+        }
+        return venuePhotos
+    }
     
     //USE THIS TO RETURN A COORDINATE FROM THE LOCATION RETURNED FROM GOOGLE
     static func getCoordinatesFromLocationDict(locationDict: NSDictionary?) -> Coordinate? {

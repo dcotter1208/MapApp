@@ -29,6 +29,10 @@
 		C08E43B31DCEF09200D9488E /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08E43B21DCEF09200D9488E /* Marker.swift */; };
 		C090FA661E25C92100A8CDC1 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C090FA651E25C92100A8CDC1 /* LocationManager.swift */; };
 		C09833C01E14C974004B74FB /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09833BF1E14C974004B74FB /* StringExtensions.swift */; };
+		C09E1FE01E2B3C6B00A11C05 /* BotMessageFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09E1FDF1E2B3C6B00A11C05 /* BotMessageFactory.swift */; };
+		C09E1FE21E2B3D5300A11C05 /* VenuePhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09E1FE11E2B3D5300A11C05 /* VenuePhoto.swift */; };
+		C09E1FE41E2B504200A11C05 /* RLMVenue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09E1FE31E2B504200A11C05 /* RLMVenue.swift */; };
+		C09E1FE61E2B56FD00A11C05 /* RLMVenuePhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09E1FE51E2B56FD00A11C05 /* RLMVenuePhoto.swift */; };
 		C0B14D591DBC2A39003748A6 /* MessageCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B14D581DBC2A39003748A6 /* MessageCellProtocol.swift */; };
 		C0B14D5B1DBC5C36003748A6 /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B14D5A1DBC5C36003748A6 /* ChatVC.swift */; };
 		C0B14D5D1DBD1E16003748A6 /* MessageToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B14D5C1DBD1E16003748A6 /* MessageToolbar.swift */; };
@@ -115,6 +119,10 @@
 		C08E43B21DCEF09200D9488E /* Marker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
 		C090FA651E25C92100A8CDC1 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		C09833BF1E14C974004B74FB /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		C09E1FDF1E2B3C6B00A11C05 /* BotMessageFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BotMessageFactory.swift; sourceTree = "<group>"; };
+		C09E1FE11E2B3D5300A11C05 /* VenuePhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenuePhoto.swift; sourceTree = "<group>"; };
+		C09E1FE31E2B504200A11C05 /* RLMVenue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLMVenue.swift; sourceTree = "<group>"; };
+		C09E1FE51E2B56FD00A11C05 /* RLMVenuePhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLMVenuePhoto.swift; sourceTree = "<group>"; };
 		C0B14D581DBC2A39003748A6 /* MessageCellProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCellProtocol.swift; sourceTree = "<group>"; };
 		C0B14D5A1DBC5C36003748A6 /* ChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
 		C0B14D5C1DBD1E16003748A6 /* MessageToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageToolbar.swift; sourceTree = "<group>"; };
@@ -249,6 +257,7 @@
 				C01F3ACC1E1AB8B6009B13CA /* Bot.swift */,
 				C0F953151E27032B00EA161F /* BotSearchResultCell.swift */,
 				C0F953171E27055300EA161F /* BotResponseResultCollectionViewCell.swift */,
+				C09E1FDF1E2B3C6B00A11C05 /* BotMessageFactory.swift */,
 			);
 			name = Bot;
 			sourceTree = "<group>";
@@ -297,6 +306,9 @@
 			isa = PBXGroup;
 			children = (
 				C084BEA71D8DA2BF00BD579F /* Venue.swift */,
+				C09E1FE11E2B3D5300A11C05 /* VenuePhoto.swift */,
+				C09E1FE31E2B504200A11C05 /* RLMVenue.swift */,
+				C09E1FE51E2B56FD00A11C05 /* RLMVenuePhoto.swift */,
 				C077751C1D986E5800B7DF68 /* VenueContactInfo.swift */,
 				C084BEA91D8DA5F500BD579F /* Address.swift */,
 				C084BEAD1D8DBFE700BD579F /* Annotation.swift */,
@@ -531,7 +543,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = DonovanCotter;
 				TargetAttributes = {
 					C0FBAD861D7A4AD800C1C998 = {
@@ -736,6 +748,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C09E1FE21E2B3D5300A11C05 /* VenuePhoto.swift in Sources */,
 				C084BEAA1D8DA5F500BD579F /* Address.swift in Sources */,
 				C090FA661E25C92100A8CDC1 /* LocationManager.swift in Sources */,
 				C0FBADDC1D7B464B00C1C998 /* ImagePicker.swift in Sources */,
@@ -749,6 +762,7 @@
 				C03D5CB81E16DB7500FC221E /* ImageEditorVC.swift in Sources */,
 				C08E43B31DCEF09200D9488E /* Marker.swift in Sources */,
 				C0FBADC51D7A751B00C1C998 /* FirebaseOperation.swift in Sources */,
+				C09E1FE01E2B3C6B00A11C05 /* BotMessageFactory.swift in Sources */,
 				C0B14D5B1DBC5C36003748A6 /* ChatVC.swift in Sources */,
 				C084BEAE1D8DBFE700BD579F /* Annotation.swift in Sources */,
 				C0E5906E1D9E028500C4D068 /* GoogleSearchAPI.swift in Sources */,
@@ -756,9 +770,11 @@
 				C0FBADCD1D7A7BCA00C1C998 /* AlamoFireOperation.swift in Sources */,
 				C01E79E11D7CFDBD00700FEA /* Alert.swift in Sources */,
 				C0B14D591DBC2A39003748A6 /* MessageCellProtocol.swift in Sources */,
+				C09E1FE61E2B56FD00A11C05 /* RLMVenuePhoto.swift in Sources */,
 				C0197D2D1DA0875900F68AF0 /* CalloutView.swift in Sources */,
 				C0FBADC81D7A783600C1C998 /* User.swift in Sources */,
 				C0FBADD81D7B3F4200C1C998 /* RLMUser.swift in Sources */,
+				C09E1FE41E2B504200A11C05 /* RLMVenue.swift in Sources */,
 				C0F953161E27032B00EA161F /* BotSearchResultCell.swift in Sources */,
 				C03C09D51DD8240000ADBAD3 /* MessageProtocol.swift in Sources */,
 				C0FBADD41D7B289300C1C998 /* CloudinaryOperation.swift in Sources */,
