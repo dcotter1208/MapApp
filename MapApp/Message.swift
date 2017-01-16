@@ -17,6 +17,7 @@ struct Message: MessageProtocol {
     var mediaURL: String?
     var mediaOrientation: MediaOrientation?
     var messageType: MessageType
+    var venues: [Venue]?
     
     static func createMessageWithFirebaseData(snapshot: FIRDataSnapshot) -> Message? {
         let messageSnapshot = snapshot.value as! NSDictionary
@@ -31,7 +32,7 @@ struct Message: MessageProtocol {
                               userID: messageSnapshot["userID"] as! String,
                               mediaURL: nil,
                               mediaOrientation: nil,
-                              messageType: messageType)
+                              messageType: messageType, venues: nil)
             return message
         case .userMedia:
             
@@ -54,7 +55,7 @@ struct Message: MessageProtocol {
                               userID: messageSnapshot["userID"] as! String,
                               mediaURL: messageSnapshot["mediaURL"] as? String,
                               mediaOrientation: mediaOrientation,
-                              messageType: messageType)
+                              messageType: messageType, venues: nil)
             return message
         
         case .botTextResponse:
@@ -65,7 +66,7 @@ struct Message: MessageProtocol {
                               userID: messageSnapshot["userID"] as! String,
                               mediaURL: nil,
                               mediaOrientation: nil,
-                              messageType: messageType)
+                              messageType: messageType, venues: nil)
             
             return message
         
@@ -77,7 +78,7 @@ struct Message: MessageProtocol {
                               userID: messageSnapshot["userID"] as! String,
                               mediaURL: messageSnapshot["mediaURL"] as? String, //Will only have one URL for cell display.
                               mediaOrientation: nil,
-                              messageType: messageType)
+                              messageType: messageType, venues: nil)
             
             return message
             

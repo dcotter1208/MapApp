@@ -11,4 +11,5 @@ import Foundation
 struct VenuePhoto {
     let reference: String
     var attribution: String?
+    var photoURLs: [String]?
 }

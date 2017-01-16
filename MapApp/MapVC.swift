@@ -47,6 +47,10 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        testdownload()
+        
         CurrentUser.sharedInstance.resetProperties()
         setUpCalloutView()
         setupGoogleMaps()
@@ -57,10 +61,36 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
             setUpSignUpView()
         }
         
-        let results = RLMDBManager().getRealmObjects(objectType: RLMVenuePhoto.self)
-        print("\(results)")
+        
         
     }
+    
+    
+    
+    
+    func testdownload() {
+        let photoRef = "CoQBdwAAABXyeKPJa38dkXRafdXM1e596q8GmiKYtgL7YPRngh4rCXxrT1WXn4niPXKBoTUEiEDea6CXZiK0hS4mGX"
+        let keys = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Keys", ofType: "plist")!)
+
+        let key = keys?["GooglePlaces"] as! String
+        
+        let venuePhotoURL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=\(photoRef)&key=\(key)"
+        
+        Alamofire.request(venuePhotoURL).responseJSON { response in
+            print(response.request)  // original URL request
+            print(response.response) // HTTP URL response
+            print(response.data)     // server data
+            print(response.result)   // result of response serialization
+            
+            if let JSON = response.result.value {
+                print("JSON: \(JSON)")
+            }
+        }
+        
+
+        
+    }
+    
 
     override func viewWillDisappear(_ animated: Bool) {
         profileImageChanged = false

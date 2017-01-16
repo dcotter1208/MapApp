@@ -67,7 +67,7 @@ struct Venue {
             let photoRef = photo["photo_reference"] as? String
             let photoAttributionsArray = photo["html_attributions"] as? [String]
             guard let reference = photoRef else { return nil}
-            var venuePhoto = VenuePhoto(reference: reference, attribution: nil)
+            var venuePhoto = VenuePhoto(reference: reference, attribution: nil, photoURLs: nil)
             
             if let attributions = photoAttributionsArray {
                 venuePhoto.attribution = attributions.first
