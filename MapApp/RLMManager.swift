@@ -56,6 +56,18 @@ struct RLMDBManager {
         }
     }
     
+    func batchWriteVenuePhotos(objects: List<RLMVenuePhoto>) {
+        realm?.beginWrite()
+        for object in objects {
+            realm?.add(object, update: true)
+        }
+        do {
+            try realm?.commitWrite()
+        } catch let error as NSError {
+            print(error)
+        }
+    }
+    
     func updateUserProfile(_ object:Object) {
         realm?.beginWrite()
         realm?.add(object, update: true)
@@ -64,6 +76,15 @@ struct RLMDBManager {
             try realm?.commitWrite()
         } catch let error as NSError {
             print(error)
+        }
+    }
+    
+    func getRealmObjects(objectType: Object.Type) -> Results<Object>? {
+        let realmResults = realm?.objects(objectType)
+        if let results = realmResults {
+            return results
+        } else {
+            return nil
         }
     }
     

@@ -27,6 +27,7 @@ class RLMVenue: Object {
     }
     
    func createVenues(venues: [Venue]) {
+    constructRLMVenuePhotoList(venues: venues)
     let rlmVenues = List<RLMVenue>()
         for venue in venues {
             let rlmVenue = createRLMVenue(venue: venue)
@@ -67,20 +68,21 @@ class RLMVenue: Object {
             rlmVenue.isOpenNow = isOpenNow.stringValue()
         }
         
-        if let venuePhotos = venue.venuePhotos {
-            rlmVenue.photos = constructRLMVenuePhotoList(venuePhotos: venuePhotos)
-        }
         return rlmVenue
     }
     
     
-    fileprivate func constructRLMVenuePhotoList(venuePhotos: [VenuePhoto]) -> List<RLMVenuePhoto> {
+    fileprivate func constructRLMVenuePhotoList(venues: [Venue]) {
         let rlmVenuePhotos = List<RLMVenuePhoto>()
-        for venuePhoto in venuePhotos {
-            let rlmVenuePhoto = RLMVenuePhoto().createPhoto(reference: venuePhoto.reference, attribution: venuePhoto.attribution)
-            rlmVenuePhotos.append(rlmVenuePhoto)
+        for venue in venues {
+            if let venueID = venue.venueID, let venuePhotos = venue.venuePhotos {
+                for photo in venuePhotos {
+                    let rlmVenuePhoto = RLMVenuePhoto().createPhoto(reference: photo.reference, attribution: photo.attribution, venueID: venueID)
+                    rlmVenuePhotos.append(rlmVenuePhoto)
+                }
+            }
         }
-        return rlmVenuePhotos
+        RLMDBManager().batchWriteVenuePhotos(objects: rlmVenuePhotos)
     }
 
 }

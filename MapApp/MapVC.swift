@@ -52,10 +52,13 @@ class MapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIN
         setupGoogleMaps()
 
         setUpKeyboardNotification()
-        
+
         if !currentUserExists() {
             setUpSignUpView()
         }
+        
+        let results = RLMDBManager().getRealmObjects(objectType: RLMVenuePhoto.self)
+        print("\(results)")
         
     }
 

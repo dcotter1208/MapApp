@@ -56,6 +56,7 @@ PODS:
   - Realm/Headers (1.1.0)
   - RealmSwift (1.1.0):
     - Realm (= 1.1.0)
+  - TOCropViewController (2.0.11)
 
 DEPENDENCIES:
   - Alamofire (~> 4.0)
@@ -68,6 +69,7 @@ DEPENDENCIES:
   - GooglePlaces
   - Realm
   - RealmSwift (~> 1.1)
+  - TOCropViewController
 
 SPEC CHECKSUMS:
   Alamofire: e266cf991b933498df791e645e0d8ac294492153
@@ -87,7 +89,8 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
   Realm: ceecf1a4540c4ce9efe196fe73fa9855bce05bd8
   RealmSwift: 838058b2db95b12cb86bd0cf209df642c33fb60a
+  TOCropViewController: fe91aaab9e95d72ac38654d1174c8c8339585ee5
 
-PODFILE CHECKSUM: ddd8e234345db7cc7c34d465e30d6040428a5641
+PODFILE CHECKSUM: 5980ee2c7fce7259770ed5e9d2d16326250342fb
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.2.0.rc.1

@@ -10,15 +10,22 @@ import Foundation
 import RealmSwift
 
 class RLMVenuePhoto: Object {
-    var reference = ""
-    var attribution: String? //Try setting this as a link in a textview.
+    dynamic var reference = ""
+    dynamic var attribution: String? //Try setting this as a link in a textview.
+    dynamic var venueID = ""
     
-  func createPhoto(reference: String, attribution: String?) -> RLMVenuePhoto {
-        self.reference = reference
+    override static func primaryKey() -> String? {
+        return "venueID"
+    }
+    
+    func createPhoto(reference: String, attribution: String?, venueID: String) -> RLMVenuePhoto {
+    let rlmVenuePhoto = RLMVenuePhoto()
+        rlmVenuePhoto.reference = reference
+        rlmVenuePhoto.venueID = venueID
         if let safeAttribution = attribution {
-            self.attribution = safeAttribution
+            rlmVenuePhoto.attribution = safeAttribution
         }
-    return self
+    return rlmVenuePhoto
     }
     
 }
